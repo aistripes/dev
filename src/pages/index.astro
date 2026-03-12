@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import SectionIcon from '../components/SectionIcon.astro';
 import { getAllContentWithPaths } from '../lib/content';
 
 const allContent = getAllContentWithPaths();
@@ -11,7 +12,7 @@ const sections = [
   { prefix: 'guides', label: 'Guides', description: 'Step-by-step implementation guides with code examples.' },
   { prefix: 'tools', label: 'Tools', description: 'Interactive utilities that run entirely in your browser.' },
   { prefix: 'directories', label: 'Directories', description: 'Curated, filterable listings of tools and resources.' },
-];
+] as const;
 
 const contentBySection = Object.fromEntries(
   sections.map(({ prefix }) => [
@@ -54,37 +55,65 @@ const contentBySection = Object.fromEntries(
     </div>
   </section>
 
-  <!-- Content sections -->
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid gap-12">
-      {sections.map(({ prefix, label, description }) => {
-        const items = contentBySection[prefix] ?? [];
-        if (items.length === 0) return null;
-        return (
-          <section>
-            <div class="flex items-end justify-between mb-6">
-              <div>
-                <h2 class="text-2xl font-bold text-gray-900">{label}</h2>
-                <p class="text-gray-500 mt-1 text-sm">{description}</p>
-              </div>
-              <a href={`/${prefix}/`} class="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors">
-                View all →
-              </a>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {items.slice(0, 3).map(({ content, slug }) => (
-                <a
-                  href={`/${prefix}/${slug}/`}
-                  class="block border border-gray-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-sm transition-all"
-                >
-                  <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">{content.seo.title}</h3>
-                  <p class="text-sm text-gray-500 line-clamp-3">{content.seo.description}</p>
-                </a>
-              ))}
-            </div>
-          </section>
-        );
-      })}
+  <!-- Section overview grid (shown when no section has content yet) -->
+  {sections.every(({ prefix }) => (contentBySection[prefix] ?? []).length === 0) && (
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-xl font-semibold text-gray-700 mb-8 text-center">Explore by section</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {sections.map(({ prefix, label, description }) => (
+          <a
+            href={`/${prefix}/`}
+            class="flex flex-col items-center gap-3 p-5 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-sm transition-all text-center group"
+          >
+            <span class="text-blue-600 group-hover:scale-110 transition-transform">
+              <SectionIcon section={prefix} class="w-10 h-10" />
+            </span>
+            <span class="font-semibold text-gray-900 text-sm">{label}</span>
+            <span class="text-xs text-gray-500 leading-snug">{description}</span>
+          </a>
+        ))}
+      </div>
     </div>
-  </div>
+  )}
+
+  <!-- Content sections (shown when at least one section has content) -->
+  {sections.some(({ prefix }) => (contentBySection[prefix] ?? []).length > 0) && (
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid gap-12">
+        {sections.map(({ prefix, label, description }) => {
+          const items = contentBySection[prefix] ?? [];
+          if (items.length === 0) return null;
+          return (
+            <section>
+              <div class="flex items-end justify-between mb-6">
+                <div class="flex items-center gap-3">
+                  <span class="text-blue-600">
+                    <SectionIcon section={prefix} class="w-8 h-8" />
+                  </span>
+                  <div>
+                    <h2 class="text-2xl font-bold text-gray-900">{label}</h2>
+                    <p class="text-gray-500 mt-0.5 text-sm">{description}</p>
+                  </div>
+                </div>
+                <a href={`/${prefix}/`} class="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors shrink-0">
+                  View all →
+                </a>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {items.slice(0, 3).map(({ content, slug }) => (
+                  <a
+                    href={`/${prefix}/${slug}/`}
+                    class="block border border-gray-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-sm transition-all"
+                  >
+                    <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">{content.seo.title}</h3>
+                    <p class="text-sm text-gray-500 line-clamp-3">{content.seo.description}</p>
+                  </a>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    </div>
+  )}
 </Base>

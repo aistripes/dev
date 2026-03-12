@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import SectionIcon from '../../components/SectionIcon.astro';
 import { getAllContentWithPaths } from '../../lib/content';
 
 export function getStaticPaths() {
@@ -13,7 +14,9 @@ export function getStaticPaths() {
   ];
 }
 
-const { prefix } = Astro.params;
+type SectionPrefix = 'resources' | 'checklists' | 'comparisons' | 'guides' | 'tools' | 'directories';
+
+const { prefix } = Astro.params as { prefix: SectionPrefix };
 
 const labels: Record<string, { title: string; description: string }> = {
   resources: {
@@ -50,7 +53,12 @@ const items = getAllContentWithPaths().filter((c) => c.urlPrefix === prefix);
 <Base title={meta.title} description={meta.description}>
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <header class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">{meta.title}</h1>
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-blue-600">
+          <SectionIcon section={prefix} class="w-10 h-10" />
+        </span>
+        <h1 class="text-3xl font-bold text-gray-900">{meta.title}</h1>
+      </div>
       <p class="text-gray-600">{meta.description}</p>
     </header>
 
