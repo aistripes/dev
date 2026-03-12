@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.1.0",
   "description": "AI Stripes — the go-to resource site for developers building AI-powered web applications.",
+  "engines": {
+    "node": ">=20.19.1"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
