@@ -1,0 +1,39 @@
+{
+  "slug": "gdpr-compliance",
+  "name": "GDPR Compliance",
+  "category": "infrastructure",
+  "context": {
+    "audience": "European SaaS founders, developers at companies handling EU user data, CTOs navigating privacy law for the first time",
+    "pain_points": [
+      "Understanding which user data requires explicit consent vs. legitimate interest",
+      "Implementing a cookie consent banner that is actually GDPR-compliant",
+      "Choosing analytics tools that don't require consent banners",
+      "Data deletion workflows that satisfy right-to-erasure requests",
+      "Cross-border data transfer restrictions after Schrems II"
+    ],
+    "monetization": [
+      "SaaS products with EU customers",
+      "Privacy compliance consulting",
+      "Privacy-first alternative tools",
+      "Compliance audit and documentation services"
+    ],
+    "tools_and_stack": [
+      "Plausible Analytics", "Fathom", "Umami", "PostHog",
+      "Clerk", "Supabase", "PostgreSQL", "Cookiebot", "Termly"
+    ],
+    "content_that_works": [
+      "Practical GDPR compliance checklists",
+      "Analytics tool comparisons focused on privacy",
+      "Step-by-step data handling implementation guides",
+      "Legal plain-English explanations of GDPR requirements"
+    ],
+    "subtopics": [
+      "Cookie consent implementation",
+      "Privacy-first analytics setup",
+      "Data subject request workflows",
+      "GDPR-compliant email marketing",
+      "Privacy policy and terms generator"
+    ],
+    "adjacent_niches": ["analytics", "self-hosting", "saas", "privacy"]
+  }
+}

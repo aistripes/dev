@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "saas",
+    "generated_at": "2026-03-12T00:00:00.000Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI Coding Tools Directory",
+    "description": "Curated directory of AI coding tools for developers. Compare Copilot, Cursor, Claude Code, and more by features, pricing, and IDE support.",
+    "keywords": ["ai coding tools", "ai code completion", "copilot alternatives", "cursor ide", "claude code"],
+    "slug": "ai-coding-tools"
+  },
+  "content": {
+    "intro": "The AI coding assistant landscape has exploded in 2025-2026. These tools range from inline completions to autonomous coding agents. This directory covers the most widely-used options with accurate feature comparisons, pricing, and honest pros/cons.",
+    "filter_dimensions": [
+      {
+        "name": "Pricing Model",
+        "values": ["free", "freemium", "paid", "open-source"]
+      },
+      {
+        "name": "Primary Use Case",
+        "values": ["completion", "chat", "agent", "review"]
+      },
+      {
+        "name": "IDE Support",
+        "values": ["VS Code", "JetBrains", "Vim/Neovim", "Web", "CLI"]
+      }
+    ],
+    "entries": [
+      {
+        "name": "GitHub Copilot",
+        "description": "GitHub's AI coding assistant powered by OpenAI Codex. Provides inline code completions, chat, and Copilot Workspace for multi-file edits.",
+        "url": "https://github.com/features/copilot",
+        "category": "completion",
+        "pricing_model": "freemium",
+        "pros": [
+          "Deep GitHub integration for context from issues and PRs",
+          "Available in virtually every major IDE",
+          "Strong code completion quality for popular languages"
+        ],
+        "cons": [
+          "Monthly cost adds up for small teams",
+          "Privacy concerns — code is sent to GitHub servers"
+        ],
+        "tags": ["VS Code", "JetBrains", "Vim/Neovim", "completion", "chat"]
+      },
+      {
+        "name": "Cursor",
+        "description": "An AI-first code editor forked from VS Code. Offers inline completions, multi-file context chat, and agent mode for autonomous code changes.",
+        "url": "https://cursor.sh",
+        "category": "agent",
+        "pricing_model": "freemium",
+        "pros": [
+          "Best-in-class multi-file context understanding",
+          "Agent mode makes complex refactors possible",
+          "Integrates multiple models (Claude, GPT-4, Gemini)"
+        ],
+        "cons": [
+          "VS Code fork may lag behind VS Code releases",
+          "Can be expensive with high model usage on Pro plan"
+        ],
+        "tags": ["VS Code", "completion", "chat", "agent"]
+      },
+      {
+        "name": "Claude Code",
+        "description": "Anthropic's terminal-based agentic coding tool. Runs in the terminal and operates on entire codebases with file read/write and shell execution capabilities.",
+        "url": "https://claude.ai/code",
+        "category": "agent",
+        "pricing_model": "paid",
+        "pros": [
+          "Excellent reasoning for complex architectural changes",
+          "Works across any editor — purely terminal-based",
+          "Strong at understanding and explaining large codebases"
+        ],
+        "cons": [
+          "Usage costs can escalate quickly on large tasks",
+          "No IDE integration — terminal-only workflow"
+        ],
+        "tags": ["CLI", "agent"]
+      },
+      {
+        "name": "Codeium",
+        "description": "Free AI coding assistant with completions, search, and chat. Offers enterprise plans with private deployment options.",
+        "url": "https://codeium.com",
+        "category": "completion",
+        "pricing_model": "freemium",
+        "pros": [
+          "Free tier is genuinely functional and unlimited",
+          "Supports 70+ programming languages",
+          "Enterprise self-hosted option available"
+        ],
+        "cons": [
+          "Quality lags behind Copilot and Cursor on complex completions",
+          "Chat is less capable than Claude or GPT-4 backed tools"
+        ],
+        "tags": ["VS Code", "JetBrains", "Vim/Neovim", "completion", "chat"]
+      },
+      {
+        "name": "Continue",
+        "description": "Open-source AI coding assistant that connects to any model (local or cloud). Configure your own LLM backend, keeping code private.",
+        "url": "https://continue.dev",
+        "category": "chat",
+        "pricing_model": "open-source",
+        "pros": [
+          "Fully open source — audit the code yourself",
+          "Works with local models (Ollama, LM Studio) for complete privacy",
+          "Highly configurable for power users"
+        ],
+        "cons": [
+          "Quality depends entirely on your chosen model",
+          "Setup is more complex than commercial tools"
+        ],
+        "tags": ["VS Code", "JetBrains", "completion", "chat"]
+      },
+      {
+        "name": "Aider",
+        "description": "Open-source terminal-based AI coding assistant. Pairs with Claude, GPT-4, or local models to make targeted code changes with git integration.",
+        "url": "https://aider.chat",
+        "category": "agent",
+        "pricing_model": "open-source",
+        "pros": [
+          "Git-native — commits changes automatically with good messages",
+          "Supports virtually any LLM including local models",
+          "Excellent for test-driven development workflows"
+        ],
+        "cons": [
+          "Terminal-only — no IDE integration",
+          "Learning curve to use effectively"
+        ],
+        "tags": ["CLI", "agent"]
+      },
+      {
+        "name": "Tabnine",
+        "description": "AI code completion tool with a strong enterprise focus. Offers private deployment and training on your codebase.",
+        "url": "https://tabnine.com",
+        "category": "completion",
+        "pricing_model": "freemium",
+        "pros": [
+          "Enterprise-grade privacy with on-premise deployment",
+          "Can train on your private codebase for better suggestions",
+          "Long track record and stable product"
+        ],
+        "cons": [
+          "Completion quality not competitive with Copilot or Cursor",
+          "AI chat features are underdeveloped compared to rivals"
+        ],
+        "tags": ["VS Code", "JetBrains", "Vim/Neovim", "completion"]
+      },
+      {
+        "name": "Supermaven",
+        "description": "Fast, accurate AI code completion tool known for its large context window (300K tokens) and low latency.",
+        "url": "https://supermaven.com",
+        "category": "completion",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extremely fast completions — lowest latency in the space",
+          "300K token context window for large file understanding",
+          "Clean, non-intrusive UX"
+        ],
+        "cons": [
+          "Completions-focused — no chat or agent capabilities",
+          "Smaller ecosystem than Copilot"
+        ],
+        "tags": ["VS Code", "JetBrains", "completion"]
+      },
+      {
+        "name": "Amazon CodeWhisperer (Q Developer)",
+        "description": "AWS's AI coding assistant, rebranded as Amazon Q Developer. Best for teams working heavily in the AWS ecosystem.",
+        "url": "https://aws.amazon.com/codewhisperer",
+        "category": "completion",
+        "pricing_model": "freemium",
+        "pros": [
+          "Free for individual developers",
+          "Strong at AWS SDK usage and infrastructure code",
+          "Security scanning for common vulnerabilities"
+        ],
+        "cons": [
+          "Quality is below Copilot and Cursor for general coding",
+          "AWS-centric context limits usefulness outside AWS"
+        ],
+        "tags": ["VS Code", "JetBrains", "completion"]
+      },
+      {
+        "name": "Windsurf",
+        "description": "AI-first code editor from Codeium (formerly Cascade). Competes with Cursor with a focus on flow state coding with AI.",
+        "url": "https://codeium.com/windsurf",
+        "category": "agent",
+        "pricing_model": "freemium",
+        "pros": [
+          "Strong multi-file context for large codebase tasks",
+          "Competing with Cursor on agent capabilities",
+          "Generous free tier with premium model access"
+        ],
+        "cons": [
+          "Newer product — less community resources and documentation",
+          "Agent reliability still catching up to Cursor"
+        ],
+        "tags": ["VS Code", "completion", "chat", "agent"]
+      }
+    ]
+  }
+}

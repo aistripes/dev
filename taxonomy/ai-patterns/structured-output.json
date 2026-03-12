@@ -1,0 +1,39 @@
+{
+  "slug": "structured-output",
+  "name": "Structured Output / JSON Mode",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Developers building data pipelines with LLMs, pSEO practitioners generating content at scale, developers replacing brittle prompt parsing with schema-validated output",
+    "pain_points": [
+      "LLMs occasionally breaking JSON structure despite instruction",
+      "Choosing between function calling, JSON mode, and Zod-validated output",
+      "Schema design that balances flexibility and constraint",
+      "Handling partial or streaming structured responses",
+      "Cost per output token vs. quality trade-offs across models"
+    ],
+    "monetization": [
+      "Content generation platforms",
+      "Data extraction and enrichment products",
+      "AI-powered form and survey tools",
+      "LLM pipeline consulting"
+    ],
+    "tools_and_stack": [
+      "OpenAI", "Anthropic Claude", "Google Gemini", "Zod",
+      "Instructor (Python/JS)", "Vercel AI SDK", "LangChain"
+    ],
+    "content_that_works": [
+      "Model comparison for structured output reliability",
+      "Schema design best practices",
+      "Zod integration tutorials for LLM output",
+      "Cost per output benchmarks"
+    ],
+    "subtopics": [
+      "Function calling vs. JSON mode vs. constrained decoding",
+      "Structured output with Gemini Flash",
+      "Streaming partial structured objects",
+      "Zod schema design for LLM output",
+      "Schema versioning for content pipelines"
+    ],
+    "adjacent_niches": ["rag", "content-generation", "nextjs", "programmatic-seo"]
+  }
+}
