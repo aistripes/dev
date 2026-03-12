@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "saas",
+    "generated_at": "2026-03-12T21:30:43.685Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "SaaS Applications implementation checklist",
+    "description": "A practical checklist for shipping SaaS Applications projects safely.",
+    "keywords": [
+      "saas",
+      "saas applications",
+      "checklist"
+    ],
+    "slug": "saas-checklist-saas-applications-implementation-checklist"
+  },
+  "content": {
+    "intro": "A production-readiness checklist for SaaS applications focusing on multi-tenant security, billing integrity, and operational scaling for modern tech stacks.",
+    "sections": [
+      {
+        "heading": "Multi-Tenancy and Data Isolation",
+        "items": [
+          {
+            "title": "Enforce Row-Level Security (RLS)",
+            "description": "Verify that every database table containing tenant data has RLS enabled with a policy that checks the authenticated user's organization_id.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cross-Tenant Access Testing",
+            "description": "Execute a test suite that attempts to read/write a resource ID from Tenant A using an authentication token belonging to Tenant B; ensure it returns a 403 or 404.",
+            "priority": "critical"
+          },
+          {
+            "title": "JWT Claim Validation",
+            "description": "Ensure your auth provider (Clerk/Auth.js) includes the current organization_id in the JWT claims to avoid extra database lookups for permissions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Tenant-Aware Logging",
+            "description": "Configure your logging middleware to append organization_id to every log entry to simplify troubleshooting during customer support tickets.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Soft-Delete Implementation",
+            "description": "Implement a deleted_at timestamp on primary entities to allow for data recovery in case of accidental tenant-wide deletions.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Billing and Subscription Lifecycle",
+        "items": [
+          {
+            "title": "Webhook Idempotency",
+            "description": "Implement a check against an 'event_logs' table to ensure Stripe or LemonSqueezy webhook events are only processed once based on their unique event ID.",
+            "priority": "critical"
+          },
+          {
+            "title": "Subscription State Sync",
+            "description": "Verify that the application UI and API middleware correctly handle 'past_due' and 'canceled' statuses by restricting access to premium features immediately.",
+            "priority": "critical"
+          },
+          {
+            "title": "Usage-Based Metering Accuracy",
+            "description": "If using metered billing, implement a reconciliation script that compares internal usage logs against the billing provider's recorded usage every 24 hours.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Grace Period Logic",
+            "description": "Configure a 3-7 day grace period for failed payments where the user sees a notification banner but retains access before the account is locked.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Tax Compliance Configuration",
+            "description": "Enable automatic tax calculation (Stripe Tax/TaxJar) for all active jurisdictions to ensure VAT and Sales Tax are collected at checkout.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "AI Infrastructure and Cost Control",
+        "items": [
+          {
+            "title": "Token Usage Hard Caps",
+            "description": "Set a maximum token limit per request in the OpenAI/Anthropic SDK calls to prevent a single runaway recursive loop from depleting your credits.",
+            "priority": "critical"
+          },
+          {
+            "title": "Per-Tenant Cost Attribution",
+            "description": "Tag every AI API call with metadata containing the tenant_id to generate internal reports on which customers are most/least profitable.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Model Fallback Strategy",
+            "description": "Implement a try/catch block that switches from a primary high-cost model to a lower-cost fallback model (e.g., GPT-4 to GPT-3.5-Turbo) if rate limits are hit.",
+            "priority": "optional"
+          },
+          {
+            "title": "Response Timeout Handling",
+            "description": "Set a strict 30-second timeout for AI streaming responses to prevent Vercel/Edge function execution limits from being exceeded.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Prompt Versioning",
+            "description": "Move prompt strings out of hardcoded logic and into a database or config file to allow updates without requiring a full code redeploy.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Compliance",
+        "items": [
+          {
+            "title": "Environment Variable Audit",
+            "description": "Scan the repository to ensure no production keys (STRIPE_SECRET, DATABASE_URL) are committed to Git; verify they are only in the CI/CD environment.",
+            "priority": "critical"
+          },
+          {
+            "title": "PII Encryption at Rest",
+            "description": "Identify fields containing Personally Identifiable Information (PII) and ensure they are encrypted using a standard like AES-256 before being stored.",
+            "priority": "critical"
+          },
+          {
+            "title": "Rate Limiting Policy",
+            "description": "Apply a global rate limit (e.g., 100 requests per minute per user) using Upstash or Redis to prevent API abuse and DDoS attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "GDPR Data Export Tool",
+            "description": "Create an internal script or admin endpoint that aggregates all data for a specific user_id into a JSON file to satisfy 'Right to Access' requests.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Security Headers Configuration",
+            "description": "Verify that the production server sends CSP, X-Content-Type-Options, and Strict-Transport-Security headers in every response.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Observability and Reliability",
+        "items": [
+          {
+            "title": "Error Grouping and Alerting",
+            "description": "Configure Sentry to alert the engineering team via Slack only when an error occurs more than 5 times in a 10-minute window to avoid noise.",
+            "priority": "critical"
+          },
+          {
+            "title": "Database Connection Pooling",
+            "description": "If using Serverless (Vercel/AWS Lambda), ensure a connection pooler like Prisma Accelerate or Supabase Pooling is active to prevent 'Too many connections' errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Health Check Endpoint",
+            "description": "Expose a /api/health endpoint that performs a 'SELECT 1' on the database and a ping to the cache to verify the full stack is operational.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Background Job Monitoring",
+            "description": "Set up a Dead Letter Queue (DLQ) for failed transactional emails or background tasks to allow for manual retries of failed messages.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Performance Baseline",
+            "description": "Record the LCP (Largest Contentful Paint) and API response time for the main dashboard to serve as a benchmark for future regressions.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}
