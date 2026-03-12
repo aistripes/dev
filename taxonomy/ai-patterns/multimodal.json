@@ -1,0 +1,40 @@
+{
+  "slug": "multimodal",
+  "name": "Multimodal AI (Vision, Audio)",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Developers building applications that process images, audio, or video with AI, product teams adding visual understanding or speech features, creative tool developers integrating generative AI",
+    "pain_points": [
+      "Managing input size limits and costs for image and audio processing",
+      "Choosing between multimodal models and specialized vision/audio APIs",
+      "Building reliable pipelines for document understanding and OCR with LLMs",
+      "Handling audio transcription latency and accuracy trade-offs",
+      "Integrating image generation into production workflows with content moderation"
+    ],
+    "monetization": [
+      "Image and document processing products",
+      "Audio transcription and voice services",
+      "Creative AI tools and platforms",
+      "Enterprise document automation"
+    ],
+    "tools_and_stack": [
+      "GPT-4o", "Gemini Pro Vision", "Claude Vision",
+      "Whisper", "ElevenLabs", "Replicate",
+      "DALL-E", "Stable Diffusion", "Cloudinary"
+    ],
+    "content_that_works": [
+      "Vision API comparison articles",
+      "Image processing pipeline tutorials",
+      "Audio transcription implementation guides",
+      "Multimodal cost optimization articles"
+    ],
+    "subtopics": [
+      "Vision model integration patterns",
+      "Audio transcription and speech-to-text",
+      "Document understanding with LLMs",
+      "Image generation in production",
+      "Multimodal cost management"
+    ],
+    "adjacent_niches": ["prompt-engineering", "streaming", "content-generation", "agents"]
+  }
+}

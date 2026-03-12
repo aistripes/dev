@@ -1,0 +1,40 @@
+{
+  "slug": "security",
+  "name": "Security for AI Apps",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Developers building production AI features with security requirements, CTOs responsible for securing LLM-integrated applications, security engineers auditing AI-powered systems",
+    "pain_points": [
+      "Preventing prompt injection attacks in user-facing AI features",
+      "Securing API keys and credentials for multiple LLM providers",
+      "Data leakage risks when LLMs process sensitive or private information",
+      "Content moderation and output filtering for AI-generated responses",
+      "Compliance requirements for AI systems handling regulated data"
+    ],
+    "monetization": [
+      "AI security consulting and auditing",
+      "Security tooling for AI applications",
+      "Compliance advisory services",
+      "Security training and workshops"
+    ],
+    "tools_and_stack": [
+      "OWASP LLM Top 10", "Rebuff", "Guardrails AI",
+      "NeMo Guardrails", "LLM Guard", "Snyk",
+      "SonarQube", "Vault", "AWS KMS"
+    ],
+    "content_that_works": [
+      "AI security vulnerability checklists",
+      "Prompt injection prevention guides",
+      "LLM security best practices articles",
+      "AI compliance and regulation guides"
+    ],
+    "subtopics": [
+      "Prompt injection prevention",
+      "AI API key management",
+      "LLM output content moderation",
+      "AI data privacy and leakage prevention",
+      "OWASP LLM security guidelines"
+    ],
+    "adjacent_niches": ["auth", "gdpr-compliance", "privacy", "monitoring"]
+  }
+}

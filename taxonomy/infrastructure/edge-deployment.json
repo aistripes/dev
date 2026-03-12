@@ -1,0 +1,40 @@
+{
+  "slug": "edge-deployment",
+  "name": "Edge Deployment",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Full-stack developers deploying to edge runtimes, teams optimizing latency for global audiences, developers building serverless applications on Cloudflare Workers or Deno Deploy",
+    "pain_points": [
+      "Working within edge runtime limitations like no Node.js APIs and limited execution time",
+      "Database access from edge functions with connection pooling and latency",
+      "Debugging and testing edge functions locally before deployment",
+      "Managing cold starts and execution time limits for complex logic",
+      "Choosing between edge platforms and understanding their trade-offs"
+    ],
+    "monetization": [
+      "Edge-first SaaS products",
+      "Platform and infrastructure consulting",
+      "Edge function library development",
+      "Performance optimization services"
+    ],
+    "tools_and_stack": [
+      "Cloudflare Workers", "Cloudflare Pages", "Vercel Edge Functions",
+      "Deno Deploy", "Netlify Edge Functions", "Fastly Compute",
+      "D1", "Turso", "PlanetScale", "Miniflare"
+    ],
+    "content_that_works": [
+      "Edge platform comparison articles",
+      "Edge function implementation tutorials",
+      "Database at the edge guides",
+      "Edge deployment migration guides"
+    ],
+    "subtopics": [
+      "Cloudflare Workers development",
+      "Edge database strategies",
+      "Edge platform comparison",
+      "Edge caching patterns",
+      "Edge function testing and debugging"
+    ],
+    "adjacent_niches": ["self-hosting", "nextjs", "sveltekit", "caching"]
+  }
+}

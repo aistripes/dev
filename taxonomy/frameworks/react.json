@@ -1,0 +1,41 @@
+{
+  "slug": "react",
+  "name": "React (general)",
+  "category": "frameworks",
+  "context": {
+    "audience": "Frontend and full-stack developers building component-driven UIs, enterprise teams maintaining large React codebases, bootcamp graduates entering the job market with React skills",
+    "pain_points": [
+      "State management choices and trade-offs between Context, Redux, Zustand, and Jotai",
+      "React Server Components adoption and mental model shift",
+      "Performance optimization with memo, useMemo, useCallback, and React Compiler",
+      "Testing component behavior with React Testing Library and integration tests",
+      "Managing complex forms with validation, error handling, and accessibility"
+    ],
+    "monetization": [
+      "SaaS product development",
+      "Freelance and agency UI development",
+      "Component library and design system sales",
+      "Course and tutorial content",
+      "Enterprise consulting"
+    ],
+    "tools_and_stack": [
+      "React 19", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui",
+      "React Query", "Zustand", "React Hook Form", "Vitest",
+      "React Testing Library", "Storybook"
+    ],
+    "content_that_works": [
+      "Component pattern guides and best practices",
+      "State management comparison articles",
+      "Performance optimization checklists",
+      "Migration guides between React versions"
+    ],
+    "subtopics": [
+      "React Server Components patterns",
+      "React state management strategies",
+      "React performance optimization",
+      "React design system development",
+      "React accessibility patterns"
+    ],
+    "adjacent_niches": ["nextjs", "remix", "astro", "vue"]
+  }
+}

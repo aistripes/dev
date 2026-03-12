@@ -1,0 +1,40 @@
+{
+  "slug": "docker",
+  "name": "Docker & Containers",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Developers containerizing web applications for consistent deployment, DevOps engineers building container orchestration workflows, teams adopting Docker for local development and CI/CD",
+    "pain_points": [
+      "Writing efficient Dockerfiles that produce small, secure images",
+      "Multi-stage builds and layer caching for fast CI/CD pipelines",
+      "Docker Compose vs Kubernetes for small to medium team deployments",
+      "Container security scanning and vulnerability management",
+      "Local development workflow with Docker that doesn't slow down hot reload"
+    ],
+    "monetization": [
+      "Container consulting and DevOps services",
+      "Docker-based deployment products",
+      "Training and certification courses",
+      "Infrastructure automation tooling"
+    ],
+    "tools_and_stack": [
+      "Docker", "Docker Compose", "Podman", "BuildKit",
+      "Kubernetes", "Coolify", "Portainer", "Traefik",
+      "GitHub Container Registry", "Docker Hub"
+    ],
+    "content_that_works": [
+      "Dockerfile optimization guides",
+      "Docker Compose pattern articles",
+      "Container security checklists",
+      "Docker development workflow tutorials"
+    ],
+    "subtopics": [
+      "Dockerfile best practices and optimization",
+      "Docker Compose for development",
+      "Container security hardening",
+      "Docker for AI/ML workloads",
+      "Docker vs Podman comparison"
+    ],
+    "adjacent_niches": ["self-hosting", "ci-cd", "vps-hosting", "monitoring"]
+  }
+}

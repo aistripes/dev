@@ -1,0 +1,40 @@
+{
+  "slug": "angular",
+  "name": "Angular",
+  "category": "frameworks",
+  "context": {
+    "audience": "Enterprise frontend developers building large-scale applications, teams at corporations with Angular as their standard framework, developers working on long-lived codebases with strict architecture requirements",
+    "pain_points": [
+      "Keeping up with Angular's rapid release cycle and migration between major versions",
+      "Adopting standalone components and signals in existing module-based codebases",
+      "Bundle size optimization and lazy loading for enterprise-scale applications",
+      "Integrating AI features into Angular's dependency injection and RxJS patterns",
+      "Testing complex Angular applications with dependency injection and observables"
+    ],
+    "monetization": [
+      "Enterprise consulting and contracting",
+      "Corporate training programs",
+      "Component library and design system development",
+      "Migration and upgrade services"
+    ],
+    "tools_and_stack": [
+      "Angular CLI", "RxJS", "NgRx", "Angular Material",
+      "Nx", "TypeScript", "Karma", "Jest", "Cypress",
+      "Tailwind CSS"
+    ],
+    "content_that_works": [
+      "Version migration guides",
+      "Enterprise architecture pattern articles",
+      "Performance optimization checklists",
+      "Angular vs React vs Vue comparisons"
+    ],
+    "subtopics": [
+      "Angular signals and standalone components",
+      "Angular enterprise architecture patterns",
+      "Angular performance optimization",
+      "Angular testing strategies",
+      "Angular with AI integration"
+    ],
+    "adjacent_niches": ["react", "vue", "auth", "databases"]
+  }
+}

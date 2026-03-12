@@ -1,0 +1,40 @@
+{
+  "slug": "no-code-low-code",
+  "name": "No-Code / Low-Code Platforms",
+  "category": "verticals",
+  "context": {
+    "audience": "Non-technical founders building MVPs without coding, developers evaluating low-code platforms for rapid prototyping, teams automating business workflows with visual builders",
+    "pain_points": [
+      "Hitting the limitations of no-code platforms when business logic gets complex",
+      "Migrating from no-code to custom code when the platform becomes a bottleneck",
+      "Data portability and vendor lock-in with no-code platform providers",
+      "Integrating AI features into no-code workflows and automations",
+      "Performance and scalability constraints of no-code-built applications"
+    ],
+    "monetization": [
+      "No-code template and workflow sales",
+      "No-code to custom code migration services",
+      "No-code automation consulting",
+      "No-code platform training and courses"
+    ],
+    "tools_and_stack": [
+      "Bubble", "Webflow", "Retool", "n8n",
+      "Make (Integromat)", "Zapier", "Airtable",
+      "Supabase", "Xano", "FlutterFlow"
+    ],
+    "content_that_works": [
+      "No-code platform comparison articles",
+      "No-code to code migration guides",
+      "Automation workflow tutorials",
+      "AI integration in no-code platforms articles"
+    ],
+    "subtopics": [
+      "No-code platform comparison",
+      "No-code workflow automation",
+      "No-code to custom code migration",
+      "AI features in no-code platforms",
+      "No-code platform limitations and workarounds"
+    ],
+    "adjacent_niches": ["saas", "internal-tools", "api-products", "content-platforms"]
+  }
+}

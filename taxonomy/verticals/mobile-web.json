@@ -1,0 +1,40 @@
+{
+  "slug": "mobile-web",
+  "name": "Mobile Web / PWA",
+  "category": "verticals",
+  "context": {
+    "audience": "Web developers building mobile-first experiences without native apps, startup teams choosing between PWA and native for mobile presence, developers optimizing existing web apps for mobile devices",
+    "pain_points": [
+      "Progressive Web App capabilities and limitations across iOS and Android",
+      "Offline support and service worker caching strategies for mobile users",
+      "Performance optimization for mobile devices with limited CPU and bandwidth",
+      "Push notification implementation that works across platforms",
+      "App-like navigation and gestures in mobile web applications"
+    ],
+    "monetization": [
+      "Mobile web application development services",
+      "PWA consulting and implementation",
+      "Mobile performance optimization",
+      "Cross-platform development training"
+    ],
+    "tools_and_stack": [
+      "Service Workers", "Workbox", "Web App Manifest",
+      "Next.js", "Vite PWA", "Capacitor",
+      "Lighthouse", "WebPageTest", "Tailwind CSS"
+    ],
+    "content_that_works": [
+      "PWA implementation step-by-step guides",
+      "Mobile performance optimization checklists",
+      "PWA vs native app comparison articles",
+      "Offline-first architecture tutorials"
+    ],
+    "subtopics": [
+      "PWA development and deployment",
+      "Mobile web performance optimization",
+      "Offline-first web applications",
+      "Push notification implementation",
+      "Mobile web vs native comparison"
+    ],
+    "adjacent_niches": ["nextjs", "react", "edge-deployment", "analytics"]
+  }
+}

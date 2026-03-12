@@ -1,0 +1,40 @@
+{
+  "slug": "self-hosting",
+  "name": "Self-Hosting",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Developers who prefer controlling their own infrastructure, European teams with data sovereignty requirements, indie hackers optimizing hosting costs by moving off managed platforms",
+    "pain_points": [
+      "Setting up and maintaining reverse proxies, SSL certificates, and domain routing",
+      "Backup strategies and disaster recovery for self-hosted services",
+      "Keeping self-hosted software updated and patched for security vulnerabilities",
+      "Monitoring and alerting for self-hosted applications without a dedicated ops team",
+      "Managing Docker containers and orchestration on a single server or small cluster"
+    ],
+    "monetization": [
+      "Self-hosted SaaS alternatives",
+      "Infrastructure consulting services",
+      "Managed self-hosting platforms",
+      "Tutorial and course content"
+    ],
+    "tools_and_stack": [
+      "Docker", "Coolify", "Dokku", "Traefik", "Caddy",
+      "Hetzner", "Contabo", "Nginx", "Let's Encrypt",
+      "Portainer", "Watchtower"
+    ],
+    "content_that_works": [
+      "Self-hosted alternative comparison directories",
+      "Step-by-step deployment guides for popular applications",
+      "VPS provider comparison articles",
+      "Security hardening checklists"
+    ],
+    "subtopics": [
+      "Self-hosted application directories",
+      "VPS setup and hardening",
+      "Docker-based self-hosting workflows",
+      "Self-hosted monitoring and backups",
+      "Coolify and PaaS alternatives"
+    ],
+    "adjacent_niches": ["docker", "vps-hosting", "privacy", "gdpr-compliance"]
+  }
+}

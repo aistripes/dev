@@ -1,0 +1,40 @@
+{
+  "slug": "devtools",
+  "name": "Developer Tools",
+  "category": "verticals",
+  "context": {
+    "audience": "Developers building tools for other developers, indie hackers creating CLI tools and IDE extensions, teams building internal developer platforms and SDKs",
+    "pain_points": [
+      "Designing developer-friendly APIs and SDKs that are intuitive to use",
+      "Building CLI tools with good UX, error messages, and cross-platform support",
+      "Marketing and distribution strategies for developer tools",
+      "Monetization models for developer tools including open-core and freemium",
+      "Integrating AI features into developer tools without breaking existing workflows"
+    ],
+    "monetization": [
+      "Developer tool subscriptions and licenses",
+      "Open-core business models",
+      "API usage-based pricing",
+      "Enterprise features and support tiers"
+    ],
+    "tools_and_stack": [
+      "TypeScript", "Rust", "Go", "Node.js",
+      "Commander.js", "Ink", "VS Code Extension API",
+      "npm", "GitHub", "Vercel"
+    ],
+    "content_that_works": [
+      "Developer tool market analysis articles",
+      "CLI tool building tutorials",
+      "API design best practices guides",
+      "DevTool monetization strategy articles"
+    ],
+    "subtopics": [
+      "CLI tool development patterns",
+      "VS Code extension development",
+      "API and SDK design principles",
+      "Developer tool marketing strategies",
+      "AI-powered developer tools"
+    ],
+    "adjacent_niches": ["code-generation", "saas", "nextjs", "api-products"]
+  }
+}

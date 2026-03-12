@@ -1,0 +1,40 @@
+{
+  "slug": "content-strategy",
+  "name": "AI Content Strategy",
+  "category": "seo-content",
+  "context": {
+    "audience": "Developer-marketers responsible for content-led growth, startup founders building content moats, technical content managers planning AI-assisted editorial calendars",
+    "pain_points": [
+      "Planning content that balances AI efficiency with genuine expertise and authority",
+      "Building a content calendar that targets the right keywords with the right formats",
+      "Measuring content ROI and adjusting strategy based on performance data",
+      "Maintaining quality and brand voice consistency across AI-generated content",
+      "Competing in search when AI-generated content is flooding every niche"
+    ],
+    "monetization": [
+      "Content strategy consulting",
+      "AI content workflow tooling",
+      "Content marketing agency services",
+      "Strategy training and courses"
+    ],
+    "tools_and_stack": [
+      "Ahrefs", "SEMrush", "Google Search Console",
+      "Notion", "Linear", "OpenAI", "Anthropic Claude",
+      "Google Analytics 4", "Clearscope", "SurferSEO"
+    ],
+    "content_that_works": [
+      "Content strategy framework articles",
+      "AI content workflow guides",
+      "Keyword research methodology tutorials",
+      "Content performance analysis guides"
+    ],
+    "subtopics": [
+      "AI-assisted editorial workflows",
+      "Keyword research for developer content",
+      "Content performance measurement",
+      "Topical authority building strategies",
+      "Content refresh and update workflows"
+    ],
+    "adjacent_niches": ["programmatic-seo", "technical-seo", "content-generation", "analytics"]
+  }
+}

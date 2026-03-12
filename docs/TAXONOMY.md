@@ -3,7 +3,7 @@
 > **Brand:** AI Stripes
 > **Domain:** aistripes.dev
 > **GitHub:** github.com/aistripes
-> **Status:** Initial skeleton — expand before first generation run
+> **Status:** Full taxonomy — 54 niches across 5 categories
 > **Last updated:** 2026-03-12
 
 ---
@@ -97,90 +97,90 @@ interface NicheDefinition {
 
 Core web frameworks the audience builds with.
 
-| Slug | Name | Priority | Notes |
-|---|---|---|---|
-| `nextjs` | Next.js | High | Largest audience, most AI integration patterns |
-| `nuxt` | Nuxt | High | Vue ecosystem equivalent, strong in Europe |
-| `sveltekit` | SvelteKit | Medium | Growing fast, passionate community |
-| `remix` | Remix | Medium | Data-loading patterns, React Router merger |
-| `astro` | Astro | Medium | Content-site sweet spot, relevant to our own stack |
-| `react` | React (general) | High | Framework-agnostic React patterns |
-| `vue` | Vue (general) | Medium | General Vue patterns outside Nuxt |
-| `angular` | Angular | Low | Smaller overlap with AI-content audience |
-| `django` | Django | Medium | Python devs building AI-integrated web apps |
-| `rails` | Ruby on Rails | Low | Smaller but loyal audience |
-| `laravel` | Laravel | Medium | PHP ecosystem, surprisingly active in AI adoption |
-| `fastapi` | FastAPI | Medium | Python API layer, common AI backend |
+| Slug | Name | Priority | Status | Notes |
+|---|---|---|---|---|
+| `nextjs` | Next.js | High | ✅ Defined | Largest audience, most AI integration patterns |
+| `nuxt` | Nuxt | High | ✅ Defined | Vue ecosystem equivalent, strong in Europe |
+| `sveltekit` | SvelteKit | Medium | ✅ Defined | Growing fast, passionate community |
+| `remix` | Remix | Medium | ✅ Defined | Data-loading patterns, React Router merger |
+| `astro` | Astro | Medium | ✅ Defined | Content-site sweet spot, relevant to our own stack |
+| `react` | React (general) | High | ✅ Defined | Framework-agnostic React patterns |
+| `vue` | Vue (general) | Medium | ✅ Defined | General Vue patterns outside Nuxt |
+| `angular` | Angular | Low | ✅ Defined | Smaller overlap with AI-content audience |
+| `django` | Django | Medium | ✅ Defined | Python devs building AI-integrated web apps |
+| `rails` | Ruby on Rails | Low | ✅ Defined | Smaller but loyal audience |
+| `laravel` | Laravel | Medium | ✅ Defined | PHP ecosystem, surprisingly active in AI adoption |
+| `fastapi` | FastAPI | Medium | ✅ Defined | Python API layer, common AI backend |
 
 ### 2. AI Patterns
 
 How developers integrate AI into their applications.
 
-| Slug | Name | Priority | Notes |
-|---|---|---|---|
-| `rag` | RAG (Retrieval-Augmented Generation) | High | Most common AI integration pattern |
-| `structured-output` | Structured Output / JSON Mode | High | Directly relevant to our pSEO approach |
-| `embeddings` | Embeddings & Vector Search | High | Foundation for semantic features |
-| `agents` | AI Agents & Tool Use | High | Rapidly evolving, high search interest |
-| `fine-tuning` | Fine-Tuning & Custom Models | Medium | More niche, higher technical bar |
-| `prompt-engineering` | Prompt Engineering | High | Broad, high-volume search terms |
-| `streaming` | Streaming LLM Responses | Medium | UX pattern every AI app needs |
-| `multimodal` | Multimodal AI (Vision, Audio) | Medium | Growing with GPT-4o, Gemini |
-| `code-generation` | AI Code Generation | High | Copilot, Cursor, Claude Code workflows |
-| `content-generation` | AI Content Generation | High | Core topic for the site |
-| `ai-search` | AI-Powered Search | Medium | Replacing traditional search in apps |
-| `voice-ai` | Voice & Speech AI | Low | Emerging, smaller dev audience |
+| Slug | Name | Priority | Status | Notes |
+|---|---|---|---|---|
+| `rag` | RAG (Retrieval-Augmented Generation) | High | ✅ Defined | Most common AI integration pattern |
+| `structured-output` | Structured Output / JSON Mode | High | ✅ Defined | Directly relevant to our pSEO approach |
+| `embeddings` | Embeddings & Vector Search | High | ✅ Defined | Foundation for semantic features |
+| `agents` | AI Agents & Tool Use | High | ✅ Defined | Rapidly evolving, high search interest |
+| `fine-tuning` | Fine-Tuning & Custom Models | Medium | ✅ Defined | More niche, higher technical bar |
+| `prompt-engineering` | Prompt Engineering | High | ✅ Defined | Broad, high-volume search terms |
+| `streaming` | Streaming LLM Responses | Medium | ✅ Defined | UX pattern every AI app needs |
+| `multimodal` | Multimodal AI (Vision, Audio) | Medium | ✅ Defined | Growing with GPT-4o, Gemini |
+| `code-generation` | AI Code Generation | High | ✅ Defined | Copilot, Cursor, Claude Code workflows |
+| `content-generation` | AI Content Generation | High | ✅ Defined | Core topic for the site |
+| `ai-search` | AI-Powered Search | Medium | ✅ Defined | Replacing traditional search in apps |
+| `voice-ai` | Voice & Speech AI | Low | ✅ Defined | Emerging, smaller dev audience |
 
 ### 3. Infrastructure & Operations
 
 Where and how developers deploy and run AI-powered apps.
 
-| Slug | Name | Priority | Notes |
-|---|---|---|---|
-| `self-hosting` | Self-Hosting | High | Strong alignment with privacy positioning |
-| `edge-deployment` | Edge Deployment | High | Cloudflare, Deno Deploy, Vercel Edge |
-| `gdpr-compliance` | GDPR Compliance | High | Core to European developer audience |
-| `analytics` | Web Analytics | High | Privacy-first tools, tracking patterns, compliance |
-| `auth` | Authentication & Authorization | Medium | Every app needs it, AI adds complexity |
-| `databases` | Databases for AI Apps | Medium | Postgres, vector DBs, ClickHouse |
-| `caching` | Caching Strategies | Medium | Critical at scale with AI costs |
-| `monitoring` | Monitoring & Observability | Medium | LLM cost tracking, error rates |
-| `ci-cd` | CI/CD for AI Apps | Low | Model deployment, prompt versioning |
-| `security` | Security for AI Apps | Medium | Prompt injection, data leakage |
-| `cost-optimization` | AI API Cost Optimization | High | Every AI dev worries about this |
-| `privacy` | Privacy-First Architecture | High | Core positioning of the site |
-| `docker` | Docker & Containers | Medium | Standard deployment pattern |
-| `vps-hosting` | VPS Hosting (Hetzner, etc.) | Medium | European hosting, cost-effective |
+| Slug | Name | Priority | Status | Notes |
+|---|---|---|---|---|
+| `self-hosting` | Self-Hosting | High | ✅ Defined | Strong alignment with privacy positioning |
+| `edge-deployment` | Edge Deployment | High | ✅ Defined | Cloudflare, Deno Deploy, Vercel Edge |
+| `gdpr-compliance` | GDPR Compliance | High | ✅ Defined | Core to European developer audience |
+| `analytics` | Web Analytics | High | ✅ Defined | Privacy-first tools, tracking patterns, compliance |
+| `auth` | Authentication & Authorization | Medium | ✅ Defined | Every app needs it, AI adds complexity |
+| `databases` | Databases for AI Apps | Medium | ✅ Defined | Postgres, vector DBs, ClickHouse |
+| `caching` | Caching Strategies | Medium | ✅ Defined | Critical at scale with AI costs |
+| `monitoring` | Monitoring & Observability | Medium | ✅ Defined | LLM cost tracking, error rates |
+| `ci-cd` | CI/CD for AI Apps | Low | ✅ Defined | Model deployment, prompt versioning |
+| `security` | Security for AI Apps | Medium | ✅ Defined | Prompt injection, data leakage |
+| `cost-optimization` | AI API Cost Optimization | High | ✅ Defined | Every AI dev worries about this |
+| `privacy` | Privacy-First Architecture | High | ✅ Defined | Core positioning of the site |
+| `docker` | Docker & Containers | Medium | ✅ Defined | Standard deployment pattern |
+| `vps-hosting` | VPS Hosting (Hetzner, etc.) | Medium | ✅ Defined | European hosting, cost-effective |
 
 ### 4. Verticals / Use Cases
 
 Types of applications the audience is building.
 
-| Slug | Name | Priority | Notes |
-|---|---|---|---|
-| `saas` | SaaS Applications | High | Primary audience use case |
-| `ecommerce` | E-Commerce | Medium | AI for product descriptions, recommendations |
-| `content-platforms` | Content Platforms & CMS | High | Directly relevant to AI content |
-| `devtools` | Developer Tools | High | Building tools for other devs |
-| `marketplaces` | Marketplaces | Low | Niche but high value |
-| `internal-tools` | Internal Tools & Admin Panels | Medium | Retool/Appsmith alternative crowd |
-| `api-products` | API-First Products | Medium | Building APIs that wrap AI |
-| `chrome-extensions` | Browser Extensions | Medium | Lots of AI extension development |
-| `mobile-web` | Mobile Web / PWA | Low | Smaller but growing with AI |
-| `no-code-low-code` | No-Code / Low-Code Platforms | Low | Adjacent audience |
+| Slug | Name | Priority | Status | Notes |
+|---|---|---|---|---|
+| `saas` | SaaS Applications | High | ✅ Defined | Primary audience use case |
+| `ecommerce` | E-Commerce | Medium | ✅ Defined | AI for product descriptions, recommendations |
+| `content-platforms` | Content Platforms & CMS | High | ✅ Defined | Directly relevant to AI content |
+| `devtools` | Developer Tools | High | ✅ Defined | Building tools for other devs |
+| `marketplaces` | Marketplaces | Low | ✅ Defined | Niche but high value |
+| `internal-tools` | Internal Tools & Admin Panels | Medium | ✅ Defined | Retool/Appsmith alternative crowd |
+| `api-products` | API-First Products | Medium | ✅ Defined | Building APIs that wrap AI |
+| `chrome-extensions` | Browser Extensions | Medium | ✅ Defined | Lots of AI extension development |
+| `mobile-web` | Mobile Web / PWA | Low | ✅ Defined | Smaller but growing with AI |
+| `no-code-low-code` | No-Code / Low-Code Platforms | Low | ✅ Defined | Adjacent audience |
 
 ### 5. SEO & Content Strategy
 
 For developers who are also responsible for growth.
 
-| Slug | Name | Priority | Notes |
-|---|---|---|---|
-| `programmatic-seo` | Programmatic SEO | High | Meta-relevant — what this site does |
-| `technical-seo` | Technical SEO for Web Apps | High | Core dev concern |
-| `content-strategy` | AI Content Strategy | High | Planning, not just generating |
-| `link-building` | Link Building for Dev Tools | Medium | Relevant for devtool marketing |
-| `seo-for-spas` | SEO for Single-Page Apps | Medium | Persistent pain point |
-| `international-seo` | International SEO | Low | Relevant for European audience |
+| Slug | Name | Priority | Status | Notes |
+|---|---|---|---|---|
+| `programmatic-seo` | Programmatic SEO | High | ✅ Defined | Meta-relevant — what this site does |
+| `technical-seo` | Technical SEO for Web Apps | High | ✅ Defined | Core dev concern |
+| `content-strategy` | AI Content Strategy | High | ✅ Defined | Planning, not just generating |
+| `link-building` | Link Building for Dev Tools | Medium | ✅ Defined | Relevant for devtool marketing |
+| `seo-for-spas` | SEO for Single-Page Apps | Medium | ✅ Defined | Persistent pain point |
+| `international-seo` | International SEO | Low | ✅ Defined | Relevant for European audience |
 
 ---
 
@@ -270,10 +270,11 @@ Shows how niches × content types generate pages. Not every combination makes se
 
 ### Phase 1: Foundation (Launch)
 
-- 15-20 high-priority niches fully defined
+- 54 niches fully defined across all 5 categories ✅
 - All 6 content types active
 - Target: ~500-800 initial pages
 - Focus: Frameworks + AI Patterns (highest search volume)
+- Mix of established technologies (React, Django, Docker) and emerging patterns (RAG, Agents)
 
 ### Phase 2: Depth (Month 2-3)
 

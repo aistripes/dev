@@ -1,0 +1,40 @@
+{
+  "slug": "voice-ai",
+  "name": "Voice & Speech AI",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Developers building voice interfaces and transcription features, product teams adding speech capabilities to existing applications, accessibility-focused developers implementing voice control",
+    "pain_points": [
+      "Choosing between real-time and batch transcription APIs for different use cases",
+      "Handling multiple languages, accents, and noisy audio environments",
+      "Integrating text-to-speech with natural-sounding voices into web applications",
+      "Managing latency for real-time voice conversations with AI",
+      "Cost management for high-volume audio processing workloads"
+    ],
+    "monetization": [
+      "Voice assistant and interface products",
+      "Transcription and captioning services",
+      "Accessibility tooling and consulting",
+      "Voice AI integration services"
+    ],
+    "tools_and_stack": [
+      "Whisper", "Deepgram", "AssemblyAI", "ElevenLabs",
+      "PlayHT", "Web Speech API", "OpenAI TTS",
+      "Google Cloud Speech-to-Text", "Azure Speech Services"
+    ],
+    "content_that_works": [
+      "Transcription API comparison articles",
+      "Voice interface implementation tutorials",
+      "Text-to-speech integration guides",
+      "Real-time voice AI architecture articles"
+    ],
+    "subtopics": [
+      "Speech-to-text API comparison",
+      "Text-to-speech integration",
+      "Real-time voice conversation AI",
+      "Voice interface accessibility",
+      "Audio processing pipelines"
+    ],
+    "adjacent_niches": ["multimodal", "streaming", "agents", "content-generation"]
+  }
+}

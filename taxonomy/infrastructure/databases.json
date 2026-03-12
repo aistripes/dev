@@ -1,0 +1,40 @@
+{
+  "slug": "databases",
+  "name": "Databases for AI Apps",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Backend developers choosing databases for AI-integrated applications, developers implementing vector search alongside relational data, teams scaling database infrastructure for AI workloads",
+    "pain_points": [
+      "Choosing between PostgreSQL with pgvector, dedicated vector databases, and hybrid solutions",
+      "Managing database migrations and schema evolution in rapidly changing AI applications",
+      "Connection pooling and edge-compatible database access for serverless deployments",
+      "Cost optimization for database hosting as data volumes grow with AI features",
+      "Data modeling patterns for storing embeddings, conversation history, and AI metadata"
+    ],
+    "monetization": [
+      "Database-as-a-service products",
+      "Database consulting and optimization",
+      "Data infrastructure tooling",
+      "Training and education content"
+    ],
+    "tools_and_stack": [
+      "PostgreSQL", "pgvector", "Supabase", "Neon",
+      "PlanetScale", "Turso", "MongoDB", "Redis",
+      "Prisma", "Drizzle", "D1"
+    ],
+    "content_that_works": [
+      "Database selection guides for different use cases",
+      "ORM and query builder comparison articles",
+      "Database scaling and optimization tutorials",
+      "Vector database integration guides"
+    ],
+    "subtopics": [
+      "PostgreSQL for AI applications",
+      "Serverless database comparison",
+      "ORM and query builder patterns",
+      "Database connection pooling strategies",
+      "Embedding storage and retrieval"
+    ],
+    "adjacent_niches": ["embeddings", "rag", "edge-deployment", "self-hosting"]
+  }
+}
