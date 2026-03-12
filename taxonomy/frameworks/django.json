@@ -1,0 +1,40 @@
+{
+  "slug": "django",
+  "name": "Django",
+  "category": "frameworks",
+  "context": {
+    "audience": "Python developers building web applications, data scientists adding web interfaces to ML projects, startups choosing Django for rapid prototyping with its batteries-included philosophy",
+    "pain_points": [
+      "Async support adoption and mixing sync/async code in Django views",
+      "Scaling Django beyond monolithic architecture with microservices or ASGI",
+      "Integrating AI/ML models into Django's request-response cycle",
+      "Django REST Framework vs FastAPI for building APIs",
+      "Frontend integration decisions with Django templates vs SPA frameworks"
+    ],
+    "monetization": [
+      "SaaS applications built on Django",
+      "Freelance web development",
+      "Enterprise consulting",
+      "Course and training content for Python developers"
+    ],
+    "tools_and_stack": [
+      "Django REST Framework", "Celery", "PostgreSQL", "Redis",
+      "Docker", "Gunicorn", "nginx", "HTMX", "Alpine.js",
+      "pytest-django"
+    ],
+    "content_that_works": [
+      "Step-by-step project implementation guides",
+      "Django + AI integration tutorials",
+      "Performance and scaling guides",
+      "Django vs FastAPI comparison articles"
+    ],
+    "subtopics": [
+      "Django REST Framework patterns",
+      "Django async views and ASGI",
+      "Django + AI/ML model serving",
+      "Django deployment and scaling",
+      "Django HTMX integration"
+    ],
+    "adjacent_niches": ["fastapi", "react", "docker", "databases"]
+  }
+}

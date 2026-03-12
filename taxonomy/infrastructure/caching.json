@@ -1,0 +1,40 @@
+{
+  "slug": "caching",
+  "name": "Caching Strategies",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Backend developers optimizing application performance, teams managing AI API costs through intelligent caching, architects designing scalable systems with multi-layer caching",
+    "pain_points": [
+      "Designing cache invalidation strategies that balance freshness and performance",
+      "Caching AI/LLM responses to reduce API costs without serving stale results",
+      "Choosing between in-memory, distributed, and CDN caching layers",
+      "Implementing cache warming and precomputation for predictable performance",
+      "Debugging cache-related issues and monitoring cache hit rates in production"
+    ],
+    "monetization": [
+      "Performance optimization consulting",
+      "Caching infrastructure products",
+      "API cost optimization services",
+      "Training and architecture review"
+    ],
+    "tools_and_stack": [
+      "Redis", "Upstash", "Cloudflare Cache", "Vercel ISR",
+      "KeyDB", "Memcached", "Varnish",
+      "CDN caching", "Browser caching", "Service Workers"
+    ],
+    "content_that_works": [
+      "Caching strategy comparison articles",
+      "LLM response caching tutorials",
+      "Cache invalidation pattern guides",
+      "Performance optimization checklists"
+    ],
+    "subtopics": [
+      "Redis caching patterns",
+      "LLM response caching strategies",
+      "CDN and edge caching",
+      "Cache invalidation patterns",
+      "ISR and stale-while-revalidate"
+    ],
+    "adjacent_niches": ["edge-deployment", "cost-optimization", "databases", "nextjs"]
+  }
+}

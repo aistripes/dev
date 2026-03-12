@@ -1,0 +1,40 @@
+{
+  "slug": "vps-hosting",
+  "name": "VPS Hosting (Hetzner, etc.)",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Developers moving from managed platforms to VPS for cost control, European teams preferring EU-based hosting providers, indie hackers self-hosting applications on budget-friendly servers",
+    "pain_points": [
+      "Initial VPS server setup and security hardening for production use",
+      "Choosing between European VPS providers like Hetzner, Contabo, and OVH",
+      "Setting up automated deployments to VPS without managed CI/CD platforms",
+      "Managing SSL certificates, domain routing, and reverse proxies",
+      "Scaling from a single VPS to multiple servers as traffic grows"
+    ],
+    "monetization": [
+      "Hosting infrastructure consulting",
+      "VPS setup automation products",
+      "Managed hosting services",
+      "Migration assistance services"
+    ],
+    "tools_and_stack": [
+      "Hetzner", "Contabo", "OVH", "DigitalOcean",
+      "Caddy", "Nginx", "Traefik", "Coolify",
+      "Kamal", "Ansible", "Ubuntu Server"
+    ],
+    "content_that_works": [
+      "VPS provider comparison articles",
+      "Server setup and hardening guides",
+      "Deployment automation tutorials",
+      "Cost comparison between VPS and managed platforms"
+    ],
+    "subtopics": [
+      "Hetzner setup and optimization",
+      "VPS security hardening",
+      "Automated deployment to VPS",
+      "VPS vs managed platform cost comparison",
+      "Multi-server scaling strategies"
+    ],
+    "adjacent_niches": ["self-hosting", "docker", "edge-deployment", "privacy"]
+  }
+}

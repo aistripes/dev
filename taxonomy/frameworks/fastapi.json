@@ -1,0 +1,39 @@
+{
+  "slug": "fastapi",
+  "name": "FastAPI",
+  "category": "frameworks",
+  "context": {
+    "audience": "Python developers building high-performance APIs, ML engineers exposing models as REST endpoints, backend developers choosing between Django and FastAPI for new projects",
+    "pain_points": [
+      "Structuring large FastAPI applications beyond single-file examples",
+      "Managing async database access and connection pooling at scale",
+      "Deploying FastAPI behind reverse proxies with proper WebSocket and streaming support",
+      "Integrating LLM inference endpoints with streaming responses and backpressure",
+      "Authentication and authorization patterns without Django's built-in user model"
+    ],
+    "monetization": [
+      "AI/ML API products and services",
+      "Backend consulting and contracting",
+      "API development for startups",
+      "Course content for Python API development"
+    ],
+    "tools_and_stack": [
+      "FastAPI", "Pydantic", "SQLAlchemy", "Alembic", "uvicorn",
+      "Docker", "PostgreSQL", "Redis", "pytest", "httpx"
+    ],
+    "content_that_works": [
+      "FastAPI project structure guides",
+      "FastAPI vs Django REST Framework comparisons",
+      "AI model serving tutorials",
+      "FastAPI deployment and scaling guides"
+    ],
+    "subtopics": [
+      "FastAPI project architecture",
+      "FastAPI + LLM streaming endpoints",
+      "FastAPI authentication patterns",
+      "FastAPI database integration",
+      "FastAPI deployment and containerization"
+    ],
+    "adjacent_niches": ["django", "docker", "rag", "streaming"]
+  }
+}

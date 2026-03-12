@@ -1,0 +1,40 @@
+{
+  "slug": "fine-tuning",
+  "name": "Fine-Tuning & Custom Models",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "ML engineers customizing foundation models for domain-specific tasks, developers who need better quality than prompt engineering alone, startups building proprietary AI capabilities on top of open models",
+    "pain_points": [
+      "Preparing and formatting high-quality training datasets from existing data",
+      "Choosing between fine-tuning, RAG, and prompt engineering for a specific use case",
+      "Evaluating fine-tuned model quality and detecting regressions",
+      "Managing fine-tuning costs across providers and open-source alternatives",
+      "Deploying and serving fine-tuned models efficiently in production"
+    ],
+    "monetization": [
+      "Custom AI model development services",
+      "Domain-specific AI products",
+      "Fine-tuning consulting and training",
+      "Model hosting and inference services"
+    ],
+    "tools_and_stack": [
+      "OpenAI Fine-Tuning API", "Hugging Face", "LoRA", "QLoRA",
+      "Axolotl", "Unsloth", "Weights & Biases", "MLflow",
+      "vLLM", "Ollama"
+    ],
+    "content_that_works": [
+      "Fine-tuning vs RAG decision guides",
+      "Dataset preparation tutorials",
+      "Fine-tuning cost comparison articles",
+      "Model evaluation and benchmarking guides"
+    ],
+    "subtopics": [
+      "LoRA and parameter-efficient fine-tuning",
+      "Training data preparation pipelines",
+      "Fine-tuning evaluation metrics",
+      "Open model fine-tuning workflows",
+      "Fine-tuned model deployment"
+    ],
+    "adjacent_niches": ["rag", "prompt-engineering", "embeddings", "cost-optimization"]
+  }
+}

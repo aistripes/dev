@@ -1,0 +1,40 @@
+{
+  "slug": "prompt-engineering",
+  "name": "Prompt Engineering",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Developers integrating LLMs into applications, product managers designing AI-powered features, content creators using AI for writing and generation workflows",
+    "pain_points": [
+      "Getting consistent, reliable output from LLMs across different inputs and edge cases",
+      "Structuring prompts for complex multi-step reasoning tasks",
+      "Prompt versioning and regression testing as models update",
+      "Reducing token usage and cost without sacrificing output quality",
+      "Adapting prompts when switching between LLM providers"
+    ],
+    "monetization": [
+      "AI-powered product features",
+      "Prompt engineering consulting",
+      "AI workflow automation tools",
+      "Training and course content"
+    ],
+    "tools_and_stack": [
+      "OpenAI", "Anthropic Claude", "Google Gemini",
+      "LangChain", "LangSmith", "PromptLayer",
+      "Helicone", "Braintrust", "Vercel AI SDK"
+    ],
+    "content_that_works": [
+      "Prompt pattern libraries and templates",
+      "Chain-of-thought and reasoning technique guides",
+      "Provider-specific prompt optimization articles",
+      "Prompt testing and evaluation frameworks"
+    ],
+    "subtopics": [
+      "Chain-of-thought and reasoning prompts",
+      "Few-shot and in-context learning patterns",
+      "Prompt testing and evaluation",
+      "System prompt design for applications",
+      "Multi-model prompt strategies"
+    ],
+    "adjacent_niches": ["structured-output", "agents", "content-generation", "rag"]
+  }
+}

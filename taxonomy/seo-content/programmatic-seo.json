@@ -1,0 +1,40 @@
+{
+  "slug": "programmatic-seo",
+  "name": "Programmatic SEO",
+  "category": "seo-content",
+  "context": {
+    "audience": "Growth-focused developers building pages at scale, indie hackers creating niche content sites, marketing engineers automating SEO content production pipelines",
+    "pain_points": [
+      "Generating unique, high-quality content at scale without triggering spam filters",
+      "Building scalable page templates that rank for long-tail keywords",
+      "Managing data sources and keeping programmatically generated pages fresh",
+      "Internal linking strategies that distribute authority across thousands of pages",
+      "Measuring and iterating on programmatic page performance at scale"
+    ],
+    "monetization": [
+      "Affiliate and ad revenue from content sites",
+      "pSEO tooling and template products",
+      "SEO consulting and implementation services",
+      "Course and training content"
+    ],
+    "tools_and_stack": [
+      "Astro", "Next.js", "Ahrefs", "SEMrush",
+      "Google Search Console", "OpenAI", "Gemini",
+      "Zod", "Cloudflare Pages", "Screaming Frog"
+    ],
+    "content_that_works": [
+      "Programmatic SEO case studies and teardowns",
+      "Page template design guides",
+      "Content generation pipeline tutorials",
+      "Internal linking strategy articles"
+    ],
+    "subtopics": [
+      "pSEO page template design",
+      "AI content generation for pSEO",
+      "Internal linking automation",
+      "pSEO performance measurement",
+      "Long-tail keyword research strategies"
+    ],
+    "adjacent_niches": ["technical-seo", "content-generation", "content-strategy", "astro"]
+  }
+}
