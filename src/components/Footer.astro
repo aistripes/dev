@@ -1,5 +1,14 @@
 ---
+import { execSync } from 'node:child_process';
+
 const currentYear = new Date().getFullYear();
+const commitHash = (() => {
+  try {
+    return execSync('git rev-parse --short HEAD').toString().trim();
+  } catch {
+    return null;
+  }
+})();
 
 const footerLinks = [
   {
@@ -51,9 +60,20 @@ const footerLinks = [
 
     <div class="border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-gray-500">
       <p>© {currentYear} AI Stripes. Content: CC BY-SA 4.0. Code: MIT.</p>
-      <a href="https://github.com/aistripes/dev" class="hover:text-gray-900 transition-colors">
-        Contribute on GitHub ↗
-      </a>
+      <div class="flex items-center gap-3">
+        {commitHash && (
+          <a
+            href={`https://github.com/aistripes/dev/commit/${commitHash}`}
+            class="hover:text-gray-900 transition-colors"
+            aria-label={`View commit ${commitHash} on GitHub`}
+          >
+            Commit {commitHash}
+          </a>
+        )}
+        <a href="https://github.com/aistripes/dev" class="hover:text-gray-900 transition-colors">
+          Contribute on GitHub ↗
+        </a>
+      </div>
     </div>
   </div>
 </footer>
