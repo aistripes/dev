@@ -92,12 +92,19 @@ function absoluteUrl(site: URL, pathname: string): string {
 }
 
 function getLatestLastmod(items: ContentWithPath[]): string | undefined {
-  const dates = items
-    .map(({ content }) => content.meta.generated_at)
-    .filter((value) => !Number.isNaN(Date.parse(value)))
-    .sort((left, right) => Date.parse(right) - Date.parse(left));
+  if (items.length === 0) {
+    return undefined;
+  }
 
-  return dates[0];
+  const dates = items
+    .map(({ content }) => ({
+      value: content.meta.generated_at,
+      timestamp: Date.parse(content.meta.generated_at),
+    }))
+    .filter(({ timestamp }) => !Number.isNaN(timestamp))
+    .sort((left, right) => right.timestamp - left.timestamp);
+
+  return dates[0]?.value;
 }
 
 function escapeXml(value: string): string {
