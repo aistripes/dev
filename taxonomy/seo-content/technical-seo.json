@@ -1,0 +1,40 @@
+{
+  "slug": "technical-seo",
+  "name": "Technical SEO for Web Apps",
+  "category": "seo-content",
+  "context": {
+    "audience": "Web developers responsible for SEO performance, startup CTOs whose sites need organic traffic, frontend engineers building SEO-friendly single-page and server-rendered applications",
+    "pain_points": [
+      "Server-side rendering and static generation decisions for SEO",
+      "Structured data markup implementation that produces rich search results",
+      "Core Web Vitals optimization for framework-based applications",
+      "Crawl budget management for large sites with dynamic content",
+      "JavaScript rendering and SEO for SPA and hybrid applications"
+    ],
+    "monetization": [
+      "Technical SEO consulting and auditing",
+      "SEO tooling and checker products",
+      "Performance optimization services",
+      "Training and course content"
+    ],
+    "tools_and_stack": [
+      "Google Search Console", "Lighthouse", "Screaming Frog",
+      "Ahrefs", "Schema.org", "sitemap.xml",
+      "robots.txt", "Next.js", "Astro", "Cloudflare"
+    ],
+    "content_that_works": [
+      "Technical SEO audit checklists",
+      "Structured data implementation guides",
+      "Core Web Vitals optimization tutorials",
+      "Framework-specific SEO guides"
+    ],
+    "subtopics": [
+      "Structured data and Schema.org markup",
+      "Core Web Vitals optimization",
+      "Sitemap and robots.txt management",
+      "JavaScript SEO for SPAs",
+      "Meta tag and OG image optimization"
+    ],
+    "adjacent_niches": ["programmatic-seo", "nextjs", "astro", "content-strategy"]
+  }
+}

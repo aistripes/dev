@@ -1,0 +1,40 @@
+{
+  "slug": "marketplaces",
+  "name": "Marketplaces",
+  "category": "verticals",
+  "context": {
+    "audience": "Founders building two-sided marketplace platforms, developers implementing supply-and-demand matching logic, teams adding marketplace features to existing applications",
+    "pain_points": [
+      "Solving the chicken-and-egg problem of bootstrapping supply and demand",
+      "Payment splitting and escrow implementation for multi-party transactions",
+      "Trust and reputation systems with ratings, reviews, and verification",
+      "Search and matching algorithms that balance relevance and fairness",
+      "Managing different user roles and permissions for buyers and sellers"
+    ],
+    "monetization": [
+      "Transaction fees and commissions",
+      "Premium listing and featured placement",
+      "Subscription tiers for power sellers",
+      "Advertising and sponsored content"
+    ],
+    "tools_and_stack": [
+      "Stripe Connect", "PayPal for Marketplaces", "Sharetribe",
+      "Next.js", "PostgreSQL", "Algolia",
+      "Supabase", "Clerk", "Resend"
+    ],
+    "content_that_works": [
+      "Marketplace architecture pattern guides",
+      "Payment splitting implementation tutorials",
+      "Trust and safety system guides",
+      "Marketplace growth strategy articles"
+    ],
+    "subtopics": [
+      "Marketplace payment integration",
+      "Trust and reputation systems",
+      "Marketplace search and matching",
+      "Marketplace growth strategies",
+      "AI-powered marketplace features"
+    ],
+    "adjacent_niches": ["saas", "ecommerce", "auth", "analytics"]
+  }
+}

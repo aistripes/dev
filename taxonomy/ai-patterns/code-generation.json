@@ -1,0 +1,40 @@
+{
+  "slug": "code-generation",
+  "name": "AI Code Generation",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Software developers using AI coding assistants daily, engineering leads evaluating AI coding tools for their teams, developer tool builders creating IDE extensions and code generation products",
+    "pain_points": [
+      "Getting reliable, production-quality code from AI assistants rather than plausible-looking bugs",
+      "Integrating AI code generation into existing CI/CD and code review workflows",
+      "Managing security risks from AI-generated code including dependency vulnerabilities",
+      "Choosing between Copilot, Cursor, Claude Code, and other AI coding tools",
+      "Effective prompting strategies for complex code generation tasks"
+    ],
+    "monetization": [
+      "AI coding tool and IDE extension products",
+      "Developer productivity consulting",
+      "Code generation API services",
+      "Training and workshops on AI-assisted development"
+    ],
+    "tools_and_stack": [
+      "GitHub Copilot", "Cursor", "Claude Code", "Cody",
+      "Continue", "Aider", "OpenAI Codex",
+      "VS Code", "JetBrains", "Neovim"
+    ],
+    "content_that_works": [
+      "AI coding tool comparison articles",
+      "Effective AI pair-programming guides",
+      "Code review for AI-generated code checklists",
+      "Prompt engineering for code generation tutorials"
+    ],
+    "subtopics": [
+      "AI coding assistant comparison",
+      "Code review for AI-generated code",
+      "AI-assisted test generation",
+      "Security scanning AI-generated code",
+      "AI coding workflow optimization"
+    ],
+    "adjacent_niches": ["prompt-engineering", "agents", "devtools", "content-generation"]
+  }
+}

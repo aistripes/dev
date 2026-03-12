@@ -1,0 +1,40 @@
+{
+  "slug": "api-products",
+  "name": "API-First Products",
+  "category": "verticals",
+  "context": {
+    "audience": "Developers building API products for other developers, startup teams creating API wrappers around AI services, backend engineers designing scalable public APIs",
+    "pain_points": [
+      "Designing RESTful or GraphQL APIs that developers actually enjoy using",
+      "Rate limiting, authentication, and usage metering for API products",
+      "API documentation that stays in sync with the actual implementation",
+      "Versioning strategies that don't break existing consumers",
+      "Pricing models for API products based on usage, tiers, or features"
+    ],
+    "monetization": [
+      "API usage-based pricing",
+      "Tiered API subscription plans",
+      "Enterprise API contracts",
+      "API marketplace listings"
+    ],
+    "tools_and_stack": [
+      "FastAPI", "Express", "Hono", "tRPC",
+      "Swagger/OpenAPI", "Stripe Billing", "Unkey",
+      "Zuplo", "PostHog", "Cloudflare Workers"
+    ],
+    "content_that_works": [
+      "API design best practices guides",
+      "API monetization strategy articles",
+      "API authentication and rate limiting tutorials",
+      "API documentation tooling comparisons"
+    ],
+    "subtopics": [
+      "API design and documentation",
+      "API authentication and rate limiting",
+      "API pricing and monetization",
+      "API versioning strategies",
+      "AI API wrapper products"
+    ],
+    "adjacent_niches": ["devtools", "fastapi", "saas", "cost-optimization"]
+  }
+}

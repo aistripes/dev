@@ -1,0 +1,40 @@
+{
+  "slug": "content-generation",
+  "name": "AI Content Generation",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Content marketers and SEO practitioners using AI for writing at scale, developers building content generation pipelines, indie makers creating AI-powered writing tools and platforms",
+    "pain_points": [
+      "Generating content that passes AI detection and reads naturally to humans",
+      "Maintaining consistent brand voice and factual accuracy across AI-generated content",
+      "Building reliable content pipelines that handle generation, validation, and publishing",
+      "SEO optimization for AI-generated content without keyword stuffing",
+      "Legal and ethical considerations of AI-generated content at scale"
+    ],
+    "monetization": [
+      "AI writing tool and platform products",
+      "Content marketing agency services",
+      "Programmatic content generation consulting",
+      "Template and workflow sales"
+    ],
+    "tools_and_stack": [
+      "OpenAI GPT-4", "Anthropic Claude", "Google Gemini",
+      "LangChain", "Vercel AI SDK", "Contentful",
+      "Sanity", "Astro", "Next.js", "Zod"
+    ],
+    "content_that_works": [
+      "Content pipeline architecture guides",
+      "AI writing quality improvement tutorials",
+      "SEO for AI content strategy articles",
+      "Content generation tool comparisons"
+    ],
+    "subtopics": [
+      "Content pipeline architecture",
+      "AI content quality and editing workflows",
+      "SEO for AI-generated content",
+      "Brand voice consistency in AI content",
+      "Programmatic content at scale"
+    ],
+    "adjacent_niches": ["programmatic-seo", "structured-output", "prompt-engineering", "content-strategy"]
+  }
+}

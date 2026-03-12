@@ -1,0 +1,40 @@
+{
+  "slug": "internal-tools",
+  "name": "Internal Tools & Admin Panels",
+  "category": "verticals",
+  "context": {
+    "audience": "Full-stack developers building internal dashboards and admin tools, startup teams creating back-office applications, developers evaluating low-code admin builders vs custom solutions",
+    "pain_points": [
+      "Choosing between building custom admin panels and using tools like Retool, Appsmith, or Filament",
+      "Handling complex data tables with sorting, filtering, and inline editing",
+      "Role-based access control and audit logging for internal tools",
+      "Connecting to multiple data sources and APIs in a single dashboard",
+      "Balancing time-to-build with customizability and long-term maintenance"
+    ],
+    "monetization": [
+      "Internal tool development consulting",
+      "Admin panel framework and component sales",
+      "Custom dashboard development services",
+      "Internal tool platform products"
+    ],
+    "tools_and_stack": [
+      "Retool", "Appsmith", "Tooljet", "Filament",
+      "React Admin", "Refine", "shadcn/ui",
+      "Prisma", "Supabase", "Next.js"
+    ],
+    "content_that_works": [
+      "Admin panel builder comparison articles",
+      "Internal tool architecture guides",
+      "Data table and dashboard component tutorials",
+      "RBAC implementation guides"
+    ],
+    "subtopics": [
+      "Admin panel builder comparison",
+      "Custom dashboard development",
+      "Internal tool RBAC patterns",
+      "Data table and form components",
+      "AI-powered internal tools"
+    ],
+    "adjacent_niches": ["saas", "databases", "auth", "react"]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "content-platforms",
+  "name": "Content Platforms & CMS",
+  "category": "verticals",
+  "context": {
+    "audience": "Developers building content-heavy sites and blogs, teams evaluating headless CMS options, publishers and media companies modernizing their content infrastructure",
+    "pain_points": [
+      "Choosing between headless CMS platforms like Contentful, Sanity, Strapi, and Payload",
+      "Integrating AI content generation into CMS editorial workflows",
+      "Content modeling decisions that scale with growing content types and relationships",
+      "Performance at scale with thousands of pages and complex content queries",
+      "Migration between CMS platforms without losing content structure and SEO"
+    ],
+    "monetization": [
+      "Content platform products and services",
+      "CMS integration and migration consulting",
+      "Content workflow automation tools",
+      "Agency services for content-heavy sites"
+    ],
+    "tools_and_stack": [
+      "Contentful", "Sanity", "Strapi", "Payload",
+      "Keystatic", "Tina", "Astro", "Next.js",
+      "MDX", "Markdown"
+    ],
+    "content_that_works": [
+      "Headless CMS comparison articles",
+      "CMS migration guides",
+      "Content modeling best practices",
+      "AI-enhanced editorial workflow tutorials"
+    ],
+    "subtopics": [
+      "Headless CMS comparison and selection",
+      "AI-enhanced editorial workflows",
+      "Content modeling patterns",
+      "CMS migration strategies",
+      "Static site generation with CMS"
+    ],
+    "adjacent_niches": ["astro", "nextjs", "content-generation", "programmatic-seo"]
+  }
+}

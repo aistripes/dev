@@ -1,0 +1,40 @@
+{
+  "slug": "chrome-extensions",
+  "name": "Browser Extensions",
+  "category": "verticals",
+  "context": {
+    "audience": "Indie developers building Chrome extensions as side projects or products, startup teams adding browser-based AI features, developers creating productivity tools that integrate with web apps",
+    "pain_points": [
+      "Navigating Chrome extension Manifest V3 migration and service worker limitations",
+      "Managing permissions and user data securely in browser extensions",
+      "Chrome Web Store review process and policy compliance",
+      "Integrating AI APIs from extension context with proper key management",
+      "Building cross-browser extensions that work on Chrome, Firefox, and Safari"
+    ],
+    "monetization": [
+      "Extension premium features and subscriptions",
+      "Freemium extension model with pro upgrades",
+      "Extension-as-lead-gen for SaaS products",
+      "Sponsorships and affiliate integrations"
+    ],
+    "tools_and_stack": [
+      "Chrome Extension API", "Manifest V3", "Plasmo",
+      "WXT", "React", "TypeScript",
+      "Chrome Web Store", "Firefox Add-ons", "Vite"
+    ],
+    "content_that_works": [
+      "Extension development starter guides",
+      "Manifest V3 migration tutorials",
+      "Extension monetization strategy articles",
+      "AI-powered extension development guides"
+    ],
+    "subtopics": [
+      "Manifest V3 extension development",
+      "Cross-browser extension patterns",
+      "Extension monetization strategies",
+      "AI-powered browser extensions",
+      "Extension security best practices"
+    ],
+    "adjacent_niches": ["devtools", "react", "code-generation", "saas"]
+  }
+}

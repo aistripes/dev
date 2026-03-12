@@ -1,0 +1,40 @@
+{
+  "slug": "vue",
+  "name": "Vue (general)",
+  "category": "frameworks",
+  "context": {
+    "audience": "Frontend developers who prefer Vue's approachable API, enterprise teams with large Vue 3 codebases, developers in European and Asian markets where Vue has strong adoption",
+    "pain_points": [
+      "Vue 2 to Vue 3 Composition API migration for large codebases",
+      "Choosing between Options API and Composition API for team consistency",
+      "TypeScript integration and type safety in Vue single-file components",
+      "State management with Pinia after Vuex deprecation",
+      "Testing Vue components and composables effectively"
+    ],
+    "monetization": [
+      "Enterprise application development",
+      "Freelance and agency work",
+      "Component library sales",
+      "Training and course content"
+    ],
+    "tools_and_stack": [
+      "Vue 3", "Pinia", "Vue Router", "Vite", "TypeScript",
+      "VueUse", "PrimeVue", "Vitest", "Vue Test Utils",
+      "Vue DevTools"
+    ],
+    "content_that_works": [
+      "Composition API pattern guides",
+      "Vue 2 to Vue 3 migration tutorials",
+      "State management comparisons",
+      "Vue ecosystem tool directories"
+    ],
+    "subtopics": [
+      "Vue Composition API patterns",
+      "Vue 3 TypeScript integration",
+      "Pinia state management",
+      "Vue component library development",
+      "Vue testing strategies"
+    ],
+    "adjacent_niches": ["nuxt", "react", "angular", "astro"]
+  }
+}

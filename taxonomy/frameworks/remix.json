@@ -1,0 +1,40 @@
+{
+  "slug": "remix",
+  "name": "Remix",
+  "category": "frameworks",
+  "context": {
+    "audience": "React developers who prefer progressive enhancement, full-stack developers building data-heavy applications, teams migrating from React Router to the full Remix framework",
+    "pain_points": [
+      "Understanding the React Router v7 and Remix merger and migration path",
+      "Nested routing and data loading patterns for complex UIs",
+      "Choosing between Remix and Next.js for new projects",
+      "Deployment target decisions across Node, Deno, and Cloudflare Workers",
+      "Form handling with progressive enhancement and optimistic UI"
+    ],
+    "monetization": [
+      "SaaS applications with complex data workflows",
+      "Freelance full-stack development",
+      "Template and boilerplate sales",
+      "Training and consulting for teams"
+    ],
+    "tools_and_stack": [
+      "React Router v7", "Prisma", "Drizzle", "Tailwind CSS",
+      "Fly.io", "Cloudflare Workers", "SQLite", "PostgreSQL",
+      "Vitest", "Playwright"
+    ],
+    "content_that_works": [
+      "Data loading and mutation pattern guides",
+      "Remix vs Next.js comparison articles",
+      "Progressive enhancement tutorials",
+      "Deployment strategy guides"
+    ],
+    "subtopics": [
+      "Remix data loading and actions",
+      "React Router v7 migration",
+      "Remix on Cloudflare Workers",
+      "Remix authentication patterns",
+      "Remix progressive enhancement"
+    ],
+    "adjacent_niches": ["nextjs", "react", "edge-deployment", "self-hosting"]
+  }
+}
