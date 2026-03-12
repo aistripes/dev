@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import { getAllContentWithPaths } from '../lib/content';
+
+const allContent = getAllContentWithPaths();
+
+const sections = [
+  { prefix: 'resources', label: 'Resources', description: 'Idea lists, tip collections, and curated resources.' },
+  { prefix: 'checklists', label: 'Checklists', description: 'Interactive checklists you can complete in your browser.' },
+  { prefix: 'comparisons', label: 'Comparisons', description: 'Structured head-to-head comparisons with verdicts.' },
+  { prefix: 'guides', label: 'Guides', description: 'Step-by-step implementation guides with code examples.' },
+  { prefix: 'tools', label: 'Tools', description: 'Interactive utilities that run entirely in your browser.' },
+  { prefix: 'directories', label: 'Directories', description: 'Curated, filterable listings of tools and resources.' },
+];
+
+const contentBySection = Object.fromEntries(
+  sections.map(({ prefix }) => [
+    prefix,
+    allContent.filter((c) => c.urlPrefix === prefix),
+  ])
+);
+---
+
+<Base
+  title="AI-Powered Web Development Resources"
+  description="The go-to resource for developers building AI-powered web applications. Resources, guides, checklists, and tools — all open source."
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-blue-50 to-white border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+        Build with AI, <br class="hidden sm:block" />not around it.
+      </h1>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Structured resources for web developers integrating AI into production applications.
+        Open source. Schema-driven. Community-contributed.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a
+          href="/guides/"
+          class="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+        >
+          Browse Guides
+        </a>
+        <a
+          href="https://github.com/aistripes/dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-white text-gray-700 px-5 py-2.5 rounded-lg font-medium border border-gray-300 hover:border-gray-400 transition-colors"
+        >
+          View on GitHub ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content sections -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid gap-12">
+      {sections.map(({ prefix, label, description }) => {
+        const items = contentBySection[prefix] ?? [];
+        if (items.length === 0) return null;
+        return (
+          <section>
+            <div class="flex items-end justify-between mb-6">
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">{label}</h2>
+                <p class="text-gray-500 mt-1 text-sm">{description}</p>
+              </div>
+              <a href={`/${prefix}/`} class="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                View all →
+              </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {items.slice(0, 3).map(({ content, slug }) => (
+                <a
+                  href={`/${prefix}/${slug}/`}
+                  class="block border border-gray-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-sm transition-all"
+                >
+                  <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">{content.seo.title}</h3>
+                  <p class="text-sm text-gray-500 line-clamp-3">{content.seo.description}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+  </div>
+</Base>

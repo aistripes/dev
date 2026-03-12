@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-03-12T00:00:00.000Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Plausible vs Fathom vs Umami: Privacy-First Analytics Compared",
+    "description": "Compare Plausible, Fathom, and Umami for privacy-first web analytics. Features, pricing, GDPR compliance, and self-hosting compared.",
+    "keywords": ["privacy analytics comparison", "plausible vs fathom", "gdpr analytics tools", "umami analytics", "cookieless analytics"],
+    "slug": "analytics-tools-privacy"
+  },
+  "content": {
+    "intro": "Choosing a privacy-first analytics tool is no longer optional for EU-facing SaaS products — it's a GDPR necessity. Google Analytics requires consent banners for most EU use cases. Plausible, Fathom, and Umami offer cookie-free, GDPR-compliant alternatives that work without consent banners in most cases. Here's how they compare on every dimension that matters.",
+    "options": [
+      {
+        "name": "Plausible",
+        "tagline": "Lightweight, open source, privacy-friendly",
+        "url": "https://plausible.io",
+        "best_for": "Most SaaS teams starting out with privacy-first analytics"
+      },
+      {
+        "name": "Fathom",
+        "tagline": "Simple, fast, privacy-focused analytics",
+        "url": "https://usefathom.com",
+        "best_for": "Teams that want zero configuration and strong EU data residency"
+      },
+      {
+        "name": "Umami",
+        "tagline": "Open-source alternative to Google Analytics",
+        "url": "https://umami.is",
+        "best_for": "Self-hosters who want full data control at minimal cost"
+      }
+    ],
+    "criteria": [
+      {
+        "name": "GDPR Compliance (no consent banner)",
+        "description": "Whether the tool can be used without a cookie consent banner for EU visitors",
+        "values": {
+          "Plausible": "Yes — no cookies, no personal data storage, no consent required in most cases",
+          "Fathom": "Yes — cookie-free, no personal data, consent-free for most EU use",
+          "Umami": "Yes — no cookies by default, but depends on self-host configuration"
+        },
+        "winner": "Tie (Plausible and Fathom)"
+      },
+      {
+        "name": "Pricing",
+        "description": "Monthly cost for typical SaaS usage (up to 100k pageviews/month)",
+        "values": {
+          "Plausible": "$9/month cloud (up to 10k pageviews) — $19 for 100k; free to self-host",
+          "Fathom": "$15/month cloud (unlimited sites, 100k pageviews)",
+          "Umami": "Free to self-host; cloud starts at $9/month"
+        },
+        "winner": "Umami (self-hosted is free)"
+      },
+      {
+        "name": "EU Data Residency",
+        "description": "Whether data is stored in the EU by default",
+        "values": {
+          "Plausible": "Yes — EU-based hosting by default on cloud plan",
+          "Fathom": "Yes — EU isolation option available on higher plans",
+          "Umami": "Depends on where you self-host; cloud is US-based"
+        },
+        "winner": "Plausible"
+      },
+      {
+        "name": "Script Size",
+        "description": "Size of the analytics tracking script (affects page performance)",
+        "values": {
+          "Plausible": "< 1KB gzipped",
+          "Fathom": "< 2KB gzipped",
+          "Umami": "~2KB gzipped"
+        },
+        "winner": "Plausible"
+      },
+      {
+        "name": "Self-Hosting",
+        "description": "Ease and quality of self-hosting option",
+        "values": {
+          "Plausible": "Yes — Docker image, well-documented, community support",
+          "Fathom": "No self-hosting option (cloud-only)",
+          "Umami": "Yes — primary deployment model, excellent Docker support"
+        },
+        "winner": "Umami"
+      },
+      {
+        "name": "Real-Time Data",
+        "description": "Whether real-time visitor data is available in the dashboard",
+        "values": {
+          "Plausible": "Yes — real-time dashboard included",
+          "Fathom": "Yes — real-time dashboard included",
+          "Umami": "Yes — real-time data available"
+        },
+        "winner": "Tie"
+      },
+      {
+        "name": "Custom Events",
+        "description": "Support for tracking custom user interactions beyond pageviews",
+        "values": {
+          "Plausible": "Yes — custom events and goals with a simple API",
+          "Fathom": "Yes — event tracking with custom attributes",
+          "Umami": "Yes — custom events with full flexibility on self-hosted"
+        },
+        "winner": "Tie"
+      },
+      {
+        "name": "Revenue Tracking",
+        "description": "Ability to track revenue events and conversion value",
+        "values": {
+          "Plausible": "Yes — revenue goals with monetary values",
+          "Fathom": "Yes — revenue attribution on plans",
+          "Umami": "Not natively — requires custom event workarounds"
+        },
+        "winner": "Plausible and Fathom"
+      },
+      {
+        "name": "Team & Multi-Site Support",
+        "description": "Managing multiple sites and team member access",
+        "values": {
+          "Plausible": "Yes — multi-site dashboard, team members with roles",
+          "Fathom": "Yes — unlimited sites on all plans, team sharing",
+          "Umami": "Yes — multiple sites, team accounts"
+        },
+        "winner": "Fathom (unlimited sites from entry plan)"
+      },
+      {
+        "name": "Open Source",
+        "description": "Whether the codebase is publicly available and auditable",
+        "values": {
+          "Plausible": "Yes — AGPL-3.0 licensed",
+          "Fathom": "No — proprietary",
+          "Umami": "Yes — MIT licensed"
+        },
+        "winner": "Plausible and Umami"
+      }
+    ],
+    "verdict": {
+      "summary": "All three tools are strong GDPR-compliant alternatives to Google Analytics. Plausible hits the best balance of features, EU hosting, and ease of use for most SaaS teams. Fathom wins on simplicity — zero config, reliable, and great support. Umami is the choice when budget is a constraint and you're comfortable self-hosting.",
+      "use_cases": [
+        {
+          "scenario": "EU-based SaaS startup, no DevOps resource",
+          "recommendation": "Plausible Cloud",
+          "reason": "EU hosting by default, easy setup, no infrastructure to manage, compliant out of the box."
+        },
+        {
+          "scenario": "Developer who wants zero ongoing maintenance",
+          "recommendation": "Fathom",
+          "reason": "Cloud-only means no servers to maintain, excellent uptime, and strong support."
+        },
+        {
+          "scenario": "Cost-sensitive project or privacy-maximalist self-hoster",
+          "recommendation": "Umami (self-hosted)",
+          "reason": "Free, full data ownership, can host on the same VPS as your app."
+        },
+        {
+          "scenario": "Tracking revenue and conversions alongside traffic",
+          "recommendation": "Plausible or Fathom",
+          "reason": "Both have native revenue tracking; Umami requires workarounds for monetary event values."
+        }
+      ]
+    }
+  }
+}

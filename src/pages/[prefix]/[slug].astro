@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllContentWithPaths } from '../../lib/content';
+import type { AnyContent } from '../../lib/content';
+import ResourceArticleRenderer from '../../renderers/ResourceArticle';
+import ChecklistRenderer from '../../renderers/Checklist';
+import ComparisonRenderer from '../../renderers/Comparison';
+import GuideRenderer from '../../renderers/Guide';
+import DirectoryRenderer from '../../renderers/Directory';
+import type { ResourceArticle } from '../../../schemas/resource-article';
+import type { Checklist } from '../../../schemas/checklist';
+import type { Comparison } from '../../../schemas/comparison';
+import type { Guide } from '../../../schemas/guide';
+import type { Directory } from '../../../schemas/directory';
+
+export function getStaticPaths() {
+  const all = getAllContentWithPaths();
+  return all.map(({ content, urlPrefix, slug }) => ({
+    params: { prefix: urlPrefix, slug },
+    props: { content },
+  }));
+}
+
+interface Props {
+  content: AnyContent;
+}
+
+const { content } = Astro.props;
+
+const contentType = content.meta.content_type;
+---
+
+<Base
+  title={content.seo.title}
+  description={content.seo.description}
+  keywords={content.seo.keywords}
+>
+  {contentType === 'resource-article' && (
+    <ResourceArticleRenderer client:load content={content as ResourceArticle} />
+  )}
+  {contentType === 'checklist' && (
+    <ChecklistRenderer client:load content={content as Checklist} />
+  )}
+  {contentType === 'comparison' && (
+    <ComparisonRenderer client:load content={content as Comparison} />
+  )}
+  {contentType === 'guide' && (
+    <GuideRenderer client:load content={content as Guide} />
+  )}
+  {contentType === 'directory' && (
+    <DirectoryRenderer client:load content={content as Directory} />
+  )}
+  {!['resource-article', 'checklist', 'comparison', 'guide', 'tool-page', 'directory'].includes(contentType) && (
+    <div class="max-w-4xl mx-auto px-4 py-20 text-center text-gray-500">
+      <p>Unknown content type: {contentType}</p>
+    </div>
+  )}
+</Base>

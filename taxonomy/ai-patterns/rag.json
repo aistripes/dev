@@ -1,0 +1,39 @@
+{
+  "slug": "rag",
+  "name": "RAG (Retrieval-Augmented Generation)",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Backend and full-stack developers building knowledge bases, enterprise developers adding AI to existing data, indie hackers creating AI-powered search tools",
+    "pain_points": [
+      "Choosing the right chunk size and overlap for retrieval quality",
+      "Managing embedding costs at scale with large document sets",
+      "Avoiding hallucinations in retrieval-augmented responses",
+      "Latency trade-offs between vector search speed and accuracy",
+      "Reranking strategies for improving top-k retrieval precision"
+    ],
+    "monetization": [
+      "SaaS AI assistant products",
+      "Enterprise knowledge management tools",
+      "Consulting on RAG implementation",
+      "Niche vertical AI tools"
+    ],
+    "tools_and_stack": [
+      "Pinecone", "Weaviate", "Qdrant", "pgvector", "Supabase",
+      "LangChain", "LlamaIndex", "OpenAI", "Cohere", "Gemini"
+    ],
+    "content_that_works": [
+      "Chunk size and embedding strategy comparisons",
+      "Step-by-step RAG implementation tutorials",
+      "Cost optimization guides",
+      "Vector database comparison articles"
+    ],
+    "subtopics": [
+      "Hybrid search (keyword + vector)",
+      "RAG evaluation and benchmarking",
+      "Streaming RAG responses",
+      "Multi-modal RAG with images",
+      "RAG with private/on-premise models"
+    ],
+    "adjacent_niches": ["embeddings", "structured-output", "agents", "nextjs"]
+  }
+}
