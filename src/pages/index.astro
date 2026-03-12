@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import SchemaIcon from '../components/SchemaIcon';
 import { getAllContentWithPaths } from '../lib/content';
 
 const allContent = getAllContentWithPaths();
@@ -64,7 +65,14 @@ const contentBySection = Object.fromEntries(
           <section>
             <div class="flex items-end justify-between mb-6">
               <div>
-                <h2 class="text-2xl font-bold text-gray-900">{label}</h2>
+                <h2 class="text-2xl font-bold text-gray-900">
+                  <span class="inline-flex items-center gap-2">
+                    {prefix === 'resources' || prefix === 'comparisons' ? (
+                      <SchemaIcon kind={prefix} className="w-5 h-5 text-blue-600" />
+                    ) : null}
+                    <span>{label}</span>
+                  </span>
+                </h2>
                 <p class="text-gray-500 mt-1 text-sm">{description}</p>
               </div>
               <a href={`/${prefix}/`} class="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors">

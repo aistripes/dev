@@ -1,4 +1,5 @@
 import type { ResourceArticle } from '../../schemas/resource-article';
+import SchemaIcon from '../components/SchemaIcon';
 
 interface Props {
   content: ResourceArticle;
@@ -23,6 +24,7 @@ export default function ResourceArticle({ content }: Props) {
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <header className="mb-8">
         <div className="flex items-center gap-2 text-sm text-blue-600 font-medium mb-3">
+          <SchemaIcon kind="resource-article" className="w-4 h-4" />
           <span>Resources</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{seo.title}</h1>
