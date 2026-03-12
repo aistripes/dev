@@ -1,0 +1,40 @@
+{
+  "slug": "ci-cd",
+  "name": "CI/CD for AI Apps",
+  "category": "infrastructure",
+  "context": {
+    "audience": "DevOps engineers building deployment pipelines for AI applications, developers automating testing and deployment for LLM-powered features, teams managing prompt versioning and model deployment",
+    "pain_points": [
+      "Testing AI features in CI pipelines when LLM outputs are non-deterministic",
+      "Versioning prompts and AI configurations alongside application code",
+      "Managing model deployment and rollback strategies for production AI features",
+      "CI/CD pipeline costs when running AI evaluation suites on every commit",
+      "Automating content generation and validation in deployment workflows"
+    ],
+    "monetization": [
+      "DevOps consulting for AI teams",
+      "CI/CD tooling for AI workflows",
+      "Deployment automation products",
+      "Training on AI operations practices"
+    ],
+    "tools_and_stack": [
+      "GitHub Actions", "GitLab CI", "Vercel", "Cloudflare Pages",
+      "Docker", "Terraform", "Kamal", "Coolify",
+      "ArgoCD", "Fly.io"
+    ],
+    "content_that_works": [
+      "CI/CD pipeline setup tutorials",
+      "AI testing in CI strategy guides",
+      "Deployment automation articles",
+      "Prompt versioning workflow guides"
+    ],
+    "subtopics": [
+      "GitHub Actions for AI applications",
+      "Prompt versioning and testing in CI",
+      "Model deployment automation",
+      "Preview deployments for AI features",
+      "CI/CD cost optimization"
+    ],
+    "adjacent_niches": ["docker", "monitoring", "edge-deployment", "self-hosting"]
+  }
+}

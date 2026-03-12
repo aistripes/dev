@@ -1,0 +1,40 @@
+{
+  "slug": "international-seo",
+  "name": "International SEO",
+  "category": "seo-content",
+  "context": {
+    "audience": "Developers building multi-language web applications, European companies targeting multiple EU markets, SaaS teams expanding to international audiences",
+    "pain_points": [
+      "Implementing hreflang tags correctly across many language and region combinations",
+      "URL structure decisions between subdomains, subdirectories, and ccTLDs",
+      "Translating and localizing content with AI while maintaining SEO quality",
+      "Managing duplicate content across language versions of the same page",
+      "Geo-targeting and CDN configuration for international audiences"
+    ],
+    "monetization": [
+      "International SEO consulting",
+      "Localization and translation services",
+      "Multi-language site development",
+      "International market expansion advisory"
+    ],
+    "tools_and_stack": [
+      "Google Search Console", "Ahrefs", "DeepL",
+      "Crowdin", "Lokalise", "Paraglide",
+      "Cloudflare", "Next.js i18n", "Astro i18n"
+    ],
+    "content_that_works": [
+      "Hreflang implementation guides",
+      "International URL structure comparison articles",
+      "AI translation quality optimization tutorials",
+      "Multi-region deployment guides"
+    ],
+    "subtopics": [
+      "Hreflang tag implementation",
+      "International URL structure strategies",
+      "AI-powered translation workflows",
+      "Multi-region hosting and CDN setup",
+      "Localized content strategy"
+    ],
+    "adjacent_niches": ["technical-seo", "content-strategy", "gdpr-compliance", "edge-deployment"]
+  }
+}

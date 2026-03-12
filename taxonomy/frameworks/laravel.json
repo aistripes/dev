@@ -1,0 +1,40 @@
+{
+  "slug": "laravel",
+  "name": "Laravel",
+  "category": "frameworks",
+  "context": {
+    "audience": "PHP developers building modern web applications, agencies delivering client projects with Laravel, indie developers using Laravel's ecosystem for rapid SaaS development",
+    "pain_points": [
+      "Choosing between Livewire and Inertia.js for interactive frontend experiences",
+      "Scaling Laravel applications with queues, caching, and horizontal scaling",
+      "Integrating AI APIs and LLM features into Laravel's service container pattern",
+      "Managing complex authorization with policies, gates, and multi-tenancy",
+      "Deployment and DevOps choices between Forge, Vapor, and self-hosting"
+    ],
+    "monetization": [
+      "SaaS products using Laravel ecosystem",
+      "Agency and freelance development",
+      "Laravel package and starter kit sales",
+      "Training and consulting services"
+    ],
+    "tools_and_stack": [
+      "Laravel", "Livewire", "Inertia.js", "Filament", "Laravel Forge",
+      "Laravel Vapor", "MySQL", "PostgreSQL", "Redis", "Tailwind CSS",
+      "PHPUnit", "Pest"
+    ],
+    "content_that_works": [
+      "Laravel package and tool comparisons",
+      "Step-by-step SaaS building tutorials",
+      "Livewire vs Inertia.js guides",
+      "Laravel deployment and scaling strategies"
+    ],
+    "subtopics": [
+      "Laravel Livewire patterns",
+      "Laravel multi-tenancy architecture",
+      "Laravel + AI integration",
+      "Laravel deployment with Forge and Vapor",
+      "Laravel testing with Pest"
+    ],
+    "adjacent_niches": ["django", "rails", "saas", "docker"]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "analytics",
+  "name": "Web Analytics",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Developers implementing analytics for web applications, startup founders tracking product metrics, teams replacing Google Analytics with privacy-first alternatives",
+    "pain_points": [
+      "Choosing between privacy-first analytics tools without losing actionable insights",
+      "Implementing analytics that work without cookie consent banners",
+      "Custom event tracking for AI features and complex user interactions",
+      "Self-hosting analytics to maintain data ownership and GDPR compliance",
+      "Combining product analytics with web analytics without tool sprawl"
+    ],
+    "monetization": [
+      "SaaS products with built-in analytics",
+      "Analytics consulting and implementation",
+      "Privacy-compliant analytics tooling",
+      "Data analysis and reporting services"
+    ],
+    "tools_and_stack": [
+      "Plausible", "Fathom", "Umami", "PostHog",
+      "Mixpanel", "Amplitude", "Google Analytics 4",
+      "Matomo", "Simple Analytics", "Pirsch"
+    ],
+    "content_that_works": [
+      "Privacy-first analytics comparison articles",
+      "Analytics implementation tutorials per framework",
+      "GDPR-compliant analytics setup guides",
+      "Self-hosted analytics deployment guides"
+    ],
+    "subtopics": [
+      "Privacy-first analytics comparison",
+      "Self-hosted analytics setup",
+      "Product analytics implementation",
+      "Analytics for AI-powered features",
+      "GDPR-compliant tracking patterns"
+    ],
+    "adjacent_niches": ["gdpr-compliance", "privacy", "self-hosting", "saas"]
+  }
+}

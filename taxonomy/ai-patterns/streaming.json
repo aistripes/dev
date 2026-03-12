@@ -1,0 +1,40 @@
+{
+  "slug": "streaming",
+  "name": "Streaming LLM Responses",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Frontend developers building chat interfaces, full-stack developers implementing real-time AI features, product engineers optimizing perceived latency for AI-powered applications",
+    "pain_points": [
+      "Implementing server-sent events and streaming responses across different frameworks",
+      "Handling partial JSON and structured output in streaming contexts",
+      "Managing error states and reconnection logic for long-running streams",
+      "Streaming through edge functions and CDN proxies without buffering issues",
+      "Building responsive UIs that render tokens as they arrive"
+    ],
+    "monetization": [
+      "AI chat and assistant products",
+      "Real-time AI application development",
+      "Streaming infrastructure tooling",
+      "UX consulting for AI products"
+    ],
+    "tools_and_stack": [
+      "Vercel AI SDK", "OpenAI Streaming API", "Anthropic Streaming",
+      "Server-Sent Events", "ReadableStream", "React Suspense",
+      "Next.js Route Handlers", "Cloudflare Workers"
+    ],
+    "content_that_works": [
+      "Streaming implementation tutorials per framework",
+      "UX pattern guides for streaming AI responses",
+      "Error handling and resilience articles",
+      "Performance optimization guides"
+    ],
+    "subtopics": [
+      "Server-sent events for LLM streaming",
+      "Streaming structured output parsing",
+      "Chat UI streaming patterns",
+      "Edge function streaming",
+      "Streaming error handling and retries"
+    ],
+    "adjacent_niches": ["agents", "structured-output", "nextjs", "edge-deployment"]
+  }
+}

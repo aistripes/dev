@@ -1,0 +1,40 @@
+{
+  "slug": "agents",
+  "name": "AI Agents & Tool Use",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Full-stack developers building autonomous AI workflows, startup teams creating AI-powered assistants, enterprise developers automating complex business processes with LLMs",
+    "pain_points": [
+      "Designing reliable agent loops that don't get stuck in infinite cycles or hallucinate tool calls",
+      "Managing tool definitions and function schemas across multiple LLM providers",
+      "Observability and debugging of multi-step agent workflows in production",
+      "Cost control when agents make unpredictable numbers of LLM calls per task",
+      "Balancing agent autonomy with human-in-the-loop oversight for safety"
+    ],
+    "monetization": [
+      "AI assistant and copilot products",
+      "Automation consulting services",
+      "Agent framework and tooling development",
+      "Enterprise workflow automation"
+    ],
+    "tools_and_stack": [
+      "LangChain", "LangGraph", "CrewAI", "AutoGen",
+      "OpenAI Function Calling", "Anthropic Tool Use",
+      "LangSmith", "Vercel AI SDK", "Inngest"
+    ],
+    "content_that_works": [
+      "Agent architecture pattern guides",
+      "Tool calling implementation tutorials",
+      "Agent framework comparison articles",
+      "Production agent debugging guides"
+    ],
+    "subtopics": [
+      "Multi-agent orchestration patterns",
+      "Tool calling and function schema design",
+      "Agent observability and debugging",
+      "Human-in-the-loop agent workflows",
+      "Agent cost optimization strategies"
+    ],
+    "adjacent_niches": ["rag", "structured-output", "prompt-engineering", "streaming"]
+  }
+}

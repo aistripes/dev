@@ -1,0 +1,40 @@
+{
+  "slug": "seo-for-spas",
+  "name": "SEO for Single-Page Apps",
+  "category": "seo-content",
+  "context": {
+    "audience": "Frontend developers building React, Vue, or Angular SPAs that need organic traffic, startup teams troubleshooting indexing issues with client-rendered applications, developers migrating SPAs to SSR frameworks",
+    "pain_points": [
+      "Getting Google to properly index client-rendered JavaScript content",
+      "Choosing between SSR, SSG, and prerendering for SEO in SPA frameworks",
+      "Dynamic meta tags and Open Graph images for client-routed pages",
+      "Implementing proper URL structure and navigation for SEO in SPAs",
+      "Balancing SPA user experience with search engine crawling requirements"
+    ],
+    "monetization": [
+      "SPA SEO consulting and auditing",
+      "Migration from SPA to SSR services",
+      "SEO optimization tooling",
+      "Training and workshop content"
+    ],
+    "tools_and_stack": [
+      "React", "Vue", "Angular", "Next.js", "Nuxt",
+      "Prerender.io", "Rendertron", "Google Search Console",
+      "React Helmet", "vue-meta"
+    ],
+    "content_that_works": [
+      "SPA SEO troubleshooting guides",
+      "SSR migration tutorials",
+      "Dynamic rendering setup guides",
+      "SPA SEO audit checklists"
+    ],
+    "subtopics": [
+      "SPA indexing and rendering strategies",
+      "SPA to SSR migration paths",
+      "Dynamic meta tags in SPAs",
+      "SPA crawl optimization",
+      "Pre-rendering solutions"
+    ],
+    "adjacent_niches": ["technical-seo", "react", "nextjs", "nuxt"]
+  }
+}

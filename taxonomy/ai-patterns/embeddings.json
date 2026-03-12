@@ -1,0 +1,40 @@
+{
+  "slug": "embeddings",
+  "name": "Embeddings & Vector Search",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Backend developers implementing semantic search, ML engineers building recommendation systems, full-stack developers adding AI-powered similarity features to applications",
+    "pain_points": [
+      "Choosing between embedding models and understanding quality vs cost vs latency trade-offs",
+      "Selecting a vector database that fits the scale and budget of the project",
+      "Dimensionality reduction and storage optimization for large embedding collections",
+      "Hybrid search strategies combining keyword and vector search for better results",
+      "Keeping embeddings in sync when source data changes frequently"
+    ],
+    "monetization": [
+      "Semantic search products and services",
+      "Recommendation engine consulting",
+      "Vector database tooling and integrations",
+      "AI feature development for existing products"
+    ],
+    "tools_and_stack": [
+      "OpenAI Embeddings", "Cohere Embed", "Voyage AI",
+      "Pinecone", "Weaviate", "Qdrant", "Chroma", "pgvector",
+      "FAISS", "LangChain"
+    ],
+    "content_that_works": [
+      "Embedding model comparison articles",
+      "Vector database selection guides",
+      "Semantic search implementation tutorials",
+      "Cost optimization guides for embedding pipelines"
+    ],
+    "subtopics": [
+      "Vector database comparison and selection",
+      "Embedding model benchmarking",
+      "Hybrid search implementation",
+      "Embedding pipeline optimization",
+      "Semantic similarity applications"
+    ],
+    "adjacent_niches": ["rag", "ai-search", "databases", "structured-output"]
+  }
+}
