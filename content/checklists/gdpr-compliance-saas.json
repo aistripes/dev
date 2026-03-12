@@ -40,7 +40,7 @@
           { "title": "Implement a self-serve data export feature (right to portability)", "description": "Users can request a machine-readable export of their data. Build an export endpoint that outputs JSON or CSV — don't rely on manual processes.", "priority": "critical" },
           { "title": "Build an account deletion flow that purges all personal data (right to erasure)", "description": "Deletion must propagate to all data stores: primary DB, caches, backups (on schedule), analytics, and third-party processors.", "priority": "critical" },
           { "title": "Create an internal process for handling data subject requests within 30 days", "description": "GDPR mandates response within one month. Document who handles requests, how they verify identity, and how they fulfill each type.", "priority": "critical" },
-          { "title": "Provide a contact method for data-related requests in your privacy policy", "description": "An email address like privacy@yourdomain.com is sufficient. A web form with an SLA is better.", "priority": "critical" },
+          { "title": "Provide a contact method for data-related requests in your privacy policy", "description": "An email address like privacy(a)yourdomain.com is sufficient. A web form with an SLA is better.", "priority": "critical" },
           { "title": "Test your deletion flow to confirm data is actually removed", "description": "Run test user creation and deletion. Check your database, analytics, and email provider to verify data is gone.", "priority": "recommended" }
         ]
       },
