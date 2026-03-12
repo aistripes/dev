@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "marketplaces",
+    "generated_at": "2026-03-12T22:38:49.922Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Marketplaces with open-source tools",
+    "description": "A step-by-step implementation guide for Marketplaces with open-source tools.",
+    "keywords": [
+      "marketplaces",
+      "guide"
+    ],
+    "slug": "marketplaces-guide-building-marketplaces-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical implementation of a multi-party payment system for a two-sided marketplace using Stripe Connect. We focus on the 'Destination Charges' model, which allows a platform to facilitate transactions between buyers and sellers while automatically deducting a commission fee before funds reach the seller's account.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Stripe account with Connect enabled",
+      "Node.js environment with the 'stripe' npm package installed",
+      "Database (e.g., PostgreSQL) with a schema supporting User and Listing entities",
+      "A secure endpoint for receiving HTTPS webhooks"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Extend User Schema for Connect Account Mapping",
+        "explanation": "To facilitate payments, you must map your application's 'Seller' entity to a Stripe Connect Account ID. Update your database schema to store the Stripe Account ID and a status flag indicating if the seller has completed the onboarding process.",
+        "code": {
+          "language": "sql",
+          "content": "ALTER TABLE users \nADD COLUMN stripe_connect_id TEXT UNIQUE,\nADD COLUMN stripe_onboarding_complete BOOLEAN DEFAULT FALSE;",
+          "filename": "migrations/001_add_stripe_fields.sql"
+        },
+        "pitfalls": [
+          "Storing the Stripe Secret Key in the database instead of environment variables.",
+          "Failing to index the stripe_connect_id column, leading to slow lookups during webhook processing."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement the Onboarding Link Flow",
+        "explanation": "Create an Express or Next.js API route that generates a Stripe Account Link. This link redirects the seller to Stripe's hosted onboarding UI. Upon completion, Stripe redirects the user back to your platform.",
+        "code": {
+          "language": "javascript",
+          "content": "const accountLink = await stripe.accountLinks.create({\n  account: sellerStripeId,\n  refresh_url: 'https://yourmarket.com/reauth',\n  return_url: 'https://yourmarket.com/dashboard',\n  type: 'account_onboarding',\n});\nreturn res.json({ url: accountLink.url });",
+          "filename": "api/stripe/onboard.js"
+        },
+        "pitfalls": [
+          "Assuming a single redirect means onboarding is finished; you must verify the 'details_submitted' state via webhooks or account retrieval.",
+          "Hardcoding return URLs instead of using environment-specific base URLs."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Create Checkout Sessions with Application Fees",
+        "explanation": "When a buyer initiates a purchase, create a Stripe Checkout Session. Use the 'transfer_data' parameter to specify the seller's account and the 'application_fee_amount' to define your platform's commission in cents.",
+        "code": {
+          "language": "javascript",
+          "content": "const session = await stripe.checkout.sessions.create({\n  mode: 'payment',\n  line_items: [{ price: 'price_id', quantity: 1 }],\n  payment_intent_data: {\n    application_fee_amount: 500, // $5.00 fee\n    transfer_data: {\n      destination: sellerStripeId,\n    },\n  },\n  success_url: 'https://yourmarket.com/success',\n  cancel_url: 'https://yourmarket.com/cancel',\n});",
+          "filename": "api/stripe/create-checkout.js"
+        },
+        "pitfalls": [
+          "Calculating fees on the client-side, which allows users to manipulate the commission amount.",
+          "Neglecting to handle currency precision; Stripe requires amounts in the smallest currency unit (e.g., cents)."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Handle Webhook Events for State Reconciliation",
+        "explanation": "Listen for 'checkout.session.completed' and 'account.updated' events. Use these to update your internal database records for order fulfillment and seller verification status.",
+        "code": {
+          "language": "javascript",
+          "content": "const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);\n\nif (event.type === 'checkout.session.completed') {\n  const session = event.data.object;\n  await db.orders.update({ where: { sessionId: session.id }, data: { status: 'PAID' } });\n}\n\nif (event.type === 'account.updated') {\n  const account = event.data.object;\n  if (account.details_submitted) {\n    await db.users.update({ where: { stripe_connect_id: account.id }, data: { stripe_onboarding_complete: true } });\n  }\n}",
+          "filename": "api/webhooks/stripe.js"
+        },
+        "pitfalls": [
+          "Processing webhooks without verifying the 'stripe-signature' header, exposing your DB to spoofed requests.",
+          "Not returning a 200 status code immediately, causing Stripe to retry and potentially double-process events."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement Refund Logic with Fee Reversal",
+        "explanation": "When a buyer requests a refund, you must decide if the platform fee is also refunded. Use the 'reverse_transfer' and 'refund_application_fee' flags to manage the flow of funds back from the seller's Connect account.",
+        "code": {
+          "language": "javascript",
+          "content": "const refund = await stripe.refunds.create({\n  payment_intent: paymentIntentId,\n  reverse_transfer: true,\n  refund_application_fee: true,\n});",
+          "filename": "api/stripe/refund.js"
+        },
+        "pitfalls": [
+          "Attempting to refund more than the seller's current Stripe balance, which results in a failed refund and requires manual intervention.",
+          "Forgetting to reverse the transfer, which leaves the seller with the money while the platform absorbs the refund cost."
+        ]
+      }
+    ],
+    "conclusion": "By implementing this flow, you have established a scalable payment architecture that handles automated splitting and seller onboarding. Ensure you monitor your Stripe Dashboard for 'Requirements Due' flags on Connect accounts to prevent payout blocks as regulations evolve."
+  }
+}

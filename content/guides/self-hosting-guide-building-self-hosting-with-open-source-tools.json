@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "self-hosting",
+    "generated_at": "2026-03-12T22:38:31.274Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Self-Hosting with open-source tools",
+    "description": "A step-by-step implementation guide for Self-Hosting with open-source tools.",
+    "keywords": [
+      "self-hosting",
+      "guide"
+    ],
+    "slug": "self-hosting-guide-building-self-hosting-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a production-ready self-hosting environment on a single VPS. It focuses on security hardening, automated SSL termination using Caddy, and establishing a maintenance lifecycle using Docker and Watchtower to minimize manual intervention and ensure data sovereignty.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "A clean VPS instance (Ubuntu 22.04+ recommended) from a provider like Hetzner or Contabo",
+      "A registered domain name with access to DNS records",
+      "An SSH key pair configured for remote access",
+      "Basic familiarity with the Linux CLI"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "VPS Hardening and SSH Configuration",
+        "explanation": "Before deploying services, secure the host OS. Disable password-based authentication and move the SSH port to mitigate automated brute-force attacks. Ensure the system is updated to the latest security patches.",
+        "code": {
+          "language": "bash",
+          "content": "apt update && apt upgrade -y\n# Change SSH port and disable root password login\nsed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config\nsed -i 's/PermitRootLogin yes/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config\nsystemctl restart ssh",
+          "filename": "setup_host.sh"
+        },
+        "pitfalls": [
+          "Ensure your SSH key is added to authorized_keys before disabling password login to avoid being locked out.",
+          "Remember to specify the new port (e.g., ssh -p 2222) in subsequent connections."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Firewall Configuration with UFW",
+        "explanation": "Strictly control inbound traffic. Only allow traffic on your custom SSH port, HTTP (80), and HTTPS (443). By default, Docker bypasses UFW rules by manipulating iptables; we must ensure the firewall is active before Docker installation.",
+        "code": {
+          "language": "bash",
+          "content": "ufw default deny incoming\nufw default allow outgoing\nufw allow 2222/tcp\nufw allow 80/tcp\nufw allow 443/tcp\nufw enable",
+          "filename": "firewall.sh"
+        },
+        "pitfalls": [
+          "Enabling UFW without allowing your SSH port will terminate your current session and block future access."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Docker Engine and Compose Installation",
+        "explanation": "Install the official Docker Engine. Avoid using the default snap or apt versions provided by the OS distribution as they are often outdated and can cause issues with modern Docker Compose features.",
+        "code": {
+          "language": "bash",
+          "content": "curl -fsSL https://get.docker.com -o get-docker.sh\nsh get-docker.sh\nusermod -aG docker $USER",
+          "filename": "install_docker.sh"
+        },
+        "pitfalls": [
+          "You must log out and back in for the group changes to take effect if you want to run docker commands without sudo."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Deploy Caddy as a Reverse Proxy",
+        "explanation": "Caddy simplifies self-hosting by providing automatic TLS through Let's Encrypt. Use a dedicated Docker network to allow Caddy to communicate with other containers using their service names.",
+        "code": {
+          "language": "yaml",
+          "content": "version: '3.8'\nservices:\n  caddy:\n    image: caddy:2-alpine\n    restart: unless-stopped\n    ports:\n      - \"80:80\"\n      - \"443:443\"\n    volumes:\n      - ./Caddyfile:/etc/caddy/Caddyfile\n      - caddy_data:/data\n      - caddy_config:/config\nnetworks:\n  default:\n    name: proxy_network\nvolumes:\n  caddy_data:\n  caddy_config:",
+          "filename": "docker-compose.yml"
+        },
+        "pitfalls": [
+          "Ensure your DNS 'A' records point to the VPS IP before starting Caddy, or the ACME challenge will fail."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Automate Security Patches with Watchtower",
+        "explanation": "Self-hosting requires keeping software updated to prevent exploits. Watchtower monitors running containers and automatically pulls the latest images and restarts the service if a change is detected.",
+        "code": {
+          "language": "bash",
+          "content": "docker run -d \\\n  --name watchtower \\\n  -v /var/run/docker.sock:/var/run/docker.sock \\\n  containrrr/watchtower \\\n  --cleanup --interval 86400",
+          "filename": "deploy_watchtower.sh"
+        },
+        "pitfalls": [
+          "Automated updates can occasionally break services if the upstream image introduces breaking changes. Always pin critical services to major version tags (e.g., :1) rather than :latest."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Configure Off-site Volume Backups",
+        "explanation": "Data on a single VPS is vulnerable to hardware failure or provider outages. Use a script to compress Docker volumes and sync them to an external S3-compatible storage or a secondary server.",
+        "code": {
+          "language": "bash",
+          "content": "#!/bin/bash\nBACKUP_PATH=\"/opt/backups\"\nDATE=$(date +%Y%m%d)\ntar -czf $BACKUP_PATH/data_$DATE.tar.gz /var/lib/docker/volumes/\n# Example sync to remote storage (requires rclone configured)\nrclone copy $BACKUP_PATH/data_$DATE.tar.gz remote:my-backups/",
+          "filename": "backup.sh"
+        },
+        "pitfalls": [
+          "Backing up active database files directly from /var/lib/docker/volumes can lead to corruption. Use pg_dump or mysqldump before running the file backup for database containers."
+        ]
+      }
+    ],
+    "conclusion": "Your self-hosting environment is now secured and automated. By using Caddy for TLS, Watchtower for updates, and a strict firewall, you have minimized the operational overhead of managing your own infrastructure. Regularly test your backup restoration process to ensure business continuity."
+  }
+}

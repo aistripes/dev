@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "devtools",
+    "generated_at": "2026-03-12T22:38:49.556Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Developer Tools implementation checklist",
+    "description": "A practical checklist for shipping Developer Tools projects safely.",
+    "keywords": [
+      "devtools",
+      "developer tools",
+      "checklist"
+    ],
+    "slug": "devtools-checklist-developer-tools-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for launching production-grade developer tools, ensuring reliability across environments, consistent UX, and stable distribution channels.",
+    "sections": [
+      {
+        "heading": "CLI UX and Terminal Compatibility",
+        "items": [
+          {
+            "title": "Standard Streams Separation",
+            "description": "Direct all functional output to stdout and all logging, warnings, or error messages to stderr to ensure pipe compatibility.",
+            "priority": "critical"
+          },
+          {
+            "title": "Exit Code Standardization",
+            "description": "Implement specific non-zero exit codes for different failure categories (e.g., 1 for general errors, 64 for usage errors) to support CI/CD scripting.",
+            "priority": "critical"
+          },
+          {
+            "title": "TTY Detection",
+            "description": "Detect if the output is a TTY and automatically disable ANSI colors and interactive prompts when running in non-interactive environments like GitHub Actions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Global Help and Version Flags",
+            "description": "Verify that --help, -h, --version, and -v flags are responsive at the root and for every sub-command.",
+            "priority": "critical"
+          },
+          {
+            "title": "Progress Indicators",
+            "description": "Use non-blocking progress bars or spinners for long-running tasks, ensuring they are suppressed in non-TTY environments to prevent log bloating.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "SDK and API Design",
+        "items": [
+          {
+            "title": "Type Definition Shipments",
+            "description": "Include native TypeScript declarations (.d.ts) or Rust/Go source types; ensure no 'any' types exist in public-facing interfaces.",
+            "priority": "critical"
+          },
+          {
+            "title": "Idempotency Implementation",
+            "description": "Ensure all write operations in the SDK support idempotency keys to prevent duplicate resource creation during network retries.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Exponential Backoff",
+            "description": "Hardcode an exponential backoff strategy for 429 (Rate Limit) and 5xx (Server Error) responses within the SDK core.",
+            "priority": "critical"
+          },
+          {
+            "title": "Custom Error Classes",
+            "description": "Export named error classes (e.g., UnauthorizedError, ValidationError) so consumers can use 'instanceof' checks rather than string parsing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Timeout Defaults",
+            "description": "Set a global default timeout (e.g., 30 seconds) for all network requests to prevent hanging processes in user applications.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Distribution and Installation",
+        "items": [
+          {
+            "title": "Cross-Platform Binary Compilation",
+            "description": "Build and test binaries for x64 and ARM64 architectures across Linux, macOS, and Windows using a matrix CI build.",
+            "priority": "critical"
+          },
+          {
+            "title": "Checksum Verification",
+            "description": "Generate and publish SHA-256 checksums for all downloadable assets to allow users to verify file integrity.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Lockfile Commitment",
+            "description": "Ensure the lockfile (package-lock.json, Cargo.lock, etc.) is committed to the repository to guarantee reproducible builds.",
+            "priority": "critical"
+          },
+          {
+            "title": "Registry Metadata Audit",
+            "description": "Populate 'repository', 'bugs', 'engines', and 'homepage' fields in the manifest file to ensure correct display on registries like npm or Crates.io.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Dependency Minimization",
+            "description": "Run a dependency tree audit to remove unused packages and verify that all production dependencies are strictly necessary to minimize install size.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Authentication",
+        "items": [
+          {
+            "title": "Secure Credential Storage",
+            "description": "Store API tokens and secrets using system-level secret stores (e.g., macOS Keychain, Windows Credential Locker) instead of plain-text config files.",
+            "priority": "critical"
+          },
+          {
+            "title": "Environment Variable Precedence",
+            "description": "Implement a configuration hierarchy where CLI flags override environment variables, and environment variables override local config files.",
+            "priority": "recommended"
+          },
+          {
+            "title": "PII Scrubbing in Logs",
+            "description": "Implement regex filters to automatically redact authorization headers, tokens, and local file paths from debug logs before they are written to disk.",
+            "priority": "critical"
+          },
+          {
+            "title": "Vulnerability Scanning",
+            "description": "Integrate automated security scanning (e.g., Snyk, GitHub Dependabot) into the CI pipeline to block releases with known vulnerabilities.",
+            "priority": "critical"
+          },
+          {
+            "title": "Minimum Permission Scoping",
+            "description": "Verify that the tool only requests the specific OAuth scopes or filesystem permissions required for its documented functionality.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Telemetry and Observability",
+        "items": [
+          {
+            "title": "Global Opt-out Mechanism",
+            "description": "Support a 'DO_NOT_TRACK' environment variable and a config flag to completely disable all telemetry collection.",
+            "priority": "critical"
+          },
+          {
+            "title": "Anonymized Hardware Reporting",
+            "description": "Ensure telemetry only collects non-identifiable data such as OS type, CPU architecture, and tool version.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Verbose Debug Mode",
+            "description": "Implement a --debug or --verbose flag that provides a detailed execution trace for local troubleshooting without sending data to servers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "First-run Notice",
+            "description": "Display a one-time clear notice on the first execution explaining what data is collected and how to opt-out.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Crash Reporting",
+            "description": "Implement an automated crash reporting system that prompts the user for consent before uploading stack traces.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Documentation and DX",
+        "items": [
+          {
+            "title": "Executable Code Examples",
+            "description": "Verify that every code snippet in the README or /examples directory compiles and runs against the current version.",
+            "priority": "critical"
+          },
+          {
+            "title": "Shell Autocomplete Scripts",
+            "description": "Generate and distribute completion scripts for Bash, Zsh, and Fish shells.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Changelog Maintenance",
+            "description": "Maintain a 'CHANGELOG.md' following 'Keep a Changelog' principles, categorized by Added, Changed, and Fixed.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Troubleshooting Reference",
+            "description": "Include a dedicated documentation section mapping common error messages to specific resolution steps.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Inline Documentation",
+            "description": "Ensure every CLI command and SDK method has JSDoc, Rustdoc, or GoDoc comments for IDE intellisense support.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

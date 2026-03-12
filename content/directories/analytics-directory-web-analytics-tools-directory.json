@@ -1,0 +1,252 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "analytics",
+    "generated_at": "2026-03-12T22:38:16.840Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Web Analytics tools directory",
+    "description": "A developer-first directory of Web Analytics tools and references.",
+    "keywords": [
+      "analytics",
+      "web analytics",
+      "directory"
+    ],
+    "slug": "analytics-directory-web-analytics-tools-directory"
+  },
+  "content": {
+    "intro": "A curated technical directory of web and product analytics tools designed for developers prioritizing privacy compliance, data ownership, and performance-optimized tracking.",
+    "filter_dimensions": [
+      {
+        "name": "Deployment",
+        "values": [
+          "SaaS",
+          "Self-hosted",
+          "Hybrid"
+        ]
+      },
+      {
+        "name": "Focus",
+        "values": [
+          "General Web",
+          "Product Analytics",
+          "Privacy-First",
+          "Enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Plausible Analytics",
+        "description": "Lightweight, open-source web analytics that provides essential metrics without cookies or personal data collection.",
+        "url": "https://plausible.io",
+        "category": "Privacy-First",
+        "pricing_model": "open-source",
+        "pros": [
+          "Script size under 1KB",
+          "No cookie consent banners required",
+          "Easy integration with Next.js, Nuxt, and Gatsby"
+        ],
+        "cons": [
+          "Limited depth for complex product funnel analysis",
+          "SaaS version requires monthly subscription"
+        ],
+        "tags": [
+          "cookieless",
+          "gdpr-compliant",
+          "lightweight"
+        ]
+      },
+      {
+        "name": "PostHog",
+        "description": "All-in-one product OS providing event tracking, session recording, feature flags, and A/B testing in a single library.",
+        "url": "https://posthog.com",
+        "category": "Product Analytics",
+        "pricing_model": "freemium",
+        "pros": [
+          "Comprehensive suite including session replays",
+          "Extensive plugin system for data pipelines",
+          "Generous free tier for startups"
+        ],
+        "cons": [
+          "High complexity for simple landing pages",
+          "Self-hosting requires significant infrastructure resources"
+        ],
+        "tags": [
+          "product-analytics",
+          "feature-flags",
+          "session-recording"
+        ]
+      },
+      {
+        "name": "Umami",
+        "description": "Simple, fast, and privacy-focused alternative to Google Analytics that can be easily self-hosted on a single VPS.",
+        "url": "https://umami.is",
+        "category": "Self-hosted",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports MySQL and PostgreSQL backends",
+          "Single-page application friendly tracking",
+          "Completely bypasses ad-blockers when self-hosted"
+        ],
+        "cons": [
+          "Lacks advanced behavioral segmentation",
+          "Manual updates required for self-hosted instances"
+        ],
+        "tags": [
+          "self-hosted",
+          "sql-based",
+          "privacy"
+        ]
+      },
+      {
+        "name": "Fathom Analytics",
+        "description": "Privacy-first SaaS analytics focused on performance and compliance for high-traffic websites.",
+        "url": "https://usefathom.com",
+        "category": "Privacy-First",
+        "pricing_model": "paid",
+        "pros": [
+          "Enterprise-grade uptime and reliability",
+          "Custom domains for tracking to bypass ad-blockers",
+          "Automatic scaling for traffic spikes"
+        ],
+        "cons": [
+          "No free tier",
+          "Closed-source core"
+        ],
+        "tags": [
+          "saas",
+          "cookieless",
+          "performance"
+        ]
+      },
+      {
+        "name": "Matomo",
+        "description": "Feature-rich analytics platform offering 100% data ownership and a direct alternative to GA4's reporting depth.",
+        "url": "https://matomo.org",
+        "category": "General Web",
+        "pricing_model": "open-source",
+        "pros": [
+          "Deep SEO and e-commerce reporting",
+          "Import tools for legacy Google Analytics data",
+          "Extensive API for custom reporting"
+        ],
+        "cons": [
+          "Heavier script footprint compared to Plausible",
+          "UI can feel dated and complex"
+        ],
+        "tags": [
+          "data-ownership",
+          "seo",
+          "ecommerce"
+        ]
+      },
+      {
+        "name": "Mixpanel",
+        "description": "Event-based analytics platform designed for deep analysis of user journeys and retention patterns.",
+        "url": "https://mixpanel.com",
+        "category": "Product Analytics",
+        "pricing_model": "freemium",
+        "pros": [
+          "Powerful cohort and funnel analysis",
+          "Real-time data visualization",
+          "Integrates with major data warehouses"
+        ],
+        "cons": [
+          "Steep learning curve for non-technical users",
+          "Costs scale rapidly with high event volumes"
+        ],
+        "tags": [
+          "behavioral-analytics",
+          "retention",
+          "events"
+        ]
+      },
+      {
+        "name": "Pirsch Analytics",
+        "description": "Server-side and client-side analytics focused on being lightweight and developer-friendly via a robust API.",
+        "url": "https://pirsch.io",
+        "category": "Privacy-First",
+        "pricing_model": "paid",
+        "pros": [
+          "Excellent Go and Python SDKs",
+          "Server-side tracking avoids all client-side blocks",
+          "Very low latency impact"
+        ],
+        "cons": [
+          "Smaller ecosystem of community plugins",
+          "Limited visual reporting options"
+        ],
+        "tags": [
+          "server-side",
+          "api-first",
+          "lightweight"
+        ]
+      },
+      {
+        "name": "Simple Analytics",
+        "description": "Clean, simple analytics that never collects personal data or uses cookies, with a focus on simplicity.",
+        "url": "https://simpleanalytics.com",
+        "category": "Privacy-First",
+        "pricing_model": "paid",
+        "pros": [
+          "Email reports and Slack integration",
+          "Bypasses many ad-blockers by default",
+          "Minimalist dashboard for quick checks"
+        ],
+        "cons": [
+          "No free tier available",
+          "Basic event tracking capabilities"
+        ],
+        "tags": [
+          "minimalist",
+          "privacy",
+          "gdpr"
+        ]
+      },
+      {
+        "name": "Amplitude",
+        "description": "Enterprise-grade product analytics specializing in behavioral data and user lifecycle management.",
+        "url": "https://amplitude.com",
+        "category": "Product Analytics",
+        "pricing_model": "freemium",
+        "pros": [
+          "Advanced identity resolution across devices",
+          "Predictive analytics features",
+          "Robust governance for large teams"
+        ],
+        "cons": [
+          "Complex implementation process",
+          "Enterprise pricing is opaque and expensive"
+        ],
+        "tags": [
+          "enterprise",
+          "behavioral-data",
+          "product-led-growth"
+        ]
+      },
+      {
+        "name": "Ackee",
+        "description": "Node.js based analytics tool for developers who want a private, self-hosted GraphQL API for their data.",
+        "url": "https://ackee.electerious.com",
+        "category": "Self-hosted",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native GraphQL API for custom frontends",
+          "Clean, modern interface",
+          "Easy to deploy via Docker"
+        ],
+        "cons": [
+          "Lacks automated reporting features",
+          "Requires manual setup of MongoDB"
+        ],
+        "tags": [
+          "graphql",
+          "nodejs",
+          "developer-tool"
+        ]
+      }
+    ]
+  }
+}

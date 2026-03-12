@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "angular",
+    "generated_at": "2026-03-12T22:38:19.364Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Angular implementation checklist",
+    "description": "A practical checklist for shipping Angular projects safely.",
+    "keywords": [
+      "angular",
+      "checklist"
+    ],
+    "slug": "angular-checklist-angular-implementation-checklist"
+  },
+  "content": {
+    "intro": "A technical verification list for deploying enterprise-grade Angular applications, focusing on modern standalone architecture, performance budgets, and RxJS memory safety.",
+    "sections": [
+      {
+        "heading": "Performance & Bundle Optimization",
+        "items": [
+          {
+            "title": "Enable Production Build Flags",
+            "description": "Verify that 'optimization', 'aot', and 'buildOptimizer' are set to true in the production configuration within angular.json.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Bundle Size Budgets",
+            "description": "Define 'budgets' in angular.json for the 'initial' bundle type with a maximum warning of 500kb and error at 1mb to prevent bundle bloat.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enforce Lazy Loading for Feature Routes",
+            "description": "Audit the AppRoutingModule to ensure all top-level feature routes use 'loadComponent' or 'loadChildren' instead of direct imports.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement NgOptimizedImage",
+            "description": "Replace all standard <img> tags with the 'NgOptimizedImage' directive and provide 'priority' attributes for LCP elements.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Tree-shake Third-party Libraries",
+            "description": "Run 'source-map-explorer' on the production build to identify and remove unused modules from heavy libraries like Lodash or Moment.js.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Architecture & Modernization",
+        "items": [
+          {
+            "title": "Migrate to Standalone Components",
+            "description": "Convert all components to 'standalone: true' and eliminate 'NgModule' declarations to reduce architectural complexity and improve tree-shaking.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Standardize Dependency Injection",
+            "description": "Use the 'inject()' function in components and services instead of constructor injection for better type inference and cleaner inheritance.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Utilize Angular Signals for Local State",
+            "description": "Replace local 'BehaviorSubject' or 'OnPush' manual triggers with Angular Signals to optimize the change detection cycle and reduce overhead.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Global Service Provisioning",
+            "description": "Verify that all singleton services use 'providedIn: root' to ensure they are tree-shakable and correctly scoped for the entire application.",
+            "priority": "critical"
+          },
+          {
+            "title": "Strict Type Checking",
+            "description": "Set 'strict': true in tsconfig.json to enforce null checks and strict property initialization across the codebase.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "RxJS & Data Management",
+        "items": [
+          {
+            "title": "Prevent Observable Memory Leaks",
+            "description": "Ensure every manual '.subscribe()' call in components is paired with 'takeUntilDestroyed' or an explicit 'unsubscribe' in ngOnDestroy.",
+            "priority": "critical"
+          },
+          {
+            "title": "Prefer Async Pipe over Manual Subscriptions",
+            "description": "Audit templates to use the '| async' pipe for data rendering, delegating subscription management to the framework.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement SwitchMap for Race Conditions",
+            "description": "Verify that search and filter inputs use 'switchMap' rather than 'mergeMap' to cancel obsolete HTTP requests during rapid user input.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Define Strong API Interfaces",
+            "description": "Replace all instances of 'any' in HttpClient calls with specific TypeScript interfaces representing the backend data contracts.",
+            "priority": "critical"
+          },
+          {
+            "title": "Centralized Error Handling",
+            "description": "Implement a global 'HttpInterceptor' to catch 401, 403, and 500 status codes and route them to a consistent error handling service.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Security & Infrastructure",
+        "items": [
+          {
+            "title": "Sanitize Dynamic HTML",
+            "description": "Verify that any content passed to [innerHTML] is processed through Angular's 'DomSanitizer' to prevent XSS attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure XSRF Protection",
+            "description": "Configure 'HttpClientXsrfModule' with 'cookieName' and 'headerName' matching the backend's CSRF implementation.",
+            "priority": "critical"
+          },
+          {
+            "title": "Secure Environment Variables",
+            "description": "Check that environment.prod.ts does not contain hardcoded secrets; use build-time replacement for sensitive API keys.",
+            "priority": "critical"
+          },
+          {
+            "title": "Route Guard Implementation",
+            "description": "Apply 'CanActivate' guards to all protected routes to ensure client-side authorization is enforced before component initialization.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enable Content Security Policy",
+            "description": "Add a CSP meta tag or header that restricts script execution to trusted domains and prevents inline script execution.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Testing & Quality Assurance",
+        "items": [
+          {
+            "title": "Unit Test Business Logic",
+            "description": "Achieve 80% coverage on services containing complex transformation logic using Jest or Karma.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Critical Path E2E Coverage",
+            "description": "Implement Cypress or Playwright tests for the 'Happy Path' of the primary user workflows (e.g., Login, Checkout, Data Submission).",
+            "priority": "critical"
+          },
+          {
+            "title": "Mock External Dependencies",
+            "description": "Ensure all component tests use 'TestBed' to provide mock implementations of services to isolate the unit under test.",
+            "priority": "critical"
+          },
+          {
+            "title": "Automated Linting Gate",
+            "description": "Configure 'ng lint' as a required check in the CI/CD pipeline to prevent code style regressions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Accessibility (A11y) Audit",
+            "description": "Run 'axe-core' or the Angular CDK A11y module to verify that all interactive elements have correct ARIA labels and keyboard focus states.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "AI & Integration Patterns",
+        "items": [
+          {
+            "title": "Stream AI Responses",
+            "description": "Utilize RxJS 'fromFetch' or 'EventSource' to handle streaming responses from LLM endpoints to provide real-time UI updates.",
+            "priority": "recommended"
+          },
+          {
+            "title": "AI Loading State UX",
+            "description": "Implement specific 'Signal'-based loading indicators for AI inference tasks to manage user expectations during high-latency operations.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Error Boundaries for AI Services",
+            "description": "Wrap AI-driven components in error boundaries to ensure that a failure in the LLM service does not crash the entire application shell.",
+            "priority": "critical"
+          },
+          {
+            "title": "Result Caching Strategy",
+            "description": "Implement a caching layer (e.g., in NgRx or a Service) for common AI queries to minimize token costs and improve response times.",
+            "priority": "optional"
+          },
+          {
+            "title": "UI Distinction for AI Content",
+            "description": "Apply a specific CSS class or icon to any data generated by AI to comply with transparency requirements for enterprise users.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

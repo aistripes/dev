@@ -1,0 +1,299 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "api-products",
+    "generated_at": "2026-03-12T22:38:43.502Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "API-First Products tools directory",
+    "description": "A developer-first directory of API-First Products tools and references.",
+    "keywords": [
+      "api-products",
+      "api-first products",
+      "directory"
+    ],
+    "slug": "api-products-directory-api-first-products-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure, tooling, and documentation platforms specifically designed for building, scaling, and monetizing API-first products and AI wrappers.",
+    "filter_dimensions": [
+      {
+        "name": "category",
+        "values": [
+          "Authentication",
+          "Documentation",
+          "API Management",
+          "Billing & Monetization",
+          "Design & Testing",
+          "Webhooks"
+        ]
+      },
+      {
+        "name": "pricing_model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Unkey",
+        "description": "Open-source API key management with edge-based verification and built-in rate limiting.",
+        "url": "https://www.unkey.com/",
+        "category": "Authentication",
+        "pricing_model": "freemium",
+        "pros": [
+          "Global low-latency verification at the edge",
+          "Native support for rate limiting per API key",
+          "Detailed usage analytics for every request"
+        ],
+        "cons": [
+          "Relatively new ecosystem compared to legacy providers",
+          "Requires migration of existing keys if moving from another provider"
+        ],
+        "tags": [
+          "api-keys",
+          "auth",
+          "edge",
+          "rate-limiting"
+        ]
+      },
+      {
+        "name": "Mintlify",
+        "description": "Documentation platform that generates beautiful, interactive API references from OpenAPI specs.",
+        "url": "https://mintlify.com/",
+        "category": "Documentation",
+        "pricing_model": "freemium",
+        "pros": [
+          "Directly syncs with GitHub repositories",
+          "High-quality interactive 'Try It' playground",
+          "Excellent typography and SEO out of the box"
+        ],
+        "cons": [
+          "Customization requires editing a specific JSON config",
+          "Free tier is limited for complex multi-version products"
+        ],
+        "tags": [
+          "docs",
+          "openapi",
+          "developer-experience"
+        ]
+      },
+      {
+        "name": "Zuplo",
+        "description": "API Gateway designed specifically for developers, featuring programmable middleware using TypeScript.",
+        "url": "https://zuplo.com/",
+        "category": "API Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Git-based workflow for API gateway configuration",
+          "Native support for API key management and rate limiting",
+          "Deployable to the edge for minimal latency"
+        ],
+        "cons": [
+          "Learning curve for complex TypeScript middleware",
+          "May be overkill for simple single-endpoint proxies"
+        ],
+        "tags": [
+          "gateway",
+          "middleware",
+          "serverless"
+        ]
+      },
+      {
+        "name": "Orb",
+        "description": "Usage-based billing engine designed to handle complex API pricing models and high-volume metering.",
+        "url": "https://www.getorb.com/",
+        "category": "Billing & Monetization",
+        "pricing_model": "paid",
+        "pros": [
+          "Handles complex multi-dimensional usage pricing",
+          "Real-time visibility into customer usage and spend",
+          "Strong integration with Stripe for payment processing"
+        ],
+        "cons": [
+          "Implementation requires robust event-stream engineering",
+          "Pricing is geared toward growth-stage startups"
+        ],
+        "tags": [
+          "billing",
+          "usage-based",
+          "monetization"
+        ]
+      },
+      {
+        "name": "Scalar",
+        "description": "Open-source interactive API documentation and testing client that runs in the browser.",
+        "url": "https://scalar.com/",
+        "category": "Documentation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely fast rendering of large OpenAPI files",
+          "Offline-first testing client integrated into docs",
+          "Can be self-hosted or embedded in existing apps"
+        ],
+        "cons": [
+          "Less feature-rich UI customization than Mintlify",
+          "Smaller community for troubleshooting compared to Swagger"
+        ],
+        "tags": [
+          "openapi",
+          "swagger",
+          "testing"
+        ]
+      },
+      {
+        "name": "Svix",
+        "description": "Webhooks-as-a-service platform to manage the sending, retrying, and security of outgoing webhooks.",
+        "url": "https://www.svix.com/",
+        "category": "Webhooks",
+        "pricing_model": "freemium",
+        "pros": [
+          "Automated retry logic and exponential backoff",
+          "Pre-built consumer dashboard for users to debug payloads",
+          "Simplified signature verification for security"
+        ],
+        "cons": [
+          "Adds another external dependency to the critical path",
+          "Volume-based pricing can scale quickly"
+        ],
+        "tags": [
+          "webhooks",
+          "events",
+          "infrastructure"
+        ]
+      },
+      {
+        "name": "Spectral",
+        "description": "A flexible JSON/YAML linter for OpenAPI, AsyncAPI, and custom rulesets.",
+        "url": "https://github.com/stoplightio/spectral",
+        "category": "Design & Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Enforces API design standards across teams",
+          "Extensive library of built-in OpenAPI rules",
+          "CLI support for CI/CD integration"
+        ],
+        "cons": [
+          "Writing custom rules requires learning a specific syntax",
+          "Error messages can be cryptic for complex schemas"
+        ],
+        "tags": [
+          "linting",
+          "openapi",
+          "governance"
+        ]
+      },
+      {
+        "name": "Moesif",
+        "description": "API analytics and monetization platform to track usage and set up automated billing meters.",
+        "url": "https://www.moesif.com/",
+        "category": "Billing & Monetization",
+        "pricing_model": "freemium",
+        "pros": [
+          "Deep inspection of API request and response bodies",
+          "Automated alerts for drops in API usage or errors",
+          "Direct integration with billing providers like Stripe"
+        ],
+        "cons": [
+          "High data volume can lead to high costs",
+          "Initial SDK integration can be complex for some languages"
+        ],
+        "tags": [
+          "analytics",
+          "monetization",
+          "observability"
+        ]
+      },
+      {
+        "name": "Hono",
+        "description": "Ultrafast web framework for the Edges (Cloudflare Workers, Fastly, Bun, Deno, Node.js).",
+        "url": "https://hono.dev/",
+        "category": "API Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely small footprint and zero dependencies",
+          "First-class TypeScript support",
+          "Built-in middleware for CORS, JWT, and basic auth"
+        ],
+        "cons": [
+          "Ecosystem of plugins is smaller than Express",
+          "Edge-first focus means some Node-specific libs won't work"
+        ],
+        "tags": [
+          "framework",
+          "edge",
+          "typescript"
+        ]
+      },
+      {
+        "name": "Stripe Billing",
+        "description": "The industry standard for managing subscriptions and recurring API usage revenue.",
+        "url": "https://stripe.com/billing",
+        "category": "Billing & Monetization",
+        "pricing_model": "paid",
+        "pros": [
+          "Most reliable payment processing globally",
+          "Extensive documentation and SDK support",
+          "Handles tax compliance and global currencies"
+        ],
+        "cons": [
+          "Usage-based metering can be difficult to implement manually",
+          "Transaction fees are higher than some niche competitors"
+        ],
+        "tags": [
+          "payments",
+          "subscriptions",
+          "saas"
+        ]
+      },
+      {
+        "name": "Polar",
+        "description": "Open-source monetization platform specifically for developers and API creators to sell access.",
+        "url": "https://polar.sh/",
+        "category": "Billing & Monetization",
+        "pricing_model": "open-source",
+        "pros": [
+          "Built-in support for GitHub-based access control",
+          "Lower fees than traditional merchant accounts",
+          "Developer-centric UI and API"
+        ],
+        "cons": [
+          "Newer platform with fewer enterprise features",
+          "Limited to specific payment methods in early stages"
+        ],
+        "tags": [
+          "monetization",
+          "open-source",
+          "github"
+        ]
+      },
+      {
+        "name": "Postman",
+        "description": "Collaborative API development platform for designing, testing, and documenting APIs.",
+        "url": "https://www.postman.com/",
+        "category": "Design & Testing",
+        "pricing_model": "freemium",
+        "pros": [
+          "Comprehensive suite for automated API testing",
+          "Excellent collection sharing for team collaboration",
+          "Robust mock server capabilities"
+        ],
+        "cons": [
+          "Desktop app has become increasingly bloated",
+          "Enterprise pricing is significantly high"
+        ],
+        "tags": [
+          "testing",
+          "collaboration",
+          "mocking"
+        ]
+      }
+    ]
+  }
+}

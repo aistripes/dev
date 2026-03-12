@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "cost-optimization",
+    "generated_at": "2026-03-12T22:38:20.581Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI API Cost Optimization tools directory",
+    "description": "A developer-first directory of AI API Cost Optimization tools and references.",
+    "keywords": [
+      "cost-optimization",
+      "ai api cost optimization",
+      "directory"
+    ],
+    "slug": "cost-optimization-directory-ai-api-cost-optimization-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools and platforms for monitoring, routing, and reducing LLM API expenses through caching, model selection, and efficient infrastructure management.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Observability",
+          "Model Proxy",
+          "Model Provider",
+          "Self-Hosting",
+          "Caching"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "LiteLLM",
+        "description": "A lightweight proxy to call 100+ LLMs using the OpenAI format. It handles input/output mapping and cost tracking across providers.",
+        "url": "https://github.com/BerriAI/litellm",
+        "category": "Model Proxy",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standardizes API calls across providers",
+          "Built-in budget management and usage tracking",
+          "Drop-in replacement for OpenAI SDK"
+        ],
+        "cons": [
+          "Requires self-hosting for the proxy server",
+          "Occasional delay in supporting newest model parameters"
+        ],
+        "tags": [
+          "proxy",
+          "multi-model",
+          "cost-tracking"
+        ]
+      },
+      {
+        "name": "Helicone",
+        "description": "An open-source observability platform that tracks latency, costs, and token usage by adding a single line of code to your LLM requests.",
+        "url": "https://www.helicone.ai/",
+        "category": "Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Detailed cost breakdown per user or API key",
+          "Built-in request caching and retries",
+          "Minimal latency overhead"
+        ],
+        "cons": [
+          "Cloud version requires sending request metadata to their servers",
+          "Advanced filtering features locked behind paid tiers"
+        ],
+        "tags": [
+          "monitoring",
+          "analytics",
+          "caching"
+        ]
+      },
+      {
+        "name": "OpenRouter",
+        "description": "A unified interface for LLMs that allows routing to the cheapest provider for a specific model or finding equivalent low-cost alternatives.",
+        "url": "https://openrouter.ai/",
+        "category": "Model Proxy",
+        "pricing_model": "paid",
+        "pros": [
+          "Unified credit system for all models",
+          "Dynamic routing based on price and latency",
+          "Includes access to free and subsidized models"
+        ],
+        "cons": [
+          "Adds a dependency on a third-party aggregator",
+          "Limited to models available on their platform"
+        ],
+        "tags": [
+          "aggregator",
+          "routing",
+          "api-bridge"
+        ]
+      },
+      {
+        "name": "GPT-4o mini",
+        "description": "OpenAI's high-efficiency model designed to replace GPT-3.5 Turbo with significantly lower costs and higher intelligence.",
+        "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/",
+        "category": "Model Provider",
+        "pricing_model": "paid",
+        "pros": [
+          "Extremely low cost per 1M tokens",
+          "High rate limits for production scale",
+          "Strong performance on classification and extraction"
+        ],
+        "cons": [
+          "Lower reasoning capabilities than GPT-4o",
+          "Proprietary model with vendor lock-in"
+        ],
+        "tags": [
+          "llm",
+          "cheap-inference",
+          "openai"
+        ]
+      },
+      {
+        "name": "vLLM",
+        "description": "A high-throughput serving engine for LLMs that optimizes GPU memory usage through PagedAttention to reduce self-hosting costs.",
+        "url": "https://github.com/vllm-project/vllm",
+        "category": "Self-Hosting",
+        "pricing_model": "open-source",
+        "pros": [
+          "Significantly increases serving throughput",
+          "Supports most popular open-weight models",
+          "Reduces hardware requirements for deployment"
+        ],
+        "cons": [
+          "Requires significant GPU infrastructure knowledge",
+          "Limited to NVIDIA and specific AMD hardware"
+        ],
+        "tags": [
+          "inference",
+          "gpu-optimization",
+          "hosting"
+        ]
+      },
+      {
+        "name": "GPTCache",
+        "description": "A library for creating semantic caches for LLM responses, reducing costs by serving similar queries from a local database.",
+        "url": "https://github.com/zilliztech/GPTCache",
+        "category": "Caching",
+        "pricing_model": "open-source",
+        "pros": [
+          "Reduces API costs by avoiding redundant calls",
+          "Improves response speed for common queries",
+          "Configurable similarity thresholds"
+        ],
+        "cons": [
+          "Requires managing a vector database for storage",
+          "Potential for serving stale or slightly inaccurate results"
+        ],
+        "tags": [
+          "semantic-cache",
+          "performance",
+          "vector-db"
+        ]
+      },
+      {
+        "name": "Claude 3 Haiku",
+        "description": "Anthropic's fastest and most affordable model, optimized for near-instant responsiveness and cost-effective data processing.",
+        "url": "https://www.anthropic.com/claude",
+        "category": "Model Provider",
+        "pricing_model": "paid",
+        "pros": [
+          "Superior speed-to-cost ratio",
+          "Strong performance on long-context tasks",
+          "Lower latency than comparable models"
+        ],
+        "cons": [
+          "Smaller context window than Claude 3.5 Sonnet",
+          "May struggle with complex logical reasoning"
+        ],
+        "tags": [
+          "anthropic",
+          "fast-llm",
+          "affordable"
+        ]
+      },
+      {
+        "name": "Portkey",
+        "description": "An AI Gateway that provides request routing, virtual keys, and automated caching to manage LLM production costs.",
+        "url": "https://portkey.ai/",
+        "category": "Model Proxy",
+        "pricing_model": "freemium",
+        "pros": [
+          "Automatic fallback to cheaper models",
+          "Detailed cost and usage analytics dashboard",
+          "Enterprise-grade security and compliance"
+        ],
+        "cons": [
+          "Complexity increases with more routing rules",
+          "Free tier has strict monthly request limits"
+        ],
+        "tags": [
+          "gateway",
+          "reliability",
+          "enterprise"
+        ]
+      },
+      {
+        "name": "Gemini 1.5 Flash",
+        "description": "Google's lightweight, high-speed model optimized for high-volume tasks and low-latency applications.",
+        "url": "https://deepmind.google/technologies/gemini/flash/",
+        "category": "Model Provider",
+        "pricing_model": "freemium",
+        "pros": [
+          "Large 1M token context window at low cost",
+          "Native multimodal capabilities included",
+          "Competitive pricing via Google Cloud Vertex AI"
+        ],
+        "cons": [
+          "Requires integration with Google Cloud ecosystem",
+          "Rate limits on the free tier are restrictive"
+        ],
+        "tags": [
+          "google",
+          "multimodal",
+          "long-context"
+        ]
+      },
+      {
+        "name": "Ollama",
+        "description": "A tool for running large language models locally on macOS, Linux, and Windows, eliminating API costs for local development and testing.",
+        "url": "https://ollama.com/",
+        "category": "Self-Hosting",
+        "pricing_model": "open-source",
+        "pros": [
+          "Zero token costs for local execution",
+          "Easy setup for testing open-source models",
+          "No data leaves the local machine"
+        ],
+        "cons": [
+          "Performance limited by local hardware (RAM/GPU)",
+          "Not designed for high-concurrency production use"
+        ],
+        "tags": [
+          "local-llm",
+          "privacy",
+          "development"
+        ]
+      }
+    ]
+  }
+}

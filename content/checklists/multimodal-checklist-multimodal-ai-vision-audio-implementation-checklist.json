@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "multimodal",
+    "generated_at": "2026-03-12T22:38:00.047Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Multimodal AI (Vision, Audio) implementation checklist",
+    "description": "A practical checklist for shipping Multimodal AI (Vision, Audio) projects safely.",
+    "keywords": [
+      "multimodal",
+      "multimodal ai (vision, audio)",
+      "checklist"
+    ],
+    "slug": "multimodal-checklist-multimodal-ai-vision-audio-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for moving multimodal AI features from prototype to production, focusing on input optimization, cost control, and reliability.",
+    "sections": [
+      {
+        "heading": "Input Pre-processing and Optimization",
+        "items": [
+          {
+            "title": "Resolution Downscaling",
+            "description": "Resize images to the model's maximum effective resolution (e.g., 2048px for GPT-4o) before transmission to reduce latency and token costs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audio Chunking and Formatting",
+            "description": "Split audio files into segments under 25MB and convert to optimized formats like MP3 or OGG to meet API payload limits.",
+            "priority": "critical"
+          },
+          {
+            "title": "Visual Token Estimation",
+            "description": "Implement logic to calculate visual tokens based on image dimensions and detail mode (high vs. low) to predict costs before API calls.",
+            "priority": "recommended"
+          },
+          {
+            "title": "EXIF Metadata Stripping",
+            "description": "Remove non-essential metadata from image files to reduce payload size and prevent leaking sensitive location or device data.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Aspect Ratio Normalization",
+            "description": "Verify that images are padded or cropped to aspect ratios supported by the model to prevent distortion in visual understanding.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Cost and Rate Limit Management",
+        "items": [
+          {
+            "title": "Local Rate Limiting",
+            "description": "Implement a token-bucket or leaky-bucket algorithm to match your provider's Tier-specific RPM (Requests Per Minute) and TPM (Tokens Per Minute).",
+            "priority": "critical"
+          },
+          {
+            "title": "Media Content Hashing",
+            "description": "Generate SHA-256 hashes for input media and cache model responses to avoid paying for redundant processing of identical files.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Model Detail Mode Selection",
+            "description": "Default to 'low' detail mode for vision tasks not requiring OCR or fine-grained texture analysis to save 50-80% on token costs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Tiered Model Fallbacks",
+            "description": "Route simple visual classification tasks to cheaper models (e.g., Gemini Flash) while reserving GPT-4o for complex reasoning.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Usage Quota Alerts",
+            "description": "Set hard spend limits and 50/75/90% threshold alerts at the API provider level to prevent unexpected billing spikes.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Pipeline Reliability and Error Handling",
+        "items": [
+          {
+            "title": "Async Processing for Long Audio",
+            "description": "Use webhook-based architectures for audio files longer than 1 minute to avoid client-side timeouts during transcription.",
+            "priority": "critical"
+          },
+          {
+            "title": "Coordinate System Validation",
+            "description": "Verify that bounding box outputs are correctly mapped to original image dimensions, accounting for any pre-processing scaling.",
+            "priority": "critical"
+          },
+          {
+            "title": "Exponential Backoff for 429s",
+            "description": "Implement a retry strategy with jitter specifically for rate-limit and overloaded-model errors from multimodal endpoints.",
+            "priority": "critical"
+          },
+          {
+            "title": "Fallback for Corrupt Media",
+            "description": "Implement validation steps to catch partial uploads or corrupted headers before sending payloads to the AI model.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Structured Output Enforcement",
+            "description": "Use JSON mode or function calling to ensure vision model outputs (like OCR results) adhere to a parseable schema.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Compliance",
+        "items": [
+          {
+            "title": "Short-lived Media URLs",
+            "description": "Use pre-signed URLs with an expiration under 10 minutes when passing cloud storage objects to vision APIs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Pre-inference Content Moderation",
+            "description": "Run images through a specialized moderation API to block prohibited content before it reaches the expensive multimodal model.",
+            "priority": "recommended"
+          },
+          {
+            "title": "PII Detection in Media",
+            "description": "Scan images for faces or identity documents and apply blurring if your use case does not require processing personal identifiers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Provider Data Retention Check",
+            "description": "Confirm that the API provider's terms of service exclude your media inputs from being used for base model training.",
+            "priority": "critical"
+          },
+          {
+            "title": "Input Sanitization",
+            "description": "Validate MIME types and magic numbers of uploaded files to prevent malicious file execution on your processing workers.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Evaluation and Performance Monitoring",
+        "items": [
+          {
+            "title": "Vision Ground Truth Dataset",
+            "description": "Maintain a set of 100+ 'gold standard' image-text pairs to test for regression when updating prompts or model versions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Word Error Rate (WER) Baseline",
+            "description": "Measure and log the WER for audio transcriptions against manual transcripts to detect accuracy drift in specific acoustic environments.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Time-To-First-Token (TTFT) Tracking",
+            "description": "Monitor the latency of the initial response chunk for multimodal prompts to ensure the UI remains responsive.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Hallucination Verification",
+            "description": "Implement a secondary LLM check to verify that visual descriptions match the labels extracted by a traditional CV model.",
+            "priority": "optional"
+          },
+          {
+            "title": "Prompt Versioning",
+            "description": "Store the exact system prompt and model version used for every multimodal inference to enable debugging of visual logic errors.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

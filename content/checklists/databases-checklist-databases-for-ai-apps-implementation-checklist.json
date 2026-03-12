@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "databases",
+    "generated_at": "2026-03-12T22:38:24.417Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Databases for AI Apps implementation checklist",
+    "description": "A practical checklist for shipping Databases for AI Apps projects safely.",
+    "keywords": [
+      "databases",
+      "databases for ai apps",
+      "checklist"
+    ],
+    "slug": "databases-checklist-databases-for-ai-apps-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical roadmap for preparing database infrastructure to support production-grade AI applications, focusing on vector performance, connection stability in serverless environments, and data integrity for RAG workflows.",
+    "sections": [
+      {
+        "heading": "Vector Search and Indexing",
+        "items": [
+          {
+            "title": "Index Dimension Alignment",
+            "description": "Verify that the vector column dimensions (e.g., 1536 for OpenAI) exactly match the output of the embedding model to prevent runtime query failures.",
+            "priority": "critical"
+          },
+          {
+            "title": "HNSW/IVFFlat Indexing",
+            "description": "Apply HNSW (Hierarchical Navigable Small World) or IVFFlat indexes to embedding columns; avoid sequential scans for datasets exceeding 10,000 rows.",
+            "priority": "critical"
+          },
+          {
+            "title": "Distance Metric Consistency",
+            "description": "Confirm the database distance function (cosine, L2, or inner product) matches the metric the embedding model was trained on.",
+            "priority": "critical"
+          },
+          {
+            "title": "Memory-to-Index Ratio",
+            "description": "Ensure the database instance RAM is large enough to hold the entire vector index (e.g., HNSW) to avoid disk swapping during similarity searches.",
+            "priority": "critical"
+          },
+          {
+            "title": "Index Build Parameters",
+            "description": "Adjust m and ef_construction parameters for HNSW to balance build time versus search recall based on your specific latency requirements.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Connection and Resource Management",
+        "items": [
+          {
+            "title": "External Connection Pooling",
+            "description": "Deploy PgBouncer or use a platform-native pooler (e.g., Supabase, Neon) to manage connection overhead from serverless functions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Statement Timeouts",
+            "description": "Set a strict statement_timeout (e.g., 30s) to prevent long-running AI queries or vector index builds from exhausting the connection pool.",
+            "priority": "critical"
+          },
+          {
+            "title": "Prisma/Drizzle Transaction Mode",
+            "description": "Configure ORM connection strings for transaction mode if using a pooler to prevent prepared statement errors in serverless environments.",
+            "priority": "critical"
+          },
+          {
+            "title": "Edge Runtime Compatibility",
+            "description": "Verify that database drivers use HTTP or WebSocket protocols if deploying to edge runtimes like Cloudflare Workers or Vercel Edge.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Idle Connection Pruning",
+            "description": "Configure the pooler to close idle connections after 60 seconds to accommodate the bursty nature of LLM application traffic.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Data Modeling and Schema",
+        "items": [
+          {
+            "title": "Embedding Versioning",
+            "description": "Include a 'model_version' column in tables storing vectors to facilitate re-indexing if you migrate from one embedding model to another.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Metadata Indexing",
+            "description": "Apply GIN indexes to JSONB columns used for filtering vector results (e.g., user_id, organization_id) to ensure hybrid search performance.",
+            "priority": "critical"
+          },
+          {
+            "title": "Conversation TTLs",
+            "description": "Implement a partitioning or cleanup strategy for chat history tables to prevent unbounded storage growth and query degradation.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Source Link Integrity",
+            "description": "Enforce foreign key constraints between embedding chunks and their source documents to prevent orphaned vectors in RAG systems.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit Logging",
+            "description": "Enable row-level logging for tables containing sensitive context data used in AI prompts to meet compliance requirements.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Performance Tuning",
+        "items": [
+          {
+            "title": "Parallel Worker Configuration",
+            "description": "Increase max_parallel_workers_per_gather to allow the database to use multiple CPU cores for large-scale vector similarity scans.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Batch Insert Strategy",
+            "description": "Implement batching for vector inserts (e.g., 100-500 rows per transaction) to minimize WAL (Write-Ahead Log) overhead during data ingestion.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Read Replica Offloading",
+            "description": "Route heavy RAG retrieval queries to read replicas to ensure embedding generation and chat history writes remain performant on the primary.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Query Plan Validation",
+            "description": "Run EXPLAIN ANALYZE on common vector queries to confirm that indexes are being utilized rather than full table scans.",
+            "priority": "critical"
+          },
+          {
+            "title": "Vector Quantization",
+            "description": "Test scalar or product quantization if vector storage costs exceed budget or if index size exceeds available RAM.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Access Control",
+        "items": [
+          {
+            "title": "Row Level Security (RLS)",
+            "description": "Enable and test RLS policies to ensure that vector similarity searches only return data the requesting user is authorized to view.",
+            "priority": "critical"
+          },
+          {
+            "title": "PII Scrubbing",
+            "description": "Validate that the ingestion pipeline scrubs PII from text before it is stored in the database or sent to embedding providers.",
+            "priority": "critical"
+          },
+          {
+            "title": "VPC Peering",
+            "description": "Establish VPC peering or PrivateLink between the application backend and the database to prevent exposure of sensitive AI data to the public internet.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Encryption at Rest",
+            "description": "Verify that the database provider has AES-256 encryption enabled for all storage volumes and automated backups.",
+            "priority": "critical"
+          },
+          {
+            "title": "Least Privilege Roles",
+            "description": "Create a dedicated database user for the AI service with permissions restricted to specific schemas and tables.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

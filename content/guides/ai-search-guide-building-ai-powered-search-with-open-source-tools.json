@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "ai-search",
+    "generated_at": "2026-03-12T22:37:58.835Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building AI-Powered Search with open-source tools",
+    "description": "A step-by-step implementation guide for AI-Powered Search with open-source tools.",
+    "keywords": [
+      "ai-search",
+      "ai-powered search",
+      "guide"
+    ],
+    "slug": "ai-search-guide-building-ai-powered-search-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a production-ready hybrid search pipeline. You will combine vector similarity (semantic understanding) with traditional keyword matching (BM25) and apply a cross-encoder reranking layer to ensure high-precision results for complex queries.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "API access to an embedding model (e.g., OpenAI text-embedding-3-small)",
+      "A vector database (e.g., Pinecone, Weaviate, or Qdrant)",
+      "A keyword search engine or library (e.g., Meilisearch, Elasticsearch, or BM25 implementation)",
+      "Node.js or Python environment"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Document Chunking and Normalization",
+        "explanation": "Break large documents into smaller, semantically coherent chunks. Aim for 300-500 tokens per chunk with a 10-15% overlap. This ensures that the embedding model captures specific contexts and allows the search result to point to a specific section of a document rather than a 50-page PDF.",
+        "code": {
+          "language": "python",
+          "content": "from langchain.text_splitter import RecursiveCharacterTextSplitter\n\ntext_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=500,\n    chunk_overlap=50,\n    separators=[\"\\n\\n\", \"\\n\", \". \", \" \"]\n)\n\nchunks = text_splitter.split_text(raw_document_content)",
+          "filename": "ingestion.py"
+        },
+        "pitfalls": [
+          "Chunking too aggressively can lose the surrounding context needed for accurate embeddings.",
+          "Failing to normalize whitespace and remove boilerplate (e.g., navbars) leads to noisy vectors."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Dual-Indexing (Vector and Keyword)",
+        "explanation": "Index the same content into two different stores: a vector database for semantic similarity and a traditional inverted index for exact keyword matching. Store the original text and unique IDs in both to facilitate merging later.",
+        "code": {
+          "language": "javascript",
+          "content": "// Indexing to Pinecone (Vector)\nawait pineconeIndex.upsert([\n  { id: docId, values: embeddingVector, metadata: { text: chunkText } }\n]);\n\n// Indexing to Meilisearch (Keyword)\nawait meilisearchIndex.addDocuments([\n  { id: docId, content: chunkText }\n]);",
+          "filename": "index_pipeline.js"
+        },
+        "pitfalls": [
+          "Inconsistent IDs between the vector and keyword stores make result merging impossible.",
+          "Ignoring metadata filters (e.g., tenant_id) in the vector store can lead to data leakage between users."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Executing Hybrid Search with Reciprocal Rank Fusion (RRF)",
+        "explanation": "Run search queries against both indices simultaneously. Use Reciprocal Rank Fusion (RRF) to combine the ranked lists. RRF allows you to merge results with different scoring scales (cosine similarity vs. BM25) by focusing on their relative rank.",
+        "code": {
+          "language": "python",
+          "content": "def calculate_rrf(rank, k=60):\n    return 1.0 / (k + rank)\n\n# Example: Result A is rank 1 in Vector, rank 5 in Keyword\nscore_a = calculate_rrf(1) + calculate_rrf(5)",
+          "filename": "search_logic.py"
+        },
+        "pitfalls": [
+          "Using a simple weighted average of scores instead of RRF, which often fails because vector scores and BM25 scores are not on the same scale."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implementing a Cross-Encoder Reranking Layer",
+        "explanation": "Take the top 20-50 results from your hybrid search and pass them through a Cross-Encoder model (like Cohere Rerank or BGE-Reranker). Unlike embeddings, Cross-Encoders process the query and the document chunk together, providing a much more accurate relevance score.",
+        "code": {
+          "language": "javascript",
+          "content": "const response = await cohere.rerank({\n  query: userQuery,\n  documents: hybridResults.map(r => r.text),\n  top_n: 10,\n  model: 'rerank-english-v3.0'\n});",
+          "filename": "rerank.js"
+        },
+        "pitfalls": [
+          "Reranking too many documents (e.g., >100) significantly increases latency and API costs.",
+          "Reranking only the top 5 results provides little benefit; the goal is to find the 'needle' that was ranked 20th by the initial search."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Search UI and Confidence Thresholding",
+        "explanation": "Build the UI to handle varying levels of result confidence. Use the reranker's score to decide whether to show a 'Featured Snippet' or a list of results. If the top score is below a specific threshold (e.g., 0.3), display a 'No high-confidence matches found' message.",
+        "pitfalls": [
+          "Displaying low-score semantic matches as 'exact matches' confuses users when the content is irrelevant.",
+          "Blocking the UI thread while waiting for the reranker; use skeleton loaders to maintain perceived performance."
+        ]
+      }
+    ],
+    "conclusion": "By combining vector search for meaning, keyword search for precision, and a reranker for final validation, you create a search experience that handles both natural language questions and technical jargon. Monitor your RRF scores and reranker outputs to tune your chunking strategy over time."
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "caching",
+    "generated_at": "2026-03-12T22:38:19.913Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Caching Strategies tools directory",
+    "description": "A developer-first directory of Caching Strategies tools and references.",
+    "keywords": [
+      "caching",
+      "caching strategies",
+      "directory"
+    ],
+    "slug": "caching-directory-caching-strategies-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure tools, libraries, and services designed for distributed caching, edge content delivery, and AI response optimization.",
+    "filter_dimensions": [
+      {
+        "name": "Layer",
+        "values": [
+          "In-Memory",
+          "Distributed",
+          "Edge",
+          "Client-Side",
+          "Application"
+        ]
+      },
+      {
+        "name": "Primary Use Case",
+        "values": [
+          "General Purpose",
+          "AI/LLM Cost Reduction",
+          "Static Assets",
+          "Database Acceleration"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Redis",
+        "description": "In-memory data structure store used as a distributed cache, message broker, and database.",
+        "url": "https://redis.io",
+        "category": "Distributed",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports complex data structures like Hashes, Lists, and Sets",
+          "Extremely low latency sub-millisecond responses",
+          "Strong ecosystem of client libraries for all major languages"
+        ],
+        "cons": [
+          "Requires manual memory management and eviction policy tuning",
+          "Scaling horizontally requires Redis Cluster complexity"
+        ],
+        "tags": [
+          "key-value",
+          "persistence",
+          "pub-sub"
+        ]
+      },
+      {
+        "name": "Upstash Redis",
+        "description": "Serverless Redis service with HTTP API support, optimized for serverless functions and edge runtimes.",
+        "url": "https://upstash.com",
+        "category": "Distributed",
+        "pricing_model": "freemium",
+        "pros": [
+          "Zero-config scaling and maintenance",
+          "Native HTTP API for environments where TCP is restricted",
+          "Global replication for low-latency edge access"
+        ],
+        "cons": [
+          "Higher cost per GB compared to self-hosted instances",
+          "Slight overhead introduced by HTTP protocol"
+        ],
+        "tags": [
+          "serverless",
+          "edge",
+          "http-api"
+        ]
+      },
+      {
+        "name": "GPTCache",
+        "description": "Library for creating a semantic cache to store and retrieve LLM responses using vector similarity.",
+        "url": "https://github.com/zilliztech/GPTCache",
+        "category": "Application",
+        "pricing_model": "open-source",
+        "pros": [
+          "Reduces LLM API costs by serving cached semantically similar queries",
+          "Integrates with LangChain and LlamaIndex",
+          "Pluggable vector store backends"
+        ],
+        "cons": [
+          "Requires management of an underlying vector database",
+          "Potential for serving inaccurate results if similarity threshold is too low"
+        ],
+        "tags": [
+          "llm",
+          "semantic-cache",
+          "ai-optimization"
+        ]
+      },
+      {
+        "name": "Momento",
+        "description": "Fully managed serverless caching service that eliminates the need for managing clusters or instances.",
+        "url": "https://www.gomomento.com",
+        "category": "Distributed",
+        "pricing_model": "freemium",
+        "pros": [
+          "Instant provisioning with no infrastructure management",
+          "Automatic scaling based on request volume",
+          "Simple SDK-based integration"
+        ],
+        "cons": [
+          "Limited to key-value operations compared to Redis's data types",
+          "Vendor lock-in to Momento ecosystem"
+        ],
+        "tags": [
+          "serverless",
+          "low-latency",
+          "cloud-native"
+        ]
+      },
+      {
+        "name": "Dragonfly",
+        "description": "Multi-threaded Redis-compatible data store designed to utilize modern hardware more efficiently.",
+        "url": "https://dragonflydb.io",
+        "category": "In-Memory",
+        "pricing_model": "open-source",
+        "pros": [
+          "Significantly higher throughput than standard Redis",
+          "Drop-in replacement for existing Redis clients",
+          "Better memory efficiency using a shared-nothing architecture"
+        ],
+        "cons": [
+          "Newer technology with a smaller community than Redis",
+          "Some edge-case Redis commands may not be fully implemented"
+        ],
+        "tags": [
+          "high-performance",
+          "redis-compatible",
+          "multi-threaded"
+        ]
+      },
+      {
+        "name": "Cloudflare Workers KV",
+        "description": "Global, low-latency, key-value data store accessible within Cloudflare Workers.",
+        "url": "https://developers.cloudflare.com/workers/learning/how-kv-works/",
+        "category": "Edge",
+        "pricing_model": "freemium",
+        "pros": [
+          "Data is replicated across Cloudflare's global edge network",
+          "High read throughput with very low latency",
+          "Native integration with Workers"
+        ],
+        "cons": [
+          "Eventual consistency model for writes",
+          "Not suitable for frequently changing data due to propagation delay"
+        ],
+        "tags": [
+          "edge-computing",
+          "eventual-consistency",
+          "cdn"
+        ]
+      },
+      {
+        "name": "Varnish Cache",
+        "description": "High-performance HTTP accelerator designed for content-heavy dynamic websites.",
+        "url": "https://varnish-cache.org",
+        "category": "Edge",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely flexible configuration via VCL (Varnish Configuration Language)",
+          "Handles massive amounts of concurrent HTTP traffic",
+          "Supports complex cache invalidation patterns"
+        ],
+        "cons": [
+          "Steep learning curve for VCL",
+          "Primarily focused on HTTP, not general-purpose object caching"
+        ],
+        "tags": [
+          "http-proxy",
+          "reverse-proxy",
+          "content-delivery"
+        ]
+      },
+      {
+        "name": "Memcached",
+        "description": "Simple, high-performance distributed memory object caching system.",
+        "url": "https://memcached.org",
+        "category": "In-Memory",
+        "pricing_model": "open-source",
+        "pros": [
+          "Minimalistic and easy to deploy",
+          "Multithreaded architecture for high concurrency",
+          "Lower CPU overhead for simple key-value lookups"
+        ],
+        "cons": [
+          "No support for complex data types",
+          "No built-in persistence or replication"
+        ],
+        "tags": [
+          "simple-caching",
+          "legacy-support",
+          "high-concurrency"
+        ]
+      },
+      {
+        "name": "KeyDB",
+        "description": "A high-performance fork of Redis that is multi-threaded and supports active-active replication.",
+        "url": "https://keydb.dev",
+        "category": "Distributed",
+        "pricing_model": "open-source",
+        "pros": [
+          "Multi-threaded architecture allows for vertical scaling",
+          "Active-active replication for multi-master setups",
+          "Directly compatible with Redis modules"
+        ],
+        "cons": [
+          "Maintenance pace is slower than the main Redis project",
+          "Smaller ecosystem for troubleshooting"
+        ],
+        "tags": [
+          "multi-master",
+          "vertical-scaling",
+          "redis-fork"
+        ]
+      },
+      {
+        "name": "TanStack Query",
+        "description": "Asynchronous state management for TS/JS, providing declarative caching for API requests.",
+        "url": "https://tanstack.com/query",
+        "category": "Client-Side",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automates stale-while-revalidate logic",
+          "Built-in support for pagination and infinite scroll caching",
+          "Reduces network requests by deduplicating concurrent calls"
+        ],
+        "cons": [
+          "Only handles client-side caching",
+          "Can lead to complex state debugging if not configured correctly"
+        ],
+        "tags": [
+          "frontend",
+          "react",
+          "data-fetching"
+        ]
+      },
+      {
+        "name": "Pelikan",
+        "description": "Twitter's unified caching framework designed for high-throughput, low-latency services.",
+        "url": "https://github.com/twitter/pelikan",
+        "category": "In-Memory",
+        "pricing_model": "open-source",
+        "pros": [
+          "Modular architecture allows switching between Memcached and Redis protocols",
+          "Optimized for predictability and low tail latency",
+          "Efficient memory management to prevent fragmentation"
+        ],
+        "cons": [
+          "Complex to build and deploy compared to standard Redis",
+          "Documentation is primarily geared towards large-scale infrastructure"
+        ],
+        "tags": [
+          "infrastructure",
+          "low-latency",
+          "twitter-tech"
+        ]
+      },
+      {
+        "name": "Vercel ISR",
+        "description": "Incremental Static Regeneration for creating or updating static pages after build time.",
+        "url": "https://nextjs.org/docs/pages/building-your-application/data-fetching/incremental-static-regeneration",
+        "category": "Application",
+        "pricing_model": "freemium",
+        "pros": [
+          "Combines benefits of static sites with dynamic data",
+          "Reduces database load by serving cached HTML",
+          "Automated background revalidation"
+        ],
+        "cons": [
+          "Specific to the Next.js/Vercel ecosystem",
+          "First user after cache expiry may still see stale data"
+        ],
+        "tags": [
+          "nextjs",
+          "ssg",
+          "stale-while-revalidate"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "ai-search",
+    "generated_at": "2026-03-12T22:37:56.364Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI-Powered Search tools directory",
+    "description": "A developer-first directory of AI-Powered Search tools and references.",
+    "keywords": [
+      "ai-search",
+      "ai-powered search",
+      "directory"
+    ],
+    "slug": "ai-search-directory-ai-powered-search-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure, APIs, and libraries for implementing semantic, keyword, and hybrid search in modern applications.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Vector Databases",
+          "Search Engines",
+          "Reranking APIs",
+          "Embedding Providers",
+          "Frontend Components"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Pinecone",
+        "description": "Managed vector database designed for high-scale similarity search with a serverless architecture.",
+        "url": "https://www.pinecone.io/",
+        "category": "Vector Databases",
+        "pricing_model": "freemium",
+        "pros": [
+          "Fully managed serverless operations",
+          "Low latency for high-dimensional vector lookups",
+          "Metadata filtering integrated with vector search"
+        ],
+        "cons": [
+          "Proprietary cloud-only solution",
+          "Costs scale rapidly with high throughput"
+        ],
+        "tags": [
+          "vector-db",
+          "managed",
+          "semantic-search"
+        ]
+      },
+      {
+        "name": "Algolia NeuralSearch",
+        "description": "Hybrid search platform combining keyword matching and vector processing in a single API call.",
+        "url": "https://www.algolia.com/products/ai-search/",
+        "category": "Search Engines",
+        "pricing_model": "paid",
+        "pros": [
+          "Excellent out-of-the-box UI components",
+          "Combines keyword and semantic relevance automatically",
+          "Global edge network for low latency"
+        ],
+        "cons": [
+          "High price point for large datasets",
+          "Limited control over underlying embedding models"
+        ],
+        "tags": [
+          "hybrid-search",
+          "saas",
+          "ui-library"
+        ]
+      },
+      {
+        "name": "Weaviate",
+        "description": "Open-source vector database that allows for modular integration of ML models and graph-like data structures.",
+        "url": "https://weaviate.io/",
+        "category": "Vector Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports GraphQL and REST APIs",
+          "Built-in modules for vectorization and summarization",
+          "Hybrid search capabilities out of the box"
+        ],
+        "cons": [
+          "Complex configuration for production clusters",
+          "High memory consumption for large indices"
+        ],
+        "tags": [
+          "open-source",
+          "graphql",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "Cohere Rerank",
+        "description": "Specialized API for re-ordering search results from an initial retrieval step to improve precision.",
+        "url": "https://cohere.com/rerank",
+        "category": "Reranking APIs",
+        "pricing_model": "paid",
+        "pros": [
+          "Significantly improves MRR (Mean Reciprocal Rank)",
+          "Works with any existing search engine (Elastic, Solr, etc.)",
+          "Minimal code changes to implement"
+        ],
+        "cons": [
+          "Adds additional latency to the search pipeline",
+          "Per-request pricing can become expensive"
+        ],
+        "tags": [
+          "reranking",
+          "nlp",
+          "relevance"
+        ]
+      },
+      {
+        "name": "Typesense",
+        "description": "Fast, typo-tolerant search engine that supports vector search and hybrid search modes.",
+        "url": "https://typesense.org/",
+        "category": "Search Engines",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely fast C++ implementation",
+          "Simple API compared to Elasticsearch",
+          "Built-in support for vector and keyword hybrid search"
+        ],
+        "cons": [
+          "Requires manual vector generation externally",
+          "In-memory architecture limits index size on small instances"
+        ],
+        "tags": [
+          "fast-search",
+          "typo-tolerance",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "Meilisearch",
+        "description": "Open-source, user-focused search engine with a focus on instant search experiences.",
+        "url": "https://www.meilisearch.com/",
+        "category": "Search Engines",
+        "pricing_model": "open-source",
+        "pros": [
+          "Excellent developer experience and documentation",
+          "Highly relevant default ranking rules",
+          "Supports multi-search and vector storage"
+        ],
+        "cons": [
+          "Indexing can be slow for very large batches",
+          "Limited advanced analytical features"
+        ],
+        "tags": [
+          "instant-search",
+          "rust",
+          "developer-experience"
+        ]
+      },
+      {
+        "name": "Qdrant",
+        "description": "Vector similarity search engine and database with an extended filtering support and high-performance Rust core.",
+        "url": "https://qdrant.tech/",
+        "category": "Vector Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "Efficient payload filtering",
+          "Supports horizontal scaling with distributed collections",
+          "Provides both gRPC and REST interfaces"
+        ],
+        "cons": [
+          "Smaller community compared to Pinecone or Weaviate",
+          "Documentation can be sparse for advanced configurations"
+        ],
+        "tags": [
+          "rust",
+          "vector-search",
+          "filtering"
+        ]
+      },
+      {
+        "name": "Pagefind",
+        "description": "Static search library that enables full-text search on static sites without a backend server.",
+        "url": "https://pagefind.app/",
+        "category": "Search Engines",
+        "pricing_model": "open-source",
+        "pros": [
+          "Zero server-side infrastructure required",
+          "Extremely low bandwidth usage for search indexes",
+          "Easy integration with Hugo, Jekyll, and Next.js"
+        ],
+        "cons": [
+          "Does not support real-time dynamic content updates",
+          "Limited to client-side processing power"
+        ],
+        "tags": [
+          "static-site",
+          "jamstack",
+          "client-side"
+        ]
+      },
+      {
+        "name": "Voyage AI",
+        "description": "High-performance embedding models specifically optimized for retrieval-augmented generation and search.",
+        "url": "https://www.voyageai.com/",
+        "category": "Embedding Providers",
+        "pricing_model": "paid",
+        "pros": [
+          "Superior performance on domain-specific retrieval tasks",
+          "Long context window support for large documents",
+          "Competitive pricing compared to OpenAI"
+        ],
+        "cons": [
+          "Newer entrant with fewer ecosystem integrations",
+          "Limited free tier for experimentation"
+        ],
+        "tags": [
+          "embeddings",
+          "nlp",
+          "retrieval"
+        ]
+      },
+      {
+        "name": "Elasticsearch (ELK Stack)",
+        "description": "The industry standard for distributed search and analytics, now featuring native vector search capabilities.",
+        "url": "https://www.elastic.co/elasticsearch/",
+        "category": "Search Engines",
+        "pricing_model": "enterprise",
+        "pros": [
+          "Massive ecosystem and extensive documentation",
+          "Handles petabytes of data with complex aggregations",
+          "Robust hybrid search with RRF (Reciprocal Rank Fusion)"
+        ],
+        "cons": [
+          "Extremely steep learning curve",
+          "Resource intensive and expensive to maintain"
+        ],
+        "tags": [
+          "enterprise",
+          "analytics",
+          "distributed"
+        ]
+      }
+    ]
+  }
+}

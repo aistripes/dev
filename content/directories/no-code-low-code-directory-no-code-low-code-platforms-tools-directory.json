@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "no-code-low-code",
+    "generated_at": "2026-03-12T22:38:59.498Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "No-Code / Low-Code Platforms tools directory",
+    "description": "A developer-first directory of No-Code / Low-Code Platforms tools and references.",
+    "keywords": [
+      "no-code-low-code",
+      "no-code / low-code platforms",
+      "directory"
+    ],
+    "slug": "no-code-low-code-directory-no-code-low-code-platforms-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of no-code and low-code resources focused on extensibility, data portability, and production-grade scalability. This list prioritizes tools that offer clear paths for developer intervention and migration.",
+    "filter_dimensions": [
+      {
+        "name": "Use Case",
+        "values": [
+          "Web Applications",
+          "Mobile Applications",
+          "Backend & API",
+          "Automation & Workflows",
+          "Internal Tools"
+        ]
+      },
+      {
+        "name": "Extensibility",
+        "values": [
+          "Code Export",
+          "Custom JS/CSS",
+          "API-First",
+          "Plugin Architecture"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Bubble",
+        "description": "Full-stack visual programming platform for building complex web applications with built-in database management and logic workflows.",
+        "url": "https://bubble.io",
+        "category": "Web Applications",
+        "pricing_model": "freemium",
+        "pros": [
+          "Complete control over database schemas and API connectors",
+          "Extensive plugin marketplace for third-party integrations",
+          "Built-in hosting and scaling infrastructure"
+        ],
+        "cons": [
+          "Proprietary language creates high vendor lock-in",
+          "Performance can lag with complex client-side logic"
+        ],
+        "tags": [
+          "Full-Stack",
+          "Visual Programming",
+          "SaaS"
+        ]
+      },
+      {
+        "name": "FlutterFlow",
+        "description": "Visual builder for native mobile applications based on the Flutter framework, allowing for high-performance UI design and logic.",
+        "url": "https://flutterflow.io",
+        "category": "Mobile Applications",
+        "pricing_model": "freemium",
+        "pros": [
+          "Generates clean Flutter code available for export",
+          "Deep integration with Firebase for backend and auth",
+          "Supports custom Dart code widgets and actions"
+        ],
+        "cons": [
+          "Requires understanding of Flutter's layout constraints",
+          "Code export requires a paid subscription"
+        ],
+        "tags": [
+          "Mobile",
+          "Flutter",
+          "Code-Export"
+        ]
+      },
+      {
+        "name": "Xano",
+        "description": "A scalable no-code backend that provides a PostgreSQL database, API builder, and business logic engine.",
+        "url": "https://xano.com",
+        "category": "Backend & API",
+        "pricing_model": "freemium",
+        "pros": [
+          "No record limits on the database (storage-based)",
+          "Compliant with enterprise security standards like SOC2",
+          "Advanced functions for complex data transformations"
+        ],
+        "cons": [
+          "Steeper learning curve for non-technical users",
+          "Logic is stored in proprietary format, not raw code"
+        ],
+        "tags": [
+          "Backend",
+          "PostgreSQL",
+          "API"
+        ]
+      },
+      {
+        "name": "n8n",
+        "description": "Fair-code licensed workflow automation tool that allows for self-hosting and complex branching logic via a node-based interface.",
+        "url": "https://n8n.io",
+        "category": "Automation & Workflows",
+        "pricing_model": "open-source",
+        "pros": [
+          "Can be self-hosted to maintain data privacy and sovereignty",
+          "Allows JavaScript snippets within nodes for custom logic",
+          "Supports over 300 native integrations"
+        ],
+        "cons": [
+          "Self-hosting requires server maintenance and monitoring",
+          "UI can become cluttered with very large workflows"
+        ],
+        "tags": [
+          "Automation",
+          "Self-Hosted",
+          "Workflow"
+        ]
+      },
+      {
+        "name": "Retool",
+        "description": "Low-code platform for building internal tools that connect to any database or API using SQL and JavaScript.",
+        "url": "https://retool.com",
+        "category": "Internal Tools",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native support for SQL queries and JS transformers",
+          "Extensive library of pre-built UI components",
+          "Git-based version control and environments"
+        ],
+        "cons": [
+          "Pricing scales per-user, making it expensive for large teams",
+          "Primarily designed for desktop/internal use cases"
+        ],
+        "tags": [
+          "Internal-Tools",
+          "SQL",
+          "Developer-Friendly"
+        ]
+      },
+      {
+        "name": "WeWeb",
+        "description": "Frontend-only visual builder that allows developers to build UIs on top of existing backends like Xano or Supabase.",
+        "url": "https://weweb.io",
+        "category": "Web Applications",
+        "pricing_model": "freemium",
+        "pros": [
+          "Decouples frontend from backend for better architecture",
+          "High SEO performance compared to other visual builders",
+          "Supports custom Vue.js components"
+        ],
+        "cons": [
+          "Requires a separate backend service to function",
+          "Smaller plugin ecosystem than Bubble"
+        ],
+        "tags": [
+          "Frontend",
+          "VueJS",
+          "Headless"
+        ]
+      },
+      {
+        "name": "Supabase",
+        "description": "An open-source Firebase alternative that provides a Postgres database, Authentication, and Realtime subscriptions with a low-code UI.",
+        "url": "https://supabase.com",
+        "category": "Backend & API",
+        "pricing_model": "freemium",
+        "pros": [
+          "Full access to the underlying PostgreSQL database",
+          "Auto-generated REST and GraphQL APIs",
+          "Edge functions for custom server-side logic"
+        ],
+        "cons": [
+          "Requires basic understanding of SQL for advanced use",
+          "No-code UI is limited to table management and basic auth"
+        ],
+        "tags": [
+          "Backend",
+          "PostgreSQL",
+          "Open-Source"
+        ]
+      },
+      {
+        "name": "Make",
+        "description": "Visual automation platform (formerly Integromat) designed for complex data mapping and multi-step integrations.",
+        "url": "https://make.com",
+        "category": "Automation & Workflows",
+        "pricing_model": "freemium",
+        "pros": [
+          "Advanced visual mapping of JSON and arrays",
+          "Error handling and retry logic built into scenarios",
+          "Highly granular scheduling options"
+        ],
+        "cons": [
+          "Operations-based pricing can become unpredictable",
+          "Learning curve for complex data manipulation"
+        ],
+        "tags": [
+          "Automation",
+          "ETL",
+          "Integration"
+        ]
+      },
+      {
+        "name": "Appsmith",
+        "description": "Open-source low-code framework to build internal applications with drag-and-drop components and JS logic.",
+        "url": "https://appsmith.com",
+        "category": "Internal Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "No per-user licensing fees on the self-hosted version",
+          "Direct integration with Git for CI/CD workflows",
+          "Supports writing complex logic in standard JavaScript"
+        ],
+        "cons": [
+          "Widget library is less polished than some competitors",
+          "Initial setup of self-hosted instance requires Docker knowledge"
+        ],
+        "tags": [
+          "Internal-Tools",
+          "JavaScript",
+          "Self-Hosted"
+        ]
+      },
+      {
+        "name": "Draftbit",
+        "description": "Low-code mobile app builder that generates React Native code based on Expo, allowing for full source code control.",
+        "url": "https://draftbit.com",
+        "category": "Mobile Applications",
+        "pricing_model": "paid",
+        "pros": [
+          "Produces high-quality React Native source code",
+          "Direct integration with REST APIs and external backends",
+          "Allows for custom code overrides at the component level"
+        ],
+        "cons": [
+          "No free tier available for production apps",
+          "Steep learning curve for state management"
+        ],
+        "tags": [
+          "Mobile",
+          "React-Native",
+          "Code-Export"
+        ]
+      }
+    ]
+  }
+}

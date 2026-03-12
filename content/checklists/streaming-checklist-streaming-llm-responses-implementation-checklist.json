@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "streaming",
+    "generated_at": "2026-03-12T22:37:55.266Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Streaming LLM Responses implementation checklist",
+    "description": "A practical checklist for shipping Streaming LLM Responses projects safely.",
+    "keywords": [
+      "streaming",
+      "streaming llm responses",
+      "checklist"
+    ],
+    "slug": "streaming-checklist-streaming-llm-responses-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for deploying robust streaming LLM interfaces, covering infrastructure configuration, client-side rendering performance, and error resilience.",
+    "sections": [
+      {
+        "heading": "Infrastructure and Edge Configuration",
+        "items": [
+          {
+            "title": "Disable Proxy Buffering",
+            "description": "Ensure Nginx or other reverse proxies have 'proxy_buffering off' set to prevent the server from waiting for the full response before sending chunks to the client.",
+            "priority": "critical"
+          },
+          {
+            "title": "Set Event-Stream Headers",
+            "description": "Verify the server response includes 'Content-Type: text/event-stream' and 'Cache-Control: no-cache, no-transform' to maintain an open persistent connection.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Edge Function Timeouts",
+            "description": "Adjust the maximum execution time for Vercel or Netlify functions to exceed the expected maximum LLM generation time (typically 30-60 seconds).",
+            "priority": "critical"
+          },
+          {
+            "title": "Enforce HTTP/2 or HTTP/3",
+            "description": "Confirm the environment supports HTTP/2 to bypass the 6-connection limit per domain inherent in HTTP/1.1, which causes stream blocking.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Bypass Compression for SSE",
+            "description": "Check that Gzip or Brotli compression is disabled for the event-stream path, as compression algorithms often buffer data until a specific threshold is met.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Stream Parsing and Data Handling",
+        "items": [
+          {
+            "title": "Implement Partial JSON Parsing",
+            "description": "Use a specialized parser like 'best-effort-json-parser' to render UI components from structured data before the closing brace arrives.",
+            "priority": "critical"
+          },
+          {
+            "title": "Handle Multi-byte UTF-8 Chunks",
+            "description": "Verify the decoder handles characters split across two chunks using TextDecoder to prevent rendering garbled text symbols.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Stream Termination",
+            "description": "Detect the '[DONE]' signal or null chunk explicitly to trigger final state updates and close the ReadableStream object.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sanitize Streamed HTML",
+            "description": "Apply a streaming-safe HTML sanitizer if rendering markdown with embedded HTML to prevent XSS during the incremental render phase.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Buffer Small Chunks",
+            "description": "Implement a minor client-side buffer (e.g., 10-20ms) to group extremely rapid individual character updates into larger UI paint cycles.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "UI and User Experience",
+        "items": [
+          {
+            "title": "Implement Auto-Scroll Override",
+            "description": "Disable automatic scrolling to the bottom if the user manually scrolls up to read previous content during a stream.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Add Visual Cursor Indicator",
+            "description": "Render a blinking cursor or distinct 'typing' animation at the end of the current text chunk to indicate the process is active.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Optimistic UI for Prompts",
+            "description": "Immediately append the user message to the chat history before the stream request initiates to provide instant feedback.",
+            "priority": "recommended"
+          },
+          {
+            "title": "ARIA Live Region Support",
+            "description": "Configure ARIA live regions or specialized screen reader announcements to notify assistive technology users of incoming text without focus shifts.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Markdown Incremental Rendering",
+            "description": "Use a markdown library that supports partial tokens to prevent code blocks or tables from breaking visually while they are being streamed.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Resilience and Error Management",
+        "items": [
+          {
+            "title": "Client-Side Reconnection Logic",
+            "description": "Implement exponential backoff for stream interruptions to resume the connection without losing the existing UI state.",
+            "priority": "critical"
+          },
+          {
+            "title": "Handle Mid-Stream Rate Limits",
+            "description": "Catch 429 errors occurring mid-stream and display a specific 'Rate limit reached' message rather than a generic network error.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Explicit Abort Controller",
+            "description": "Provide a 'Stop Generating' button that calls 'abort()' on the fetch request to immediately kill the stream and free up browser resources.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cleanup on Unmount",
+            "description": "Ensure the AbortController is triggered in the useEffect cleanup phase to prevent memory leaks and background network activity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Fallback to Non-Streaming",
+            "description": "Implement a fallback mechanism that switches to standard JSON fetch if the browser or network environment does not support ReadableStream.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and Observability",
+        "items": [
+          {
+            "title": "Track Time to First Token (TTFT)",
+            "description": "Log the duration between the request initiation and the arrival of the first data chunk to monitor model and cold-start latency.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Monitor Tokens Per Second (TPS)",
+            "description": "Calculate and record the average throughput of the stream to identify performance degradation in specific geographic regions.",
+            "priority": "optional"
+          },
+          {
+            "title": "Trace ID Correlation",
+            "description": "Pass a unique request ID through the SSE headers to correlate client-side stream errors with backend LLM provider logs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Avoid State Re-renders",
+            "description": "Use refs or optimized state management (e.g., useReducer) to prevent the entire component tree from re-rendering on every token arrival.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit Stream Bundle Impact",
+            "description": "Verify that streaming libraries like 'ai' or 'eventsource-parser' do not exceed the project's third-party JS budget.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

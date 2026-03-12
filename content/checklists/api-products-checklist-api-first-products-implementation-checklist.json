@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "api-products",
+    "generated_at": "2026-03-12T22:38:43.157Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "API-First Products implementation checklist",
+    "description": "A practical checklist for shipping API-First Products projects safely.",
+    "keywords": [
+      "api-products",
+      "api-first products",
+      "checklist"
+    ],
+    "slug": "api-products-checklist-api-first-products-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for transitioning an API-first product from staging to a production environment, ensuring reliability, security, and developer satisfaction.",
+    "sections": [
+      {
+        "heading": "API Design and Specification",
+        "items": [
+          {
+            "title": "OpenAPI Spec Validation",
+            "description": "Verify that the OpenAPI 3.0/3.1 specification matches the actual implementation using a tool like Prism or Dredd to prevent drift.",
+            "priority": "critical"
+          },
+          {
+            "title": "Standardized Error Objects",
+            "description": "Ensure all error responses follow the RFC 7807 (Problem Details for HTTP APIs) format, including specific error codes and human-readable messages.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Idempotency Implementation",
+            "description": "Implement 'Idempotency-Key' header support for all POST and PATCH requests to prevent duplicate processing during network retries.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cursor-Based Pagination",
+            "description": "Replace offset/limit pagination with cursor-based pagination for all collection endpoints to ensure consistent performance and data integrity.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Naming Consistency",
+            "description": "Audit all endpoints to ensure consistent casing (e.g., camelCase or snake_case) and pluralization across the entire resource tree.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Authentication",
+        "items": [
+          {
+            "title": "API Key Hashing",
+            "description": "Verify that API keys are stored using a cryptographically secure hash (like SHA-256) and are never logged or stored in plain text.",
+            "priority": "critical"
+          },
+          {
+            "title": "Rate Limiting by Tier",
+            "description": "Configure global and per-user rate limits at the gateway level (e.g., using Zuplo or Cloudflare) to prevent DoS and manage resource allocation.",
+            "priority": "critical"
+          },
+          {
+            "title": "CORS Policy Restriction",
+            "description": "Restrict Cross-Origin Resource Sharing (CORS) to specific allowed domains rather than using wildcards in production.",
+            "priority": "critical"
+          },
+          {
+            "title": "JWT Signature Verification",
+            "description": "If using JWTs, ensure the backend validates signatures, expiration times, and 'aud'/'iss' claims on every request.",
+            "priority": "critical"
+          },
+          {
+            "title": "TLS 1.3 Enforcement",
+            "description": "Disable support for TLS 1.0 and 1.1; enforce TLS 1.2 or 1.3 for all incoming API traffic.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Monetization and Metering",
+        "items": [
+          {
+            "title": "Usage Event Reporting",
+            "description": "Test the integration between the API gateway and the billing engine (e.g., Stripe Billing) to ensure usage events are reported within a <5 minute lag.",
+            "priority": "critical"
+          },
+          {
+            "title": "Quota Enforcement",
+            "description": "Verify that the system returns a 429 Too Many Requests status code immediately when a user exceeds their plan's monthly or daily quota.",
+            "priority": "critical"
+          },
+          {
+            "title": "Webhook Signature Validation",
+            "description": "Implement signature verification for incoming webhooks from payment providers to prevent spoofing of subscription updates.",
+            "priority": "critical"
+          },
+          {
+            "title": "Grace Period Logic",
+            "description": "Programmatically handle 'past_due' subscription statuses to allow a 3-day grace period before revoking API access.",
+            "priority": "optional"
+          },
+          {
+            "title": "Billing Metadata Injection",
+            "description": "Ensure every API request is tagged with an internal 'organization_id' derived from the API key to facilitate accurate cost-per-customer analysis.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Observability and Reliability",
+        "items": [
+          {
+            "title": "Structured Logging",
+            "description": "Implement JSON-based structured logging for all requests, including request IDs, response times, and status codes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Distributed Tracing",
+            "description": "Integrate OpenTelemetry to trace requests across microservices, specifically monitoring latency in AI inference or database calls.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Health Check Endpoints",
+            "description": "Deploy a /health or /ready endpoint that checks downstream dependencies (DB, Redis, LLM providers) and returns a 503 if any are unreachable.",
+            "priority": "critical"
+          },
+          {
+            "title": "Timeout Configuration",
+            "description": "Set explicit timeouts for all external service calls (e.g., 30s for AI wrappers) to prevent hanging worker processes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Circuit Breakers",
+            "description": "Implement circuit breakers on non-critical downstream services to allow the API to fail gracefully during partial outages.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Developer Experience (DX)",
+        "items": [
+          {
+            "title": "Automatic SDK Generation",
+            "description": "Set up a CI/CD pipeline to generate and publish TypeScript and Python client libraries whenever the OpenAPI spec is updated.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Interactive Documentation",
+            "description": "Deploy a hosted documentation portal (e.g., Mintlify or Stoplight) that allows developers to execute test requests directly from the browser.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Sandbox Environment",
+            "description": "Provide a separate 'test' API key mode that interacts with a non-production database for developer integration testing.",
+            "priority": "optional"
+          },
+          {
+            "title": "API Versioning Header",
+            "description": "Enforce versioning via a custom header (e.g., 'X-API-Version') or URL path to ensure backward compatibility for existing users.",
+            "priority": "critical"
+          },
+          {
+            "title": "Public Status Page",
+            "description": "Launch a status page (e.g., Better Stack or Statuspage.io) that reflects real-time uptime and latency of the API endpoints.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

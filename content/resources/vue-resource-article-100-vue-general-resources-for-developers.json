@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "vue",
+    "generated_at": "2026-03-12T22:38:20.686Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Vue (general) resources for developers",
+    "description": "A curated set of practical Vue (general) resources for engineers.",
+    "keywords": [
+      "vue",
+      "vue (general)",
+      "resource-article"
+    ],
+    "slug": "vue-resource-article-100-vue-general-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource provides a technical roadmap for implementing Vue 3 features in enterprise environments, focusing on the Composition API, TypeScript integration, and Pinia state management. It prioritizes practical patterns over theory to accelerate development in high-scale codebases.",
+    "sections": [
+      {
+        "heading": "Composition API and TypeScript Patterns",
+        "items": [
+          {
+            "title": "Type-Safe defineProps",
+            "description": "Utilize TypeScript interfaces within defineProps to enforce strict prop validation. Use the 'withDefaults' compiler macro to provide default values for optional props without losing type inference.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Reactive Destructuring with toRefs",
+            "description": "When destructuring props or reactive objects, wrap the source in toRefs() to prevent losing reactivity. This is critical when passing individual prop values to composables.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Template Ref Typing",
+            "description": "Define template refs using the generic ref syntax: const myInput = ref<HTMLInputElement | null>(null). This ensures proper IDE autocompletion and type checking for DOM methods.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "ShallowRef for Large Datasets",
+            "description": "Use shallowRef() instead of ref() for large arrays or complex objects that do not require deep reactivity. This reduces overhead by only tracking the top-level reference change.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Custom Composable Extraction",
+            "description": "Encapsulate reusable logic into functions prefixed with 'use'. Ensure they return an object of refs to maintain reactivity when consumed by components.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Readonly State Protection",
+            "description": "Wrap reactive state in readonly() before exporting it from a composable to prevent consumers from mutating state directly, enforcing a unidirectional data flow.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Provide/Inject with InjectionKey",
+            "description": "Use InjectionKey symbols to provide type safety for dependency injection across deeply nested components, preventing naming collisions and runtime errors.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "WatchEffect for Automatic Dependencies",
+            "description": "Use watchEffect() when you need to track multiple reactive dependencies automatically without explicitly listing them, such as when syncing local state to localStorage.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Async Setup Handling",
+            "description": "Leverage Top-Level Await in <script setup> when working with asynchronous data fetching. Ensure the parent component is wrapped in a <Suspense> boundary.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Computed Getters and Setters",
+            "description": "Implement writable computed properties by providing an object with get() and set(value) methods, useful for wrapping v-model logic in child components.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "State Management with Pinia",
+        "items": [
+          {
+            "title": "Setup Store Syntax",
+            "description": "Adopt the function-based 'Setup Store' syntax in Pinia to leverage the same mental model as the Composition API, making it easier to share logic between stores and components.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "StoreToRefs for Destructuring",
+            "description": "Apply storeToRefs() when extracting state or getters from a Pinia store to keep them reactive. Note that actions should be destructured directly from the store object.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Cross-Store Interaction",
+            "description": "Import and instantiate one store inside another to handle cross-domain logic. Pinia handles the dependency tree automatically without circular dependency issues.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Store Action Subscriptions",
+            "description": "Use store.$onAction() to implement global logging, analytics, or undo/redo functionality by intercepting store calls before or after they execute.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "State Resetting in Setup Stores",
+            "description": "Since Setup Stores don't have a built-in $reset, manually implement a reset function that returns the store state to its initial values to handle user logout scenarios.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Pinia Plugin Persistence",
+            "description": "Integrate 'pinia-plugin-persistedstate' to automatically sync store state with localStorage or sessionStorage using a simple 'persist: true' configuration key.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Atomic State Updates with $patch",
+            "description": "Use the $patch method to apply multiple changes to the state simultaneously, which can be more performant and easier to debug via Vue DevTools.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Testing Stores with createTestingPinia",
+            "description": "Use @pinia/testing to create a fresh store instance for every unit test, allowing you to mock actions and verify state changes in isolation.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Composition-based Getters",
+            "description": "Use computed() inside Setup Stores to create getters. This allows for complex derived state that caches results based on reactive dependencies.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Hydrating SSR State",
+            "description": "Ensure the initial state from the server is passed to the Pinia instance on the client side to prevent hydration mismatch errors in Nuxt or custom SSR setups.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Testing and Optimization",
+        "items": [
+          {
+            "title": "Vitest for SFC Unit Testing",
+            "description": "Migrate from Jest to Vitest for faster unit testing of Single File Components (SFCs), taking advantage of Vite's native module resolution and fast HMR.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Vue Test Utils 'findComponent'",
+            "description": "Use findComponent() to locate child components in the wrapper instead of querying DOM selectors, making tests more resilient to internal markup changes.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Testing Composables in Isolation",
+            "description": "Test composables without a component by wrapping them in a dummy component or using a simple wrapper function to provide the necessary lifecycle context.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Volar Extension Setup",
+            "description": "Disable the built-in VS Code 'TypeScript Language Features' for Vue projects and enable Volar's Take Over Mode to ensure accurate type checking in templates.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Component Code Splitting",
+            "description": "Wrap heavy components (like charts or editors) in defineAsyncComponent() to split them into separate chunks, reducing the initial bundle size.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "VueUse useIntersectionObserver",
+            "description": "Implement lazy loading of components or infinite scrolling using the useIntersectionObserver composable from the VueUse library for a performance boost.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Teleport for Global UI",
+            "description": "Use <Teleport to=\"body\"> for modals and notifications to avoid CSS overflow or z-index issues caused by parent container constraints.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Optimizing v-for with Keys",
+            "description": "Always use a unique identifier (like an ID) for :key in v-for loops. Avoid using array indices to prevent rendering glitches during list mutations.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Performance Profiling with DevTools",
+            "description": "Use the Timeline tab in Vue DevTools to identify slow component renders and excessive reactivity triggers in complex views.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Unplugin-Vue-Components Integration",
+            "description": "Configure unplugin-vue-components in Vite to automatically import UI library components (like PrimeVue or Element Plus) as they are used in templates.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use 'script setup' for new components to benefit from reduced boilerplate and better TypeScript support.",
+      "Prefer ref() over reactive() for all state declarations to maintain consistency and avoid issues with destructuring.",
+      "Utilize the 'v-memo' directive in large lists to skip re-rendering of sub-trees when the underlying data hasn't changed.",
+      "Keep composables focused on a single responsibility; compose multiple small composables into larger ones for complex features.",
+      "Use 'flush: post' in watchers if you need to access the DOM after it has been updated by Vue's reactivity system."
+    ]
+  }
+}

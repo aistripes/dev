@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "ci-cd",
+    "generated_at": "2026-03-12T22:38:17.621Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building CI/CD for AI Apps with open-source tools",
+    "description": "A step-by-step implementation guide for CI/CD for AI Apps with open-source tools.",
+    "keywords": [
+      "ci-cd",
+      "ci/cd for ai apps",
+      "guide"
+    ],
+    "slug": "ci-cd-guide-building-cicd-for-ai-apps-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a CI/CD pipeline for AI applications, focusing on the integration of prompt evaluation, model versioning, and automated deployment strategies. Unlike standard software pipelines, AI CI/CD must account for non-deterministic outputs and the high cost of evaluation runs.",
+    "estimated_time": "3-4 hours",
+    "prerequisites": [
+      "GitHub repository with an LLM-powered application",
+      "API keys for LLM providers (OpenAI, Anthropic, etc.)",
+      "Docker installed for local container testing",
+      "Basic knowledge of GitHub Actions syntax"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Decouple Prompts from Application Logic",
+        "explanation": "Store prompts in structured files (JSON or YAML) rather than hardcoding them in application strings. This allows the CI pipeline to detect changes specifically in prompts and trigger specialized evaluation suites without rebuilding the entire application container.",
+        "code": {
+          "language": "yaml",
+          "content": "prompts:\n  summarization_v1:\n    template: \"Summarize the following text in {{length}} sentences: {{text}}\"\n    params:\n      model: \"gpt-4o\"\n      temperature: 0.3",
+          "filename": "config/prompts.yaml"
+        },
+        "pitfalls": [
+          "Mixing prompt templates with runtime logic makes it impossible to run diff-based evaluations.",
+          "Failing to version the prompt schema alongside the code."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Automated Prompt Evaluation (Evals)",
+        "explanation": "Integrate a tool like Promptfoo into your CI workflow. Define a set of 'golden' test cases with expected outputs or assertions (e.g., JSON schema validation, keyword presence, or semantic similarity). This step prevents regressions in model behavior when prompts or model versions change.",
+        "code": {
+          "language": "yaml",
+          "content": "prompts: [config/prompts.yaml]\nproviders: [openai:gpt-4o]\ntests:\n  - vars:\n      text: \"The quick brown fox jumps over the lazy dog.\"\n      length: \"1\"\n    assert:\n      - type: contains\n        value: \"fox\"\n      - type: javascript\n        value: output.split('.').length <= 2",
+          "filename": "promptfooconfig.yaml"
+        },
+        "pitfalls": [
+          "Running full eval suites on every commit can be expensive. Use git diff to trigger evals only when prompt files change.",
+          "Relying on exact string matching for non-deterministic outputs."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure CI Secrets and Rate Limiting",
+        "explanation": "Set up GitHub Actions secrets for your LLM API keys. To prevent CI failures due to rate limits, implement a retry mechanism in your evaluation scripts or use a proxy that handles queuing. Ensure the CI environment uses a dedicated 'testing' API key with usage limits to control costs.",
+        "code": {
+          "language": "yaml",
+          "content": "jobs:\n  eval:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Run Evals\n        env:\n          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}\n        run: npx promptfoo eval",
+          "filename": ".github/workflows/ai-eval.yml"
+        },
+        "pitfalls": [
+          "Leaking API keys in CI logs by not masking them.",
+          "Failing to set a hard budget cap on the CI API key."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Containerize with Model Layer Optimization",
+        "explanation": "If using local models or heavy dependencies (PyTorch/Transformers), structure your Dockerfile to cache the heavy layers. If using API-based models, keep the image slim but include the prompt configuration files as a separate layer to ensure fast rebuilds.",
+        "code": {
+          "language": "dockerfile",
+          "content": "FROM python:3.11-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\n# Copy prompts first to allow caching of code layers\nCOPY config/prompts.yaml ./config/\nCOPY . .\nCMD [\"python\", \"main.py\"]",
+          "filename": "Dockerfile"
+        },
+        "pitfalls": [
+          "Including large model weights (.bin or .safetensors) directly in the Git repo; use LFS or download them during the build stage.",
+          "Re-downloading heavy dependencies on every CI run due to poor layer ordering."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Deploy to Preview Environments with LLM-as-a-Judge",
+        "explanation": "For every pull request, deploy a preview environment (e.g., on Vercel or Cloudflare Pages). Run a final 'smoke test' where a separate, more capable model (like GPT-4) evaluates the output of the preview deployment to ensure the user-facing AI feature meets quality thresholds before merging.",
+        "pitfalls": [
+          "Merging PRs that pass unit tests but produce low-quality AI responses.",
+          "Ignoring the latency impact of running LLM-as-a-judge during the deployment block."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Automated Rollback on Metric Regression",
+        "explanation": "Configure your deployment tool (e.g., ArgoCD or Kamal) to monitor post-deployment metrics. If the LLM integration shows a spike in 5xx errors or if real-time sentiment analysis of user feedback drops below a threshold, trigger an automatic rollback to the previous stable container image and prompt version.",
+        "pitfalls": [
+          "Rolling back the code without rolling back the prompt configuration, leading to version mismatch.",
+          "Not having a manual override for the automated rollback logic."
+        ]
+      }
+    ],
+    "conclusion": "A successful CI/CD pipeline for AI moves the uncertainty of LLM outputs into the testing phase. By versioning prompts as code, implementing automated semantic evaluations, and optimizing container builds, teams can deploy AI features with the same confidence as traditional software."
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "fastapi",
+    "generated_at": "2026-03-12T22:38:21.167Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "FastAPI implementation checklist",
+    "description": "A practical checklist for shipping FastAPI projects safely.",
+    "keywords": [
+      "fastapi",
+      "checklist"
+    ],
+    "slug": "fastapi-checklist-fastapi-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical roadmap for moving FastAPI applications from development to production. It focuses on async performance, security hardening, and specific patterns for high-concurrency workloads like LLM streaming.",
+    "sections": [
+      {
+        "heading": "Application Architecture",
+        "items": [
+          {
+            "title": "Modularize Routes with APIRouter",
+            "description": "Verify that all endpoints are grouped into logical modules using APIRouter and included in the main app via app.include_router() to prevent a monolithic main.py file.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Pydantic BaseSettings",
+            "description": "Ensure all configuration is managed through Pydantic's BaseSettings to enforce type validation on environment variables and provide default values.",
+            "priority": "critical"
+          },
+          {
+            "title": "Standardize Exception Handlers",
+            "description": "Register global exception handlers for Starlette's HTTPException and Pydantic's ValidationError to ensure all error responses follow a consistent JSON schema.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Use Dependency Injection for Services",
+            "description": "Validate that database sessions, third-party clients, and business logic services are injected using FastAPI's Depends() to facilitate mocking during unit tests.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Apply Strict Pydantic Types",
+            "description": "Review all request/reponse models to ensure they use strict types (e.g., constr, PositiveInt) and Field constraints to prevent malformed data processing.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Database and Async Performance",
+        "items": [
+          {
+            "title": "Configure Async Database Drivers",
+            "description": "Verify the use of async-compatible drivers (e.g., asyncpg for PostgreSQL) and ensure every database interaction uses the 'await' keyword.",
+            "priority": "critical"
+          },
+          {
+            "title": "Optimize Connection Pooling",
+            "description": "Set SQLAlchemy pool_size and max_overflow parameters based on the number of Uvicorn workers to prevent 'Too many connections' errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Automate Alembic Migrations",
+            "description": "Confirm that database schema changes are strictly managed via Alembic versions and that migrations are executed as a pre-deployment step.",
+            "priority": "critical"
+          },
+          {
+            "title": "Eliminate Blocking Sync Calls",
+            "description": "Audit the codebase for synchronous I/O libraries (like 'requests' or 'time.sleep') and replace them with 'httpx' or 'asyncio.sleep' to avoid stalling the event loop.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Redis Caching",
+            "description": "Apply Redis caching to high-latency read endpoints to reduce database load and improve response times for static or semi-static data.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Authentication",
+        "items": [
+          {
+            "title": "Secure CORS Middleware",
+            "description": "Restrict the 'allow_origins' list in CORSMiddleware to specific production domains instead of using wildcards.",
+            "priority": "critical"
+          },
+          {
+            "title": "Rotate JWT Secret Keys",
+            "description": "Verify that JWT signing keys are managed via environment variables and use at least 256-bit entropy; ensure they are not committed to version control.",
+            "priority": "critical"
+          },
+          {
+            "title": "Set JWT Token Expiration",
+            "description": "Confirm that all issued access tokens have an 'exp' claim set to a short duration (e.g., 15-60 minutes) to minimize the impact of token leakage.",
+            "priority": "critical"
+          },
+          {
+            "title": "Apply Rate Limiting",
+            "description": "Implement rate limiting on sensitive routes (auth, password reset) using a library like slowapi or a Redis-backed counter to prevent brute-force attacks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Disable Default Docs in Production",
+            "description": "Set docs_url=None and redoc_url=None in the FastAPI constructor when running in production to prevent exposing the API specification to the public.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "LLM Integration and Streaming",
+        "items": [
+          {
+            "title": "Use StreamingResponse for LLMs",
+            "description": "Implement StreamingResponse for all LLM inference endpoints to return tokens as they are generated, preventing gateway timeouts for long completions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Limit Concurrent Inference Calls",
+            "description": "Use an asyncio.Semaphore to cap the number of simultaneous calls to external LLM providers or local models to manage cost and memory usage.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement HTTPX Connection Pooling",
+            "description": "Initialize a single global httpx.AsyncClient instance to reuse TCP connections for external API calls, rather than creating a new client per request.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Request Timeouts",
+            "description": "Set explicit connect, read, and write timeouts on all external HTTP clients to prevent the application from hanging on unresponsive upstream AI services.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Stream Termination",
+            "description": "Ensure the application correctly handles client disconnects during a stream to immediately stop upstream inference and free up resources.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and Observability",
+        "items": [
+          {
+            "title": "Configure Uvicorn Workers",
+            "description": "Run Uvicorn via Gunicorn using the UvicornWorker class, setting the number of workers to (2 x CPU cores + 1) for optimal resource utilization.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enable Proxy Headers",
+            "description": "Include ProxyHeadersMiddleware if the app is behind Nginx or Traefik to ensure correct client IP and protocol detection.",
+            "priority": "critical"
+          },
+          {
+            "title": "Expose Health Check Endpoints",
+            "description": "Create a /health route that verifies connectivity to the database and cache, used by orchestrators like Kubernetes for liveness/readiness probes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Standardize JSON Logging",
+            "description": "Configure the logging system to output structured JSON formatted logs to stdout for easier parsing by log aggregation tools.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Trace Requests with IDs",
+            "description": "Implement middleware to inject a unique X-Request-ID into every request's context and include it in all logs for distributed tracing.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

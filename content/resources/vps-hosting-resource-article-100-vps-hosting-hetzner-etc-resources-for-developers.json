@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "vps-hosting",
+    "generated_at": "2026-03-12T22:38:36.743Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 VPS Hosting (Hetzner, etc.) resources for developers",
+    "description": "A curated set of practical VPS Hosting (Hetzner, etc.) resources for engineers.",
+    "keywords": [
+      "vps-hosting",
+      "vps hosting (hetzner, etc.)",
+      "resource-article"
+    ],
+    "slug": "vps-hosting-resource-article-100-vps-hosting-hetzner-etc-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource guide provides a technical roadmap for developers migrating from managed PaaS environments to self-managed VPS infrastructure like Hetzner, OVH, or Contabo. It focuses on production-grade security, automated deployment workflows, and cost-optimized scaling strategies.",
+    "sections": [
+      {
+        "heading": "Core Infrastructure and Provisioning",
+        "items": [
+          {
+            "title": "Hetzner Cloud (hcloud) CLI",
+            "description": "Install the hcloud-cli to manage server lifecycles, floating IPs, and private networks directly from your terminal or CI/CD pipelines.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Terraform Hetzner Cloud Provider",
+            "description": "Use the official Hetzner Cloud provider for Terraform to define your infrastructure as code, ensuring reproducible server environments and network topologies.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Cloud-init for Automated Setup",
+            "description": "Write YAML-based cloud-config files to automate user creation, package installation, and SSH key injection during the first boot of a VPS.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Hetzner Storage Boxes",
+            "description": "Mount external storage via Samba, NFS, or WebDAV for large media files or database backups, keeping your primary VPS disk lean.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Contabo Object Storage",
+            "description": "An S3-compatible storage solution for European-based data residency, ideal for storing application assets and cold backups at low cost.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Ansible Server Hardening Playbooks",
+            "description": "Use community-vetted playbooks like 'dev-sec.ssh-hardening' to apply industry-standard security configurations across multiple VPS instances.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Scaleway VPC and Private Networks",
+            "description": "Configure private network interfaces to allow internal communication between app servers and databases without exposing traffic to the public internet.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Packer for Golden Images",
+            "description": "Build pre-configured Ubuntu images with your stack pre-installed to reduce the spin-up time for new nodes in a cluster.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "OVHcloud Load Balancer",
+            "description": "Implement a managed load balancer to distribute traffic across several VPS instances in different data centers for high availability.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Hetzner Robot API",
+            "description": "For developers using bare metal (Dedicated Servers), use the Robot API to manage IP assignments, resets, and rescue system boots.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Security, Networking, and Reverse Proxies",
+        "items": [
+          {
+            "title": "Caddy Server for Automatic SSL",
+            "description": "Deploy Caddy as a reverse proxy to handle Let's Encrypt certificates automatically with zero-config HTTPS for all your subdomains.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Tailscale for Private Management",
+            "description": "Restrict SSH and database ports to a Tailscale mesh network, effectively removing your management ports from the public internet.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "UFW (Uncomplicated Firewall) Configuration",
+            "description": "Implement a strict 'deny all' incoming policy, specifically allowing only 80, 443, and your custom SSH port.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "CrowdSec Security Engine",
+            "description": "Install CrowdSec to detect and block malicious IPs based on behavior, sharing threat intelligence with other users globally.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Fail2Ban for SSH Protection",
+            "description": "Configure Fail2Ban to monitor auth logs and temporarily ban IP addresses that show signs of brute-force login attempts.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Nginx Proxy Manager",
+            "description": "A Docker-based GUI for managing Nginx reverse proxy settings, ideal for developers who prefer a visual interface for SSL and routing.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Traefik for Docker Orchestration",
+            "description": "Use Traefik to automatically discover Docker containers and route traffic based on labels, perfect for dynamic VPS environments.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "WireGuard for Site-to-Site VPN",
+            "description": "Manually configure WireGuard tunnels to connect VPS instances across different providers (e.g., Hetzner to AWS) securely.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "SSH Key-Only Authentication",
+            "description": "Disable password authentication in /etc/ssh/sshd_config to eliminate the risk of password-based credential stuffing.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Cloudflare Tunnel (cloudflared)",
+            "description": "Expose web services on your VPS to the internet without opening any inbound firewall ports by using an outbound tunnel to Cloudflare.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment Automation and Monitoring",
+        "items": [
+          {
+            "title": "Kamal (formerly MRSK)",
+            "description": "Deploy Dockerized applications to any VPS using SSH. Kamal handles zero-downtime rollouts and load balancer configuration without a heavy PaaS.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Coolify Self-Hosted PaaS",
+            "description": "An open-source alternative to Heroku/Vercel that runs on your VPS. It manages deployments, databases, and backups via a web UI.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Dokku (The Smallest PaaS)",
+            "description": "A Docker-powered PaaS that lets you push code via Git (git push dokku master) to build and deploy applications automatically.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "GitHub Actions Self-Hosted Runners",
+            "description": "Install a GitHub runner on your VPS to execute CI/CD jobs locally, avoiding the cost of GitHub-hosted runner minutes.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Netdata Real-time Monitoring",
+            "description": "Install Netdata for per-second monitoring of CPU, RAM, and disk I/O with zero configuration and a built-in dashboard.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Prometheus and Grafana Stack",
+            "description": "Set up a centralized monitoring server to scrape metrics from multiple VPS nodes and visualize them in custom Grafana dashboards.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Watchtower for Docker Updates",
+            "description": "A container that monitors your running Docker containers and automatically restarts them if a new image is pushed to the registry.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Uptime Kuma for Status Pages",
+            "description": "Self-host a monitoring tool to track the uptime of your services and receive notifications via Telegram, Discord, or Slack.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "BorgBackup for Data Integrity",
+            "description": "Use Borg for deduplicating, compressed, and encrypted backups of your application data to an offsite Storage Box.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Logrotate Configuration",
+            "description": "Ensure /etc/logrotate.conf is configured for all application logs to prevent your VPS disk from filling up with old text files.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use a non-root user with sudo privileges for daily operations to prevent accidental system-wide damage.",
+      "Enable 'Backups' at the provider level (Hetzner/OVH) for a full-image recovery option, in addition to your application-level database backups.",
+      "When selecting a VPS, prioritize NVMe SSD storage over standard SSDs for significantly better database performance and build speeds.",
+      "Set up a 'Swap' file (usually 2GB-4GB) on smaller VPS instances to prevent applications from crashing during memory-intensive deployments.",
+      "Use a dedicated 'Management VPS' or 'Jump Box' to access your production nodes, keeping the production servers' SSH ports closed to the general internet."
+    ]
+  }
+}

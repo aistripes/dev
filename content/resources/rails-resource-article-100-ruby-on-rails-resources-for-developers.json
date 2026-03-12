@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "rails",
+    "generated_at": "2026-03-12T22:38:13.666Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Ruby on Rails resources for developers",
+    "description": "A curated set of practical Ruby on Rails resources for engineers.",
+    "keywords": [
+      "rails",
+      "ruby on rails",
+      "resource-article"
+    ],
+    "slug": "rails-resource-article-100-ruby-on-rails-resources-for-developers"
+  },
+  "content": {
+    "intro": "The Ruby on Rails ecosystem has evolved into 'The One Person Framework' with the release of Rails 8, prioritizing self-hosting via Kamal and removing heavy dependencies like Redis for job processing. This resource guide focuses on the practical implementation of Rails 8 defaults, Hotwire patterns for modern frontends, and the integration of LLMs into Active Job pipelines.",
+    "sections": [
+      {
+        "heading": "Modern Frontend Development with Hotwire",
+        "items": [
+          {
+            "title": "Turbo Frames for Partial Page Updates",
+            "description": "Isolate page segments to update content without a full reload. Use the 'src' attribute for lazy-loading heavy components like dashboards.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Turbo Streams over WebSockets",
+            "description": "Broadcast model changes to all connected users using ActionCable. Use 'broadcast_replace_to' in models to trigger UI updates automatically.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "StimulusJS State Management",
+            "description": "Use Stimulus Values and Classes APIs to manage toggle states and CSS transitions without writing custom event listeners.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "ViewComponent for UI Encapsulation",
+            "description": "Move complex logic out of partials and into Ruby classes. Use GitHub's ViewComponent library for unit-testable UI units.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Turbo Morphing",
+            "description": "Enable 'data-turbo-action=\"morph\"' for smoother page transitions that preserve scroll position and input focus during updates.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Tailwind CSS JIT Integration",
+            "description": "Configure tailwind.config.js to scan .rb and .erb files. Use the 'tailwindcss-rails' gem to manage the standalone CLI.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Phlex for Ruby-Based Views",
+            "description": "An alternative to ERB that uses pure Ruby objects for views, offering significant performance gains for high-traffic pages.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Stimulus Use Hooks",
+            "description": "Implement 'stimulus-use' for common patterns like click-outside, intersection observers, and debouncing in controllers.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Custom Turbo Stream Actions",
+            "description": "Extend Turbo to handle non-standard DOM operations like triggering client-side logging or updating browser history.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Importmap-rails Management",
+            "description": "Manage JavaScript dependencies without Node.js. Use 'bin/importmap pin' to add libraries directly from CDNs like JSPM.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Rails 8 Infrastructure and Deployment",
+        "items": [
+          {
+            "title": "Kamal Deployment Configuration",
+            "description": "Deploy Rails applications to any VPS using Docker. Configure 'config/deploy.yml' with server IPs and environment secrets.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Solid Queue for Background Jobs",
+            "description": "The new Rails 8 default job runner. Move away from Redis and use your PostgreSQL or MySQL database for persistence.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Solid Cache for Database Caching",
+            "description": "Store cache fragments in the database instead of RAM. Ideal for keeping larger amounts of data cached at a lower cost.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Thruster HTTP/2 Proxy",
+            "description": "Use the Thruster sidecar with Kamal to provide HTTP/2 support and asset compression without a complex Nginx setup.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Mission Control Jobs",
+            "description": "Install the 'mission_control-jobs' engine to get a built-in dashboard for monitoring and retrying Solid Queue jobs.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Prop: Rate Limiting",
+            "description": "Implement the 'prop' gem to prevent brute force attacks and API abuse by defining throttle strategies in an initializer.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Healthcheck Endpoint Configuration",
+            "description": "Configure 'up' endpoints for Kamal or Kubernetes to monitor DB, Redis, and Job runner availability via 'rails-healthcheck'.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Zero-Downtime DB Migrations",
+            "description": "Use the 'strong_migrations' gem to detect and block unsafe operations like adding columns with defaults on large tables.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Kamal Accessory Management",
+            "description": "Define databases and search engines as 'accessories' in deploy.yml to manage their lifecycle alongside the Rails app.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Multi-Environment Kamal Deploys",
+            "description": "Utilize Kamal's destination feature to manage staging and production environments within a single configuration file.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "AI Integration and Data Patterns",
+        "items": [
+          {
+            "title": "Langchainrb Orchestration",
+            "description": "Use the 'langchainrb' gem to build RAG (Retrieval Augmented Generation) pipelines within Rails service objects.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Pgvector for Semantic Search",
+            "description": "Install the 'pgvector' extension on PostgreSQL and use the 'neighbor' gem to perform vector similarity searches on records.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Streaming LLM Responses",
+            "description": "Use ActionController::Live to stream OpenAI or Anthropic responses to the frontend as they are generated.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Active Job for LLM Callbacks",
+            "description": "Offload LLM API calls to background jobs to avoid blocking the web thread. Use Solid Queue for reliable retries on rate limits.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Structured Data with JSON Schema",
+            "description": "Enforce LLM output formats by passing JSON schemas to the OpenAI API and parsing responses into Active Model objects.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Embedding Generation on Save",
+            "description": "Use ActiveRecord callbacks to automatically update vector embeddings in a background job whenever a record is updated.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Token Usage Tracking",
+            "description": "Implement a 'Usage' model to track tokens consumed per user or per request to manage LLM costs and billing.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Prompt Versioning",
+            "description": "Store system prompts in YAML files or a dedicated database table to version and A/B test prompt performance.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Function Calling with Rails Tools",
+            "description": "Expose Rails service objects as tools for LLMs, allowing models to query your database or trigger actions via API.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Local LLM Development with Ollama",
+            "description": "Connect your Rails development environment to Ollama to test AI features locally without incurring API costs.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Use 'delegated_type' to handle polymorphism in models without the pitfalls of Single Table Inheritance (STI).",
+      "Replace 'Kaminari' with 'Pagy' for pagination to reduce memory allocation by up to 30% in high-traffic lists.",
+      "Adopt 'StandardRB' for linting to enforce the Ruby community's best practices with zero configuration overhead.",
+      "Utilize 'ActiveStorage::Representations' with libvips for significantly faster image processing compared to ImageMagick.",
+      "Run 'bin/rails notes' to track TODOs, FIXMEs, and OPTIMIZE tags across your codebase directly from the CLI."
+    ]
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "seo-for-spas",
+    "generated_at": "2026-03-12T22:38:40.698Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "SEO for Single-Page Apps implementation checklist",
+    "description": "A practical checklist for shipping SEO for Single-Page Apps projects safely.",
+    "keywords": [
+      "seo-for-spas",
+      "seo for single-page apps",
+      "checklist"
+    ],
+    "slug": "seo-for-spas-checklist-seo-for-single-page-apps-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for ensuring Single-Page Applications (SPAs) are discoverable, indexable, and optimized for search engine crawlers before deployment to production.",
+    "sections": [
+      {
+        "heading": "Rendering and Indexing Strategy",
+        "items": [
+          {
+            "title": "Verify Server-Side Rendering (SSR) or Static Site Generation (SSG)",
+            "description": "Disable JavaScript in the browser and reload the page to ensure all primary content is visible in the initial HTML source.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Googlebot Rendering via Search Console",
+            "description": "Use the URL Inspection Tool in Google Search Console to confirm the 'Live Test' screenshot matches the intended visual layout and content.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Prerendering for Bots",
+            "description": "If using pure CSR, configure a middleware like Prerender.io or Rendertron to serve static HTML snapshots specifically to crawler User-Agents.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Synchronize Hydration State",
+            "description": "Ensure the client-side hydration process does not cause a layout shift or replace SEO-critical text content after the initial paint.",
+            "priority": "critical"
+          },
+          {
+            "title": "Check Data Fetching Timeouts",
+            "description": "Verify that API calls required for content rendering resolve within 5 seconds to prevent crawlers from indexing empty templates.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Metadata and Head Management",
+        "items": [
+          {
+            "title": "Unique Title Tags per Route",
+            "description": "Ensure every route updates the <title> tag dynamically using React Helmet, vue-meta, or equivalent framework-specific head managers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Dynamic Meta Descriptions",
+            "description": "Verify that each page has a unique <meta name=\"description\"> that accurately reflects the specific content of that route.",
+            "priority": "critical"
+          },
+          {
+            "title": "Self-Referencing Canonical Tags",
+            "description": "Inject a <link rel=\"canonical\"> tag on every page to prevent duplicate content issues caused by URL parameters or trailing slashes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Open Graph and Twitter Card Integration",
+            "description": "Validate that social meta tags update dynamically to ensure correct link previews when sharing specific SPA routes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Language Attribute Declaration",
+            "description": "Ensure the <html lang=\"\"> attribute is updated if the SPA supports multiple locales or dynamic content switching.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "URL Structure and Navigation",
+        "items": [
+          {
+            "title": "Replace Hash-based Routing",
+            "description": "Use the HTML5 History API (pushState) instead of hash (#) routing to ensure URLs are crawlable by all search engines.",
+            "priority": "critical"
+          },
+          {
+            "title": "Use Standard Anchor Tags",
+            "description": "Ensure all internal navigation uses <a href=\"/path\"> instead of button elements with onClick handlers to allow crawler discovery.",
+            "priority": "critical"
+          },
+          {
+            "title": "Trailing Slash Consistency",
+            "description": "Configure the router and server to enforce a single pattern (either with or without trailing slashes) to avoid split link equity.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Absolute URL Implementation",
+            "description": "Use absolute URLs for all internal links and metadata references to prevent resolution errors during crawler discovery.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Breadcrumb Schema Injection",
+            "description": "Inject JSON-LD structured data for breadcrumbs on every sub-page to improve SERP appearance and internal linking structure.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and Core Web Vitals",
+        "items": [
+          {
+            "title": "Optimize Largest Contentful Paint (LCP)",
+            "description": "Preload critical hero images and prioritize the rendering of above-the-fold content to keep LCP under 2.5 seconds.",
+            "priority": "critical"
+          },
+          {
+            "title": "Minimize Cumulative Layout Shift (CLS)",
+            "description": "Set explicit dimensions for images and reserve space for dynamic components (like ads or banners) using skeleton screens.",
+            "priority": "critical"
+          },
+          {
+            "title": "Route-based Code Splitting",
+            "description": "Implement lazy loading for routes to ensure the initial JavaScript bundle size is minimized for faster First Contentful Paint (FCP).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Compress and Optimize Assets",
+            "description": "Serve images in modern formats (WebP/Avif) and ensure all JS/CSS assets are Gzipped or Brotli compressed.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Font Loading Strategy",
+            "description": "Use font-display: swap in CSS to prevent layout shifts and ensure text remains visible during web font loading.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Crawlability and Error Handling",
+        "items": [
+          {
+            "title": "Configure 404 HTTP Status Codes",
+            "description": "Ensure the server returns a true 404 status code for non-existent routes rather than a 200 OK with a 'Not Found' UI.",
+            "priority": "critical"
+          },
+          {
+            "title": "Dynamic XML Sitemap Generation",
+            "description": "Automate the generation of a sitemap.xml file that includes all dynamic routes and excludes utility or private pages.",
+            "priority": "critical"
+          },
+          {
+            "title": "Robots.txt Configuration",
+            "description": "Verify that robots.txt does not block the JavaScript or CSS assets required by crawlers to render the page layout.",
+            "priority": "critical"
+          },
+          {
+            "title": "Server-Side Redirects (301/302)",
+            "description": "Handle permanent URL changes at the server level (Nginx/Vercel/Netlify) rather than using client-side window.location changes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Image Alt Text Audit",
+            "description": "Verify that all images rendered via JavaScript include descriptive alt attributes for accessibility and image search indexing.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

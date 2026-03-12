@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "docker",
+    "generated_at": "2026-03-12T22:38:21.419Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Docker & Containers with open-source tools",
+    "description": "A step-by-step implementation guide for Docker & Containers with open-source tools.",
+    "keywords": [
+      "docker",
+      "docker & containers",
+      "guide"
+    ],
+    "slug": "docker-guide-building-docker-containers-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a production-ready, multi-stage Dockerfile designed for web applications. It focuses on minimizing image size, optimizing layer caching for CI/CD performance, and implementing non-root security principles.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "Docker Engine 20.10+ installed",
+      "BuildKit enabled (default in modern Docker)",
+      "A Node.js or similar web application source code",
+      "Basic understanding of Linux filesystem permissions"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure the Build Stage with Specific Base Images",
+        "explanation": "Start with a specific versioned image rather than 'latest' to ensure build reproducibility. Use the full-featured image for the build stage to provide necessary build tools (compilers, headers) that will be discarded in the final image.",
+        "code": {
+          "language": "dockerfile",
+          "content": "FROM node:20.11-bookworm AS build\nWORKDIR /app",
+          "filename": "Dockerfile"
+        },
+        "pitfalls": [
+          "Using 'latest' tags which can break builds when upstream images update unexpectedly.",
+          "Using Alpine for the build stage when dependencies require glibc (common in Python/Node native modules)."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Layer Caching for Dependencies",
+        "explanation": "Copy only dependency manifests (package.json, lockfiles) before copying the entire source code. This ensures that the 'install' layer is only re-run when dependencies change, significantly speeding up CI/CD pipelines.",
+        "code": {
+          "language": "dockerfile",
+          "content": "COPY package*.json ./\nRUN npm ci --only=production",
+          "filename": "Dockerfile"
+        },
+        "pitfalls": [
+          "Copying source code before running install, which invalidates the cache on every small code change.",
+          "Using 'npm install' instead of 'npm ci', which can result in inconsistent dependency versions."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Execute Build and Assets Compilation",
+        "explanation": "Copy the remaining source files and execute the build command. Since dependencies are already cached in the previous layer, this step only processes application logic.",
+        "code": {
+          "language": "dockerfile",
+          "content": "COPY . .\nRUN npm run build",
+          "filename": "Dockerfile"
+        }
+      },
+      {
+        "number": 4,
+        "title": "Create the Minimal Runtime Stage",
+        "explanation": "Initialize a new stage using a 'slim' or 'alpine' image. Copy only the necessary production artifacts (compiled code and production node_modules) from the build stage. This reduces the attack surface and image size by hundreds of megabytes.",
+        "code": {
+          "language": "dockerfile",
+          "content": "FROM node:20.11-bookworm-slim\nWORKDIR /app\nENV NODE_ENV=production\nCOPY --from=build /app/dist ./dist\nCOPY --from=build /app/node_modules ./node_modules\nCOPY --from=build /app/package.json ./package.json",
+          "filename": "Dockerfile"
+        },
+        "pitfalls": [
+          "Forgetting to set NODE_ENV=production, which causes many frameworks to include dev-only overhead.",
+          "Copying the entire /app directory instead of specific build artifacts, re-introducing build-time bloat."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Enforce Non-Root User Execution",
+        "explanation": "By default, Docker containers run as root. Explicitly switch to a low-privileged user provided by the base image (like 'node') and ensure permissions are correctly set for the application directory.",
+        "code": {
+          "language": "dockerfile",
+          "content": "RUN chown -R node:node /app\nUSER node\nEXPOSE 3000\nCMD [\"node\", \"dist/main.js\"]",
+          "filename": "Dockerfile"
+        },
+        "pitfalls": [
+          "Setting USER before chown, which prevents the user from having permissions to the application files.",
+          "Binding to ports below 1024 (like 80) which requires root privileges; use high ports like 3000 instead."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Optimize with .dockerignore",
+        "explanation": "Create a .dockerignore file to prevent local development artifacts, logs, and secrets from being sent to the Docker daemon during the build context transfer.",
+        "code": {
+          "language": "text",
+          "content": "node_modules\nnpm-debug.log\n.git\n.env\n.vscode\ndist",
+          "filename": ".dockerignore"
+        },
+        "pitfalls": [
+          "Including .git folders, which significantly increases build context size and can leak source history.",
+          "Including local node_modules which may contain binaries incompatible with the container OS."
+        ]
+      }
+    ],
+    "conclusion": "By following this multi-stage pattern, you achieve a secure, high-performance container image. The resulting image contains only runtime essentials, executes as a non-privileged user, and leverages Docker's layer caching for rapid deployment cycles."
+  }
+}

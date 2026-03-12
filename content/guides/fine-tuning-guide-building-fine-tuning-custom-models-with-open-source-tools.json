@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "fine-tuning",
+    "generated_at": "2026-03-12T22:37:59.150Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Fine-Tuning & Custom Models with open-source tools",
+    "description": "A step-by-step implementation guide for Fine-Tuning & Custom Models with open-source tools.",
+    "keywords": [
+      "fine-tuning",
+      "fine-tuning & custom models",
+      "guide"
+    ],
+    "slug": "fine-tuning-guide-building-fine-tuning-custom-models-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical workflow for fine-tuning a foundation model using Parameter-Efficient Fine-Tuning (PEFT) techniques like LoRA. It focuses on the transition from prompt engineering to a proprietary model, emphasizing dataset integrity, hardware efficiency, and rigorous evaluation against a baseline.",
+    "estimated_time": "6-10 hours (excluding training compute time)",
+    "prerequisites": [
+      "Python 3.10+ and PyTorch installed",
+      "NVIDIA GPU with 24GB+ VRAM (e.g., A10, A100, or RTX 3090/4090)",
+      "Hugging Face Hub account and API token",
+      "Weights & Biases (W&B) account for experiment tracking",
+      "A cleaned dataset of at least 500-1,000 high-quality instruction-response pairs"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Dataset Schema Definition and Formatting",
+        "explanation": "Standardize your raw data into a consistent JSONL format. For instruction tuning, use the Alpaca format or the ShareGPT format. Ensure every entry has a clear 'instruction', 'input' (optional context), and 'output'. The quality of the output must represent the 'gold standard' you expect from the model.",
+        "code": {
+          "language": "json",
+          "content": "[\n  {\n    \"instruction\": \"Extract the expiration date from the following medical invoice.\",\n    \"input\": \"Invoice #1234, Date: 2023-10-01, Expires: 2024-10-01\",\n    \"output\": \"2024-10-01\"\n  }\n]",
+          "filename": "dataset.jsonl"
+        },
+        "pitfalls": [
+          "Including duplicate entries which lead to overfitting on specific phrases.",
+          "Inconsistent delimiters that confuse the tokenizer during training."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Tokenization and Prompt Template Application",
+        "explanation": "Apply the specific chat template required by your base model (e.g., Llama-3, Mistral, or Phi-3). Use the AutoTokenizer from the Transformers library to ensure special tokens like <|end_of_text|> or [INST] are correctly inserted. Mismatched templates between training and inference are the primary cause of model hallucinations.",
+        "code": {
+          "language": "python",
+          "content": "from transformers import AutoTokenizer\n\ntokenizer = AutoTokenizer.from_pretrained('meta-llama/Meta-Llama-3-8B-Instruct')\ntokenizer.pad_token = tokenizer.eos_token\n\ndef tokenize_function(examples):\n    return tokenizer(examples['text'], padding='max_length', truncation=True, max_length=512)",
+          "filename": "preprocess.py"
+        },
+        "pitfalls": [
+          "Using the wrong chat template for the base model architecture.",
+          "Failing to set the padding token, leading to runtime errors during batching."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configuring QLoRA for Memory Efficiency",
+        "explanation": "To train on consumer or mid-tier enterprise hardware, use 4-bit quantization (QLoRA). Define the LoRA rank (r) and alpha. A rank of 16 or 32 is typically sufficient for domain adaptation. Target the linear layers (q_proj, k_proj, v_proj, o_proj) to maximize parameter efficiency.",
+        "code": {
+          "language": "python",
+          "content": "from peft import LoraConfig, get_peft_model\n\nlora_config = LoraConfig(\n    r=16,\n    lora_alpha=32,\n    target_modules=[\"q_proj\", \"k_proj\", \"v_proj\", \"o_proj\"],\n    lora_dropout=0.05,\n    bias=\"none\",\n    task_type=\"CAUSAL_LM\"\n)",
+          "filename": "peft_config.py"
+        },
+        "pitfalls": [
+          "Setting rank (r) too high, which increases VRAM usage without proportional quality gains.",
+          "Forgetting to target the 'o_proj' or 'gate_proj' layers in newer architectures like Llama-3."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Training Execution and Loss Monitoring",
+        "explanation": "Initialize the Trainer with a small learning rate (e.g., 2e-4) and a cosine learning rate scheduler. Integrate Weights & Biases to track the training loss vs. validation loss. If validation loss begins to diverge or rise while training loss falls, stop training to prevent overfitting.",
+        "code": {
+          "language": "python",
+          "content": "from transformers import TrainingArguments, Trainer\n\ntraining_args = TrainingArguments(\n    output_dir=\"./results\",\n    per_device_train_batch_size=4,\n    gradient_accumulation_steps=4,\n    learning_rate=2e-4,\n    num_train_epochs=3,\n    logging_steps=10,\n    evaluation_strategy=\"steps\",\n    eval_steps=50,\n    report_to=\"wandb\"\n)",
+          "filename": "train.py"
+        },
+        "pitfalls": [
+          "Setting gradient_accumulation_steps too low, resulting in unstable gradients.",
+          "Ignoring the 'effective batch size' (batch_size * accumulation_steps * num_gpus)."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Model Merging and Quantization for Deployment",
+        "explanation": "After training, you have a set of small 'adapter' weights. Merge these back into the original FP16 base model to eliminate inference latency overhead. Once merged, use AutoGPTQ or AutoAWQ to quantize the model to 4-bit for high-throughput serving via vLLM or Ollama.",
+        "code": {
+          "language": "python",
+          "content": "from peft import PeftModel\nfrom transformers import AutoModelForCausalLM\n\nbase_model = AutoModelForCausalLM.from_pretrained(\"base_model_path\")\nmodel = PeftModel.from_pretrained(base_model, \"adapter_path\")\nmerged_model = model.merge_and_unload()\nmerged_model.save_pretrained(\"./final_model\")",
+          "filename": "merge_weights.py"
+        },
+        "pitfalls": [
+          "Trying to merge a quantized 4-bit base model with adapters; you must merge using the FP16/BF16 version of the base model.",
+          "Mismatched tokenizer files in the final export directory."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Automated Evaluation (LLM-as-a-Judge)",
+        "explanation": "Create a hold-out test set of 50-100 prompts. Run inference using your fine-tuned model and a baseline (e.g., the base model or GPT-3.5). Use a stronger model (GPT-4o) to score the outputs based on specific criteria: accuracy, tone, and formatting compliance.",
+        "pitfalls": [
+          "Evaluating on the training data, which provides a false sense of model capability.",
+          "Using generic metrics like ROUGE or BLEU, which correlate poorly with human preference in creative or complex reasoning tasks."
+        ]
+      }
+    ],
+    "conclusion": "Successful fine-tuning is an iterative loop of data curation, hyperparameter adjustment, and rigorous evaluation. By using PEFT and QLoRA, you can achieve domain-specific performance that exceeds general-purpose models at a fraction of the inference cost. Prioritize data quality over quantity to avoid model degradation."
+  }
+}

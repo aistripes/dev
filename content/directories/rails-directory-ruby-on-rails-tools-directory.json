@@ -1,0 +1,257 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "rails",
+    "generated_at": "2026-03-12T22:38:13.665Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Ruby on Rails tools directory",
+    "description": "A developer-first directory of Ruby on Rails tools and references.",
+    "keywords": [
+      "rails",
+      "ruby on rails",
+      "directory"
+    ],
+    "slug": "rails-directory-ruby-on-rails-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, libraries, and resources specifically selected for modern Ruby on Rails 8 development, featuring Hotwire, Kamal, and AI integration patterns.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Deployment",
+          "Frontend",
+          "Background Jobs",
+          "Testing",
+          "Starter Kits",
+          "AI Integration",
+          "Performance"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Kamal",
+        "description": "Zero-downtime deployment tool that uses Docker to deploy web apps to any host. Default deployment tool for Rails 8.",
+        "url": "https://kamal-deploy.org/",
+        "category": "Deployment",
+        "pricing_model": "open-source",
+        "pros": [
+          "Cloud-agnostic deployment to bare metal or VPS",
+          "Automated SSL certificate management via Traefik",
+          "Native support for Rails 8 configuration"
+        ],
+        "cons": [
+          "Requires Docker knowledge",
+          "Manual configuration of SSH keys and server access"
+        ],
+        "tags": [
+          "devops",
+          "docker",
+          "rails-8"
+        ]
+      },
+      {
+        "name": "Hotwire (Turbo & Stimulus)",
+        "description": "The default Rails frontend framework for building fast, reactive SPAs using HTML over the wire.",
+        "url": "https://hotwired.dev/",
+        "category": "Frontend",
+        "pricing_model": "open-source",
+        "pros": [
+          "Reduces JavaScript bundle size significantly",
+          "Maintains state across page navigations with Turbo Drive",
+          "Seamless integration with Rails controllers and views"
+        ],
+        "cons": [
+          "Complex state management requires Stimulus controllers",
+          "Learning curve for Turbo Frames and Streams"
+        ],
+        "tags": [
+          "frontend",
+          "javascript",
+          "rails-core"
+        ]
+      },
+      {
+        "name": "Solid Queue",
+        "description": "A DB-based queuing backend for Active Job, designed to work without Redis in Rails 8 environments.",
+        "url": "https://github.com/rails/solid_queue",
+        "category": "Background Jobs",
+        "pricing_model": "open-source",
+        "pros": [
+          "Eliminates dependency on Redis for background jobs",
+          "Uses standard SQL database for persistence",
+          "Supports job priorities and concurrency controls"
+        ],
+        "cons": [
+          "Higher database load compared to memory-based stores",
+          "Relatively new compared to Sidekiq"
+        ],
+        "tags": [
+          "jobs",
+          "database",
+          "rails-8"
+        ]
+      },
+      {
+        "name": "Sidekiq",
+        "description": "High-performance background processing for Ruby using Redis for message storage.",
+        "url": "https://sidekiq.org/",
+        "category": "Background Jobs",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extremely high throughput and reliability",
+          "Extensive plugin ecosystem",
+          "Proven in massive production environments"
+        ],
+        "cons": [
+          "Requires Redis setup and maintenance",
+          "Advanced features like batches require Pro/Enterprise license"
+        ],
+        "tags": [
+          "redis",
+          "workers",
+          "scaling"
+        ]
+      },
+      {
+        "name": "RSpec Rails",
+        "description": "The industry-standard testing framework for Rails, focusing on behavior-driven development.",
+        "url": "https://github.com/rspec/rspec-rails",
+        "category": "Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Readable, expressive DSL for test cases",
+          "Robust mocking and stubbing capabilities",
+          "Large community and extensive documentation"
+        ],
+        "cons": [
+          "Slower execution compared to Minitest",
+          "Configuration overhead for complex suites"
+        ],
+        "tags": [
+          "bdd",
+          "testing",
+          "qa"
+        ]
+      },
+      {
+        "name": "LangChain.rb",
+        "description": "A Ruby implementation of the LangChain framework for building LLM-powered applications.",
+        "url": "https://github.com/andreibondarev/langchainrb",
+        "category": "AI Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Unified interface for OpenAI, Anthropic, and Cohere",
+          "Built-in support for vector databases like Pinecone and pgvector",
+          "Simplifies RAG (Retrieval-Augmented Generation) workflows"
+        ],
+        "cons": [
+          "Rapidly evolving API with frequent updates",
+          "Abstraction layer can hide provider-specific features"
+        ],
+        "tags": [
+          "ai",
+          "llm",
+          "rag"
+        ]
+      },
+      {
+        "name": "Jumpstart Rails",
+        "description": "A comprehensive Rails SaaS starter kit with authentication, billing, and team management pre-configured.",
+        "url": "https://jumpstartrails.com/",
+        "category": "Starter Kits",
+        "pricing_model": "paid",
+        "pros": [
+          "Saves weeks of initial development time",
+          "Includes Stripe and Braintree integration out of the box",
+          "Follows Rails best practices and Hotwire patterns"
+        ],
+        "cons": [
+          "High initial cost for solo developers",
+          "Opinionated architecture might require refactoring"
+        ],
+        "tags": [
+          "saas",
+          "mvp",
+          "boilerplate"
+        ]
+      },
+      {
+        "name": "Hatchbox",
+        "description": "A managed deployment platform designed specifically for Rails applications on your own servers.",
+        "url": "https://www.hatchbox.io/",
+        "category": "Deployment",
+        "pricing_model": "paid",
+        "pros": [
+          "Automates server provisioning and database setup",
+          "Native support for Sidekiq and AnyCable",
+          "Cheaper than Heroku for scaling applications"
+        ],
+        "cons": [
+          "Still requires server maintenance (security patches)",
+          "Limited to specific cloud providers"
+        ],
+        "tags": [
+          "paas",
+          "hosting",
+          "automation"
+        ]
+      },
+      {
+        "name": "Rack Mini Profiler",
+        "description": "Middleware that displays a speed badge on every page, providing detailed breakdowns of SQL queries and execution time.",
+        "url": "https://github.com/MiniProfiler/rack-mini-profiler",
+        "category": "Performance",
+        "pricing_model": "open-source",
+        "pros": [
+          "Identifies N+1 queries immediately during development",
+          "Minimal performance overhead in local environments",
+          "Visualizes memory usage and flamegraphs"
+        ],
+        "cons": [
+          "UI can clutter the application frontend",
+          "Requires careful configuration to avoid security leaks in production"
+        ],
+        "tags": [
+          "profiling",
+          "optimization",
+          "sql"
+        ]
+      },
+      {
+        "name": "Bullet Train",
+        "description": "An open-source Rails SaaS framework that provides a massive head start on UI and multi-tenancy.",
+        "url": "https://bullettrain.co/",
+        "category": "Starter Kits",
+        "pricing_model": "open-source",
+        "pros": [
+          "Deeply integrated with Tailwind CSS and Hotwire",
+          "Robust multi-tenancy and permissions system",
+          "Active community and developer support"
+        ],
+        "cons": [
+          "Large codebase to learn and internalize",
+          "Strong opinions on project structure"
+        ],
+        "tags": [
+          "saas",
+          "framework",
+          "tailwind"
+        ]
+      }
+    ]
+  }
+}

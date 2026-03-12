@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "self-hosting",
+    "generated_at": "2026-03-12T22:38:32.613Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Self-Hosting resources for developers",
+    "description": "A curated set of practical Self-Hosting resources for engineers.",
+    "keywords": [
+      "self-hosting",
+      "resource-article"
+    ],
+    "slug": "self-hosting-resource-article-100-self-hosting-resources-for-developers"
+  },
+  "content": {
+    "intro": "Self-hosting allows developers to reclaim control over data sovereignty, reduce recurring SaaS costs, and optimize performance by deploying closer to end-users. This resource guide focuses on production-ready tools and workflows for managing containerized applications on independent infrastructure like Hetzner or Contabo.",
+    "sections": [
+      {
+        "heading": "Self-Hosted PaaS and Deployment Orchestration",
+        "items": [
+          {
+            "title": "Coolify",
+            "description": "An open-source, self-hosted alternative to Heroku/Netlify. It supports Docker, Nixpacks, and static sites with built-in database management and automated SSL.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Dokku",
+            "description": "A Docker-powered mini-PaaS that uses Heroku-style buildpacks. Ideal for single-server setups where you want to deploy via 'git push dokku main'.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "CapRover",
+            "description": "An easy-to-use app/database deployment tool with a web UI. Supports One-Click apps for instant deployment of WordPress, Meilisearch, and more.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Kamal",
+            "description": "A tool by 37signals for deploying web apps in Docker containers to any host using SSH. It handles zero-downtime deploys and rolling restarts without a complex PaaS layer.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Portainer CE",
+            "description": "A lightweight management UI that allows you to manage Docker environments, stacks, and containers across multiple nodes through a web interface.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Hetzner Cloud",
+            "description": "High-performance VPS provider based in Germany/Finland. Recommended for GDPR compliance and the best price-to-performance ratio for European traffic.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "PikaPods",
+            "description": "A managed hosting service for open-source apps. Useful for developers who want the 'self-hosted' software stack without managing the underlying Linux OS.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Nomad by HashiCorp",
+            "description": "A flexible scheduler and orchestrator that can deploy a mix of microservices, batch jobs, and containerized applications across a cluster.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Cosmos Cloud",
+            "description": "A self-hosting platform that includes a secure reverse proxy, container management, and a built-in authentication provider with 2FA/WebAuthn.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Taisun",
+            "description": "A web-based Docker management tool designed for home servers and small VPS instances, focusing on ease of use and stack templates.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Networking, Reverse Proxies, and Security",
+        "items": [
+          {
+            "title": "Caddy Server",
+            "description": "A modern web server that automates SSL certificate issuance via Let's Encrypt by default. Use it for its simple Caddyfile syntax and performance.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Traefik Proxy",
+            "description": "A cloud-native edge router that integrates with Docker labels to automatically route traffic to containers as they spin up.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Nginx Proxy Manager",
+            "description": "A GUI-based tool for managing Nginx proxy hosts, offering a simplified way to handle SSL, redirects, and access lists.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Authentik",
+            "description": "An open-source Identity Provider that adds SSO and MFA to apps that don't natively support them. Use the Proxy Provider for legacy apps.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "CrowdSec",
+            "description": "A modern, collaborative alternative to Fail2Ban that parses logs to detect and block malicious IPs across your entire infrastructure.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Tailscale",
+            "description": "A zero-config mesh VPN based on WireGuard. Use it to access your internal services securely without exposing ports to the public internet.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Cloudflare Tunnels",
+            "description": "Expose local web servers to the internet without opening firewall ports. Traffic is routed through Cloudflare's edge for DDoS protection.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Authelia",
+            "description": "A lightweight authentication and authorization server providing 2FA and SSO for your applications via a reverse proxy like Nginx or Traefik.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "UFW (Uncomplicated Firewall)",
+            "description": "The standard firewall tool for Ubuntu. Always set to 'default deny incoming' and only open ports 80, 443, and your SSH port.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "BunkerWeb",
+            "description": "A next-generation web application firewall (WAF) that integrates with Docker to protect your web services from common attacks automatically.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring, Backups, and Lifecycle",
+        "items": [
+          {
+            "title": "Watchtower",
+            "description": "A container that monitors your running Docker containers and automatically updates them when a new image version is pushed to the registry.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Uptime Kuma",
+            "description": "A self-hosted monitoring tool like UptimeRobot. Supports multiple notification methods including Discord, Telegram, and Gotify.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Rclone",
+            "description": "The 'Swiss army knife' of cloud storage. Use it in a cron job to sync your Docker volume backups to S3-compatible storage or Google Drive.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "BorgBackup",
+            "description": "A deduplicating backup program. Essential for self-hosters to keep encrypted, space-efficient snapshots of application data.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Netdata",
+            "description": "Provides real-time performance monitoring for Linux systems. Install it to visualize CPU, RAM, and Disk I/O spikes in high resolution.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Dozzle",
+            "description": "A simple, lightweight web-based log viewer for Docker containers. Faster than running 'docker logs' via CLI for quick debugging.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Healthchecks.io (Self-hosted)",
+            "description": "Monitors your cron jobs and background tasks. If a backup script fails to 'ping' this service, you get an immediate alert.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Glances",
+            "description": "A cross-platform monitoring tool that provides a comprehensive overview of system resources in a single terminal or web page.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Prometheus & Grafana",
+            "description": "The industry standard for metrics collection and visualization. Best for multi-server setups or complex application monitoring.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Scrutiny",
+            "description": "A hard drive S.M.A.R.T monitoring dashboard. Critical for developers running self-hosted apps on physical hardware or dedicated servers.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use Docker volumes for persistent data; never store application state inside the container's writable layer.",
+      "Implement a 3-2-1 backup strategy: 3 copies of data, 2 different media, 1 offsite (e.g., Hetzner storage box or S3).",
+      "Use a dedicated management network via Tailscale or WireGuard to access SSH and admin UIs, keeping them off the public internet.",
+      "Hard-limit container resources (CPU/RAM) in your docker-compose files to prevent a single runaway process from crashing the entire VPS.",
+      "Automate security patches for the host OS using 'unattended-upgrades' on Debian/Ubuntu systems to mitigate kernel-level vulnerabilities."
+    ]
+  }
+}

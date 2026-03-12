@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "cost-optimization",
+    "generated_at": "2026-03-12T22:38:17.363Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building AI API Cost Optimization with open-source tools",
+    "description": "A step-by-step implementation guide for AI API Cost Optimization with open-source tools.",
+    "keywords": [
+      "cost-optimization",
+      "ai api cost optimization",
+      "guide"
+    ],
+    "slug": "cost-optimization-guide-building-ai-api-cost-optimization-with-open-source-tools"
+  },
+  "content": {
+    "intro": "Transitioning an AI application from prototype to production often results in exponential cost increases. This guide provides a technical roadmap for implementing a cost-optimization layer using model routing, semantic caching, and batch processing to reduce LLM spend by up to 80% without sacrificing output quality.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Production LLM API keys (OpenAI, Anthropic, or Google)",
+      "A running Node.js or Python backend environment",
+      "Redis instance for caching",
+      "LiteLLM or a similar proxy library installed"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Centralize API Calls via a Unified Proxy",
+        "explanation": "Replace direct SDK calls with a proxy layer like LiteLLM. This allows you to swap models, track costs globally, and implement fallbacks without changing business logic in multiple files.",
+        "code": {
+          "language": "python",
+          "content": "from litellm import completion\n\ndef get_response(model_alias, messages):\n    # Map aliases to specific provider models in a central config\n    model_map = {\n        \"cheap\": \"gpt-4o-mini\",\n        \"quality\": \"claude-3-5-sonnet-20240620\"\n    }\n    return completion(model=model_map[model_alias], messages=messages)",
+          "filename": "proxy_config.py"
+        },
+        "pitfalls": [
+          "Adding a proxy can introduce minor latency; ensure the proxy is deployed in the same region as your application.",
+          "Hardcoding model strings inside components instead of using the central map."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Semantic Caching with Redis",
+        "explanation": "Standard exact-match caching is rarely effective for LLMs. Use a vector-based semantic cache to return results for prompts that are semantically identical (e.g., 'How's the weather?' vs 'What is the weather like?').",
+        "code": {
+          "language": "python",
+          "content": "from langchain.cache import RedisSemanticCache\nfrom langchain.embeddings import OpenAIEmbeddings\nimport langchain\n\nlangchain.llm_cache = RedisSemanticCache(\n    redis_url=\"redis://localhost:6379\",\n    embedding=OpenAIEmbeddings(),\n    score_threshold=0.05\n)",
+          "filename": "cache_layer.py"
+        },
+        "pitfalls": [
+          "Setting the similarity threshold too low can return irrelevant answers for distinct questions.",
+          "Caching sensitive user data across different user sessions."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Deploy a Tiered Model Routing Logic",
+        "explanation": "Categorize tasks by complexity. Use small models (GPT-4o mini, Gemini Flash) for classification, summarization, and extraction. Reserve flagship models (GPT-4o, Claude Opus) only for complex reasoning or final creative output.",
+        "code": {
+          "language": "javascript",
+          "content": "async function routeRequest(taskType, payload) {\n  const model = taskType === 'classification' ? 'gpt-4o-mini' : 'gpt-4o';\n  return await litellm.completion({ model, messages: payload });\n}",
+          "filename": "router.js"
+        },
+        "pitfalls": [
+          "Underestimating the reasoning requirements of a 'simple' task, leading to downstream errors.",
+          "Failure to monitor the error rates of the cheaper model tier."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Utilize Batch API for Asynchronous Tasks",
+        "explanation": "For non-real-time tasks like bulk data processing or nightly content generation, use the OpenAI or Anthropic Batch APIs. These provide a 50% discount compared to standard request-response pricing by processing requests within 24 hours.",
+        "code": {
+          "language": "python",
+          "content": "import openai\n\n# Create a batch job for offline processing\nopenai.batches.create(\n    input_file_id=\"file-xyz123\",\n    endpoint=\"/v1/chat/completions\",\n    completion_window=\"24h\"\n)",
+          "filename": "batch_processor.py"
+        },
+        "pitfalls": [
+          "Using Batch API for interactive features where users expect immediate feedback.",
+          "Forgetting to implement a webhook or polling mechanism to retrieve results once the batch is complete."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Enforce Token Budgets and Truncation",
+        "explanation": "Set hard limits on `max_tokens` and implement aggressive context window management. Use tiktoken to count tokens locally before sending the request to prevent over-spending on massive input contexts.",
+        "code": {
+          "language": "python",
+          "content": "import tiktoken\n\ndef truncate_messages(messages, model=\"gpt-4o\", limit=4000):\n    enc = tiktoken.encoding_for_model(model)\n    # Logic to remove oldest messages until token count is below limit\n    pass",
+          "filename": "token_manager.py"
+        },
+        "pitfalls": [
+          "Truncating the system prompt or the most recent user instruction, which breaks the model's ability to follow directions.",
+          "Inaccurate token counting for non-OpenAI models if using an OpenAI-specific tokenizer."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Implement Per-User and Per-Feature Cost Tracking",
+        "explanation": "Inject custom headers or metadata (like 'user_id' or 'feature_id') into your API calls. Use a tool like Helicone or LangSmith to visualize which users or features are consuming the most budget to inform pricing and product decisions.",
+        "code": {
+          "language": "python",
+          "content": "response = completion(\n    model=\"gpt-4o-mini\",\n    messages=messages,\n    metadata={\n        \"user_id\": \"user_123\",\n        \"feature\": \"search_summarization\"\n    }\n)",
+          "filename": "tracking.py"
+        },
+        "pitfalls": [
+          "Failing to reconcile internal tracking with the provider's monthly invoice.",
+          "Privacy concerns: ensure no PII is sent in metadata fields to third-party monitoring tools."
+        ]
+      }
+    ],
+    "conclusion": "By moving from direct API calls to a structured middleware approach, you gain the visibility needed to control costs. Start with model routing for the quickest wins, then implement semantic caching and batching as your traffic volume justifies the architectural complexity."
+  }
+}

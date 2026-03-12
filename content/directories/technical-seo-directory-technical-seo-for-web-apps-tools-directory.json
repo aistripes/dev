@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "technical-seo",
+    "generated_at": "2026-03-12T22:38:43.977Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Technical SEO for Web Apps tools directory",
+    "description": "A developer-first directory of Technical SEO for Web Apps tools and references.",
+    "keywords": [
+      "technical-seo",
+      "technical seo for web apps",
+      "directory"
+    ],
+    "slug": "technical-seo-directory-technical-seo-for-web-apps-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of technical SEO tools, libraries, and documentation specifically selected for developers building and maintaining high-performance web applications. Focuses on crawlability, structured data, and Core Web Vitals.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Auditing & Crawling",
+          "Structured Data",
+          "Performance & Core Web Vitals",
+          "Framework Integration",
+          "Edge SEO"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Screaming Frog SEO Spider",
+        "description": "Desktop-based crawler for auditing large-scale web applications for broken links, redirect chains, and missing metadata.",
+        "url": "https://www.screamingfrog.co.uk/seo-spider/",
+        "category": "Auditing & Crawling",
+        "pricing_model": "freemium",
+        "pros": [
+          "Local execution allows for high-speed crawling without server-side rate limiting",
+          "JavaScript rendering mode supports SPAs built with React or Vue",
+          "Deep integration with Google Search Console and PageSpeed Insights APIs"
+        ],
+        "cons": [
+          "Memory intensive for sites exceeding 500k URLs",
+          "UI is functional but dated"
+        ],
+        "tags": [
+          "crawling",
+          "auditing",
+          "javascript-rendering"
+        ]
+      },
+      {
+        "name": "Google Search Console",
+        "description": "Primary communication channel from Google regarding site indexing, crawl errors, and Core Web Vitals performance.",
+        "url": "https://search.google.com/search-console/about",
+        "category": "Auditing & Crawling",
+        "pricing_model": "free",
+        "pros": [
+          "Direct data from Google on how they view and index your pages",
+          "Real-time alerts for security issues and manual actions",
+          "Accurate URL inspection tool to debug rendering issues"
+        ],
+        "cons": [
+          "Data is often delayed by 48-72 hours",
+          "Limited historical data retention in the UI"
+        ],
+        "tags": [
+          "indexing",
+          "google-search",
+          "monitoring"
+        ]
+      },
+      {
+        "name": "Schema Markup Validator",
+        "description": "Official tool for testing JSON-LD, Microdata, and RDFa structured data against Schema.org standards.",
+        "url": "https://validator.schema.org/",
+        "category": "Structured Data",
+        "pricing_model": "free",
+        "pros": [
+          "Supports the latest Schema.org vocabulary updates",
+          "Validates syntax and required properties for specific entity types",
+          "Accepts raw code snippets or live URLs"
+        ],
+        "cons": [
+          "Does not confirm eligibility for Google Rich Results specifically"
+        ],
+        "tags": [
+          "json-ld",
+          "structured-data",
+          "validation"
+        ]
+      },
+      {
+        "name": "Next-SEO",
+        "description": "A plugin that makes managing SEO in Next.js projects easier by handling meta tags, JSON-LD, and Open Graph.",
+        "url": "https://github.com/garmeeh/next-seo",
+        "category": "Framework Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Declarative configuration for global and per-page SEO",
+          "Built-in support for multiple JSON-LD types (Article, Product, FAQ)",
+          "Reduces boilerplate in Next.js _app.js and page files"
+        ],
+        "cons": [
+          "Specific to the Next.js ecosystem",
+          "Requires manual updates to stay in sync with latest Schema specs"
+        ],
+        "tags": [
+          "nextjs",
+          "react",
+          "meta-tags"
+        ]
+      },
+      {
+        "name": "DebugBear",
+        "description": "Monitoring tool focused on Core Web Vitals and site speed, providing actionable CI/CD integration.",
+        "url": "https://www.debugbear.com/",
+        "category": "Performance & Core Web Vitals",
+        "pricing_model": "paid",
+        "pros": [
+          "Detailed Lighthouse reports with historical trend tracking",
+          "Competitor benchmarking and side-by-side comparisons",
+          "CI/CD integration to prevent performance regressions"
+        ],
+        "cons": [
+          "Higher cost entry point for small teams",
+          "Can be overwhelming with the volume of data provided"
+        ],
+        "tags": [
+          "performance",
+          "cwv",
+          "monitoring"
+        ]
+      },
+      {
+        "name": "Merkle Schema Generator",
+        "description": "Technical SEO tool for generating valid JSON-LD code for various Schema.org types via a GUI.",
+        "url": "https://technicalseo.com/tools/schema-markup-generator/",
+        "category": "Structured Data",
+        "pricing_model": "free",
+        "pros": [
+          "User-friendly interface for complex nested objects",
+          "Instant validation against Google's Rich Results requirements",
+          "One-click copy to clipboard functionality"
+        ],
+        "cons": [
+          "Limited to predefined templates",
+          "Manual process not suitable for programmatic generation"
+        ],
+        "tags": [
+          "json-ld",
+          "automation",
+          "markup"
+        ]
+      },
+      {
+        "name": "Web Vitals Library",
+        "description": "A tiny, modular library for measuring all the Web Vitals metrics on real users, in a way that accurately matches how they are measured by Chrome.",
+        "url": "https://github.com/GoogleChrome/web-vitals",
+        "category": "Performance & Core Web Vitals",
+        "pricing_model": "open-source",
+        "pros": [
+          "Official library maintained by the Google Chrome team",
+          "Accurate Real User Monitoring (RUM) data capture",
+          "Extremely small bundle size footprint"
+        ],
+        "cons": [
+          "Requires custom backend or third-party ingestion to store data",
+          "Purely a data collection tool, no visualization included"
+        ],
+        "tags": [
+          "javascript",
+          "rum",
+          "performance"
+        ]
+      },
+      {
+        "name": "Cloudflare SEO Workers",
+        "description": "Use Cloudflare Workers to modify HTML on the edge to optimize SEO without changing origin code.",
+        "url": "https://workers.cloudflare.com/",
+        "category": "Edge SEO",
+        "pricing_model": "freemium",
+        "pros": [
+          "Bypass legacy CMS limitations to inject meta tags or redirects",
+          "Zero latency impact for users due to edge execution",
+          "Ideal for A/B testing SEO changes without backend deployments"
+        ],
+        "cons": [
+          "Requires knowledge of JavaScript and the Workers platform",
+          "Can lead to logic fragmentation if overused"
+        ],
+        "tags": [
+          "edge-computing",
+          "cloudflare",
+          "serverless"
+        ]
+      },
+      {
+        "name": "Ahrefs Site Audit",
+        "description": "Cloud-based crawler that provides a comprehensive health score and identifies technical SEO issues automatically.",
+        "url": "https://ahrefs.com/site-audit",
+        "category": "Auditing & Crawling",
+        "pricing_model": "freemium",
+        "pros": [
+          "No local hardware resources required for large crawls",
+          "Visualizes internal linking structure and click depth",
+          "Provides clear prioritization of issues based on impact"
+        ],
+        "cons": [
+          "Free tier is restricted to verified sites only",
+          "JavaScript rendering consumes more 'crawl credits'"
+        ],
+        "tags": [
+          "saas",
+          "crawling",
+          "link-analysis"
+        ]
+      },
+      {
+        "name": "Sitebulb",
+        "description": "A website auditing tool that provides prioritized recommendations and high-level data visualization.",
+        "url": "https://sitebulb.com/",
+        "category": "Auditing & Crawling",
+        "pricing_model": "paid",
+        "pros": [
+          "Exceptional report generation for stakeholders",
+          "Detailed hints that explain why an issue matters",
+          "Strong focus on accessibility and security alongside SEO"
+        ],
+        "cons": [
+          "No permanent free version (trial only)",
+          "Desktop-only software (Windows/Mac)"
+        ],
+        "tags": [
+          "auditing",
+          "reporting",
+          "visualization"
+        ]
+      }
+    ]
+  }
+}

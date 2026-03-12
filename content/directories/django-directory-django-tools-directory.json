@@ -1,0 +1,348 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "django",
+    "generated_at": "2026-03-12T22:38:08.860Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Django tools directory",
+    "description": "A developer-first directory of Django tools and references.",
+    "keywords": [
+      "django",
+      "directory"
+    ],
+    "slug": "django-directory-django-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of production-ready tools, libraries, and utilities for modern Django development, focusing on performance, scalability, and AI integration.",
+    "filter_dimensions": [
+      {
+        "name": "category",
+        "values": [
+          "API Development",
+          "Frontend Integration",
+          "Task Queues",
+          "Testing",
+          "Performance",
+          "Deployment",
+          "Authentication",
+          "Configuration",
+          "Monitoring"
+        ]
+      },
+      {
+        "name": "pricing_model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Django REST Framework",
+        "description": "A toolkit for building Web APIs in Django, providing powerful serialization and built-in browsable APIs.",
+        "url": "https://www.django-rest-framework.org/",
+        "category": "API Development",
+        "pricing_model": "open-source",
+        "pros": [
+          "Powerful serialization engine for complex data structures",
+          "Built-in web browsable API for rapid testing",
+          "Extensive authentication and permission policies"
+        ],
+        "cons": [
+          "Steep learning curve for complex nested serializers"
+        ],
+        "tags": [
+          "REST",
+          "API",
+          "JSON"
+        ]
+      },
+      {
+        "name": "HTMX",
+        "description": "Library that allows access to AJAX, CSS Transitions, and WebSockets directly in HTML, enabling modern UIs without heavy JS frameworks.",
+        "url": "https://htmx.org/",
+        "category": "Frontend Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Reduces need for complex SPA frameworks",
+          "Maintains application state on the server",
+          "Seamless integration with Django templates"
+        ],
+        "cons": [
+          "Not suitable for highly complex offline-first applications"
+        ],
+        "tags": [
+          "Frontend",
+          "AJAX",
+          "Hypermedia"
+        ]
+      },
+      {
+        "name": "Celery",
+        "description": "Asynchronous task queue/job queue based on distributed message passing, used for background processing.",
+        "url": "https://docs.celeryq.dev/",
+        "category": "Task Queues",
+        "pricing_model": "open-source",
+        "pros": [
+          "Industry standard for background tasks",
+          "Robust retry logic and error handling",
+          "Supports multiple brokers like Redis and RabbitMQ"
+        ],
+        "cons": [
+          "Complex configuration and overhead for small projects"
+        ],
+        "tags": [
+          "Async",
+          "Worker",
+          "Scheduling"
+        ]
+      },
+      {
+        "name": "pytest-django",
+        "description": "A plugin for pytest that provides a set of tools for testing Django applications and projects.",
+        "url": "https://pytest-django.readthedocs.io/",
+        "category": "Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Clean fixture-based syntax for database setup",
+          "Faster execution than standard Django TestCase",
+          "Compatible with standard pytest ecosystem"
+        ],
+        "cons": [
+          "Requires refactoring for legacy unittest suites"
+        ],
+        "tags": [
+          "QA",
+          "Testing",
+          "CI/CD"
+        ]
+      },
+      {
+        "name": "Django Debug Toolbar",
+        "description": "A configurable set of panels that display various debug information about the current request/response.",
+        "url": "https://django-debug-toolbar.readthedocs.io/",
+        "category": "Performance",
+        "pricing_model": "open-source",
+        "pros": [
+          "Detailed SQL query inspection and execution time",
+          "Cache hit/miss monitoring",
+          "Template rendering breakdown"
+        ],
+        "cons": [
+          "Significant performance overhead when enabled locally"
+        ],
+        "tags": [
+          "Profiling",
+          "Debugging",
+          "Optimization"
+        ]
+      },
+      {
+        "name": "Whitenoise",
+        "description": "Allows web applications to serve their own static files, intended for use on platforms like Heroku.",
+        "url": "https://whitenoise.readthedocs.io/",
+        "category": "Deployment",
+        "pricing_model": "open-source",
+        "pros": [
+          "Simplifies static file serving without Nginx",
+          "Automatic Gzip and Brotli compression",
+          "Handles cache-busting headers automatically"
+        ],
+        "cons": [
+          "Lower performance than a dedicated CDN for high-traffic assets"
+        ],
+        "tags": [
+          "Static Files",
+          "Deployment",
+          "Infrastructure"
+        ]
+      },
+      {
+        "name": "Cookiecutter Django",
+        "description": "A framework for jumpstarting production-ready Django projects quickly.",
+        "url": "https://github.com/cookiecutter/cookiecutter-django",
+        "category": "Configuration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Pre-configured Docker and Celery environments",
+          "Follows security best practices by default",
+          "Includes automated testing and linting setup"
+        ],
+        "cons": [
+          "Opinionated structure can be overwhelming for beginners"
+        ],
+        "tags": [
+          "Boilerplate",
+          "Project Setup",
+          "Docker"
+        ]
+      },
+      {
+        "name": "Daphne",
+        "description": "A HTTP, HTTP2 and WebSocket protocol server for ASGI and ASGI-HTTP, developed as part of the Django Channels project.",
+        "url": "https://github.com/django/daphne",
+        "category": "Deployment",
+        "pricing_model": "open-source",
+        "pros": [
+          "Official ASGI server for Django ecosystem",
+          "Native support for WebSockets",
+          "Handles both sync and async traffic"
+        ],
+        "cons": [
+          "Higher memory usage compared to sync Gunicorn workers"
+        ],
+        "tags": [
+          "ASGI",
+          "Async",
+          "WebSockets"
+        ]
+      },
+      {
+        "name": "django-allauth",
+        "description": "Integrated set of Django applications addressing authentication, registration, and social account management.",
+        "url": "https://www.intenct.nl/projects/django-allauth/",
+        "category": "Authentication",
+        "pricing_model": "open-source",
+        "pros": [
+          "Unified social and local authentication logic",
+          "Handles complex email verification flows",
+          "Supports multiple accounts per user"
+        ],
+        "cons": [
+          "Template customization for internal flows is difficult"
+        ],
+        "tags": [
+          "Auth",
+          "OAuth",
+          "Security"
+        ]
+      },
+      {
+        "name": "django-silk",
+        "description": "A live profiling and inspection tool for the Django framework.",
+        "url": "https://github.com/jazzband/django-silk",
+        "category": "Performance",
+        "pricing_model": "open-source",
+        "pros": [
+          "Visual UI for identifying SQL bottlenecks",
+          "Profiles full request-response cycles",
+          "Easy to toggle via middleware"
+        ],
+        "cons": [
+          "High overhead; unsafe for production environments"
+        ],
+        "tags": [
+          "Profiling",
+          "SQL",
+          "Monitoring"
+        ]
+      },
+      {
+        "name": "django-environ",
+        "description": "Allows you to use 12factor-inspired environment variables to configure your Django application.",
+        "url": "https://django-environ.readthedocs.io/",
+        "category": "Configuration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Decouples configuration from application code",
+          "Supports complex types like lists and booleans",
+          "Parses database and cache URLs natively"
+        ],
+        "cons": [
+          "Requires manual .env file management"
+        ],
+        "tags": [
+          "Config",
+          "Environment",
+          "Security"
+        ]
+      },
+      {
+        "name": "django-cors-headers",
+        "description": "A Django App that adds Cross-Origin Resource Sharing (CORS) headers to responses.",
+        "url": "https://github.com/adamchainz/django-cors-headers",
+        "category": "API Development",
+        "pricing_model": "open-source",
+        "pros": [
+          "Essential for decoupled React or Vue frontends",
+          "Granular control over allowed origins",
+          "Simple middleware implementation"
+        ],
+        "cons": [
+          "Misconfiguration can lead to security vulnerabilities"
+        ],
+        "tags": [
+          "CORS",
+          "API",
+          "Security"
+        ]
+      },
+      {
+        "name": "django-filter",
+        "description": "A generic system for filtering Django QuerySets based on user selections.",
+        "url": "https://django-filter.readthedocs.io/",
+        "category": "API Development",
+        "pricing_model": "open-source",
+        "pros": [
+          "Declarative syntax for filtering logic",
+          "Seamless integration with DRF GenericViews",
+          "Supports complex lookups like icontains and gte"
+        ],
+        "cons": [
+          "Performance hit on large datasets without indexing"
+        ],
+        "tags": [
+          "Filtering",
+          "Search",
+          "DRF"
+        ]
+      },
+      {
+        "name": "Alpine.js",
+        "description": "A rugged, minimal tool for composing JavaScript behavior in your markup.",
+        "url": "https://alpinejs.dev/",
+        "category": "Frontend Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely small footprint",
+          "Reactive syntax directly within Django templates",
+          "Ideal for UI toggles and simple component state"
+        ],
+        "cons": [
+          "Not designed for complex global state management"
+        ],
+        "tags": [
+          "Frontend",
+          "JavaScript",
+          "Interactivity"
+        ]
+      },
+      {
+        "name": "Sentry",
+        "description": "Application monitoring platform that identifies issues in real-time.",
+        "url": "https://sentry.io/for/django/",
+        "category": "Monitoring",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native Django SDK with easy setup",
+          "Captures full stack traces and local variables",
+          "Identifies slow database queries automatically"
+        ],
+        "cons": [
+          "Free tier has strict event volume limits"
+        ],
+        "tags": [
+          "Error Tracking",
+          "Monitoring",
+          "Logging"
+        ]
+      }
+    ]
+  }
+}

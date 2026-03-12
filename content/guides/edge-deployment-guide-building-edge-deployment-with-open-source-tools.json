@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "edge-deployment",
+    "generated_at": "2026-03-12T22:38:23.811Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Edge Deployment with open-source tools",
+    "description": "A step-by-step implementation guide for Edge Deployment with open-source tools.",
+    "keywords": [
+      "edge-deployment",
+      "edge deployment",
+      "guide"
+    ],
+    "slug": "edge-deployment-guide-building-edge-deployment-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a high-performance API at the edge using Cloudflare Workers and Turso (libSQL). It focuses on bypassing the lack of standard Node.js APIs by using edge-compatible drivers and local simulation for testing.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "Node.js (LTS version) installed",
+      "Cloudflare account and Wrangler CLI authenticated",
+      "Turso CLI installed and authenticated",
+      "Basic knowledge of TypeScript and HTTP fetch patterns"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize the Edge Project with Wrangler",
+        "explanation": "Create a new Cloudflare Workers project using the TypeScript template. This sets up the necessary 'wrangler.toml' configuration file and the entry point for your edge function.",
+        "code": {
+          "language": "bash",
+          "content": "npm create cloudflare@latest my-edge-api -- --type=worker --ts\ncd my-edge-api",
+          "filename": "terminal"
+        },
+        "pitfalls": [
+          "Ensure you select 'No' for using Git if you are already inside a managed repository to avoid nested git instances."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure the Edge-Compatible Database",
+        "explanation": "Since edge runtimes cannot use traditional TCP connection pooling (like standard PostgreSQL/MySQL drivers), you must use an HTTP-based driver. Provision a Turso database and retrieve the connection URL and authentication token.",
+        "code": {
+          "language": "bash",
+          "content": "turso db create edge-db\nturso db show edge-db --url\nturso db tokens create edge-db",
+          "filename": "terminal"
+        },
+        "pitfalls": [
+          "Do not hardcode secrets in wrangler.toml; use 'wrangler secret put' for production tokens.",
+          "Ensure the database provider has a point-of-presence (PoP) near your primary user base to minimize data-fetch latency."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement the Edge Client and Schema",
+        "explanation": "Install the '@libsql/client' which is optimized for edge environments. Define your database client within the fetch handler to ensure it utilizes the runtime's environment variables correctly.",
+        "code": {
+          "language": "typescript",
+          "content": "import { createClient } from '@libsql/client/web';\n\nexport default {\n  async fetch(request, env) {\n    const client = createClient({\n      url: env.LIBSQL_DB_URL,\n      authToken: env.LIBSQL_DB_AUTH_TOKEN,\n    });\n    \n    const result = await client.execute('SELECT * FROM users LIMIT 10');\n    return new Response(JSON.stringify(result.rows), { \n      headers: { 'content-type': 'application/json' } \n    });\n  },\n};",
+          "filename": "src/index.ts"
+        },
+        "pitfalls": [
+          "Do not use the standard '@libsql/client' package; you must use the '/web' or '/http' export to avoid Node.js 'net' or 'tls' module dependencies that fail in edge runtimes."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Local Debugging with Miniflare",
+        "explanation": "Test the edge function locally using Wrangler's built-in dev server, which uses Miniflare to simulate the Cloudflare Worker runtime. This step ensures your code doesn't reference restricted Node.js globals like 'process' or 'Buffer'.",
+        "code": {
+          "language": "bash",
+          "content": "npx wrangler dev --remote=false",
+          "filename": "terminal"
+        },
+        "pitfalls": [
+          "Environment variables in '.dev.vars' are used during local development; ensure they match your local Turso instance or a development database branch."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Optimize for Cold Starts and Execution Limits",
+        "explanation": "Keep the worker bundle small by avoiding heavy dependencies. Use the 'wrangler.toml' to set compatibility dates to ensure you are using the latest runtime features and bug fixes.",
+        "code": {
+          "language": "toml",
+          "content": "name = \"my-edge-api\"\nmain = \"src/index.ts\"\ncompatibility_date = \"2024-01-01\"\n\n[vars]\nLIBSQL_DB_URL = \"libsql://your-db-name.turso.io\"",
+          "filename": "wrangler.toml"
+        },
+        "pitfalls": [
+          "Cloudflare Workers have a 128MB memory limit on the Free plan and a 50ms CPU execution time limit. Avoid complex synchronous cryptography or heavy image processing in the main thread."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Deploy and Global Verification",
+        "explanation": "Deploy the function to Cloudflare's global network. Use the 'wrangler tail' command to monitor live logs and verify that requests are being routed to the nearest edge node.",
+        "code": {
+          "language": "bash",
+          "content": "npx wrangler deploy\nnpx wrangler tail",
+          "filename": "terminal"
+        },
+        "pitfalls": [
+          "If you see 'Error 1101', check the worker logs for runtime exceptions; these are often caused by unhandled promise rejections or reaching the subrequest limit (50 per request)."
+        ]
+      }
+    ],
+    "conclusion": "You have successfully implemented an edge-native API. By utilizing HTTP-based database drivers and simulating the runtime locally, you bypass common deployment hurdles. Monitor your 'CPU time' metrics in the Cloudflare dashboard to ensure your logic remains within edge execution constraints."
+  }
+}

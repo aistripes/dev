@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "laravel",
+    "generated_at": "2026-03-12T22:38:09.467Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Laravel with open-source tools",
+    "description": "A step-by-step implementation guide for Laravel with open-source tools.",
+    "keywords": [
+      "laravel",
+      "guide"
+    ],
+    "slug": "laravel-guide-building-laravel-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the architectural pattern for integrating AI services into a Laravel application using the Service Container. This approach ensures your LLM integrations are testable, swappable, and maintainable across large-scale SaaS projects.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "Laravel 10.x or 11.x installed",
+      "Composer for dependency management",
+      "An API key from an LLM provider (e.g., OpenAI or Anthropic)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define the AI Service Contract",
+        "explanation": "Create an interface to decouple your application logic from specific AI provider SDKs. This allows you to swap providers (e.g., from OpenAI to Claude) without modifying your business logic.",
+        "code": {
+          "language": "php",
+          "content": "namespace App\\Contracts;\n\ninterface AiServiceInterface\n{\n    public function prompt(string $system, string $user): string;\n    public function stream(string $system, string $user): iterable;\n}",
+          "filename": "app/Contracts/AiServiceInterface.php"
+        },
+        "pitfalls": [
+          "Defining provider-specific methods in the interface which defeats the purpose of abstraction.",
+          "Forgetting to handle return types for streaming responses."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement the Concrete Service",
+        "explanation": "Implement the interface using a specific SDK. In this example, we use the OpenAI PHP client. Ensure you handle common API failures like timeouts or rate limits here.",
+        "code": {
+          "language": "php",
+          "content": "namespace App\\Services;\n\nuse App\\Contracts\\AiServiceInterface;\nuse OpenAI\\Client;\n\nclass OpenAiService implements AiServiceInterface\n{\n    public function __construct(protected Client $client, protected string $model) {}\n\n    public function prompt(string $system, string $user): string\n    {\n        $response = $this->client->chat()->create([\n            'model' => $this->model,\n            'messages' => [\n                ['role' => 'system', 'content' => $system],\n                ['role' => 'user', 'content' => $user],\n            ],\n        ]);\n\n        return $response->choices[0]->message->content;\n    }\n\n    public function stream(string $system, string $user): iterable\n    {\n        return $this->client->chat()->createStreamed([\n            'model' => $this->model,\n            'messages' => [\n                ['role' => 'system', 'content' => $system],\n                ['role' => 'user', 'content' => $user],\n            ],\n        ]);\n    }\n}",
+          "filename": "app/Services/OpenAiService.php"
+        },
+        "pitfalls": [
+          "Hardcoding the model name instead of passing it via the constructor.",
+          "Neglecting to wrap API calls in try-catch blocks for production stability."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Register the Service in the Container",
+        "explanation": "Bind your interface to the concrete implementation in a Service Provider. This centralizes configuration and allows Laravel to inject the service wherever it is needed.",
+        "code": {
+          "language": "php",
+          "content": "public function register(): void\n{\n    $this->app->singleton(AiServiceInterface::class, function ($app) {\n        $client = \\OpenAI::client(config('services.openai.key'));\n        return new OpenAiService($client, config('services.openai.model'));\n    });\n}",
+          "filename": "app/Providers/AppServiceProvider.php"
+        },
+        "pitfalls": [
+          "Using 'bind' instead of 'singleton' for services that don't need to be re-instantiated multiple times in a single request.",
+          "Missing configuration validation which leads to null-pointer exceptions if the API key is missing."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure Environment Variables",
+        "explanation": "Store sensitive credentials in your .env file and map them through config/services.php. Never commit raw API keys to version control.",
+        "code": {
+          "language": "php",
+          "content": "// config/services.php\n'openai' => [\n    'key' => env('OPENAI_API_KEY'),\n    'model' => env('OPENAI_MODEL', 'gpt-4-turbo'),\n],",
+          "filename": "config/services.php"
+        },
+        "pitfalls": [
+          "Accessing env() directly in service classes instead of using config(), which breaks config caching."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Inject and Use the Service",
+        "explanation": "Inject the interface into your Controllers or Livewire components. Laravel's auto-wiring will resolve the concrete implementation registered in Step 3.",
+        "code": {
+          "language": "php",
+          "content": "namespace App\\Http\\Controllers;\n\nuse App\\Contracts\\AiServiceInterface;\nuse Illuminate\\Http\\Request;\n\nclass AiController extends Controller\n{\n    public function __invoke(Request $request, AiServiceInterface $ai)\n    {\n        $result = $ai->prompt(\n            'You are a helpful assistant.',\n            $request->input('message')\n        );\n\n        return response()->json(['data' => $result]);\n    }\n}",
+          "filename": "app/Http/Controllers/AiController.php"
+        }
+      },
+      {
+        "number": 6,
+        "title": "Implement Mocked Tests",
+        "explanation": "Use Pest or PHPUnit to test your application without making real API calls. This saves costs and ensures tests run offline.",
+        "code": {
+          "language": "php",
+          "content": "it('processes a prompt correctly', function () {\n    $mock = Mockery::mock(AiServiceInterface::class);\n    $mock->shouldReceive('prompt')->andReturn('Mocked response');\n    \n    $this->app->instance(AiServiceInterface::class, $mock);\n\n    $response = $this->post('/ai-endpoint', ['message' => 'Hello']);\n\n    $response->assertJson(['data' => 'Mocked response']);\n});",
+          "filename": "tests/Feature/AiTest.php"
+        },
+        "pitfalls": [
+          "Testing the third-party SDK instead of your application's interaction with the service.",
+          "Leaving real API keys in the phpunit.xml file."
+        ]
+      }
+    ],
+    "conclusion": "By following this architecture, you create a robust AI integration layer. You can now easily implement features like multi-tenancy (swapping keys per user) or A/B testing different LLM models simply by adjusting the Service Provider logic."
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "content-platforms",
+    "generated_at": "2026-03-12T22:38:53.521Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Content Platforms & CMS with open-source tools",
+    "description": "A step-by-step implementation guide for Content Platforms & CMS with open-source tools.",
+    "keywords": [
+      "content-platforms",
+      "content platforms & cms",
+      "guide"
+    ],
+    "slug": "content-platforms-guide-building-content-platforms-cms-with-open-source-tools"
+  },
+  "content": {
+    "intro": "Transitioning from monolithic legacy CMS platforms to a headless architecture requires moving from page-centric layouts to structured, reusable content models. This guide outlines the implementation of a migration pipeline and the setup of a type-safe content infrastructure using modern headless patterns.",
+    "estimated_time": "6-8 hours",
+    "prerequisites": [
+      "Access to a headless CMS (Sanity, Contentful, or Strapi)",
+      "Node.js environment for migration scripting",
+      "Legacy content exported in JSON or XML format",
+      "Frontend framework setup (Next.js or Astro) for previewing"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Design the Normalized Content Schema",
+        "explanation": "Deconstruct existing pages into atomic content types. Identify shared attributes across 'Post', 'Page', and 'Case Study'. Use reference fields for authors and categories rather than duplicating data. Define validation rules (e.g., regex for slugs, character limits for SEO titles) at the schema level to ensure data integrity.",
+        "pitfalls": [
+          "Creating deeply nested objects that exceed GraphQL query depth limits",
+          "Using generic rich-text fields where structured components like 'Call to Action' or 'Product Grid' are required for design consistency"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Develop a Scripted Transformation Pipeline",
+        "explanation": "Legacy content often arrives as raw HTML strings. Use a parser like 'rehype' to traverse the DOM and map HTML tags to the target CMS's structured block format (e.g., Portable Text). This preserves semantic meaning while stripping inline styles and non-standard attributes.",
+        "code": {
+          "language": "javascript",
+          "content": "const { unified } = require('unified');\nconst parse = require('rehype-parse');\n\nasync function convertToBlocks(html) {\n  const tree = unified().use(parse, { fragment: true }).parse(html);\n  // Map tree nodes to CMS-specific block objects\n  return tree.children.map(node => ({\n    _type: 'block',\n    children: [{ _type: 'span', text: node.value || '' }]\n  }));\n}",
+          "filename": "transform.js"
+        },
+        "pitfalls": [
+          "Failing to handle <iframe> or <script> tags, which can break the frontend rendering",
+          "Losing internal cross-links during the transformation process if not correctly mapped to new document IDs"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Programmatic Asset Migration and Linking",
+        "explanation": "Upload legacy images and media programmatically using the CMS Management API. Capture original filenames and ALT text from the source. Ensure that the new asset IDs are correctly referenced within the newly created content blocks to maintain the relationship between text and media.",
+        "pitfalls": [
+          "Exceeding API rate limits during bulk asset uploads",
+          "Uploading duplicate assets instead of checking for existing MD5 hashes to optimize storage"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Execute Post-Migration Reference Resolution",
+        "explanation": "After importing core entities, run a second pass to resolve relationships. Map legacy IDs to the new CMS document IDs. For example, if a legacy Post referenced an Author ID '123', update the Post in the headless CMS to point to the new internal Author document reference.",
+        "pitfalls": [
+          "Deadlocks when two documents reference each other simultaneously during creation",
+          "Dangling references where the source content points to a deleted or non-existent entity"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Configure Webhooks for Incremental Static Regeneration",
+        "explanation": "Set up webhooks in the CMS to notify your frontend when content changes. Implement a route handler in Next.js or Astro that listens for these events and triggers a cache purge or revalidation for the specific modified paths, ensuring production content stays fresh without full site rebuilds.",
+        "code": {
+          "language": "typescript",
+          "content": "import { revalidatePath } from 'next/cache';\n\nexport async function POST(req: Request) {\n  const body = await req.json();\n  const slug = body?.slug?.current;\n  \n  if (!slug) return new Response('Missing slug', { status: 400 });\n\n  // Revalidate the specific blog post and the index page\n  revalidatePath(`/blog/${slug}`);\n  revalidatePath('/blog');\n  \n  return Response.json({ revalidated: true, now: Date.now() });\n}",
+          "filename": "api/revalidate/route.ts"
+        },
+        "pitfalls": [
+          "Security vulnerabilities from unauthenticated webhook endpoints; always use a secret token in the header",
+          "Triggering excessive rebuilds for minor draft updates if the webhook is not filtered for 'published' status"
+        ]
+      }
+    ],
+    "conclusion": "A successful CMS migration is a data-engineering task that prioritizes structure over presentation. By automating the transformation of legacy HTML into structured blocks and resolving references programmatically, you create a scalable foundation for multi-channel content delivery."
+  }
+}

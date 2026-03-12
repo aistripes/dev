@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "content-strategy",
+    "generated_at": "2026-03-12T22:38:34.292Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building AI Content Strategy with open-source tools",
+    "description": "A step-by-step implementation guide for AI Content Strategy with open-source tools.",
+    "keywords": [
+      "content-strategy",
+      "ai content strategy",
+      "guide"
+    ],
+    "slug": "content-strategy-guide-building-ai-content-strategy-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines a technical framework for deploying an AI-assisted content strategy that prioritizes topical authority and developer trust. Instead of high-volume generic output, this workflow focuses on building a repeatable pipeline for technical accuracy, programmatic keyword mapping, and automated performance feedback loops.",
+    "estimated_time": "6-8 hours",
+    "prerequisites": [
+      "Active subscriptions to Ahrefs or SEMrush for keyword data",
+      "API access to Anthropic Claude or OpenAI (GPT-4o recommended for technical accuracy)",
+      "A headless CMS or Git-based content repository (e.g., Contentful, Hugo, or Next.js)",
+      "Basic proficiency in Python or Node.js for data processing"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Map Topical Clusters and Semantic Relevance",
+        "explanation": "Identify your core 'seed' topics and use SEO tools to export keyword clusters. Instead of targeting individual keywords, group them by intent (e.g., 'tutorial', 'comparison', 'reference'). Use a script to map these clusters to your existing product features to ensure every piece of content has a clear conversion path.",
+        "code": {
+          "language": "python",
+          "content": "import pandas as pd\n\n# Load keyword export from Ahrefs\ndf = pd.read_csv('keywords.csv')\n\n# Group by 'Parent Topic' to identify cluster opportunities\nclusters = df.groupby('Parent Topic').agg({\n    'Keyword': 'count',\n    'Search Volume': 'sum',\n    'Difficulty': 'mean'\n}).sort_values(by='Search Volume', ascending=False)\n\nprint(clusters.head(10))",
+          "filename": "cluster_analysis.py"
+        },
+        "pitfalls": [
+          "Targeting high-volume keywords that lack technical depth for a developer audience",
+          "Ignoring the 'Parent Topic' field, leading to fragmented content that competes with itself"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Develop Technical System Prompts for LLMs",
+        "explanation": "Generic prompts produce generic content. Create a system prompt that defines the persona (e.g., Senior Software Engineer), the required documentation style (e.g., Diátaxis framework), and strict rules for code block formatting. This ensures the output matches the technical expectations of your audience.",
+        "code": {
+          "language": "markdown",
+          "content": "SYSTEM_PROMPT: \"You are a technical writer for a developer-focused blog. \nRules:\n1. Use the Diátaxis framework for tutorials.\n2. All code snippets must be functional and follow PEP 8 or Google Style Guides.\n3. Avoid marketing buzzwords like 'game-changer' or 'seamless'.\n4. Always include a 'Prerequisites' and 'Potential Edge Cases' section.\"\n",
+          "filename": "prompts/editorial-style.md"
+        },
+        "pitfalls": [
+          "Allowing the LLM to use superlatives or marketing fluff",
+          "Failure to specify the coding standards for generated examples"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Build a Content Validation Pipeline",
+        "explanation": "Integrate a validation step where generated Markdown is checked for broken links, linting errors in code blocks, and SEO metadata completeness. Use a CI/CD approach (GitHub Actions) to ensure no content is published without passing these technical checks.",
+        "code": {
+          "language": "yaml",
+          "content": "name: Content Linting\non: [push]\njobs:\n  lint:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n      - name: Markdown Lint\n        uses: avicad/markdown-lint-check@v1\n      - name: Validate Frontmatter\n        run: python scripts/validate_metadata.py",
+          "filename": ".github/workflows/content-check.yml"
+        },
+        "pitfalls": [
+          "Publishing broken code snippets that damage brand authority",
+          "Inconsistent frontmatter (slugs, tags, descriptions) breaking the site's search or navigation"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement Automated Performance Monitoring",
+        "explanation": "Connect to the Google Search Console (GSC) API to track which content pieces are gaining impressions but have low CTR, or which are losing rank. Use this data to trigger a 'Content Refresh' task in your project management tool (Linear/Notion).",
+        "code": {
+          "language": "javascript",
+          "content": "const {google} = require('googleapis');\nconst searchconsole = google.searchconsole('v1');\n\nasync function getLowCTRPages() {\n  const res = await searchconsole.searchanalytics.query({\n    siteUrl: 'https://example.com',\n    requestBody: {\n      startDate: '2023-01-01',\n      endDate: '2023-12-31',\n      dimensions: ['page'],\n      rowLimit: 100\n    }\n  });\n  // Filter logic for CTR < 2% and Impressions > 1000\n}",
+          "filename": "gsc_monitor.js"
+        },
+        "pitfalls": [
+          "Focusing only on traffic while ignoring conversion or bounce rates",
+          "Manual tracking of performance which leads to outdated content staying live"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Establish a Programmatic Content Refresh Workflow",
+        "explanation": "AI content decays faster if not updated with the latest library versions. Set up a schedule to re-run your validation pipeline against existing content every 90 days. If a code snippet fails (due to a library update), flag the post for an immediate AI-assisted update using the latest documentation as context.",
+        "pitfalls": [
+          "Assuming technical content is 'evergreen'; APIs and frameworks change rapidly",
+          "Neglecting to update internal links as new topical clusters are built"
+        ]
+      }
+    ],
+    "conclusion": "A successful AI content strategy for developers is not about volume; it is about building a system that maintains high technical standards at scale. By treating content like code—using linting, version control, and automated monitoring—you can build a content moat that provides genuine value while leveraging AI efficiency."
+  }
+}

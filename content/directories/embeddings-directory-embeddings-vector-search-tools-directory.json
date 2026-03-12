@@ -1,0 +1,357 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "embeddings",
+    "generated_at": "2026-03-12T22:38:04.613Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Embeddings & Vector Search tools directory",
+    "description": "A developer-first directory of Embeddings & Vector Search tools and references.",
+    "keywords": [
+      "embeddings",
+      "embeddings & vector search",
+      "directory"
+    ],
+    "slug": "embeddings-directory-embeddings-vector-search-tools-directory"
+  },
+  "content": {
+    "intro": "A technical reference for backend and ML developers to select, implement, and optimize embedding models and vector infrastructure for semantic search and RAG pipelines.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Vector Database",
+          "Embedding Provider",
+          "Framework",
+          "Evaluation & Benchmarking"
+        ]
+      },
+      {
+        "name": "Deployment",
+        "values": [
+          "SaaS",
+          "Self-hosted",
+          "Local Library"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Pinecone",
+        "description": "Managed vector database designed for production-scale similarity search with serverless and pod-based options.",
+        "url": "https://www.pinecone.io/",
+        "category": "Vector Database",
+        "pricing_model": "freemium",
+        "pros": [
+          "Zero-ops serverless architecture",
+          "Metadata filtering for complex queries",
+          "Low latency retrieval at high scale"
+        ],
+        "cons": [
+          "Proprietary cloud-only lock-in",
+          "Cost scales quickly with high throughput"
+        ],
+        "tags": [
+          "managed",
+          "serverless",
+          "semantic-search"
+        ]
+      },
+      {
+        "name": "pgvector",
+        "description": "Open-source PostgreSQL extension for vector similarity search using HNSW and IVFFlat indexing.",
+        "url": "https://github.com/pgvector/pgvector",
+        "category": "Vector Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Uses existing Postgres infrastructure and transactions",
+          "Supports HNSW for high-speed approximate nearest neighbor search",
+          "Seamless integration with SQL workflows"
+        ],
+        "cons": [
+          "Resource contention with standard relational workloads",
+          "Manual tuning of index parameters required"
+        ],
+        "tags": [
+          "postgres",
+          "sql",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "Qdrant",
+        "description": "High-performance vector database written in Rust with a focus on filtering and payload-based retrieval.",
+        "url": "https://qdrant.tech/",
+        "category": "Vector Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Exceptional performance for large-scale datasets",
+          "Rich filtering support for payload attributes",
+          "Available as a Docker container or managed cloud"
+        ],
+        "cons": [
+          "Smaller ecosystem compared to Pinecone",
+          "Complex configuration for distributed clusters"
+        ],
+        "tags": [
+          "rust",
+          "fastapi",
+          "distributed"
+        ]
+      },
+      {
+        "name": "Chroma",
+        "description": "AI-native open-source embedding database focused on developer experience and simple local prototyping.",
+        "url": "https://www.trychroma.com/",
+        "category": "Vector Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely low barrier to entry for Python/JS",
+          "Built-in embedding model management",
+          "Excellent for local development and testing"
+        ],
+        "cons": [
+          "Scaling to distributed production environments is non-trivial",
+          "Limited advanced indexing tuning options"
+        ],
+        "tags": [
+          "python",
+          "local-first",
+          "prototyping"
+        ]
+      },
+      {
+        "name": "OpenAI text-embedding-3-small",
+        "description": "Highly efficient embedding model with variable dimensions and low cost per token.",
+        "url": "https://platform.openai.com/docs/guides/embeddings",
+        "category": "Embedding Provider",
+        "pricing_model": "paid",
+        "pros": [
+          "Native support for Matryoshka Representation Learning",
+          "Very low latency and high availability",
+          "Industry standard integration support"
+        ],
+        "cons": [
+          "Data privacy concerns for sensitive information",
+          "Rate limiting on API tiers"
+        ],
+        "tags": [
+          "api",
+          "saas",
+          "llm"
+        ]
+      },
+      {
+        "name": "Cohere Embed v3",
+        "description": "Embedding model specifically optimized for search quality and retrieval-augmented generation (RAG).",
+        "url": "https://cohere.com/embed",
+        "category": "Embedding Provider",
+        "pricing_model": "paid",
+        "pros": [
+          "Compression-aware training for lower storage costs",
+          "Superior handling of multilingual data",
+          "Built-in reranking capabilities"
+        ],
+        "cons": [
+          "Higher cost per 1M tokens than OpenAI",
+          "Requires specific API handling for binary embeddings"
+        ],
+        "tags": [
+          "multilingual",
+          "rag",
+          "reranking"
+        ]
+      },
+      {
+        "name": "Voyage AI",
+        "description": "Domain-specific embedding models optimized for specialized fields like finance, code, and law.",
+        "url": "https://www.voyageai.com/",
+        "category": "Embedding Provider",
+        "pricing_model": "paid",
+        "pros": [
+          "Top-tier performance on specialized benchmarks",
+          "Longer context window support than base models",
+          "High retrieval accuracy for technical documentation"
+        ],
+        "cons": [
+          "Niche focus might not suit general purpose apps",
+          "Relatively new provider with fewer integrations"
+        ],
+        "tags": [
+          "specialized",
+          "high-accuracy",
+          "retrieval"
+        ]
+      },
+      {
+        "name": "FAISS",
+        "description": "Library for efficient similarity search and clustering of dense vectors, developed by Meta.",
+        "url": "https://github.com/facebookresearch/faiss",
+        "category": "Vector Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Industry standard for billion-scale vector search",
+          "Highly optimized C++ implementation with Python wrappers",
+          "Supports GPU acceleration"
+        ],
+        "cons": [
+          "No built-in persistence or metadata management",
+          "Steep learning curve for index selection"
+        ],
+        "tags": [
+          "library",
+          "meta",
+          "gpu"
+        ]
+      },
+      {
+        "name": "LlamaIndex",
+        "description": "Data framework for LLM applications that provides tools for indexing and querying private data.",
+        "url": "https://www.llamaindex.ai/",
+        "category": "Framework",
+        "pricing_model": "open-source",
+        "pros": [
+          "Advanced data ingestion and chunking strategies",
+          "Unified interface for multiple vector stores",
+          "Strong focus on RAG pipeline optimization"
+        ],
+        "cons": [
+          "Abstraction layers can make debugging difficult",
+          "Rapid API changes require frequent updates"
+        ],
+        "tags": [
+          "rag",
+          "orchestration",
+          "python"
+        ]
+      },
+      {
+        "name": "Ragas",
+        "description": "Framework that helps evaluate Retrieval Augmented Generation (RAG) pipelines using LLM-assisted metrics.",
+        "url": "https://docs.ragas.io/",
+        "category": "Evaluation & Benchmarking",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automated evaluation of faithfulness and relevancy",
+          "Integrates with CI/CD for regression testing",
+          "Provides actionable scores for retrieval quality"
+        ],
+        "cons": [
+          "Requires an LLM for evaluation, incurring costs",
+          "Metrics can sometimes be inconsistent with human judgment"
+        ],
+        "tags": [
+          "testing",
+          "quality",
+          "monitoring"
+        ]
+      },
+      {
+        "name": "Weaviate",
+        "description": "Open-source vector database that allows storing objects and vectors, enabling combined keyword and vector search.",
+        "url": "https://weaviate.io/",
+        "category": "Vector Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native support for hybrid search (BM25 + Vector)",
+          "GraphQL API for flexible data retrieval",
+          "Multi-tenancy support for SaaS applications"
+        ],
+        "cons": [
+          "Memory intensive for large datasets",
+          "Configuration complexity for production clusters"
+        ],
+        "tags": [
+          "hybrid-search",
+          "graphql",
+          "enterprise"
+        ]
+      },
+      {
+        "name": "Mixedbread.ai",
+        "description": "Specialized provider of high-performance embedding models and rerankers for search systems.",
+        "url": "https://www.mixedbread.ai/",
+        "category": "Embedding Provider",
+        "pricing_model": "paid",
+        "pros": [
+          "State-of-the-art reranking models",
+          "Optimized for low-latency inference",
+          "Flexible deployment options"
+        ],
+        "cons": [
+          "Smaller market share and community support",
+          "Limited documentation compared to major providers"
+        ],
+        "tags": [
+          "reranking",
+          "inference",
+          "optimization"
+        ]
+      },
+      {
+        "name": "Sentence-Transformers",
+        "description": "Python framework for state-of-the-art sentence, text, and image embeddings using BERT-based models.",
+        "url": "https://sbert.net/",
+        "category": "Framework",
+        "pricing_model": "open-source",
+        "pros": [
+          "Run models locally with no API costs",
+          "Access to thousands of pre-trained models via Hugging Face",
+          "Full control over model fine-tuning"
+        ],
+        "cons": [
+          "Requires local compute resources (GPU recommended)",
+          "Scaling inference requires custom infrastructure"
+        ],
+        "tags": [
+          "bert",
+          "local-hosting",
+          "ml"
+        ]
+      },
+      {
+        "name": "MTEB Benchmark",
+        "description": "The Massive Text Embedding Benchmark for comparing the performance of different embedding models.",
+        "url": "https://huggingface.co/spaces/mteb/leaderboard",
+        "category": "Evaluation & Benchmarking",
+        "pricing_model": "free",
+        "pros": [
+          "Comprehensive leaderboard across 50+ tasks",
+          "Independent verification of model claims",
+          "Covers retrieval, clustering, and classification"
+        ],
+        "cons": [
+          "Benchmarks may not reflect specific domain performance",
+          "Static scores don't account for latency or cost"
+        ],
+        "tags": [
+          "benchmarking",
+          "research",
+          "huggingface"
+        ]
+      },
+      {
+        "name": "Milvus",
+        "description": "Cloud-native vector database built for massive scale and high-availability enterprise environments.",
+        "url": "https://milvus.io/",
+        "category": "Vector Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Highly decoupled architecture for independent scaling",
+          "Supports advanced indexing like ScaNN and HNSW",
+          "Robust enterprise features like RBAC and multi-tenancy"
+        ],
+        "cons": [
+          "High operational complexity for self-hosting",
+          "Overkill for small-to-medium datasets"
+        ],
+        "tags": [
+          "enterprise",
+          "kubernetes",
+          "big-data"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "code-generation",
+    "generated_at": "2026-03-12T22:38:10.754Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI Code Generation implementation checklist",
+    "description": "A practical checklist for shipping AI Code Generation projects safely.",
+    "keywords": [
+      "code-generation",
+      "ai code generation",
+      "checklist"
+    ],
+    "slug": "code-generation-checklist-ai-code-generation-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a rigorous framework for validating AI-generated code before it reaches production. It focuses on mitigating risks associated with hallucinations, security vulnerabilities, and technical debt specific to large language model outputs.",
+    "sections": [
+      {
+        "heading": "Security and Vulnerability Mitigation",
+        "items": [
+          {
+            "title": "Secrets and Credential Scanning",
+            "description": "Run a tool like gitleaks or trufflehog on all AI-generated patches to ensure no placeholder API keys or hardcoded credentials were included.",
+            "priority": "critical"
+          },
+          {
+            "title": "Dependency Version Verification",
+            "description": "Cross-reference AI-suggested library versions against the project's lockfile or a vulnerability database (Snyk/OSV) to prevent dependency confusion attacks or use of deprecated packages.",
+            "priority": "critical"
+          },
+          {
+            "title": "Injection Vulnerability Audit",
+            "description": "Verify that all generated SQL queries, shell commands, or HTML outputs use parameterized inputs rather than string concatenation to prevent SQLi and XSS.",
+            "priority": "critical"
+          },
+          {
+            "title": "SCA and SAST Execution",
+            "description": "Run Static Analysis Security Testing (SAST) specifically on the files modified by AI to detect common patterns like unsafe deserialization or weak cryptographic algorithms.",
+            "priority": "critical"
+          },
+          {
+            "title": "Permission and Scope Review",
+            "description": "Verify that AI-generated logic for authorization or file system access adheres to the principle of least privilege.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Logic and Functional Validation",
+        "items": [
+          {
+            "title": "Automated Unit Test Coverage",
+            "description": "Ensure every generated function has at least one corresponding unit test covering the primary success path and failure modes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Edge Case Boundary Testing",
+            "description": "Manually add tests for null inputs, empty strings, and maximum integer values to verify AI-generated logic handles boundary conditions correctly.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Hallucination Verification",
+            "description": "Verify that any called internal APIs or third-party methods actually exist in the current versions of the libraries used.",
+            "priority": "critical"
+          },
+          {
+            "title": "Loop and Recursion Analysis",
+            "description": "Inspect AI-generated loops and recursive calls to ensure exit conditions are unreachable-proof and do not cause stack overflows or infinite loops.",
+            "priority": "critical"
+          },
+          {
+            "title": "Integration Test Pass",
+            "description": "Execute full integration test suites to confirm that AI-generated modules interact correctly with existing database schemas and network services.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Code Quality and Maintainability",
+        "items": [
+          {
+            "title": "Linter and Formatter Compliance",
+            "description": "Run ESLint, Prettier, or language-equivalent tools to ensure AI-generated code matches the team's formatting and style guidelines.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Type Safety Check",
+            "description": "Run TypeScript compiler or MyPy to ensure AI-generated types are consistent and do not rely on 'any' or 'ignore' pragmas.",
+            "priority": "critical"
+          },
+          {
+            "title": "Dead Code Removal",
+            "description": "Identify and remove unused variables, unreachable branches, or redundant imports often left behind by iterative AI prompting.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Docstring and Comment Accuracy",
+            "description": "Verify that generated comments correctly describe the logic and are not outdated residues from previous prompt iterations.",
+            "priority": "optional"
+          },
+          {
+            "title": "Naming Convention Audit",
+            "description": "Ensure variable and function names follow the project's specific naming patterns (e.g., camelCase vs snake_case).",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Context and Tooling Optimization",
+        "items": [
+          {
+            "title": "Model Context Configuration",
+            "description": "Verify that .cursorrules or .github/copilot-instructions files are updated with the latest architectural patterns to guide the AI effectively.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Prompt Versioning",
+            "description": "For complex tasks, document the system prompt or multi-step sequence used to generate the code for future reproducibility.",
+            "priority": "optional"
+          },
+          {
+            "title": "External Documentation Indexing",
+            "description": "Ensure the AI tool has access to the latest documentation versions for niche libraries via @docs or similar context-loading features.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Model Selection Verification",
+            "description": "Confirm that the most capable model (e.g., Claude 3.5 Sonnet or GPT-4o) was used for complex logic rather than faster, smaller models.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Environment Parity Check",
+            "description": "Verify the AI was prompted with the correct runtime environment (e.g., Node 20 vs Node 16) to avoid syntax errors.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Workflow and Peer Review",
+        "items": [
+          {
+            "title": "AI Attribution Tagging",
+            "description": "Label Pull Requests or commits with an 'AI-generated' tag to alert reviewers to look for specific LLM failure modes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Mandatory Human Sign-off",
+            "description": "Require at least one human peer review for any AI-generated code that touches the data persistence or authentication layers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Refactoring Verification",
+            "description": "When using AI for refactoring, perform a side-by-side diff to ensure no functional logic was accidentally altered during the cleanup.",
+            "priority": "critical"
+          },
+          {
+            "title": "Performance Benchmarking",
+            "description": "Run a performance profile on AI-generated algorithms to ensure they do not introduce O(n^2) or worse complexity where O(n) is expected.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Legal and License Compliance",
+            "description": "Check generated code against open-source license filters (e.g., Copilot's public code filter) to avoid GPL contamination in proprietary repos.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

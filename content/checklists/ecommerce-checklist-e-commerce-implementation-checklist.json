@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "ecommerce",
+    "generated_at": "2026-03-12T22:38:48.507Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "E-Commerce implementation checklist",
+    "description": "A practical checklist for shipping E-Commerce projects safely.",
+    "keywords": [
+      "ecommerce",
+      "e-commerce",
+      "checklist"
+    ],
+    "slug": "ecommerce-checklist-e-commerce-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for deploying a high-performance headless e-commerce storefront. It focuses on performance, payment reliability, and SEO integrity using modern stacks like Next.js, Medusa, and Stripe.",
+    "sections": [
+      {
+        "heading": "Performance and Core Web Vitals",
+        "items": [
+          {
+            "title": "Image Optimization and Delivery",
+            "description": "Verify all product images are served via a CDN like Cloudinary or Vercel Image Optimization in WebP/AVIF formats with correct 'sizes' attributes.",
+            "priority": "critical"
+          },
+          {
+            "title": "LCP Element Prioritization",
+            "description": "Ensure the primary product image on PDPs (Product Detail Pages) uses the 'priority' attribute and is not lazy-loaded.",
+            "priority": "critical"
+          },
+          {
+            "title": "Edge Data Fetching",
+            "description": "Implement stale-while-revalidate or Incremental Static Regeneration (ISR) for product listings to keep TTFB under 200ms.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Font Loading Strategy",
+            "description": "Apply 'font-display: swap' and pre-connect to font origins to prevent layout shifts during text rendering.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Bundle Size Analysis",
+            "description": "Run a production build analysis to ensure third-party scripts (chat widgets, tracking) do not exceed 50KB of main-thread execution time.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Checkout and Payment Integration",
+        "items": [
+          {
+            "title": "Webhook Reliability",
+            "description": "Implement idempotent webhook handlers for Stripe or Adyen to prevent duplicate order creation on network retries.",
+            "priority": "critical"
+          },
+          {
+            "title": "Tax Calculation Accuracy",
+            "description": "Verify that tax calculation services (Stripe Tax or Avalara) trigger correctly based on the shipping address before the final payment intent.",
+            "priority": "critical"
+          },
+          {
+            "title": "Atomic Inventory Updates",
+            "description": "Ensure inventory is reserved or deducted atomically during the checkout flow to prevent overselling during high-traffic events.",
+            "priority": "critical"
+          },
+          {
+            "title": "Currency and Locale Sync",
+            "description": "Validate that the price displayed in the cart matches the currency and amount sent to the payment provider across all regions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Guest Checkout Flow",
+            "description": "Test the end-to-end flow for non-authenticated users to ensure session persistence from cart to 'thank you' page.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Search and Catalog Management",
+        "items": [
+          {
+            "title": "Search Index Synchronization",
+            "description": "Configure automated triggers to update Algolia or Meilisearch indexes immediately when product status or stock changes in the CMS.",
+            "priority": "critical"
+          },
+          {
+            "title": "Facet Filtering Performance",
+            "description": "Verify that category filters (size, color, price) update the product grid without a full page reload and maintain URL state.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Zero-Results Handling",
+            "description": "Implement a 'No results found' state that provides alternative product recommendations to reduce bounce rates.",
+            "priority": "recommended"
+          },
+          {
+            "title": "AI Description Uniqueness",
+            "description": "Audit AI-generated product descriptions for duplicate content patterns to avoid SEO cannibalization across similar SKUs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Variant Selection Logic",
+            "description": "Ensure that selecting a variant (e.g., XL size) updates the SKU, price, and image gallery immediately.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "SEO and Structured Data",
+        "items": [
+          {
+            "title": "JSON-LD Product Schema",
+            "description": "Inject valid Schema.org markup including price, availability, aggregateRating, and brand on all PDPs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Canonical Tag Implementation",
+            "description": "Verify that variant URLs or filtered category pages point to the primary canonical URL to prevent duplicate content issues.",
+            "priority": "critical"
+          },
+          {
+            "title": "Dynamic Sitemap Generation",
+            "description": "Configure a dynamic sitemap.xml that includes all active product, category, and CMS pages, updated at least daily.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Robots.txt Configuration",
+            "description": "Disallow crawling of sensitive or low-value routes like /cart, /checkout, and /account/ search result pages.",
+            "priority": "recommended"
+          },
+          {
+            "title": "OpenGraph Image Automation",
+            "description": "Generate dynamic social sharing images for products that include the product name, price, and primary image.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Compliance",
+        "items": [
+          {
+            "title": "PCI Compliance Verification",
+            "description": "Confirm that no raw credit card data touches your server and that all inputs use hosted fields or elements from the payment provider.",
+            "priority": "critical"
+          },
+          {
+            "title": "API Key Scoping",
+            "description": "Ensure public API keys (Algolia, Stripe Publishable) are restricted by domain and have minimal required permissions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Rate Limiting",
+            "description": "Implement rate limiting on the 'Add to Cart', 'Login', and 'Checkout' endpoints to prevent bot-driven inventory locking.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sanitized User Inputs",
+            "description": "Validate and sanitize all review submissions and contact forms to prevent XSS and injection attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "GDPR/CCPA Cookie Consent",
+            "description": "Implement a consent management platform that blocks tracking scripts until the user provides explicit permission.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Error Handling and Monitoring",
+        "items": [
+          {
+            "title": "Failed Payment Logging",
+            "description": "Set up alerts in Sentry or Datadog for payment intent failures to identify issues with specific regions or card types.",
+            "priority": "critical"
+          },
+          {
+            "title": "404 Redirection Logic",
+            "description": "Implement automatic redirects for discontinued product URLs to the most relevant parent category.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Cart Recovery Triggers",
+            "description": "Verify that abandoned cart events are correctly sent to the marketing automation platform (Klaviyo/Mailchimp) after 30 minutes of inactivity.",
+            "priority": "optional"
+          },
+          {
+            "title": "Real User Monitoring (RUM)",
+            "description": "Deploy RUM tracking to capture actual Core Web Vitals from users across different device types and network speeds.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Inventory Out-of-Stock UI",
+            "description": "Ensure the 'Add to Cart' button is disabled and replaced with a 'Notify Me' or 'Out of Stock' label when inventory reaches zero.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

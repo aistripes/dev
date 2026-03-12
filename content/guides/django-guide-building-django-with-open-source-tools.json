@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "django",
+    "generated_at": "2026-03-12T22:37:55.479Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Django with open-source tools",
+    "description": "A step-by-step implementation guide for Django with open-source tools.",
+    "keywords": [
+      "django",
+      "guide"
+    ],
+    "slug": "django-guide-building-django-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide details the implementation of a production-ready Django architecture for serving machine learning predictions. It focuses on offloading model inference to Celery workers to prevent blocking the Django request-response cycle, ensuring the application remains responsive during heavy computation.",
+    "estimated_time": "60 minutes",
+    "prerequisites": [
+      "Python 3.10+",
+      "Django 4.2+",
+      "Redis server installed and running",
+      "Basic familiarity with Scikit-learn or similar ML libraries",
+      "Celery installed in the project environment"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure Celery and Redis Broker",
+        "explanation": "Initialize Celery within the Django project to handle background tasks. This requires creating a celery.py file in the project configuration directory and updating the __init__.py file to ensure the app loads on startup.",
+        "code": {
+          "language": "python",
+          "content": "import os\nfrom celery import Celery\n\nos.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')\napp = Celery('ml_project')\napp.config_from_object('django.conf:settings', namespace='CELERY')\napp.autodiscover_tasks()",
+          "filename": "config/celery.py"
+        },
+        "pitfalls": [
+          "Failure to set the DJANGO_SETTINGS_MODULE environment variable leads to ImproperlyConfigured errors.",
+          "Using a local Redis instance without password protection in production."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement a Thread-Safe Model Loader",
+        "explanation": "To avoid the overhead of loading large ML models from disk for every prediction, implement a singleton loader. This ensures the model is loaded into memory once when the Celery worker starts.",
+        "code": {
+          "language": "python",
+          "content": "import joblib\nfrom django.conf import settings\n\nclass ModelLoader:\n    _model = None\n\n    @classmethod\n    def get_model(cls):\n        if cls._model is None:\n            cls._model = joblib.load(settings.ML_MODEL_PATH)\n        return cls._model",
+          "filename": "ml/loader.py"
+        },
+        "pitfalls": [
+          "Loading models inside the Django view instead of the Celery worker, causing high memory usage in the web server process.",
+          "Not accounting for memory limits on worker nodes when loading multiple large models."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Define the Inference Celery Task",
+        "explanation": "Create a task that takes input data, uses the ModelLoader to get the model, and performs the prediction. Results should be stored in the database or returned via the Celery result backend.",
+        "code": {
+          "language": "python",
+          "content": "from celery import shared_task\nfrom .loader import ModelLoader\n\n@shared_task(bind=True)\ndef predict_task(self, input_data):\n    model = ModelLoader.get_model()\n    prediction = model.predict([input_data])\n    return prediction.tolist()",
+          "filename": "ml/tasks.py"
+        },
+        "pitfalls": [
+          "Attempting to serialize NumPy arrays directly in JSON; always convert to standard Python lists using .tolist().",
+          "Passing complex Django model instances to tasks instead of primary keys (PKs)."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Create the Prediction Trigger View",
+        "explanation": "Implement a Django REST Framework view that receives user input, validates it, and triggers the Celery task. The view returns the task ID immediately so the client can track progress.",
+        "code": {
+          "language": "python",
+          "content": "from rest_framework.views import APIView\nfrom rest_framework.response import Response\nfrom ml.tasks import predict_task\n\nclass PredictionTriggerView(APIView):\n    def post(self, request):\n        data = request.data.get('features')\n        task = predict_task.delay(data)\n        return Response({'task_id': task.id}, status=202)",
+          "filename": "api/views.py"
+        },
+        "pitfalls": [
+          "Using 200 OK instead of 202 Accepted for long-running processes.",
+          "Lack of input validation before passing data to the Celery task, which can crash workers."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement Result Retrieval with HTMX or Polling",
+        "explanation": "Create an endpoint to check the status of the Celery task. If using HTMX, you can use the 'hx-get' and 'hx-trigger' attributes to poll this endpoint until the result is ready.",
+        "code": {
+          "language": "python",
+          "content": "from celery.result import AsyncResult\n\nclass PredictionResultView(APIView):\n    def get(self, request, task_id):\n        result = AsyncResult(task_id)\n        return Response({\n            'status': result.status,\n            'result': result.result if result.ready() else None\n        })",
+          "filename": "api/views.py"
+        },
+        "pitfalls": [
+          "Infinite polling without a timeout or max retry limit on the frontend.",
+          "Exposing sensitive internal error traces through the result backend."
+        ]
+      }
+    ],
+    "conclusion": "By decoupling ML inference from the request cycle using Celery and Redis, you ensure that your Django application remains performant. This architecture scales horizontally by adding more Celery workers as prediction demand increases, and avoids the common pitfall of blocking the web server's worker threads with CPU-intensive tasks."
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "privacy",
+    "generated_at": "2026-03-12T22:38:28.174Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Privacy-First Architecture with open-source tools",
+    "description": "A step-by-step implementation guide for Privacy-First Architecture with open-source tools.",
+    "keywords": [
+      "privacy",
+      "privacy-first architecture",
+      "guide"
+    ],
+    "slug": "privacy-guide-building-privacy-first-architecture-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the transition from a standard data-heavy architecture to a privacy-first infrastructure. We focus on data minimization, self-hosting analytics on European hardware, and encrypting sensitive fields at the database level to ensure GDPR compliance and user trust.",
+    "estimated_time": "5-7 hours",
+    "prerequisites": [
+      "A VPS running on a European provider (e.g., Hetzner, Scaleway)",
+      "Docker and Docker Compose installed",
+      "Basic knowledge of PostgreSQL and environment variable management",
+      "An existing application requiring analytics and data storage"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Deploy Self-Hosted Umami on European Infrastructure",
+        "explanation": "Replace third-party trackers with a self-hosted Umami instance. This ensures that user IP addresses and behavior data never leave your controlled infrastructure. Deploying on Hetzner (Germany/Finland) ensures data sovereignty within the EU.",
+        "code": {
+          "language": "yaml",
+          "content": "version: '3'\nservices:\n  umami:\n    image: ghcr.io/umami-software/umami:postgresql-latest\n    env_file: .env\n    ports:\n      - \"3000:3000\"\n    depends_on:\n      - db\n  db:\n    image: postgres:15-alpine\n    environment:\n      POSTGRES_DB: umami\n      POSTGRES_USER: user\n      POSTGRES_PASSWORD: password",
+          "filename": "docker-compose.yml"
+        },
+        "pitfalls": [
+          "Ensure the DATABASE_URL in .env matches the internal Docker network name of the db service.",
+          "Failing to set a custom APP_SECRET will result in insecure session management."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Data Minimization in Database Schema",
+        "explanation": "Audit your database schema to remove unnecessary PII (Personally Identifiable Information). For required identifiers like email addresses, use one-way cryptographic hashes (SHA-256) if the raw data is only needed for unique identification rather than communication.",
+        "code": {
+          "language": "sql",
+          "content": "-- Replace raw email with a hashed version for unique constraints\nALTER TABLE users ADD COLUMN email_hash TEXT;\nUPDATE users SET email_hash = encode(digest(email, 'sha256'), 'hex');\nALTER TABLE users DROP COLUMN email;\nALTER TABLE users ADD CONSTRAINT unique_email_hash UNIQUE (email_hash);",
+          "filename": "schema_migration.sql"
+        },
+        "pitfalls": [
+          "Using MD5 instead of SHA-256 or Argon2 for hashing sensitive identifiers.",
+          "Forgetting to update the application logic to hash the input before querying the database."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure a Server-Side Analytics Proxy",
+        "explanation": "To bypass ad-blockers and further anonymize data, proxy your analytics requests through your own backend. This allows you to strip the 'User-Agent' and 'IP Address' headers before the data reaches the analytics engine.",
+        "code": {
+          "language": "javascript",
+          "content": "async function handleAnalytics(req, res) {\n  const payload = req.body;\n  // Remove PII from headers\n  const headers = { ...req.headers };\n  delete headers['x-forwarded-for'];\n  delete headers['user-agent'];\n\n  await fetch('https://your-umami-instance.com/api/send', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify(payload)\n  });\n  res.status(200).send('OK');\n}",
+          "filename": "proxy.js"
+        },
+        "pitfalls": [
+          "Accidentally logging the request object in the proxy, which would store the IP in server logs.",
+          "Increased latency if the proxy server is geographically distant from the user."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Enable Transparent Column Encryption",
+        "explanation": "For data that must be stored (like physical addresses), use Application-Level Encryption (ALE). This ensures that even if the database is compromised, the data remains unreadable without the application's master key.",
+        "code": {
+          "language": "javascript",
+          "content": "const crypto = require('crypto');\nconst algorithm = 'aes-256-cbc';\nconst key = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');\n\nfunction encrypt(text) {\n  const iv = crypto.randomBytes(16);\n  const cipher = crypto.createCipheriv(algorithm, key, iv);\n  let encrypted = cipher.update(text);\n  encrypted = Buffer.concat([encrypted, cipher.final()]);\n  return iv.toString('hex') + ':' + encrypted.toString('hex');\n}",
+          "filename": "encryption.js"
+        },
+        "pitfalls": [
+          "Storing the encryption key in the same environment or repository as the database.",
+          "Using a static Initialization Vector (IV), which makes the encryption vulnerable to pattern analysis."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Localize AI Features with On-Premise Inference",
+        "explanation": "Instead of sending user-generated content to third-party APIs (OpenAI/Anthropic), run a local inference engine using Ollama. This keeps sensitive user prompts within your infrastructure boundary.",
+        "code": {
+          "language": "bash",
+          "content": "# Run Ollama as a local container\ndocker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama\n\n# Pull a privacy-respecting model (e.g., Mistral)\ndocker exec -it ollama ollama run mistral",
+          "filename": "setup_ollama.sh"
+        },
+        "pitfalls": [
+          "Underestimating hardware requirements; local LLMs require significant RAM/GPU resources to match API performance.",
+          "Failing to implement rate limiting on the local AI endpoint, leading to resource exhaustion."
+        ]
+      }
+    ],
+    "conclusion": "By following these steps, you have moved from a centralized, high-exposure architecture to a privacy-first model. You now host your own analytics, minimize the data you store, encrypt sensitive fields at the application layer, and process AI tasks locally. This setup significantly reduces your compliance burden and builds long-term user trust."
+  }
+}

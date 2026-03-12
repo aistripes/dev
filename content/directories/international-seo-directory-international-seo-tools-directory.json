@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "international-seo",
+    "generated_at": "2026-03-12T22:38:36.530Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "International SEO tools directory",
+    "description": "A developer-first directory of International SEO tools and references.",
+    "keywords": [
+      "international-seo",
+      "international seo",
+      "directory"
+    ],
+    "slug": "international-seo-directory-international-seo-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of technical tools and platforms for developers implementing international SEO, focused on multi-language routing, automated localization workflows, and global infrastructure optimization.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Localization Platforms",
+          "Technical Validation",
+          "Framework Extensions",
+          "Infrastructure",
+          "SEO Analysis"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Next.js Internationalized Routing",
+        "description": "Native framework support for subpath and domain routing strategies to handle multi-language content delivery.",
+        "url": "https://nextjs.org/docs/pages/building-your-application/routing/internationalization",
+        "category": "Framework Extensions",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatic locale detection via Accept-Language header",
+          "Supports both subpath (/en-US) and domain (example.de) patterns",
+          "Optimized for server-side rendering and static generation"
+        ],
+        "cons": [
+          "Requires manual configuration for complex hreflang logic",
+          "Limited to the Next.js ecosystem"
+        ],
+        "tags": [
+          "Next.js",
+          "Routing",
+          "i18n"
+        ]
+      },
+      {
+        "name": "DeepL API",
+        "description": "High-accuracy neural machine translation for automating the localization of large-scale content catalogs.",
+        "url": "https://www.deepl.com/pro-api",
+        "category": "Localization Platforms",
+        "pricing_model": "paid",
+        "pros": [
+          "Higher contextual accuracy than standard LLMs",
+          "Glossary support for maintaining brand-specific terminology",
+          "Robust JSON and XML handling for developer workflows"
+        ],
+        "cons": [
+          "Usage-based pricing can scale quickly",
+          "Requires human review for high-stakes SEO copy"
+        ],
+        "tags": [
+          "AI",
+          "Translation",
+          "Automation"
+        ]
+      },
+      {
+        "name": "Merkle Hreflang Tags Generator",
+        "description": "A technical tool for generating and validating hreflang annotations for HTML head, HTTP headers, or XML sitemaps.",
+        "url": "https://technicalseo.com/tools/hreflang/",
+        "category": "Technical Validation",
+        "pricing_model": "free",
+        "pros": [
+          "Supports bulk generation of language and region codes",
+          "Validates ISO 639-1 and ISO 3166-1 Alpha 2 formats",
+          "Provides copy-paste ready XML sitemap snippets"
+        ],
+        "cons": [
+          "Manual entry for small-scale updates",
+          "No API for automated generation"
+        ],
+        "tags": [
+          "Hreflang",
+          "Sitemaps",
+          "Validation"
+        ]
+      },
+      {
+        "name": "Cloudflare Workers for Geo-Routing",
+        "description": "Edge computing scripts to redirect users based on IP geolocation or cookie preferences before hitting the origin.",
+        "url": "https://developers.cloudflare.com/workers/",
+        "category": "Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Zero-latency execution at the network edge",
+          "Bypasses origin-server configuration complexities",
+          "Can dynamically inject hreflang tags into HTML responses"
+        ],
+        "cons": [
+          "Requires JavaScript/TypeScript knowledge",
+          "Can lead to redirect loops if logic is flawed"
+        ],
+        "tags": [
+          "Edge Computing",
+          "CDN",
+          "Geo-targeting"
+        ]
+      },
+      {
+        "name": "Lokalise",
+        "description": "Localization management system (LMS) with SDKs and API for continuous integration of translated strings.",
+        "url": "https://lokalise.com/",
+        "category": "Localization Platforms",
+        "pricing_model": "paid",
+        "pros": [
+          "Powerful CLI for automating localization file uploads/downloads",
+          "Over-the-air (OTA) updates for mobile and web apps",
+          "Integrates directly with GitHub, GitLab, and Bitbucket"
+        ],
+        "cons": [
+          "Steep learning curve for complex workflows",
+          "Entry-level pricing is high for small startups"
+        ],
+        "tags": [
+          "LMS",
+          "CI/CD",
+          "Translation"
+        ]
+      },
+      {
+        "name": "Astro i18n Routing",
+        "description": "Built-in middleware and routing utilities for static and server-rendered internationalized sites.",
+        "url": "https://docs.astro.build/en/guides/internationalization/",
+        "category": "Framework Extensions",
+        "pricing_model": "open-source",
+        "pros": [
+          "Strictly typed locale management",
+          "Supports fallback logic for missing translations",
+          "Generates clean, search-engine friendly URL structures"
+        ],
+        "cons": [
+          "Newer implementation with fewer third-party plugins",
+          "Requires manual setup for complex domain-based routing"
+        ],
+        "tags": [
+          "Astro",
+          "Static Site Generator",
+          "SEO"
+        ]
+      },
+      {
+        "name": "Hreflang Checker by Ahrefs",
+        "description": "Automated auditing tool that crawls sites to identify broken or missing hreflang return tags.",
+        "url": "https://ahrefs.com/site-audit",
+        "category": "SEO Analysis",
+        "pricing_model": "paid",
+        "pros": [
+          "Identifies 'no self-referencing' and 'missing return link' errors",
+          "Visualizes complex multi-region link structures",
+          "Tracks international visibility trends over time"
+        ],
+        "cons": [
+          "Requires a full site crawl which can be slow for large domains",
+          "Part of a larger expensive suite"
+        ],
+        "tags": [
+          "Audit",
+          "Hreflang",
+          "Crawling"
+        ]
+      },
+      {
+        "name": "Paraglide JS",
+        "description": "A type-safe i18n library that provides compile-time checks for translations and internationalized routes.",
+        "url": "https://inlang.com/m/gerre34r/library-inlang-paraglideJs",
+        "category": "Framework Extensions",
+        "pricing_model": "open-source",
+        "pros": [
+          "Eliminates runtime translation overhead via pre-compilation",
+          "Ensures all UI strings are localized before deployment",
+          "Extremely small bundle size impact"
+        ],
+        "cons": [
+          "Requires adoption of the Inlang ecosystem",
+          "Smaller community support compared to i18next"
+        ],
+        "tags": [
+          "TypeScript",
+          "Performance",
+          "i18n"
+        ]
+      },
+      {
+        "name": "Google Search Console International Targeting",
+        "description": "The official report for monitoring hreflang errors and selecting country-specific targeting for domains.",
+        "url": "https://search.google.com/search-console/",
+        "category": "SEO Analysis",
+        "pricing_model": "free",
+        "pros": [
+          "Direct data from Google's indexer",
+          "Clear reporting on 'no return tags' errors",
+          "Allows setting a target country for ccTLDs"
+        ],
+        "cons": [
+          "Data is often delayed by several days",
+          "Limited to sites already indexed by Google"
+        ],
+        "tags": [
+          "Google",
+          "Reporting",
+          "Hreflang"
+        ]
+      },
+      {
+        "name": "Crowdin",
+        "description": "Cloud-based localization management platform with a focus on developer-centric automation and AI integration.",
+        "url": "https://crowdin.com/",
+        "category": "Localization Platforms",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extensive API and CLI for headless localization",
+          "Real-time preview for translators to see context",
+          "Built-in AI tasks for pre-translation using GPT-4"
+        ],
+        "cons": [
+          "Interface can be cluttered with many features",
+          "Project management features can be overkill for small apps"
+        ],
+        "tags": [
+          "Automation",
+          "AI",
+          "Workflow"
+        ]
+      }
+    ]
+  }
+}

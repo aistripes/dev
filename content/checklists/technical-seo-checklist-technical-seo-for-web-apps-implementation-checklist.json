@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "technical-seo",
+    "generated_at": "2026-03-12T22:38:41.987Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Technical SEO for Web Apps implementation checklist",
+    "description": "A practical checklist for shipping Technical SEO for Web Apps projects safely.",
+    "keywords": [
+      "technical-seo",
+      "technical seo for web apps",
+      "checklist"
+    ],
+    "slug": "technical-seo-checklist-technical-seo-for-web-apps-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides specific, technical verification steps to ensure web applications are optimized for search engine crawlers, meet Core Web Vitals standards, and implement structured data correctly before moving to production.",
+    "sections": [
+      {
+        "heading": "Rendering and Indexability",
+        "items": [
+          {
+            "title": "Server-Side Rendering (SSR) Verification",
+            "description": "Disable JavaScript in the browser and verify that all primary page content and navigation links remain visible in the source HTML.",
+            "priority": "critical"
+          },
+          {
+            "title": "Self-Referencing Canonical Tags",
+            "description": "Confirm every indexable URL contains a <link rel=\"canonical\"> tag pointing to its own absolute URL to prevent duplicate content issues.",
+            "priority": "critical"
+          },
+          {
+            "title": "Robots.txt Configuration",
+            "description": "Verify the robots.txt file is accessible at the root, includes a link to the XML sitemap, and does not block critical CSS or JS assets.",
+            "priority": "critical"
+          },
+          {
+            "title": "HTTP Status Code Accuracy",
+            "description": "Ensure non-existent routes return a true 404 status code rather than a 200 OK with a 'Not Found' message.",
+            "priority": "critical"
+          },
+          {
+            "title": "Noindex Tag Audit",
+            "description": "Check that the <meta name=\"robots\" content=\"noindex\"> tag is removed from all production pages that were previously restricted during staging.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Metadata and Structured Data",
+        "items": [
+          {
+            "title": "Unique Title Tag Implementation",
+            "description": "Verify every route has a unique <title> tag between 50-60 characters that accurately describes the page content.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Meta Description Length and Content",
+            "description": "Ensure every page has a unique meta description under 155 characters that contains relevant keywords without keyword stuffing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "JSON-LD Schema Validation",
+            "description": "Test all structured data blocks (Product, Article, FAQ, etc.) using the Schema Markup Validator to ensure zero syntax errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Open Graph and Twitter Card Tags",
+            "description": "Verify og:title, og:description, og:image, and twitter:card tags are present and point to valid assets for social sharing.",
+            "priority": "optional"
+          },
+          {
+            "title": "H1 Heading Hierarchy",
+            "description": "Confirm each page contains exactly one <h1> tag that represents the primary topic of the page.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Core Web Vitals and Performance",
+        "items": [
+          {
+            "title": "Largest Contentful Paint (LCP) Optimization",
+            "description": "Preload the LCP image using <link rel=\"preload\"> and ensure it is not lazy-loaded via the loading=\"lazy\" attribute.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cumulative Layout Shift (CLS) Prevention",
+            "description": "Set explicit width and height attributes on all <img> and <iframe> elements to reserve space during page load.",
+            "priority": "critical"
+          },
+          {
+            "title": "Font Display Strategy",
+            "description": "Apply font-display: swap in CSS @font-face declarations to prevent invisible text during font loading.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Image Format and Compression",
+            "description": "Serve images in Next-Gen formats (WebP or AVIF) and ensure they are compressed to under 200KB where possible.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Minification of Assets",
+            "description": "Verify that all production CSS and JavaScript files are minified and bundled to reduce total byte size.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Link Architecture and Sitemaps",
+        "items": [
+          {
+            "title": "Standard Link Implementation",
+            "description": "Ensure all internal navigation uses standard <a href=\"...\"> tags instead of JavaScript-based click handlers to allow crawler discovery.",
+            "priority": "critical"
+          },
+          {
+            "title": "XML Sitemap Generation",
+            "description": "Automate the generation of a dynamic sitemap.xml file that includes all indexable URLs and excludes 404s or redirected pages.",
+            "priority": "critical"
+          },
+          {
+            "title": "Trailing Slash Consistency",
+            "description": "Enforce a single convention for trailing slashes (either always on or always off) and implement 301 redirects to the preferred version.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Breadcrumb Schema Implementation",
+            "description": "Verify that breadcrumb navigation is present and marked up with BreadcrumbList JSON-LD for rich snippet eligibility.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Broken Link Audit",
+            "description": "Run a crawl using Screaming Frog or a similar tool to identify and fix any internal 404 errors or redirect loops.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "JavaScript and Dynamic Content",
+        "items": [
+          {
+            "title": "Hydration Error Check",
+            "description": "Monitor the console for React/Next.js hydration mismatches that can cause the DOM to be rewritten incorrectly for crawlers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Infinite Scroll Accessibility",
+            "description": "Provide a paginated alternative or use the History API to ensure content loaded via infinite scroll has a discoverable URL.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Lazy-Loaded Content Visibility",
+            "description": "Verify that content loaded via Intersection Observer or similar APIs is still accessible to crawlers that do not trigger scroll events.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Third-Party Script Impact",
+            "description": "Audit the impact of third-party scripts (GTM, Hotjar) on Interaction to Next Paint (INP) and defer non-critical scripts.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Fragment Identifier Handling",
+            "description": "Ensure that critical content is not hidden behind hash fragments (#) as search engines generally ignore content following the hash.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

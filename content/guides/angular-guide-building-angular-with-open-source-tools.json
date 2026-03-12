@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "angular",
+    "generated_at": "2026-03-12T22:37:56.369Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Angular with open-source tools",
+    "description": "A step-by-step implementation guide for Angular with open-source tools.",
+    "keywords": [
+      "angular",
+      "guide"
+    ],
+    "slug": "angular-guide-building-angular-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical process for migrating a legacy enterprise Angular application from an NgModule-based architecture to a modern Standalone and Signal-based architecture. This transition reduces bundle size through better tree-shaking and simplifies the dependency graph for large-scale maintenance.",
+    "estimated_time": "6-10 hours for a medium-sized module",
+    "prerequisites": [
+      "Angular CLI version 17.0 or higher",
+      "Node.js LTS version",
+      "Existing Angular application with NgModule architecture",
+      "Comprehensive unit test suite for regression testing"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Execute Automated Standalone Migration",
+        "explanation": "Use the Angular CLI's built-in migration tool to convert components, directives, and pipes to standalone. This command updates the 'standalone: true' flag and populates the 'imports' array within each class decorator.",
+        "code": {
+          "language": "bash",
+          "content": "ng generate @angular/core:standalone"
+        },
+        "pitfalls": [
+          "The schematic may fail on complex templates with deep nesting; verify manual imports if template errors occur after migration.",
+          "Internal shared modules might be converted into multiple circular dependencies if not handled carefully."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Refactor Root Bootstrapping",
+        "explanation": "Replace the platformBrowserDynamic bootstrap method in main.ts with bootstrapApplication. This removes the requirement for a root AppModule and allows for functional provider configurations.",
+        "code": {
+          "language": "typescript",
+          "content": "import { bootstrapApplication } from '@angular/platform-browser';\nimport { AppComponent } from './app/app.component';\nimport { provideRouter } from '@angular/router';\nimport { routes } from './app/app.routes';\nimport { provideHttpClient } from '@angular/common/http';\n\nbootstrapApplication(AppComponent, {\n  providers: [\n    provideRouter(routes),\n    provideHttpClient()\n  ]\n}).catch(err => console.error(err));",
+          "filename": "src/main.ts"
+        },
+        "pitfalls": [
+          "Ensure all global singleton services previously provided in AppModule are added to the providers array in bootstrapApplication.",
+          "Third-party libraries that still rely on NgModules must be imported using the importProvidersFrom() utility."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Transition Component State to Signals",
+        "explanation": "Replace standard class properties and RxJS-heavy template bindings with Angular Signals. This enables fine-grained change detection and reduces the overhead of Zone.js.",
+        "code": {
+          "language": "typescript",
+          "content": "import { Component, signal, computed } from '@angular/core';\n\n@Component({\n  selector: 'app-user-profile',\n  standalone: true,\n  template: `<div>{{ fullName() }}</div>`\n})\nexport class UserProfileComponent {\n  firstName = signal('John');\n  lastName = signal('Doe');\n  fullName = computed(() => `${this.firstName()} ${this.lastName()}`);\n\n  updateName(newFirst: string) {\n    this.firstName.set(newFirst);\n  }\n}",
+          "filename": "user-profile.component.ts"
+        },
+        "pitfalls": [
+          "Avoid calling signal setters inside computed() functions as this will trigger an error.",
+          "Signals are not a direct replacement for RxJS streams that handle asynchronous events (like WebSockets); use toSignal for interop."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate RxJS Interop for Data Fetching",
+        "explanation": "Use the @angular/core/rxjs-interop package to bridge existing RxJS-based services with Signal-based components. This allows you to maintain complex observable logic in services while benefiting from Signal performance in the UI.",
+        "code": {
+          "language": "typescript",
+          "content": "import { toSignal } from '@angular/core/rxjs-interop';\nimport { inject } from '@angular/core';\nimport { UserService } from './user.service';\n\nexport class UserListComponent {\n  private userService = inject(UserService);\n  users = toSignal(this.userService.getUsers(), { initialValue: [] });\n}",
+          "filename": "user-list.component.ts"
+        },
+        "pitfalls": [
+          "toSignal must be called in an injection context (constructor or field initializer) unless an Injector is provided.",
+          "Ensure the source observable is properly handled if it emits errors, as toSignal will re-throw them."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement Deferrable Views for Bundle Optimization",
+        "explanation": "Wrap non-critical components, especially heavy third-party charts or editors, in @defer blocks. This automatically splits the code and only loads it when the specified condition (e.g., visibility or idle) is met.",
+        "code": {
+          "language": "html",
+          "content": "@defer (on viewport) {\n  <app-heavy-chart [data]=\"chartData()\" />\n} @placeholder {\n  <div>Loading chart...</div>\n} @loading (after 100ms; minimum 500ms) {\n  <app-spinner />\n}",
+          "filename": "dashboard.component.html"
+        },
+        "pitfalls": [
+          "The component inside @defer must be standalone; if it is part of an NgModule, it will not be lazy-loaded correctly.",
+          "Over-using @defer on very small components can increase the number of HTTP requests and negatively impact performance."
+        ]
+      }
+    ],
+    "conclusion": "By moving to a Standalone and Signal-based architecture, enterprise Angular applications achieve better maintainability through explicit dependency declarations and improved runtime performance. This refactor sets the foundation for removing Zone.js in the future and adopting more performant rendering strategies."
+  }
+}

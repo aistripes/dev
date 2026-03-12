@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "ci-cd",
+    "generated_at": "2026-03-12T22:38:17.725Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "CI/CD for AI Apps implementation checklist",
+    "description": "A practical checklist for shipping CI/CD for AI Apps projects safely.",
+    "keywords": [
+      "ci-cd",
+      "ci/cd for ai apps",
+      "checklist"
+    ],
+    "slug": "ci-cd-checklist-cicd-for-ai-apps-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for validating CI/CD pipelines used in AI application development. It focuses on the specific challenges of non-deterministic outputs, prompt versioning, and cost-effective evaluation cycles.",
+    "sections": [
+      {
+        "heading": "Prompt and Model Versioning",
+        "items": [
+          {
+            "title": "Decouple Prompts from Source Code",
+            "description": "Store prompt templates in dedicated JSON or YAML files separate from application logic to enable independent versioning and testing.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Schema Validation",
+            "description": "Run JSON schema validation against prompt templates in the CI pipeline to ensure all required variables are present before deployment.",
+            "priority": "critical"
+          },
+          {
+            "title": "Map Prompts to Specific Model Versions",
+            "description": "Hardcode specific model versions (e.g., gpt-4-0613) in configuration files rather than using 'latest' aliases to prevent unexpected drift during deployments.",
+            "priority": "critical"
+          },
+          {
+            "title": "Automated Prompt Diffing",
+            "description": "Configure the CI pipeline to generate and display a diff of prompt changes in pull request comments for manual reviewer audit.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Metadata Tagging",
+            "description": "Inject the Git commit SHA and environment name into the metadata of all LLM API calls for downstream traceability.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Automated Evaluation and Testing",
+        "items": [
+          {
+            "title": "Unit Test LLM Wrappers",
+            "description": "Use mocks for LLM API calls in unit tests to verify that application logic handles various response formats and error codes without incurring costs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Structured Output Verification",
+            "description": "For prompts intended to return JSON, execute a validation step in CI that parses the response and checks for required fields and data types.",
+            "priority": "critical"
+          },
+          {
+            "title": "Semantic Similarity Testing",
+            "description": "Run an evaluation script comparing LLM outputs against a 'golden set' of expected answers using cosine similarity or LLM-as-a-judge metrics.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Regression Testing Suite",
+            "description": "Maintain a dataset of 50-100 edge-case prompts that must be executed and validated whenever the model version or system prompt changes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Prompt Injection Scanning",
+            "description": "Integrate a security scanner in the pipeline to test if system prompts can be bypassed via malicious user input patterns.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and Infrastructure",
+        "items": [
+          {
+            "title": "Environment Secret Management",
+            "description": "Store LLM API keys in a secure vault (e.g., GitHub Secrets, HashiCorp Vault) and ensure they are never logged in CI build traces.",
+            "priority": "critical"
+          },
+          {
+            "title": "Health Check Endpoints",
+            "description": "Implement a dedicated /health/ai endpoint that verifies connectivity to upstream AI providers and model availability before routing traffic.",
+            "priority": "critical"
+          },
+          {
+            "title": "Blue-Green Deployment for Prompts",
+            "description": "Configure the deployment pipeline to route a small percentage of traffic to new prompt versions before full cutover.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Rollback Automation",
+            "description": "Define automated rollback triggers based on a spike in 4xx/5xx errors or a drop in semantic similarity scores post-deployment.",
+            "priority": "critical"
+          },
+          {
+            "title": "Inference Latency Benchmarking",
+            "description": "Measure and log the p95 latency of model responses during integration tests to prevent performance regressions from reaching production.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Cost and Resource Optimization",
+        "items": [
+          {
+            "title": "CI Token Usage Caps",
+            "description": "Set hard limits on the number of tokens or API spend allowed per CI pipeline run to prevent runaway costs from recursive loops or large test suites.",
+            "priority": "critical"
+          },
+          {
+            "title": "Evaluation Parallelization",
+            "description": "Distribute LLM evaluation tasks across multiple parallel CI jobs to reduce build times when running large-scale semantic tests.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Model Weight Caching",
+            "description": "If self-hosting models, use persistent volume claims or CI caching layers for model weights to avoid multi-gigabyte downloads on every build.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Conditional Evaluation Execution",
+            "description": "Configure CI to only run expensive LLM evaluation suites if changes are detected in prompt files or model configurations.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Small Model Testing",
+            "description": "Use smaller, cheaper models (e.g., GPT-3.5 or Haiku) for basic logic testing in CI, reserving larger models for final staging evaluations.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Observability Integration",
+        "items": [
+          {
+            "title": "OpenTelemetry Instrumentation",
+            "description": "Ensure the CI/CD pipeline verifies that OpenTelemetry spans are correctly configured for all LLM calls to enable production tracing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Log Masking Verification",
+            "description": "Run a test case in CI that attempts to log PII through the AI feature and verifies that the logging middleware correctly redacts the data.",
+            "priority": "critical"
+          },
+          {
+            "title": "Metric Dashboard Deployment",
+            "description": "Automate the deployment of Grafana or Datadog dashboards alongside the application to track token usage and error rates per model.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Feedback Loop Capture",
+            "description": "Verify that the production environment is configured to capture and store user 'thumbs up/down' feedback linked to specific prompt versions.",
+            "priority": "optional"
+          },
+          {
+            "title": "Alerting Thresholds",
+            "description": "Verify that deployment scripts update alerting thresholds for inference failures and token exhaustion in the monitoring provider.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

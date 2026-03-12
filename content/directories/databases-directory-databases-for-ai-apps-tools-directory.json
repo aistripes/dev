@@ -1,0 +1,285 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "databases",
+    "generated_at": "2026-03-12T22:38:34.043Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Databases for AI Apps tools directory",
+    "description": "A developer-first directory of Databases for AI Apps tools and references.",
+    "keywords": [
+      "databases",
+      "databases for ai apps",
+      "directory"
+    ],
+    "slug": "databases-directory-databases-for-ai-apps-tools-directory"
+  },
+  "content": {
+    "intro": "A curated technical directory of database solutions, ORMs, and infrastructure tools optimized for AI applications requiring vector search, serverless scalability, and efficient data modeling.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Relational Platforms",
+          "Vector-First Databases",
+          "Serverless SQL",
+          "ORMs & Query Builders",
+          "Infrastructure Tooling"
+        ]
+      },
+      {
+        "name": "Infrastructure",
+        "values": [
+          "Edge",
+          "Cloud-Native",
+          "Self-Hosted",
+          "Managed"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "pgvector",
+        "description": "Open-source vector similarity search extension for PostgreSQL. Allows storing embeddings and performing HNSW or IVFFlat indexing alongside relational data.",
+        "url": "https://github.com/pgvector/pgvector",
+        "category": "Relational Platforms",
+        "pricing_model": "open-source",
+        "pros": [
+          "Maintains ACID compliance for vector operations",
+          "Eliminates data synchronization between relational and vector DBs",
+          "Supports L2 distance, inner product, and cosine distance"
+        ],
+        "cons": [
+          "Indexing performance can degrade on extremely large datasets compared to C++ engines"
+        ],
+        "tags": [
+          "postgres",
+          "embeddings",
+          "vector-search"
+        ]
+      },
+      {
+        "name": "Pinecone",
+        "description": "Managed vector database designed for high-performance AI applications. Provides a serverless architecture for storing and querying embeddings with metadata filtering.",
+        "url": "https://www.pinecone.io/",
+        "category": "Vector-First Databases",
+        "pricing_model": "freemium",
+        "pros": [
+          "Fully managed serverless infrastructure",
+          "Fast upserts and sub-second query latency",
+          "Support for vertical and horizontal scaling"
+        ],
+        "cons": [
+          "Closed source platform",
+          "Vendor lock-in for vector metadata"
+        ],
+        "tags": [
+          "vector-db",
+          "serverless",
+          "managed"
+        ]
+      },
+      {
+        "name": "Neon",
+        "description": "Serverless PostgreSQL platform that separates storage from compute. Features database branching and native pgvector support for AI workflows.",
+        "url": "https://neon.tech/",
+        "category": "Serverless SQL",
+        "pricing_model": "freemium",
+        "pros": [
+          "Instant database branching for CI/CD and testing",
+          "Autoscaling compute based on demand",
+          "Scale-to-zero capability to reduce costs"
+        ],
+        "cons": [
+          "Cold start latency on the free tier"
+        ],
+        "tags": [
+          "postgres",
+          "serverless",
+          "branching"
+        ]
+      },
+      {
+        "name": "Turso",
+        "description": "Edge-hosted database based on libSQL (SQLite fork). Optimized for low-latency access from edge functions and serverless environments.",
+        "url": "https://turso.tech/",
+        "category": "Serverless SQL",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extremely low latency via global data distribution",
+          "Native support for vector search via libSQL extensions",
+          "Minimal operational overhead"
+        ],
+        "cons": [
+          "SQLite-based limitations on complex concurrent writes"
+        ],
+        "tags": [
+          "sqlite",
+          "edge",
+          "libsql"
+        ]
+      },
+      {
+        "name": "Drizzle ORM",
+        "description": "TypeScript ORM with a focus on performance and SQL-like syntax. Designed for serverless environments with zero runtime overhead.",
+        "url": "https://orm.drizzle.team/",
+        "category": "ORMs & Query Builders",
+        "pricing_model": "open-source",
+        "pros": [
+          "Type-safe schema definition and query generation",
+          "No heavy runtime engine, ideal for edge functions",
+          "Native support for pgvector types and indexes"
+        ],
+        "cons": [
+          "Migration tooling is less automated than Prisma"
+        ],
+        "tags": [
+          "orm",
+          "typescript",
+          "serverless"
+        ]
+      },
+      {
+        "name": "Supabase",
+        "description": "Backend-as-a-service platform built on PostgreSQL. Includes integrated Auth, Storage, and Edge Functions with easy pgvector enablement.",
+        "url": "https://supabase.com/",
+        "category": "Relational Platforms",
+        "pricing_model": "freemium",
+        "pros": [
+          "Comprehensive toolset including real-time subscriptions",
+          "Easy vector search implementation via SQL functions",
+          "Generous free tier for prototyping"
+        ],
+        "cons": [
+          "Platform complexity can be overkill for simple DB needs"
+        ],
+        "tags": [
+          "postgres",
+          "baas",
+          "real-time"
+        ]
+      },
+      {
+        "name": "Weaviate",
+        "description": "Open-source vector database that allows you to store data objects and vector embeddings. Features modular vectorizers and GraphQL support.",
+        "url": "https://weaviate.io/",
+        "category": "Vector-First Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "Built-in modules for text, image, and multi-modal vectorization",
+          "Hybrid search combining keyword and vector results",
+          "Excellent multi-tenancy support"
+        ],
+        "cons": [
+          "Steeper learning curve for GraphQL-based querying"
+        ],
+        "tags": [
+          "vector-db",
+          "graphql",
+          "semantic-search"
+        ]
+      },
+      {
+        "name": "Redis (RediSearch)",
+        "description": "In-memory data store with vector search capabilities. Ideal for caching embeddings and managing real-time conversation history.",
+        "url": "https://redis.io/solutions/vector-database/",
+        "category": "Infrastructure Tooling",
+        "pricing_model": "freemium",
+        "pros": [
+          "Lowest latency for vector retrieval",
+          "Unified storage for sessions and embeddings",
+          "Proven reliability in production environments"
+        ],
+        "cons": [
+          "Higher cost per GB due to RAM-based storage"
+        ],
+        "tags": [
+          "caching",
+          "vector-search",
+          "real-time"
+        ]
+      },
+      {
+        "name": "Qdrant",
+        "description": "Vector database written in Rust. Provides a production-ready service with a convenient API for storing, searching, and managing vectors.",
+        "url": "https://qdrant.tech/",
+        "category": "Vector-First Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "High performance and memory efficiency from Rust core",
+          "Advanced payload filtering during vector search",
+          "Support for distributed deployment"
+        ],
+        "cons": [
+          "Smaller ecosystem compared to Pinecone or MongoDB"
+        ],
+        "tags": [
+          "vector-db",
+          "rust",
+          "high-performance"
+        ]
+      },
+      {
+        "name": "Prisma",
+        "description": "Next-generation ORM for Node.js and TypeScript. Provides a declarative schema and automated migrations for relational databases.",
+        "url": "https://www.prisma.io/",
+        "category": "ORMs & Query Builders",
+        "pricing_model": "open-source",
+        "pros": [
+          "Industry-leading developer experience and tooling",
+          "Strong type safety for AI metadata schemas",
+          "Large community and extensive plugin support"
+        ],
+        "cons": [
+          "Query engine binary size can impact serverless cold starts"
+        ],
+        "tags": [
+          "orm",
+          "typescript",
+          "dx"
+        ]
+      },
+      {
+        "name": "MongoDB Atlas Vector Search",
+        "description": "Integrated vector search for MongoDB Atlas. Allows users to perform semantic search on document data without a separate vector DB.",
+        "url": "https://www.mongodb.com/products/platform/atlas-vector-search",
+        "category": "Relational Platforms",
+        "pricing_model": "freemium",
+        "pros": [
+          "Flexible document schema for varied AI metadata",
+          "Unified API for JSON data and vector search",
+          "Managed global distribution and scaling"
+        ],
+        "cons": [
+          "Vector indexing requires specific Atlas tiers"
+        ],
+        "tags": [
+          "nosql",
+          "document-db",
+          "vector-search"
+        ]
+      },
+      {
+        "name": "PgBouncer",
+        "description": "Lightweight connection pooler for PostgreSQL. Essential for managing database connections in high-concurrency serverless environments.",
+        "url": "https://www.pgbouncer.org/",
+        "category": "Infrastructure Tooling",
+        "pricing_model": "open-source",
+        "pros": [
+          "Drastically reduces memory overhead per connection",
+          "Prevents 'too many connections' errors in serverless functions",
+          "Minimal latency overhead"
+        ],
+        "cons": [
+          "Requires careful configuration for transaction vs session pooling"
+        ],
+        "tags": [
+          "pooling",
+          "postgres",
+          "performance"
+        ]
+      }
+    ]
+  }
+}

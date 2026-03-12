@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "security",
+    "generated_at": "2026-03-12T22:38:36.584Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Security for AI Apps tools directory",
+    "description": "A developer-first directory of Security for AI Apps tools and references.",
+    "keywords": [
+      "security",
+      "security for ai apps",
+      "directory"
+    ],
+    "slug": "security-directory-security-for-ai-apps-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, frameworks, and reference materials specifically designed to address security vulnerabilities in LLM-integrated applications, including prompt injection, data leakage, and output validation.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Injection Defense",
+          "Output Guardrails",
+          "Testing & Red Teaming",
+          "Secret Management",
+          "Compliance & Reference"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Rebuff",
+        "description": "A multi-layered prompt injection detector that uses heuristics, dedicated LLM analyzers, and canary tokens to identify and block malicious inputs.",
+        "url": "https://github.com/protectai/rebuff",
+        "category": "Injection Defense",
+        "pricing_model": "open-source",
+        "pros": [
+          "Uses canary tokens to detect data exfiltration",
+          "Multi-layered approach reduces false negatives",
+          "Simple SDK integration for Python and TypeScript"
+        ],
+        "cons": [
+          "Adds latency to the request pipeline",
+          "Heuristics may require tuning for specific domains"
+        ],
+        "tags": [
+          "prompt-injection",
+          "security-middleware",
+          "canary-tokens"
+        ]
+      },
+      {
+        "name": "Guardrails AI",
+        "description": "A framework for adding structure, type validation, and quality constraints to LLM outputs using a pydantic-style syntax.",
+        "url": "https://github.com/guardrails-ai/guardrails",
+        "category": "Output Guardrails",
+        "pricing_model": "open-source",
+        "pros": [
+          "Strong integration with Pydantic for data validation",
+          "Supports corrective actions like automatic re-asking",
+          "Extensive library of pre-built validators"
+        ],
+        "cons": [
+          "Steep learning curve for complex RAIL schemas",
+          "Significant token overhead during re-prompting"
+        ],
+        "tags": [
+          "output-validation",
+          "structured-data",
+          "reliability"
+        ]
+      },
+      {
+        "name": "NeMo Guardrails",
+        "description": "NVIDIA's open-source toolkit for adding programmable guardrails to LLM-based conversational systems using the Colang modeling language.",
+        "url": "https://github.com/NVIDIA/NeMo-Guardrails",
+        "category": "Output Guardrails",
+        "pricing_model": "open-source",
+        "pros": [
+          "Powerful DSL for defining dialog flows and constraints",
+          "Built-in support for jailbreak detection",
+          "Native integration with LangChain"
+        ],
+        "cons": [
+          "Learning Colang is required for advanced logic",
+          "Can be heavyweight for simple applications"
+        ],
+        "tags": [
+          "conversational-ai",
+          "jailbreak-prevention",
+          "nvidia"
+        ]
+      },
+      {
+        "name": "Lakera Guard",
+        "description": "An enterprise-grade API for real-time protection against prompt injections, jailbreaks, and PII leakage in LLM applications.",
+        "url": "https://www.lakera.ai/guard",
+        "category": "Injection Defense",
+        "pricing_model": "freemium",
+        "pros": [
+          "Very low latency compared to self-hosted LLM analyzers",
+          "Frequently updated threat intelligence database",
+          "Detailed dashboard for security monitoring"
+        ],
+        "cons": [
+          "Closed-source proprietary engine",
+          "External API dependency"
+        ],
+        "tags": [
+          "managed-security",
+          "pii-protection",
+          "real-time"
+        ]
+      },
+      {
+        "name": "Promptfoo",
+        "description": "A CLI tool for testing and evaluating LLM output quality, including specific test cases for prompt injection and security regressions.",
+        "url": "https://github.com/promptfoo/promptfoo",
+        "category": "Testing & Red Teaming",
+        "pricing_model": "open-source",
+        "pros": [
+          "Enables matrix testing across different prompts and models",
+          "Automated scoring for security vulnerabilities",
+          "Integrates easily into CI/CD pipelines"
+        ],
+        "cons": [
+          "Requires manual definition of test assertions",
+          "CLI-heavy workflow may not suit all teams"
+        ],
+        "tags": [
+          "testing",
+          "red-teaming",
+          "evaluation"
+        ]
+      },
+      {
+        "name": "OWASP Top 10 for LLM Applications",
+        "description": "The definitive industry reference guide for the most critical security risks in LLM applications, including mitigations.",
+        "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+        "category": "Compliance & Reference",
+        "pricing_model": "free",
+        "pros": [
+          "Industry standard for compliance and auditing",
+          "Comprehensive coverage of theoretical and practical risks",
+          "Regularly updated by security experts"
+        ],
+        "cons": [
+          "Informational only; no direct implementation code",
+          "Broad scope requires careful prioritization"
+        ],
+        "tags": [
+          "standard",
+          "compliance",
+          "vulnerability-list"
+        ]
+      },
+      {
+        "name": "LLM Guard",
+        "description": "A comprehensive security toolkit for LLM applications that provides sanitization and detection for both inputs and outputs.",
+        "url": "https://github.com/protectai/llm-guard",
+        "category": "Output Guardrails",
+        "pricing_model": "open-source",
+        "pros": [
+          "Includes PII detection and redaction",
+          "Scans for toxicity and offensive content",
+          "Modular architecture allows choosing specific scanners"
+        ],
+        "cons": [
+          "High resource usage for local model-based scanners",
+          "Initial configuration can be verbose"
+        ],
+        "tags": [
+          "sanitization",
+          "pii",
+          "content-moderation"
+        ]
+      },
+      {
+        "name": "Giskard",
+        "description": "An open-source testing framework that automatically detects vulnerabilities, biases, and performance issues in LLM models.",
+        "url": "https://github.com/Giskard-AI/giskard",
+        "category": "Testing & Red Teaming",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatic generation of adversarial test cases",
+          "Specific focus on RAG (Retrieval Augmented Generation) security",
+          "Clear reporting for stakeholders"
+        ],
+        "cons": [
+          "Focuses more on testing than real-time protection",
+          "Python environment setup can be complex"
+        ],
+        "tags": [
+          "adversarial-testing",
+          "rag-security",
+          "bias-detection"
+        ]
+      },
+      {
+        "name": "HashiCorp Vault",
+        "description": "A tool for securely accessing secrets such as LLM API keys, providing dynamic rotation and fine-grained access control.",
+        "url": "https://www.vaultproject.io/",
+        "category": "Secret Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Centralized management for multiple LLM providers",
+          "Supports dynamic credential generation",
+          "Robust audit logging for secret access"
+        ],
+        "cons": [
+          "Significant infrastructure management overhead",
+          "Steep learning curve for policy configuration"
+        ],
+        "tags": [
+          "secrets",
+          "api-keys",
+          "infrastructure"
+        ]
+      },
+      {
+        "name": "PyRIT",
+        "description": "The Python Risk Identification Tool for LLMs, developed by Microsoft to automate red teaming and risk assessment.",
+        "url": "https://github.com/Azure/PyRIT",
+        "category": "Testing & Red Teaming",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automates complex multi-turn jailbreak attempts",
+          "Integrates with various model endpoints",
+          "Built for professional security red teams"
+        ],
+        "cons": [
+          "Requires security expertise to interpret results",
+          "Early-stage project with evolving API"
+        ],
+        "tags": [
+          "red-teaming",
+          "automation",
+          "microsoft"
+        ]
+      },
+      {
+        "name": "Pangea AI Shield",
+        "description": "A set of security APIs specifically for AI apps, including PII redaction, prompt injection detection, and audit logging.",
+        "url": "https://pangea.cloud/services/ai-shield/",
+        "category": "Injection Defense",
+        "pricing_model": "freemium",
+        "pros": [
+          "Unified API for multiple security functions",
+          "Excellent documentation and SDK support",
+          "SOC2 compliant infrastructure"
+        ],
+        "cons": [
+          "Usage-based pricing can scale quickly",
+          "Requires sending data to a third-party cloud"
+        ],
+        "tags": [
+          "api-security",
+          "compliance",
+          "pii-redaction"
+        ]
+      },
+      {
+        "name": "Garak",
+        "description": "An LLM vulnerability scanner that probes models for a wide range of security flaws, including halluncinations and data leaks.",
+        "url": "https://github.com/leondz/garak",
+        "category": "Testing & Red Teaming",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extensive library of probe types",
+          "Supports many model types (local and remote)",
+          "Fast execution for quick security audits"
+        ],
+        "cons": [
+          "CLI output can be overwhelming",
+          "Requires careful filtering of false positives"
+        ],
+        "tags": [
+          "vulnerability-scanner",
+          "probing",
+          "security-audit"
+        ]
+      }
+    ]
+  }
+}

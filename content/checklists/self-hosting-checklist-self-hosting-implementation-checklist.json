@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "self-hosting",
+    "generated_at": "2026-03-12T22:38:32.450Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Self-Hosting implementation checklist",
+    "description": "A practical checklist for shipping Self-Hosting projects safely.",
+    "keywords": [
+      "self-hosting",
+      "checklist"
+    ],
+    "slug": "self-hosting-checklist-self-hosting-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for transitioning self-hosted infrastructure from a development state to a production-ready environment, focusing on security, durability, and operational stability.",
+    "sections": [
+      {
+        "heading": "Host Hardening and Base Security",
+        "items": [
+          {
+            "title": "Disable Password Authentication",
+            "description": "Modify /etc/ssh/sshd_config to set PasswordAuthentication to no and ensure only SSH keys are used for access.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Firewall Rules",
+            "description": "Use UFW or iptables to block all incoming traffic except for ports 80, 443, and your custom SSH port.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enable Unattended Upgrades",
+            "description": "Install the unattended-upgrades package and configure it to automatically apply security patches to the base OS.",
+            "priority": "critical"
+          },
+          {
+            "title": "Install Fail2ban",
+            "description": "Deploy Fail2ban with jails for SSH and any exposed web services to automatically ban IPs with multiple failed login attempts.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Non-Root Service Execution",
+            "description": "Verify that all Docker containers and system services are running as non-privileged users rather than root.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Networking and Traffic Management",
+        "items": [
+          {
+            "title": "Automate SSL/TLS Certificates",
+            "description": "Configure Caddy, Traefik, or Nginx with Let's Encrypt to ensure automatic 90-day certificate rotation.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enforce HTTPS Redirection",
+            "description": "Verify that all port 80 traffic is redirected to port 443 with a 301 Permanent Redirect status code.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement HSTS Headers",
+            "description": "Add the Strict-Transport-Security header to all reverse proxy responses to prevent protocol downgrade attacks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Internal Docker Networking",
+            "description": "Ensure databases and backend services are on private Docker networks and not mapped to host ports via the 'ports' directive.",
+            "priority": "critical"
+          },
+          {
+            "title": "DNS TTL Optimization",
+            "description": "Lower DNS TTL to 300 seconds during initial migration to allow for rapid IP failover if the VPS fails.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Container Lifecycle and Orchestration",
+        "items": [
+          {
+            "title": "Pin Image Tags",
+            "description": "Replace all ':latest' tags in docker-compose files with specific version numbers or SHA hashes to prevent breaking changes on restart.",
+            "priority": "critical"
+          },
+          {
+            "title": "Define Resource Limits",
+            "description": "Set 'cpus' and 'memory' limits in the compose file for every container to prevent a single service from crashing the host.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Configure Health Checks",
+            "description": "Implement the 'healthcheck' instruction in Docker files to allow the orchestrator to restart unresponsive containers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Automate Image Cleanup",
+            "description": "Set up a cron job or systemd timer to run 'docker system prune' to prevent disk exhaustion from dangling images.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Configure Log Rotation",
+            "description": "Set the Docker log-driver to 'json-file' with 'max-size' and 'max-file' limits to prevent logs from filling the disk.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Data Persistence and Disaster Recovery",
+        "items": [
+          {
+            "title": "Off-site Backup Automation",
+            "description": "Use Rclone, Borg, or Restic to sync volume data to an S3-compatible bucket or secondary server every 24 hours.",
+            "priority": "critical"
+          },
+          {
+            "title": "Database Dump Verification",
+            "description": "Verify that database backups are performed using native tools (e.g., pg_dump) rather than just copying live data files.",
+            "priority": "critical"
+          },
+          {
+            "title": "Restore Dry-Run",
+            "description": "Perform a full restore of the application and database to a fresh VPS to verify backup integrity and documentation.",
+            "priority": "critical"
+          },
+          {
+            "title": "Volume Encryption",
+            "description": "Ensure sensitive data volumes are stored on encrypted partitions (LUKS) if the VPS provider supports it.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Automated Snapshot Schedule",
+            "description": "Enable provider-level snapshots (e.g., Hetzner/DigitalOcean) as a secondary recovery layer for the entire OS.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring and Alerting",
+        "items": [
+          {
+            "title": "External Uptime Monitoring",
+            "description": "Configure an external service like Uptime Kuma or BetterStack to ping the public endpoint and alert on 5xx errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Disk Space Threshold Alerts",
+            "description": "Set up a script or agent to send a notification (Slack/Discord/Email) when disk usage exceeds 80%.",
+            "priority": "critical"
+          },
+          {
+            "title": "OOM Killer Monitoring",
+            "description": "Configure log alerts for 'Out of Memory: Kill process' messages in dmesg to identify resource-starved containers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Centralized Log Access",
+            "description": "Deploy a lightweight log aggregator like Dozzle or a Vector/Loki stack to view logs without SSH access.",
+            "priority": "recommended"
+          },
+          {
+            "title": "SSL Expiry Monitoring",
+            "description": "Verify that your monitoring tool tracks the SSL certificate expiration date independently of the auto-renewal system.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Compliance and Access Control",
+        "items": [
+          {
+            "title": "Data Residency Verification",
+            "description": "Confirm that the VPS region is physically located within the EU or required jurisdiction for GDPR compliance.",
+            "priority": "critical"
+          },
+          {
+            "title": "Administrative 2FA",
+            "description": "Enable Two-Factor Authentication on all administrative panels (Coolify, Portainer, or application dashboards).",
+            "priority": "critical"
+          },
+          {
+            "title": "VPN-Only Admin Access",
+            "description": "Move administrative tools behind a Wireguard or Tailscale tunnel so they are not reachable via the public internet.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Secrets Management",
+            "description": "Remove all plaintext passwords from docker-compose files and use .env files with restricted 600 permissions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Privacy Policy Update",
+            "description": "Update the application's privacy policy to reflect the specific self-hosted infrastructure and data sub-processors used.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

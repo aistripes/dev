@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "django",
+    "generated_at": "2026-03-12T22:38:02.646Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Django resources for developers",
+    "description": "A curated set of practical Django resources for engineers.",
+    "keywords": [
+      "django",
+      "resource-article"
+    ],
+    "slug": "django-resource-article-100-django-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource guide focuses on modernizing Django workflows for 2024, specifically addressing the shift toward asynchronous operations, AI/ML model integration, and the 'HTML-over-the-wire' frontend approach. It provides actionable tools and patterns to scale Django applications beyond traditional monolithic structures.",
+    "sections": [
+      {
+        "heading": "Modern Frontend and Interactivity Patterns",
+        "items": [
+          {
+            "title": "django-htmx integration",
+            "description": "Middleware and helper functions to handle HTMX headers in Django views, allowing for partial template rendering and reduced JavaScript complexity.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Django Template Partials",
+            "description": "Utilize 'django-template-partials' to define reusable segments within a single HTML file, facilitating HTMX fragment updates without splitting files.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Alpine.js for Client-Side State",
+            "description": "Implement Alpine.js alongside Django templates to handle UI states like modals and dropdowns without a full SPA framework.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "django-tailwind",
+            "description": "A package to integrate Tailwind CSS into Django projects with a built-in management command for the JIT compiler.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Django-Vite Integration",
+            "description": "Use 'django-vite' to bridge the Django backend with a Vite-powered frontend for modern asset bundling and Hot Module Replacement.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Django-Components",
+            "description": "Provides a way to create encapsulated template components with their own logic, similar to React components but server-side.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Cotton for Django Templates",
+            "description": "A modern component system for Django templates that brings Vue/React-like syntax to standard .html files.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "CSRF for Fetch/Axios",
+            "description": "Implementation of the 'X-CSRFToken' header in JavaScript requests to ensure secure communication with Django's middleware.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Django-Browser-Reload",
+            "description": "Development tool that automatically reloads the browser when templates or static files are modified.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Compressor and ManifestStaticFilesStorage",
+            "description": "Configure Django's built-in storage and django-compressor for efficient asset versioning and minification in production.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Async, AI, and Task Processing",
+        "items": [
+          {
+            "title": "Async Views and sync_to_async",
+            "description": "Proper usage of 'asgiref.sync.sync_to_async' to wrap ORM calls within async view functions to prevent event loop blocking.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "StreamingHttpResponse for LLMs",
+            "description": "Using Django's StreamingHttpResponse to stream tokens from OpenAI or local LLM providers directly to the client.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Celery with Redis Broker",
+            "description": "Standard setup for offloading heavy ML inference or data processing tasks to background workers.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Django-Lifecycle-Hooks",
+            "description": "Alternative to signals for triggering ML model updates or cache invalidation directly within model methods.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Pgvector Integration",
+            "description": "Using 'django-pgvector' to store and query vector embeddings directly within PostgreSQL from Django models.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Daphne or Uvicorn for ASGI",
+            "description": "Configuring ASGI servers to support WebSockets and async features that Gunicorn cannot handle alone.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Django-Q2",
+            "description": "A native Django task queue that uses the ORM or Redis, providing a simpler alternative to Celery for smaller clusters.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "ONNX Runtime Integration",
+            "description": "Serving exported ML models using ONNX Runtime within a Django view for low-latency inference without heavy frameworks.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Scrapy-Django-Item",
+            "description": "Pipeline for saving scraped data directly into Django models, useful for building data-driven AI applications.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Django-Watcher for File Tasks",
+            "description": "Monitoring local directories for new data files to trigger automated Django management commands or tasks.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Performance, Scaling, and API Architecture",
+        "items": [
+          {
+            "title": "DRF Select Related and Prefetch Related",
+            "description": "Eliminating N+1 query problems in Django REST Framework by optimizing queryset execution in the get_queryset method.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Django-Debug-Toolbar",
+            "description": "Essential development tool for inspecting SQL queries, cache hits, and template rendering performance.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Django-Silk Profiling",
+            "description": "Live profiling tool for identifying bottlenecks in complex request-response cycles and database interactions.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Database Indexing Strategies",
+            "description": "Using 'indexes' in Model Meta classes to create B-Tree or GIN indexes for frequently filtered fields.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Django-Health-Check",
+            "description": "Adding monitoring endpoints for database, disk, and cache health, compatible with Kubernetes liveness probes.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Redis for Session and Cache Storage",
+            "description": "Configuring 'django.core.cache.backends.redis.RedisCache' to replace default database-backed sessions for high-traffic sites.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Pytest-Django for Parallel Testing",
+            "description": "Using 'pytest -n auto' with pytest-django to run test suites across multiple CPU cores to reduce CI time.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Django-CORS-Headers",
+            "description": "Configuring Cross-Origin Resource Sharing for decoupled architectures where the frontend resides on a different domain.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "PostgreSQL Partitioning with django-postgres-extra",
+            "description": "Managing extremely large datasets by implementing table partitioning directly through Django models.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Gunicorn Sync vs Threaded Workers",
+            "description": "Optimizing worker class selection based on the I/O profile of the application to maximize throughput.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Use 'select_related' for ForeignKey/OneToOne and 'prefetch_related' for ManyToMany to solve 90% of performance issues.",
+      "Avoid putting business logic in Serializers or Views; move it to Service layers or Model methods for better testability.",
+      "When using HTMX, return only the necessary HTML fragment using 'request.htmx' checks to save bandwidth and server CPU.",
+      "Always use a custom User model at the start of every project, even if the default seems sufficient, to avoid painful migrations later.",
+      "For ML projects, perform model loading in the AppConfig.ready() method to ensure models are loaded once into memory at startup."
+    ]
+  }
+}

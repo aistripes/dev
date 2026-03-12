@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "chrome-extensions",
+    "generated_at": "2026-03-12T22:39:04.198Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Browser Extensions implementation checklist",
+    "description": "A practical checklist for shipping Browser Extensions projects safely.",
+    "keywords": [
+      "chrome-extensions",
+      "browser extensions",
+      "checklist"
+    ],
+    "slug": "chrome-extensions-checklist-browser-extensions-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist ensures your browser extension meets Manifest V3 standards, security protocols for the Chrome Web Store, and performance requirements for production environments.",
+    "sections": [
+      {
+        "heading": "Manifest and Permissions",
+        "items": [
+          {
+            "title": "Validate Manifest V3 Compliance",
+            "description": "Ensure manifest_version is set to 3 and no deprecated Manifest V2 keys (like background.scripts or web_accessible_resources as strings) are present.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit Host Permissions",
+            "description": "Verify that host_permissions only include specific domains required for functionality rather than using broad <all_urls> patterns.",
+            "priority": "critical"
+          },
+          {
+            "title": "Define Web Accessible Resources",
+            "description": "Explicitly list only the specific files (images, fonts, scripts) that need to be accessible to web pages in the web_accessible_resources array with strict matches.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Check Permission Justification",
+            "description": "Cross-reference the 'permissions' array with your code to remove any unused APIs like 'tabs', 'storage', or 'management' that trigger additional review scrutiny.",
+            "priority": "critical"
+          },
+          {
+            "title": "Verify Action Configuration",
+            "description": "Ensure the 'action' key is used instead of 'browser_action' or 'page_action' and includes default_icon, default_title, and default_popup.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Service Worker and Lifecycle",
+        "items": [
+          {
+            "title": "Remove Global Variable Dependencies",
+            "description": "Verify that the background service worker does not rely on global state; use chrome.storage.local or session to persist data across worker restarts.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Event Listeners at Top Level",
+            "description": "Ensure all chrome.runtime.onMessage and other event listeners are registered synchronously at the top level of the service worker script.",
+            "priority": "critical"
+          },
+          {
+            "title": "Replace Timers with Alarms API",
+            "description": "Convert all instances of setInterval or setTimeout in background scripts to the chrome.alarms API to ensure execution after service worker suspension.",
+            "priority": "critical"
+          },
+          {
+            "title": "Handle Message Port Disconnects",
+            "description": "Add try-catch blocks and check for chrome.runtime.lastError when using sendResponse to prevent service worker crashes on port closure.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Optimize Service Worker Startup",
+            "description": "Measure service worker boot time; ensure it completes execution in under 50ms to prevent browser-side termination during heavy load.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Data Privacy",
+        "items": [
+          {
+            "title": "Enforce Content Security Policy (CSP)",
+            "description": "Define a strict CSP in manifest.json that disallows 'unsafe-eval' and restricts script-src to 'self'.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sanitize DOM Injections",
+            "description": "Use DOMPurify or a similar library when injecting dynamic content into the page via content scripts to prevent XSS vulnerabilities.",
+            "priority": "critical"
+          },
+          {
+            "title": "Externalize AI API Keys",
+            "description": "Verify that no LLM or third-party API keys are hardcoded in the extension; use a proxy backend or chrome.storage for user-provided keys.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate External Messaging",
+            "description": "Check that chrome.runtime.onMessageExternal is either not used or has a strict whitelist of allowed sender IDs to prevent unauthorized control.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit Storage Sensitivity",
+            "description": "Ensure PII or authentication tokens are stored in chrome.storage.local (unencrypted) only if necessary, or use a secure remote session.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Content Script Isolation",
+        "items": [
+          {
+            "title": "Implement Shadow DOM for UI",
+            "description": "Wrap all injected UI elements in a Shadow Root to prevent host page CSS from leaking into the extension and vice versa.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Verify CSS Prefixing",
+            "description": "If not using Shadow DOM, ensure all CSS classes use a unique, extension-specific prefix to avoid naming collisions with target websites.",
+            "priority": "critical"
+          },
+          {
+            "title": "Limit Content Script Execution",
+            "description": "Use 'matches' and 'exclude_matches' in the manifest to restrict content scripts to only the specific sub-paths where functionality is required.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Check Main World Leakage",
+            "description": "Ensure content scripts do not expose sensitive extension functions to the window object of the host page.",
+            "priority": "critical"
+          },
+          {
+            "title": "Test Dynamic Injection",
+            "description": "If using chrome.scripting.executeScript, verify that the 'target' object includes the correct tabId and frameIds.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and UX",
+        "items": [
+          {
+            "title": "Asset Size Optimization",
+            "description": "Verify that the total extension package size is minimized; compress all PNG/SVG icons and minify bundled JavaScript.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Verify Icon Sets",
+            "description": "Confirm that icons are provided in all required sizes: 16x16, 32x32, 48x48, and 128x128 pixels.",
+            "priority": "critical"
+          },
+          {
+            "title": "Check Storage Sync Limits",
+            "description": "If using chrome.storage.sync, verify that the data payload per item is under 8KB and the total is under 100KB.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement Loading States",
+            "description": "Ensure the popup or side panel displays a loading indicator immediately if data is being fetched from an external API or background script.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Validate Offline Behavior",
+            "description": "Test extension behavior when the browser is offline; ensure UI elements fail gracefully without hanging.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Store Compliance and Deployment",
+        "items": [
+          {
+            "title": "Privacy Policy URL Validation",
+            "description": "Ensure the privacy policy URL is active and specifically describes how user data is collected, used, and shared per CWS Developer Terms.",
+            "priority": "critical"
+          },
+          {
+            "title": "Single Purpose Verification",
+            "description": "Review the extension description and features to ensure it serves a single, clear purpose as required by Chrome Web Store policies.",
+            "priority": "critical"
+          },
+          {
+            "title": "Prepare Promotional Tiles",
+            "description": "Verify that the 440x280 small tile, 920x680 large tile, and 1400x560 marquee tile images are ready and meet Chrome's design guidelines.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Automate Versioning",
+            "description": "Integrate a build script that syncs the version number in package.json with the version field in manifest.json before every release.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Cross-Browser Compatibility Test",
+            "description": "Run the extension in Firefox (using polyfills if necessary) and Safari to ensure logic doesn't rely on Chrome-only non-standard behaviors.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

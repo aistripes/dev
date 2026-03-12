@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "international-seo",
+    "generated_at": "2026-03-12T22:38:39.880Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "International SEO implementation checklist",
+    "description": "A practical checklist for shipping International SEO projects safely.",
+    "keywords": [
+      "international-seo",
+      "international seo",
+      "checklist"
+    ],
+    "slug": "international-seo-checklist-international-seo-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for deploying multi-language and multi-region web applications. It focuses on ensuring search engine crawlers correctly identify, index, and serve the appropriate localized content to users while avoiding duplicate content penalties.",
+    "sections": [
+      {
+        "heading": "URL Architecture and Routing",
+        "items": [
+          {
+            "title": "Standardize URL Structure",
+            "description": "Confirm the site uses a consistent pattern (subdirectories like /en-us/, subdomains like fr.example.com, or ccTLDs like example.de) and does not mix patterns across regions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Translate URL Slugs",
+            "description": "Verify that URL paths are translated into the target language (e.g., /en/services vs /fr/services) to improve CTR and keyword relevance.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Validate Localized Canonicals",
+            "description": "Ensure each localized page contains a self-referencing canonical tag pointing to its own URL, rather than pointing back to the default language version.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enforce UTF-8 Encoding",
+            "description": "Check that all localized URLs and slugs are properly UTF-8 encoded to support non-Latin characters in the browser address bar.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Root Domain Logic",
+            "description": "Verify that the root domain (example.com/) either provides a language selector or uses server-side detection to redirect to the most appropriate localized subdirectory.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Hreflang Implementation",
+        "items": [
+          {
+            "title": "Self-Referencing Hreflang Tags",
+            "description": "Verify that every page includes a link tag in the <head> or HTTP header that points to itself with the correct language/region code.",
+            "priority": "critical"
+          },
+          {
+            "title": "Reciprocal Link Verification",
+            "description": "Confirm that if Page A points to Page B via hreflang, Page B must point back to Page A. Missing reciprocals will cause Google to ignore the tags.",
+            "priority": "critical"
+          },
+          {
+            "title": "ISO Code Validation",
+            "description": "Check that language codes use ISO 639-1 format and optional region codes use ISO 3166-1 Alpha 2 format (e.g., 'en-gb' is valid, 'en-uk' is not).",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement x-default Tag",
+            "description": "Add an hreflang='x-default' tag for each page to specify the fallback URL for users whose language/region does not match any specified versions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Sitemap Hreflang Mapping",
+            "description": "If using XML sitemaps for hreflang, ensure each <url> entry contains <xhtml:link> child elements for every available localized version of that URL.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Technical Crawling and Indexing",
+        "items": [
+          {
+            "title": "Disable IP-Based Automatic Redirects",
+            "description": "Ensure the server does not automatically redirect users based on IP address, as this prevents search engine bots (often crawling from US IPs) from accessing localized versions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Content-Language HTTP Header",
+            "description": "Verify the server sends the correct Content-Language header in the HTTP response matching the intended locale of the page.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Robots.txt Accessibility",
+            "description": "Audit the robots.txt file to ensure no localized subdirectories or subdomains are accidentally blocked from crawling.",
+            "priority": "critical"
+          },
+          {
+            "title": "Search Console Property Setup",
+            "description": "Verify that separate properties or 'Domain Properties' are configured in Google Search Console to monitor performance per region.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Internal Link Localization",
+            "description": "Check that all internal links on a localized page (e.g., /es/page-1) point to other localized pages (/es/page-2) rather than the default language.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Content Localization Quality",
+        "items": [
+          {
+            "title": "Translate Metadata",
+            "description": "Verify that <title> tags and <meta name='description'> tags are uniquely translated for every language version.",
+            "priority": "critical"
+          },
+          {
+            "title": "Localized Structured Data",
+            "description": "Check that JSON-LD Schema.org markup (e.g., Product, Article) uses the localized language for string-based fields like 'name' and 'description'.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Format Numbers and Currencies",
+            "description": "Confirm that decimal separators, currency symbols, and date formats (DD/MM/YYYY vs MM/DD/YYYY) match the specific target region.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Image Alt Text Translation",
+            "description": "Inspect <img> tags to ensure alt attributes are translated to provide context for localized image search.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Remove Untranslated Placeholders",
+            "description": "Scan for 'ghost' content or hardcoded strings that remain in the source language within the localized UI.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Frontend and International UX",
+        "items": [
+          {
+            "title": "HTML Lang Attribute",
+            "description": "Verify the <html lang='...'> attribute is dynamically updated to match the language of the current page content.",
+            "priority": "critical"
+          },
+          {
+            "title": "Crawlable Language Switcher",
+            "description": "Ensure the language/region selector uses standard <a> tags with href attributes rather than solely relying on JavaScript click handlers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Font Glyph Support",
+            "description": "Test that the CSS font-stack includes support for specific characters in target languages (e.g., Cyrillic, Greek, or CJK characters).",
+            "priority": "critical"
+          },
+          {
+            "title": "Preserve Path on Switch",
+            "description": "Verify that switching languages takes the user to the translated version of the current page, not a redirect to the localized homepage.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Regional Compliance Banners",
+            "description": "Ensure cookie consent and GDPR/CCPA banners are displayed and translated according to the legal requirements of the target region.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

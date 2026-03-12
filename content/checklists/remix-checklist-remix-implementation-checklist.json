@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "remix",
+    "generated_at": "2026-03-12T22:39:51.539Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Remix implementation checklist",
+    "description": "A practical checklist for shipping Remix projects safely.",
+    "keywords": [
+      "remix",
+      "checklist"
+    ],
+    "slug": "remix-checklist-remix-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for preparing a Remix application for production, focusing on server-side reliability, data integrity, and progressive enhancement patterns.",
+    "sections": [
+      {
+        "heading": "Data Fetching and Loading",
+        "items": [
+          {
+            "title": "Implement Route-Level ErrorBoundaries",
+            "description": "Ensure every route with a loader or action exports an ErrorBoundary to prevent server-side crashes from bubbling up to the root and breaking the entire application.",
+            "priority": "critical"
+          },
+          {
+            "title": "Optimize Non-Critical Data with Defer",
+            "description": "Identify slow third-party API calls or heavy database queries and move them to a deferred promise using the Remix 'defer' utility to improve Time to First Byte (TTFB).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set Cache-Control Headers in Loaders",
+            "description": "Explicitly define Cache-Control headers in loader responses for static or slow-changing data to leverage CDN and browser caching.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Validate Loader Params",
+            "description": "Check that all dynamic route parameters (e.g., params.id) are validated using a schema library like Zod before passing them to database queries.",
+            "priority": "critical"
+          },
+          {
+            "title": "Handle 404 Responses in Loaders",
+            "description": "Throw a 404 Response object within loaders when a resource is not found to trigger the nearest ErrorBoundary with isRouteErrorResponse.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Form Mutations and Actions",
+        "items": [
+          {
+            "title": "Server-Side Input Validation",
+            "description": "Implement Zod or Valibot schemas within action functions to validate all incoming FormData before processing mutations.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement CSRF Protection",
+            "description": "Verify that all non-GET requests are protected against CSRF using remix-utils or custom header verification if not using the built-in authenticity token patterns.",
+            "priority": "critical"
+          },
+          {
+            "title": "Add Pending UI States",
+            "description": "Use useNavigation to implement 'submitting' or 'loading' states on buttons and forms to provide immediate feedback during mutations.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement Optimistic UI",
+            "description": "Use useFetcher or useNavigation.formData to optimistically update the UI for high-frequency actions like toggling checkboxes or deleting items.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Prevent Double Submissions",
+            "description": "Disable submit buttons or implement server-side idempotency keys to prevent duplicate data entry on slow network connections.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Session Management",
+        "items": [
+          {
+            "title": "Secure Cookie Configuration",
+            "description": "Verify that session cookies are configured with 'httpOnly: true', 'secure: true', and 'sameSite: \"lax\"' (or \"strict\") in the createCookieSessionStorage settings.",
+            "priority": "critical"
+          },
+          {
+            "title": "Rotate Session Secrets",
+            "description": "Ensure the SESSION_SECRET environment variable is long, random, and not committed to version control.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Environment Variables at Startup",
+            "description": "Add a validation script in entry.server.tsx or a separate init file to throw an error if required production environment variables are missing.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sanitize Redirect URLs",
+            "description": "Ensure that 'redirectTo' parameters in login or multi-step forms are validated against a whitelist to prevent Open Redirect vulnerabilities.",
+            "priority": "critical"
+          },
+          {
+            "title": "Content Security Policy (CSP) Headers",
+            "description": "Implement a CSP header in the entry.server.tsx 'handleRequest' function to restrict script execution and style sources.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and Assets",
+        "items": [
+          {
+            "title": "Configure Asset Fingerprinting",
+            "description": "Verify that the Remix build process is correctly appending hashes to assets and that the server is serving them with long-lived 'immutable' cache headers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Preload Critical Assets",
+            "description": "Utilize the 'links' function to preload critical fonts or hero images for specific routes to improve Largest Contentful Paint (LCP).",
+            "priority": "optional"
+          },
+          {
+            "title": "Bundle Analysis",
+            "description": "Run a bundle analyzer (e.g., esbuild-visualizer) to identify and remove large dependencies that are inadvertently included in the client-side bundle.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Image Optimization Strategy",
+            "description": "Ensure images are served in modern formats (WebP/AVIF) and use the 'srcset' attribute for responsive sizing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Enable Gzip/Brotli Compression",
+            "description": "Confirm that the hosting provider or the Express/Node server adapter has compression enabled for text-based assets and HTML responses.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and Infrastructure",
+        "items": [
+          {
+            "title": "Production Build Verification",
+            "description": "Verify that 'remix build' is executed with NODE_ENV set to 'production' to ensure React development checks are disabled.",
+            "priority": "critical"
+          },
+          {
+            "title": "Health Check Endpoint",
+            "description": "Create a resource route at /healthcheck that verifies database and cache connectivity for automated load balancer health checks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Database Connection Pooling",
+            "description": "If deploying to a serverless environment (e.g., Cloudflare Workers or AWS Lambda), implement a connection pooler like Prisma Accelerate or PgBouncer.",
+            "priority": "critical"
+          },
+          {
+            "title": "Logger Integration",
+            "description": "Replace console.log with a structured logging library (e.g., Pino or Winston) in loaders and actions for better observability in production logs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Sentry or Error Tracking Setup",
+            "description": "Integrate Sentry or a similar service within entry.client.tsx and entry.server.tsx to capture runtime exceptions and sourcemaps.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "SEO and Metadata",
+        "items": [
+          {
+            "title": "Dynamic Meta Tags",
+            "description": "Implement the 'meta' function for every public route to ensure unique titles, descriptions, and Open Graph tags based on loader data.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Canonical URL Implementation",
+            "description": "Ensure every page includes a canonical link tag to prevent duplicate content issues, especially when using query parameters for filtering.",
+            "priority": "optional"
+          },
+          {
+            "title": "Sitemap Generation",
+            "description": "Configure an automated sitemap generation script or resource route that dynamically lists all public-facing URLs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Robots.txt Configuration",
+            "description": "Add a robots.txt file to the public directory or as a resource route to control crawler access to sensitive paths like /admin or /api.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Structured Data (JSON-LD)",
+            "description": "Inject JSON-LD structured data into the head for product, article, or organization pages to improve search engine rich snippets.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

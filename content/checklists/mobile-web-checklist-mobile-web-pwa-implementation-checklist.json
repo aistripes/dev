@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "mobile-web",
+    "generated_at": "2026-03-12T22:39:23.886Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Mobile Web / PWA implementation checklist",
+    "description": "A practical checklist for shipping Mobile Web / PWA projects safely.",
+    "keywords": [
+      "mobile-web",
+      "mobile web / pwa",
+      "checklist"
+    ],
+    "slug": "mobile-web-checklist-mobile-web-pwa-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical roadmap for moving a web application to a production-ready Progressive Web App (PWA). It focuses on service worker reliability, cross-platform installation, and mobile-specific performance constraints.",
+    "sections": [
+      {
+        "heading": "Service Worker and Offline Reliability",
+        "items": [
+          {
+            "title": "Register Service Worker on Load",
+            "description": "Ensure the service worker is registered after the window 'load' event to avoid competing with main thread resources during initial paint.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Offline Fallback Page",
+            "description": "Configure a specific offline.html file in the cache that displays when the user is offline and the requested page is not in the cache.",
+            "priority": "critical"
+          },
+          {
+            "title": "Versioned Cache Keys",
+            "description": "Prefix cache names with a version string (e.g., v1, v2) to facilitate cache purging and prevent stale assets from persisting after updates.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cache-First Strategy for Static Assets",
+            "description": "Apply a Cache-First (Cache Falling Back to Network) strategy for images, fonts, and CSS using Workbox or native Fetch API.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Stale-While-Revalidate for API Routes",
+            "description": "Implement Stale-While-Revalidate for dynamic content to show immediate data while updating the cache in the background.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Handle Service Worker Updates",
+            "description": "Implement a UI notification or automatic reload logic when a new service worker is waiting to ensure users don't run old code.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Web App Manifest and Installation",
+        "items": [
+          {
+            "title": "Validate Manifest.json Fields",
+            "description": "Verify the presence of 'short_name', 'name', 'start_url', 'display' (standalone or minimal-ui), and 'background_color'.",
+            "priority": "critical"
+          },
+          {
+            "title": "Provide 512x512 and 192x192 Icons",
+            "description": "Include PNG icons in both sizes to satisfy Android and Chrome installation requirements.",
+            "priority": "critical"
+          },
+          {
+            "title": "Define Maskable Icons",
+            "description": "Add the 'purpose': 'maskable' attribute to at least one icon to ensure proper rendering on Android adaptive icon systems.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set Theme Color Meta Tag",
+            "description": "Match the 'theme_color' in the manifest with the HTML meta name='theme-color' tag for browser UI consistency.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Custom Install Prompt Logic",
+            "description": "Intercept the 'beforeinstallprompt' event to provide a custom UI button rather than relying on browser defaults.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Mobile Performance Optimization",
+        "items": [
+          {
+            "title": "Eliminate Render-Blocking CSS",
+            "description": "Inline critical CSS in the <head> and defer non-critical styles using media='print' or rel='preload'.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Image Lazy Loading",
+            "description": "Use the loading='lazy' attribute on all non-hero images to reduce initial payload and CPU usage.",
+            "priority": "critical"
+          },
+          {
+            "title": "Preconnect to Critical Origins",
+            "description": "Add <link rel='preconnect'> for third-party domains like fonts or API endpoints to reduce DNS/TCP handshake latency.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Enforce Font-Display: Swap",
+            "description": "Ensure all @font-face declarations include font-display: swap to prevent invisible text during font loading.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Limit JavaScript Bundle Size",
+            "description": "Keep the main thread execution time under 2 seconds on a mid-tier mobile device (e.g., Moto G4) via code splitting.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Touch UI and Platform Integration",
+        "items": [
+          {
+            "title": "Set Viewport Meta Tag",
+            "description": "Ensure <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover'> is present for iOS notched devices.",
+            "priority": "critical"
+          },
+          {
+            "title": "Apply Safe Area Insets",
+            "description": "Use CSS environment variables (env(safe-area-inset-bottom)) to prevent UI elements from overlapping system bars.",
+            "priority": "critical"
+          },
+          {
+            "title": "Disable Double-Tap Zoom",
+            "description": "Set touch-action: manipulation on interactive elements to remove the 300ms tap delay in mobile browsers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement Skeleton Screens",
+            "description": "Replace generic loading spinners with CSS skeleton screens that mirror the layout structure to improve perceived performance.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Provide Visual Touch Feedback",
+            "description": "Use CSS :active states or ripple effects to confirm user input on buttons and navigation links.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Push Notifications and Engagement",
+        "items": [
+          {
+            "title": "VAPID Key Configuration",
+            "description": "Generate and secure Voluntarily Identified Public Key (VAPID) pairs for authenticating push subscriptions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Deferred Permission Request",
+            "description": "Trigger the notification permission request after a user action (e.g., clicking a 'Notify Me' button) rather than on page load.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Handle Notification Clicks",
+            "description": "Add a 'notificationclick' event listener in the service worker to focus the existing window or open a specific deep-link URL.",
+            "priority": "recommended"
+          },
+          {
+            "title": "iOS Push Support Validation",
+            "description": "Verify the app supports the Web Push API for iOS 16.4+ when the app is added to the home screen.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Payload Size Verification",
+            "description": "Ensure push notification payloads remain under 4KB to comply with browser vendor limitations.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

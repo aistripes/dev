@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "programmatic-seo",
+    "generated_at": "2026-03-12T22:38:36.499Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Programmatic SEO with open-source tools",
+    "description": "A step-by-step implementation guide for Programmatic SEO with open-source tools.",
+    "keywords": [
+      "programmatic-seo",
+      "programmatic seo",
+      "guide"
+    ],
+    "slug": "programmatic-seo-guide-building-programmatic-seo-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical workflow for building a Programmatic SEO (pSEO) engine using a modern web framework like Next.js or Astro. The objective is to transform structured data into thousands of high-performance, indexable pages while maintaining content quality and site architecture integrity.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Proficiency in TypeScript and a framework supporting SSG/ISR (Next.js or Astro)",
+      "A structured dataset in JSON, CSV, or a relational database",
+      "Basic knowledge of Zod for data validation",
+      "Access to a headless CMS or a structured data source"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Data Normalization and Schema Validation",
+        "explanation": "Before generating pages, you must ensure your data source is consistent. Use Zod to define a schema that validates every row of your dataset. This prevents build failures caused by missing fields or malformed strings in your CSV or JSON source.",
+        "code": {
+          "language": "typescript",
+          "content": "import { z } from 'zod';\n\nexport const PageDataSchema = z.object({\n  id: z.string(),\n  city_name: z.string(),\n  service_type: z.string(),\n  description: z.string().min(100),\n  meta_title: z.string().max(60),\n  features: z.array(z.string()),\n  slug: z.string().regex(/^[a-z0-9-]+$/)\n});\n\nexport type PageData = z.infer<typeof PageDataSchema>;",
+          "filename": "schema.ts"
+        },
+        "pitfalls": [
+          "Ignoring null values in non-required fields which break string manipulation logic",
+          "Using non-URL-friendly characters in slugs generated from raw data"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implementing Dynamic Route Generation",
+        "explanation": "Configure your framework to generate static paths based on your dataset. In Next.js, use `generateStaticParams` to fetch your data and return an array of slug objects. This ensures that every entry in your database becomes a physical route at build time.",
+        "code": {
+          "language": "typescript",
+          "content": "export async function generateStaticParams() {\n  const data = await getData(); // Fetch from local JSON or DB\n  return data.map((item) => ({\n    slug: item.slug,\n  }));\n}\n\nexport default async function Page({ params }: { params: { slug: string } }) {\n  const { slug } = params;\n  const pageData = await getPageData(slug);\n  return <Template data={pageData} />;\n}",
+          "filename": "app/services/[slug]/page.tsx"
+        },
+        "pitfalls": [
+          "Memory exhaustion during build when processing >10,000 pages simultaneously",
+          "Slow build times caused by fetching data individually for every page instead of batching"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Scaling Content with Component-Based Templates",
+        "explanation": "Avoid repetitive 'thin' content by building templates that use logic to vary the layout based on data attributes. Use conditional rendering to display different sections (e.g., pricing tables, FAQ schemas, or comparison grids) depending on what data is available for that specific record.",
+        "code": {
+          "language": "tsx",
+          "content": "const Template = ({ data }: { data: PageData }) => (\n  <main>\n    <h1>{data.service_type} in {data.city_name}</h1>\n    {data.features.length > 0 && (\n      <section>\n        <h2>Key Features</h2>\n        <ul>{data.features.map(f => <li key={f}>{f}</li>)}</ul>\n      </section>\n    )}\n    <StructuredDataFAQ data={data.faqs} />\n  </main>\n);",
+          "filename": "components/DynamicSection.tsx"
+        },
+        "pitfalls": [
+          "Creating 'cookie-cutter' pages that search engines flag as duplicate content",
+          "Hardcoding SEO metadata instead of deriving it dynamically from the dataset"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Automated Internal Linking Strategy",
+        "explanation": "Distribute link equity across your programmatic pages by implementing an automated internal linking block. Use a 'Related Pages' or 'Nearby Locations' logic to ensure no page is an orphan. This can be achieved by filtering your dataset for items sharing the same category or parent ID.",
+        "code": {
+          "language": "typescript",
+          "content": "export function getRelatedLinks(currentId: string, category: string, allData: PageData[]) {\n  return allData\n    .filter(item => item.category === category && item.id !== currentId)\n    .slice(0, 5);\n}",
+          "filename": "lib/links.ts"
+        },
+        "pitfalls": [
+          "Creating circular redirect loops or linking to 404 pages",
+          "Excessive internal links (over 100 per page) which can dilute link juice"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Generating Scalable Sitemap Indexes",
+        "explanation": "Google limits sitemaps to 50,000 URLs or 50MB. For large-scale pSEO, implement a sitemap index that points to multiple child sitemaps. Use a script to partition your URL list and generate these XML files dynamically during the build process.",
+        "code": {
+          "language": "javascript",
+          "content": "const CHUNK_SIZE = 40000;\nfor (let i = 0; i < urls.length; i += CHUNK_SIZE) {\n  const chunk = urls.slice(i, i + CHUNK_SIZE);\n  const xml = generateXmlForChunk(chunk);\n  fs.writeFileSync(`./public/sitemap-${i / CHUNK_SIZE}.xml`, xml);\n}",
+          "filename": "scripts/generate-sitemap.js"
+        },
+        "pitfalls": [
+          "Including non-canonical URLs in the sitemap",
+          "Failing to update the sitemap index when new data is added to the pipeline"
+        ]
+      }
+    ],
+    "conclusion": "Successful Programmatic SEO implementation relies on data integrity and architectural scalability. By validating your data with Zod, utilizing framework-level route generation, and automating internal linking, you can build a site that scales to thousands of pages without manual intervention. Always monitor Google Search Console for indexing issues as your page count grows."
+  }
+}

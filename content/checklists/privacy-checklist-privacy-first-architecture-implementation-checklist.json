@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "privacy",
+    "generated_at": "2026-03-12T22:38:31.600Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Privacy-First Architecture implementation checklist",
+    "description": "A practical checklist for shipping Privacy-First Architecture projects safely.",
+    "keywords": [
+      "privacy",
+      "privacy-first architecture",
+      "checklist"
+    ],
+    "slug": "privacy-checklist-privacy-first-architecture-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for validating that an application adheres to privacy-first principles before deployment, focusing on data minimization, infrastructure sovereignty, and user agency.",
+    "sections": [
+      {
+        "heading": "Data Minimization and Sanitization",
+        "items": [
+          {
+            "title": "PII Log Sanitization",
+            "description": "Verify that application loggers (e.g., Winston, Pino) use middleware to redact emails, physical addresses, and full names before writing to stdout or disk.",
+            "priority": "critical"
+          },
+          {
+            "title": "IP Address Masking",
+            "description": "Configure reverse proxies (Nginx/Traefik) or application code to mask the last octet of IPv4 addresses and the last 80 bits of IPv6 addresses.",
+            "priority": "critical"
+          },
+          {
+            "title": "Database Schema Audit",
+            "description": "Review every column in the production schema; remove any fields that are not strictly required for the application's core functionality.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Temporary Data TTLs",
+            "description": "Set Time-To-Live (TTL) indexes on session stores and temporary caches to ensure data is automatically purged after inactivity.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Client-Side Storage Cleanup",
+            "description": "Verify that sensitive data is cleared from localStorage or sessionStorage upon user logout or session expiration.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Infrastructure and Data Sovereignty",
+        "items": [
+          {
+            "title": "EU-Only Compute Region",
+            "description": "Confirm that all cloud resources (Compute, DB, Object Storage) are provisioned exclusively in EU regions (e.g., eu-central-1) to avoid Schrems II complications.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sub-processor Audit",
+            "description": "Trace every outgoing network request from the production environment to ensure no data is sent to US-based services without a valid DPA.",
+            "priority": "critical"
+          },
+          {
+            "title": "Self-Hosted Asset Verification",
+            "description": "Ensure all fonts, icons, and JavaScript libraries are hosted on your own infrastructure rather than via third-party CDNs like Google Fonts or cdnjs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Database Encryption at Rest",
+            "description": "Verify that the underlying storage for Postgres/MySQL/NoSQL instances is encrypted using AES-256 with managed or customer-provided keys.",
+            "priority": "critical"
+          },
+          {
+            "title": "Encrypted Backups",
+            "description": "Test backup restoration from an encrypted snapshot to ensure that backup files are not stored in cleartext on secondary storage.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Analytics and Tracking Compliance",
+        "items": [
+          {
+            "title": "Cookie-less Analytics Setup",
+            "description": "Verify that Plausible, Umami, or Fathom is configured to run without generating or storing persistent browser cookies.",
+            "priority": "critical"
+          },
+          {
+            "title": "Do-Not-Track (DNT) Respect",
+            "description": "Validate that the analytics script or backend logic checks for the 'DNT' header and suppresses tracking if present.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Event Property Scrubbing",
+            "description": "Scan all custom event metadata in PostHog or Matomo to ensure no dynamic user-input strings (like search queries) contain PII.",
+            "priority": "critical"
+          },
+          {
+            "title": "Session Recording Masking",
+            "description": "If using session replay, verify that all input fields and sensitive text elements are masked via CSS classes before being uploaded.",
+            "priority": "critical"
+          },
+          {
+            "title": "Fingerprinting Prevention",
+            "description": "Ensure that the tracking implementation does not use Canvas fingerprinting or TLS ja3 hashes to identify users across sessions.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "AI and Third-Party API Integration",
+        "items": [
+          {
+            "title": "LLM Training Opt-Out",
+            "description": "Verify that API requests to LLM providers (e.g., OpenAI, Anthropic) include the specific flag or account setting to opt-out of data training.",
+            "priority": "critical"
+          },
+          {
+            "title": "Local Embedding Generation",
+            "description": "Configure the application to generate vector embeddings locally (e.g., using Transformers.js or Ollama) instead of sending raw text to cloud APIs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "PII Pre-filtering for APIs",
+            "description": "Implement a regex-based or NLP filter to strip names and emails from user prompts before they are sent to external AI services.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Webhook Payload Minimization",
+            "description": "Review outgoing webhooks (e.g., to Stripe or Slack) and ensure they only send the minimum required IDs rather than full user objects.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Local LLM Fallback",
+            "description": "Implement a local model fallback for processing highly sensitive data categories that cannot leave the VPC.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "User Rights and Data Portability",
+        "items": [
+          {
+            "title": "Automated Data Export (SAR)",
+            "description": "Verify that users can trigger a self-service download of all their personal data in a machine-readable format (JSON/CSV).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Hard Deletion Cascade",
+            "description": "Confirm that a 'Delete Account' action triggers a hard delete across all primary databases, related tables, and object storage buckets.",
+            "priority": "critical"
+          },
+          {
+            "title": "Backup Purge Cycle",
+            "description": "Verify that the backup retention policy is set to 30 days or less to ensure that deleted user data is eventually purged from all archives.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Consent Withdrawal Verification",
+            "description": "Test that revoking consent for marketing or analytics immediately halts all associated data collection and processing activities.",
+            "priority": "critical"
+          },
+          {
+            "title": "Consent Audit Logging",
+            "description": "Ensure that every change in user consent is logged with a timestamp and the version of the privacy policy accepted.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Communications and Email",
+        "items": [
+          {
+            "title": "Privacy-First Email Provider",
+            "description": "Verify that transactional emails are sent via privacy-respecting providers (e.g., Listmonk, Buttondown) rather than marketing-heavy platforms.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Tracking Pixel Removal",
+            "description": "Disable open-tracking and click-tracking pixels in transactional emails to prevent leaking user IP and device data to the ESP.",
+            "priority": "critical"
+          },
+          {
+            "title": "Email Link Proxying",
+            "description": "Ensure that links in emails do not include identifying tokens in the URL parameters that could be leaked to third-party sites via Referer headers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Double Opt-In Workflow",
+            "description": "Validate that the newsletter or notification subscription process requires a confirmed double opt-in to prevent malicious signups.",
+            "priority": "critical"
+          },
+          {
+            "title": "List Segmentation Privacy",
+            "description": "Verify that email lists are segmented without exporting entire user databases to the email service provider.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

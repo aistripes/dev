@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "code-generation",
+    "generated_at": "2026-03-12T22:38:04.930Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 AI Code Generation resources for developers",
+    "description": "A curated set of practical AI Code Generation resources for engineers.",
+    "keywords": [
+      "code-generation",
+      "ai code generation",
+      "resource-article"
+    ],
+    "slug": "code-generation-resource-article-100-ai-code-generation-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource provides a technical roadmap for developers and engineering leads to implement AI code generation within professional workflows. It focuses on agentic CLI tools, automated security validation for synthetic code, and context-injection techniques to ensure production-grade output.",
+    "sections": [
+      {
+        "heading": "Agentic Coding Tools and CLI Assistants",
+        "items": [
+          {
+            "title": "Aider",
+            "description": "A command-line chat tool that allows you to edit code in your local git repository. It uses a whole-repo map to provide context and automatically commits changes with descriptive messages.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Claude Code",
+            "description": "Anthropic's agentic CLI tool designed for complex refactoring and multi-file edits. It excels at understanding project-wide dependencies and executing shell commands to validate its own changes.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Continue.dev",
+            "description": "An open-source IDE extension for VS Code and JetBrains that allows you to swap out LLM backends (Ollama, Anthropic, TogetherAI) and build custom autocomplete providers.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Cursor",
+            "description": "A fork of VS Code that integrates LLMs at the editor level. It features 'Composer' mode for multi-file generation and native indexing of local documentation for context-aware queries.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Plandex",
+            "description": "A terminal-based AI coding engine that handles large-scale tasks by breaking them into a plan, executing them in a protected sandbox, and allowing for diff-based reviews.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "OpenDevin / OpenHands",
+            "description": "An open-source platform for software engineering agents that can interact with the browser, terminal, and editor to solve GitHub issues autonomously.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Mentat",
+            "description": "A CLI tool that coordinates AI-driven code changes by scanning your project and allowing you to select specific files to include in the LLM's context window.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Cody by Sourcegraph",
+            "description": "An assistant that uses Sourcegraph's code graph to provide context from large, distributed codebases that don't fit into a standard local context window.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Goose",
+            "description": "An open-source agent from Block (formerly Square) that uses a 'toolkit' approach to allow the AI to interact with Jira, GitHub, and local build tools.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Gpt-pilot",
+            "description": "An agentic tool focused on the initial scaffolding phase, asking clarifying questions to generate a full-stack application structure from a single prompt.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Quality Validation",
+        "items": [
+          {
+            "title": "Semgrep AI",
+            "description": "Use Semgrep's assistant to scan AI-generated code for common reachability patterns and vulnerabilities that standard static analysis might miss.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "CodiumAI (Cover Agent)",
+            "description": "An automated tool that takes AI-generated code and attempts to reach 100% test coverage by generating Pytest or Jest suites based on the implementation.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Snyk Code",
+            "description": "Integrate Snyk into the CI/CD pipeline to specifically flag 'hallucinated' dependencies—libraries suggested by AI that do not actually exist in public registries.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Promptfoo",
+            "description": "A CLI tool to run test cases against your code generation prompts. Use it to ensure that model updates don't break specific coding style or logic requirements.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "DeepSource Autofix",
+            "description": "An automated code review tool that identifies bug risks and security flaws, providing an AI-generated suggestion to fix the issue directly in the PR.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Giskard",
+            "description": "An open-source framework for testing LLM outputs, useful for validating that AI-generated SQL or API integration code meets specific business logic constraints.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Bandit",
+            "description": "A security linter for Python that should be run as a pre-commit hook to catch common AI mistakes like hardcoded passwords or insecure 'eval()' calls.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "TruLens-Eval",
+            "description": "A library to evaluate RAG-based coding assistants by measuring 'groundedness'—ensuring the AI only uses the provided documentation and not outdated training data.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Bouncer",
+            "description": "A validation tool that uses JSON Schema or Pydantic models to force LLMs to return structured code metadata instead of conversational text.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "SonarQube AI Code Assurance",
+            "description": "A set of quality gates designed to track the percentage of AI-generated code in a repository and enforce stricter linting rules on those blocks.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Context Management and Prompt Engineering",
+        "items": [
+          {
+            "title": ".cursorrules Configuration",
+            "description": "Create a .cursorrules file in your project root to define specific architectural patterns, naming conventions, and libraries the AI must use.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Repomix",
+            "description": "A tool that bundles your entire codebase into a single, LLM-friendly text file, optimized with headers to help models understand the directory structure.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Tree-sitter Integration",
+            "description": "Use Tree-sitter to parse code into Abstract Syntax Trees (AST) before sending it to an LLM, allowing for more precise 'code chunking' in RAG systems.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "LlamaIndex Code Splitter",
+            "description": "A specialized text splitter that understands language-specific syntax (Python, JS, Go) to avoid breaking functions or classes across context windows.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Voy",
+            "description": "A lightweight WASM vector search engine that can be embedded in IDE extensions to provide local, low-latency semantic search of the codebase.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Ell",
+            "description": "A library that treats prompts as functional code, allowing you to version, test, and trace code generation prompts alongside your application logic.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Griptape",
+            "description": "A Python framework for building AI workflows that keep code generation tasks 'off-prompt' by using pre-defined tools for file I/O and shell execution.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Markdown-based System Prompts",
+            "description": "Structure your system prompts using Markdown headers (# Instruction, ## Constraints) to improve model following for complex boilerplate generation.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Context-Free Grammar (CFG) Sampling",
+            "description": "Use libraries like Outlines to constrain LLM output to valid code syntax, preventing the model from generating syntax errors during high-temperature runs.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Vector Admin",
+            "description": "A GUI for managing the vector embeddings of your private documentation, ensuring your coding assistant has access to the latest internal API specs.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use 'Chain of Thought' prompting for complex logic by adding 'Think step-by-step and write pseudocode first' to your code generation requests.",
+      "Implement a strict 'No AI-generated Migrations' policy without manual review to prevent destructive database schema changes.",
+      "Use a .clauderules or .cursorrules file to explicitly blacklist deprecated libraries and enforce the use of specific internal wrappers.",
+      "Verify every AI-suggested package on npm or PyPI before installing to mitigate the risk of dependency confusion or typosquatting attacks.",
+      "For large refactors, use 'Diff-only' mode in CLI agents to reduce token costs and focus the model on the specific lines of code changing."
+    ]
+  }
+}

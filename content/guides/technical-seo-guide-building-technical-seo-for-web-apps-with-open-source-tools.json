@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "technical-seo",
+    "generated_at": "2026-03-12T22:38:40.361Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Technical SEO for Web Apps with open-source tools",
+    "description": "A step-by-step implementation guide for Technical SEO for Web Apps with open-source tools.",
+    "keywords": [
+      "technical-seo",
+      "technical seo for web apps",
+      "guide"
+    ],
+    "slug": "technical-seo-guide-building-technical-seo-for-web-apps-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide provides a technical implementation path for optimizing modern web applications for search engines, focusing on Next.js and React-based architectures. It covers the transition from client-side rendering to server-side rendering (SSR) or incremental static regeneration (ISR), ensuring that crawlers receive fully rendered content and structured metadata without execution delays.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Next.js 13+ (App Router) or equivalent SSR-capable framework",
+      "Verified Google Search Console property",
+      "Basic knowledge of TypeScript and JSON-LD schema requirements"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Implement Dynamic Metadata via generateMetadata",
+        "explanation": "Replace static meta tags with the Next.js Metadata API to ensure unique titles, descriptions, and canonical URLs for every dynamic route. This prevents duplicate content issues and ensures the crawler receives the correct signals during the initial HTTP request.",
+        "code": {
+          "language": "typescript",
+          "content": "import { Metadata } from 'next';\n\ntype Props = { params: { id: string } };\n\nexport async function generateMetadata({ params }: Props): Promise<Metadata> {\n  const product = await fetch(`https://api.example.com/products/${params.id}`).then((res) => res.json());\n\n  return {\n    title: product.name,\n    description: product.description,\n    alternates: {\n      canonical: `https://example.com/products/${params.id}`,\n    },\n    openGraph: {\n      images: [product.image],\n    },\n  };\n}",
+          "filename": "app/products/[id]/page.tsx"
+        },
+        "pitfalls": [
+          "Hardcoding absolute URLs instead of using environment variables for different stages",
+          "Forgetting to include a canonical tag, leading to URL parameter-based duplication"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Inject JSON-LD Structured Data",
+        "explanation": "Embed Schema.org markup directly into the page using a script tag with type 'application/ld+json'. This allows search engines to parse product details, reviews, or organizational info without executing complex JavaScript logic.",
+        "code": {
+          "language": "typescript",
+          "content": "export default function ProductPage({ product }) {\n  const jsonLd = {\n    '@context': 'https://schema.org',\n    '@type': 'Product',\n    name: product.name,\n    image: product.image,\n    description: product.description,\n    offers: {\n      '@type': 'Offer',\n      price: product.price,\n      priceCurrency: 'USD',\n      availability: 'https://schema.org/InStock',\n    },\n  };\n\n  return (\n    <section>\n      <script\n        type=\"application/ld+json\"\n        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}\n      />\n      <h1>{product.name}</h1>\n    </section>\n  );\n}",
+          "filename": "components/ProductJsonLd.tsx"
+        },
+        "pitfalls": [
+          "Inconsistent data between the visible UI and the JSON-LD payload, which can trigger search quality flags",
+          "Invalid nesting of schema objects causing parsing errors in Google Search Console"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Optimize Cumulative Layout Shift (CLS) for Web Vitals",
+        "explanation": "Core Web Vitals are ranking factors. Use the 'next/image' component to ensure images have pre-calculated aspect ratios, preventing layout shifts as images load. Set explicit dimensions or use 'fill' with a defined aspect-ratio container.",
+        "code": {
+          "language": "typescript",
+          "content": "import Image from 'next/image';\n\nexport default function Hero() {\n  return (\n    <div className=\"aspect-video relative w-full\">\n      <Image\n        src=\"/hero.jpg\"\n        alt=\"Product Hero\"\n        fill\n        priority\n        sizes=\"(max-width: 768px) 100vw, 50vw\"\n        className=\"object-cover\"\n      />\n    </div>\n  );\n}",
+          "filename": "components/Hero.tsx"
+        },
+        "pitfalls": [
+          "Using 'priority' on every image instead of only those above the fold",
+          "Neglecting to set a fallback height for dynamic ad slots or third-party widgets"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Automate Sitemap Generation for Dynamic Routes",
+        "explanation": "Create a sitemap.ts file to dynamically generate your sitemap.xml. This ensures that new content is discoverable by crawlers immediately after creation without manual updates.",
+        "code": {
+          "language": "typescript",
+          "content": "import { MetadataRoute } from 'next';\n\nexport default async function sitemap(): Promise<MetadataRoute.Sitemap> {\n  const products = await fetch('https://api.example.com/products').then(res => res.json());\n  \n  const productEntries = products.map((product: any) => ({\n    url: `https://example.com/products/${product.id}`,\n    lastModified: new Date(product.updatedAt),\n    changeFrequency: 'daily',\n    priority: 0.7,\n  }));\n\n  return [\n    {\n      url: 'https://example.com',\n      lastModified: new Date(),\n      changeFrequency: 'yearly',\n      priority: 1,\n    },\n    ...productEntries,\n  ];\n}",
+          "filename": "app/sitemap.ts"
+        },
+        "pitfalls": [
+          "Exceeding the 50,000 URL limit per sitemap file without implementing a sitemap index",
+          "Including private, noindex, or broken URLs in the sitemap"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Configure robots.txt and Crawl Directives",
+        "explanation": "Explicitly define which paths should be ignored by crawlers to save crawl budget. Use the robots.ts file to manage access to internal search pages, admin panels, or API endpoints.",
+        "code": {
+          "language": "typescript",
+          "content": "import { MetadataRoute } from 'next';\n\nexport default function robots(): MetadataRoute.Robots {\n  return {\n    rules: {\n      userAgent: '*',\n      allow: '/',\n      disallow: ['/admin/', '/api/', '/search?'],\n    },\n    sitemap: 'https://example.com/sitemap.xml',\n  };\n}",
+          "filename": "app/robots.ts"
+        },
+        "pitfalls": [
+          "Accidentally blocking CSS or JS assets required for rendering, leading to partial rendering issues",
+          "Using robots.txt to try and remove a page from the index (use 'noindex' meta tags instead)"
+        ]
+      }
+    ],
+    "conclusion": "Following these steps ensures that your web application provides a clean, fast, and structured interface for search engine crawlers. Success should be verified by monitoring the 'Indexing' and 'Experience' reports in Google Search Console to ensure all dynamic pages are correctly discovered and meet the Core Web Vitals thresholds."
+  }
+}

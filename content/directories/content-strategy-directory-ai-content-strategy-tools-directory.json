@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "content-strategy",
+    "generated_at": "2026-03-12T22:38:35.642Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI Content Strategy tools directory",
+    "description": "A developer-first directory of AI Content Strategy tools and references.",
+    "keywords": [
+      "content-strategy",
+      "ai content strategy",
+      "directory"
+    ],
+    "slug": "content-strategy-directory-ai-content-strategy-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools and platforms designed to facilitate AI-assisted content workflows, from keyword research and topical authority mapping to performance measurement and content optimization.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Keyword Research",
+          "Content Optimization",
+          "AI Writing & Generation",
+          "Workflow Management",
+          "Analytics & Performance"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Ahrefs",
+        "description": "Comprehensive SEO toolset for backlink analysis, keyword research, and competitor content gap identification.",
+        "url": "https://ahrefs.com",
+        "category": "Keyword Research",
+        "pricing_model": "paid",
+        "pros": [
+          "Industry-leading backlink database",
+          "Granular keyword difficulty metrics",
+          "Content Gap tool identifies missed topical opportunities"
+        ],
+        "cons": [
+          "High starting price point",
+          "No free tier available"
+        ],
+        "tags": [
+          "seo",
+          "backlinks",
+          "keyword-research"
+        ]
+      },
+      {
+        "name": "Clearscope",
+        "description": "Content optimization platform that uses latent semantic indexing to identify relevant terms for topical authority.",
+        "url": "https://www.clearscope.io",
+        "category": "Content Optimization",
+        "pricing_model": "paid",
+        "pros": [
+          "Highly accurate keyword recommendations",
+          "Integrates directly with Google Docs and WordPress",
+          "Simplifies complex SEO data into actionable grades"
+        ],
+        "cons": [
+          "Expensive for individual creators",
+          "Limited to optimization rather than generation"
+        ],
+        "tags": [
+          "seo-writing",
+          "lsi-keywords",
+          "content-grading"
+        ]
+      },
+      {
+        "name": "Anthropic Claude",
+        "description": "Large language model known for high-quality technical writing and adherence to complex brand voice guidelines.",
+        "url": "https://claude.ai",
+        "category": "AI Writing & Generation",
+        "pricing_model": "freemium",
+        "pros": [
+          "Large context window for processing long-form research",
+          "More natural, less 'robotic' prose compared to peers",
+          "Excellent at following structured formatting instructions"
+        ],
+        "cons": [
+          "API access can be restricted by region",
+          "Occasional strict safety filtering"
+        ],
+        "tags": [
+          "llm",
+          "ai-writing",
+          "technical-content"
+        ]
+      },
+      {
+        "name": "Google Search Console",
+        "description": "Essential tool for monitoring site indexing, search traffic, and identifying underperforming content for refreshes.",
+        "url": "https://search.google.com/search-console/",
+        "category": "Analytics & Performance",
+        "pricing_model": "free",
+        "pros": [
+          "Direct data from Google search engine",
+          "Identifies exact queries driving traffic",
+          "Alerts for indexing and mobile usability issues"
+        ],
+        "cons": [
+          "Data is delayed by 48-72 hours",
+          "Limited historical data retention"
+        ],
+        "tags": [
+          "seo-monitoring",
+          "indexing",
+          "search-data"
+        ]
+      },
+      {
+        "name": "SurferSEO",
+        "description": "Data-driven content editor that analyzes top-ranking pages to provide structural and keyword requirements.",
+        "url": "https://surferseo.com",
+        "category": "Content Optimization",
+        "pricing_model": "paid",
+        "pros": [
+          "Automated SERP analysis for any keyword",
+          "Built-in AI writing assistant",
+          "Provides clear word count and image density targets"
+        ],
+        "cons": [
+          "Can encourage over-optimization if followed blindly",
+          "Credit-based system for audits can be restrictive"
+        ],
+        "tags": [
+          "serp-analysis",
+          "optimization",
+          "content-editor"
+        ]
+      },
+      {
+        "name": "MarketMuse",
+        "description": "AI-powered content strategy platform that builds topical clusters and identifies content gaps automatically.",
+        "url": "https://www.marketmuse.com",
+        "category": "Keyword Research",
+        "pricing_model": "freemium",
+        "pros": [
+          "Automated inventory and audit features",
+          "Predictive success modeling for topics",
+          "Visualizes topical authority clusters"
+        ],
+        "cons": [
+          "Steep learning curve for all features",
+          "Free tier is very limited"
+        ],
+        "tags": [
+          "topical-authority",
+          "content-strategy",
+          "inventory-audit"
+        ]
+      },
+      {
+        "name": "OpenAI API",
+        "description": "Programmatic access to GPT-4 models for building custom content generation and transformation pipelines.",
+        "url": "https://openai.com/api/",
+        "category": "AI Writing & Generation",
+        "pricing_model": "paid",
+        "pros": [
+          "Highly customizable via system prompts",
+          "Supports structured output (JSON mode)",
+          "Massive ecosystem of integrations"
+        ],
+        "cons": [
+          "Requires technical knowledge to implement effectively",
+          "Costs can scale quickly with high-volume usage"
+        ],
+        "tags": [
+          "api",
+          "gpt-4",
+          "automation"
+        ]
+      },
+      {
+        "name": "Linear",
+        "description": "Issue tracking and project management tool optimized for high-performance product and content teams.",
+        "url": "https://linear.app",
+        "category": "Workflow Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extremely fast keyboard-centric interface",
+          "Built-in cycles and roadmaps for content planning",
+          "Clean, distraction-free UI"
+        ],
+        "cons": [
+          "Opinionated workflow might not suit all teams",
+          "Lacks native content-specific views like calendars"
+        ],
+        "tags": [
+          "project-management",
+          "agile",
+          "developer-tools"
+        ]
+      },
+      {
+        "name": "Google Analytics 4",
+        "description": "Web analytics platform for tracking user engagement, conversion paths, and content ROI.",
+        "url": "https://analytics.google.com",
+        "category": "Analytics & Performance",
+        "pricing_model": "free",
+        "pros": [
+          "Advanced event-based tracking",
+          "Cross-platform user journey mapping",
+          "Integrates with BigQuery for advanced analysis"
+        ],
+        "cons": [
+          "Complex interface compared to Universal Analytics",
+          "Requires significant configuration for accurate data"
+        ],
+        "tags": [
+          "analytics",
+          "roi",
+          "user-behavior"
+        ]
+      },
+      {
+        "name": "Notion",
+        "description": "All-in-one workspace for documentation, editorial calendars, and content databases.",
+        "url": "https://notion.so",
+        "category": "Workflow Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Highly flexible database structures",
+          "Integrated AI features for summarizing and drafting",
+          "Excellent collaborative features"
+        ],
+        "cons": [
+          "Can become cluttered without strict organization",
+          "Mobile app performance can be sluggish"
+        ],
+        "tags": [
+          "documentation",
+          "editorial-calendar",
+          "collaboration"
+        ]
+      },
+      {
+        "name": "Koala.sh",
+        "description": "AI writer specifically tuned for SEO content, utilizing real-time data and automated internal linking.",
+        "url": "https://koala.sh",
+        "category": "AI Writing & Generation",
+        "pricing_model": "paid",
+        "pros": [
+          "Fetches live search results for up-to-date content",
+          "One-click publishing to WordPress",
+          "Automatic Amazon affiliate link integration"
+        ],
+        "cons": [
+          "Output still requires human fact-checking",
+          "Subscription-based model with credit limits"
+        ],
+        "tags": [
+          "seo-writing",
+          "affiliate-marketing",
+          "automation"
+        ]
+      },
+      {
+        "name": "AnswerThePublic",
+        "description": "Visual keyword research tool that maps out long-tail search queries in question formats.",
+        "url": "https://answerthepublic.com",
+        "category": "Keyword Research",
+        "pricing_model": "freemium",
+        "pros": [
+          "Excellent for finding 'People Also Ask' style content",
+          "Visualizes data in easy-to-digest mind maps",
+          "Reveals user intent and common pain points"
+        ],
+        "cons": [
+          "Limited daily searches on the free plan",
+          "Data can be repetitive for broad niches"
+        ],
+        "tags": [
+          "keyword-discovery",
+          "user-intent",
+          "content-ideas"
+        ]
+      }
+    ]
+  }
+}

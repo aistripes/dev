@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "code-generation",
+    "generated_at": "2026-03-12T22:37:57.156Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building AI Code Generation with open-source tools",
+    "description": "A step-by-step implementation guide for AI Code Generation with open-source tools.",
+    "keywords": [
+      "code-generation",
+      "ai code generation",
+      "guide"
+    ],
+    "slug": "code-generation-guide-building-ai-code-generation-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines a professional-grade workflow for integrating AI code generation into production environments. It focuses on minimizing hallucinations, ensuring architectural consistency, and automating the verification of AI-produced code through structured context and iterative testing.",
+    "estimated_time": "3 hours",
+    "prerequisites": [
+      "Access to an AI coding assistant (Cursor, GitHub Copilot, or Aider)",
+      "Existing CI/CD pipeline (GitHub Actions, GitLab CI, or similar)",
+      "Established unit testing suite in the target repository",
+      "Familiarity with Markdown for context documentation"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define Project-Specific Context and Rules",
+        "explanation": "Create a configuration file (e.g., .cursorrules or a global system prompt) that defines your tech stack versions, naming conventions, and architectural constraints. This prevents the AI from suggesting deprecated libraries or patterns that deviate from your codebase.",
+        "code": {
+          "language": "markdown",
+          "content": "# .cursorrules\n- Use TypeScript for all new files.\n- Prefer functional components over classes.\n- Use Tailwind CSS for styling; do not use CSS modules.\n- All data fetching must use the custom `useApi` hook.\n- Ensure every generated function has a JSDoc block with @param and @returns.",
+          "filename": ".cursorrules"
+        },
+        "pitfalls": [
+          "Overloading the rules file with too many instructions, which can lead to the AI ignoring specific constraints.",
+          "Failing to update the rules when the tech stack or conventions evolve."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement a Design-First Generation Loop",
+        "explanation": "Before generating implementation code, prompt the AI to generate a technical specification or 'pseudocode plan'. Review this plan to ensure the logic handles edge cases and integrates correctly with existing services. Use a tool like Claude Code or Aider to iterate on the plan before writing a single line of application code.",
+        "pitfalls": [
+          "Accepting an implementation immediately without verifying the underlying logic first.",
+          "Allowing the AI to create new abstractions where existing ones should be reused."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Automate Test-Driven Code Refinement",
+        "explanation": "Generate unit tests simultaneously with the implementation. Use a CLI-based assistant to run the test suite and feed the error output back into the AI to fix bugs automatically. This creates a closed-loop system where the AI self-corrects based on runtime feedback.",
+        "code": {
+          "language": "bash",
+          "content": "# Example workflow using Aider CLI\naider --message \"Create a utility to parse JWTs\" --test \"npm test src/utils/jwt.test.ts\"",
+          "filename": "refine.sh"
+        },
+        "pitfalls": [
+          "The AI may 'fix' tests to pass by weakening assertions rather than fixing the code.",
+          "Circular logic where the AI generates both the bug and the incorrect test to validate it."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure Security and Dependency Gating",
+        "explanation": "AI models often suggest outdated or non-existent packages (hallucinations). Integrate a dependency scanner like Snyk or Socket into your CI/CD pipeline to flag vulnerable or suspicious packages introduced by AI-generated PRs. Set up a pre-commit hook to run 'npm audit' or equivalent.",
+        "code": {
+          "language": "yaml",
+          "content": "name: Security Scan\non: [pull_request]\njobs:\n  snyk:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n      - name: Run Snyk to check for vulnerabilities\n        uses: snyk/actions/node@master\n        env:\n          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}",
+          "filename": ".github/workflows/security.yml"
+        },
+        "pitfalls": [
+          "Blindly running 'npm install' on AI-suggested commands without verifying package authenticity.",
+          "Ignoring security warnings in the rush to merge AI-generated features."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Establish an AI-Specific Code Review Protocol",
+        "explanation": "Human reviewers must treat AI-generated code with higher scrutiny than human-written code. Use a checklist that specifically targets common AI errors: hallucinated API parameters, lack of proper error handling in async blocks, and inefficient loops that could lead to performance bottlenecks.",
+        "pitfalls": [
+          "Reviewer fatigue leading to 'rubber-stamping' large AI-generated diffs.",
+          "Assuming that code which passes tests is architecturally sound or maintainable."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Monitor and Version AI Prompts as Assets",
+        "explanation": "Treat complex prompts used for generating boilerplate or migrations as code assets. Store them in a `/prompts` directory in your repository. This allows the team to version-control the 'instructions' that produce specific outputs, ensuring reproducibility across different developer machines.",
+        "code": {
+          "language": "text",
+          "content": "PROMPT_NAME: Database Migration Generator\nCONTEXT: Prisma, PostgreSQL\nINSTRUCTIONS: Generate a migration that adds a 'deleted_at' column to the provided table list, ensuring all existing queries are updated to filter out null values.",
+          "filename": "prompts/db-migration.txt"
+        },
+        "pitfalls": [
+          "Losing successful prompts in individual developer chat histories.",
+          "Inconsistent output when different team members use slightly different versions of the same prompt."
+        ]
+      }
+    ],
+    "conclusion": "By moving from ad-hoc chatting to a structured, test-driven, and context-aware workflow, teams can leverage AI code generation while maintaining production standards. The key is to treat AI as a junior developer who requires precise constraints, automated verification, and rigorous human oversight."
+  }
+}

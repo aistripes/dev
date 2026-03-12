@@ -1,0 +1,249 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "mobile-web",
+    "generated_at": "2026-03-12T22:38:58.197Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Mobile Web / PWA resources for developers",
+    "description": "A curated set of practical Mobile Web / PWA resources for engineers.",
+    "keywords": [
+      "mobile-web",
+      "mobile web / pwa",
+      "resource-article"
+    ],
+    "slug": "mobile-web-resource-article-100-mobile-web-pwa-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource guide provides technical specifications and implementation strategies for building high-performance Progressive Web Apps (PWAs). It focuses on bridging the gap between mobile web and native experiences through Service Workers, modern Web APIs, and specific mobile performance optimizations.",
+    "sections": [
+      {
+        "heading": "PWA Core Implementation & Service Workers",
+        "items": [
+          {
+            "title": "Web App Manifest Configuration",
+            "description": "Define 'display': 'standalone' and 'theme_color' in manifest.json to ensure the browser UI is removed and the status bar matches your brand on Android.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Workbox GenerateSW",
+            "description": "Use the Workbox CLI or build tool plugin to automatically generate a service worker that handles precaching for all assets in your build folder.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Stale-While-Revalidate Strategy",
+            "description": "Implement Workbox's StaleWhileRevalidate for API calls to serve cached content immediately while updating the cache in the background.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Service Worker SkipWaiting",
+            "description": "Add a 'message' event listener to call self.skipWaiting() allowing new service workers to activate immediately without waiting for tab closure.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Apple Touch Icons",
+            "description": "Include <link rel='apple-touch-icon' sizes='180x180' href='/icon.png'> because iOS ignores the Web App Manifest for home screen icons.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Background Sync API",
+            "description": "Use the SyncManager to defer actions like form submissions until the user has a stable internet connection.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Cache Storage API Purging",
+            "description": "Implement a cache-cleanup function during the 'activate' event to delete outdated cache versions and free up mobile storage.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Vite PWA Plugin",
+            "description": "Integrate vite-plugin-pwa for zero-config manifest generation and service worker registration in Vue or React projects.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Web Share API",
+            "description": "Invoke navigator.share() to trigger the native mobile sharing sheet for text, URLs, or files instead of custom UI overlays.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Navigation Preload",
+            "description": "Enable navigationPreload in your service worker to start network requests for the main page before the service worker has finished booting.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "App Badge API",
+            "description": "Use navigator.setAppBadge(count) to show a notification count on the installed PWA icon on supported platforms like Android and macOS.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Custom Install Prompt",
+            "description": "Capture the 'beforeinstallprompt' event to show a custom in-app button for installation rather than relying on browser banners.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Mobile Performance & UI Optimization",
+        "items": [
+          {
+            "title": "CSS Viewport Fit Cover",
+            "description": "Add 'viewport-fit=cover' to your meta viewport tag and use 'env(safe-area-inset-top)' to handle notches on iPhone and modern Android devices.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Priority Hints (fetchpriority)",
+            "description": "Apply fetchpriority='high' to LCP images (like hero banners) to ensure the browser prioritizes them over scripts and styles.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Content-Visibility: Auto",
+            "description": "Apply content-visibility: auto to long lists or off-screen sections to skip rendering work until the element approaches the viewport.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Touch-Action Property",
+            "description": "Use 'touch-action: manipulation' on buttons to disable the 300ms tap delay and improve perceived responsiveness on older mobile browsers.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "AVIF Image Support",
+            "description": "Serve AVIF images via the <picture> element to reduce payload size by up to 50% compared to WebP on supported mobile browsers.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Font-Display: Swap",
+            "description": "Set font-display: swap in @font-face to prevent invisible text during font loading, critical for slow mobile 3G connections.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "CSS Containment",
+            "description": "Use 'contain: layout style' on independent UI components to limit the scope of browser reflows and repaints.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Lighthouse Mobile Throttling",
+            "description": "Always audit using the 'Mobile' preset in Lighthouse to simulate a Moto G4 on a 4G connection, revealing true performance bottlenecks.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Passive Event Listeners",
+            "description": "Pass {passive: true} to touch and wheel event listeners to prevent them from blocking the browser's main thread during scrolling.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "SVG Icon Spriting",
+            "description": "Combine small UI icons into a single SVG sprite to reduce the number of HTTP requests on high-latency mobile networks.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Resource Hints (Preconnect)",
+            "description": "Use <link rel='preconnect'> for critical third-party origins like font providers or API endpoints to resolve DNS/TLS early.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Native Integration & Offline Data",
+        "items": [
+          {
+            "title": "Web Push API with VAPID",
+            "description": "Implement push notifications using VAPID keys to send system-level alerts to users even when the browser is closed.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "IndexedDB with idb library",
+            "description": "Use the 'idb' wrapper for IndexedDB to store large amounts of structured data locally for offline-first application logic.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Capacitor for Native Bridge",
+            "description": "Wrap your PWA with Ionic Capacitor to access native APIs like Camera, Geolocation, and Biometrics that are restricted in standard browsers.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Web OTP API",
+            "description": "Implement navigator.credentials.get({otp}) to automatically read SMS verification codes, reducing friction in mobile login flows.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Pointer Events API",
+            "description": "Standardize gesture handling (swipes, pinches) by using Pointer Events instead of separate Touch and Mouse event listeners.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Persistent Storage API",
+            "description": "Request navigator.storage.persist() to prevent the mobile OS from automatically clearing your app's IndexedDB and Cache data under storage pressure.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Contact Picker API",
+            "description": "Use navigator.contacts.select() to allow users to select contacts from their native address book directly into your web app.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "File System Access API",
+            "description": "Implement window.showOpenFilePicker for PWAs that require direct editing and saving of local user files on supported platforms.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Screen Wake Lock API",
+            "description": "Use navigator.wakeLock.request('screen') to keep the device screen on during long-running tasks like navigation or media playback.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Offline Fallback Page",
+            "description": "Configure your service worker to serve a static 'offline.html' page when a navigation request fails and no cache is available.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Virtual Keyboard API",
+            "description": "Use navigator.virtualKeyboard to programmatically control keyboard behavior and adjust layouts so UI elements aren't obscured.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "iOS Safari requires a user gesture to trigger Push Notification permission prompts; you cannot call it on page load.",
+      "Use the 'minimum-ui' display mode in the manifest to provide a back button in Safari for PWAs that lack internal navigation.",
+      "Always check 'navigator.onLine' before attempting large sync operations to avoid unnecessary service worker wake-ups.",
+      "Use Workbox's 'broadcastUpdate' plugin to notify the UI when a background sync has updated data, ensuring the user sees the latest info.",
+      "Implement 'overrides' in the Web App Manifest to specify different startup URLs or orientations for specific device types."
+    ]
+  }
+}

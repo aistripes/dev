@@ -1,0 +1,257 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "vue",
+    "generated_at": "2026-03-12T22:38:14.014Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Vue (general) tools directory",
+    "description": "A developer-first directory of Vue (general) tools and references.",
+    "keywords": [
+      "vue",
+      "vue (general)",
+      "directory"
+    ],
+    "slug": "vue-directory-vue-general-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of essential tools, libraries, and resources for professional Vue.js development, focusing on Vue 3, the Composition API, and the modern Vite-based ecosystem.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Core Framework",
+          "State Management",
+          "UI Components",
+          "Testing",
+          "Build Tools",
+          "Utilities",
+          "Data Fetching"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "open-source",
+          "free",
+          "freemium",
+          "paid",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Vue.js Official Documentation",
+        "description": "The primary reference for Vue 3, featuring detailed guides on Composition API, SFC syntax, and reactivity fundamentals.",
+        "url": "https://vuejs.org/",
+        "category": "Core Framework",
+        "pricing_model": "open-source",
+        "pros": [
+          "Comprehensive migration guides from Vue 2",
+          "Interactive examples for both Options and Composition API",
+          "High-quality search and API reference"
+        ],
+        "cons": [
+          "Can be overwhelming for absolute beginners",
+          "Frequent updates require constant re-reading"
+        ],
+        "tags": [
+          "documentation",
+          "core",
+          "vue3"
+        ]
+      },
+      {
+        "name": "Pinia",
+        "description": "The official state management library for Vue, replacing Vuex with a modular, TypeScript-first approach.",
+        "url": "https://pinia.vuejs.org/",
+        "category": "State Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native TypeScript support without boilerplate",
+          "Modular store design for better code splitting",
+          "DevTools integration for state tracking"
+        ],
+        "cons": [
+          "Requires a shift in mindset from Vuex's global mutations",
+          "Less structured than Vuex which may lead to inconsistent patterns"
+        ],
+        "tags": [
+          "state",
+          "store",
+          "typescript"
+        ]
+      },
+      {
+        "name": "Vite",
+        "description": "A frontend build tool that provides a fast development experience for Vue projects using native ESM.",
+        "url": "https://vitejs.dev/",
+        "category": "Build Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely fast Hot Module Replacement (HMR)",
+          "Pre-configured for Vue SFC support",
+          "Rich plugin ecosystem"
+        ],
+        "cons": [
+          "Different build behavior between dev and production",
+          "Legacy browser support requires additional polyfill plugins"
+        ],
+        "tags": [
+          "bundler",
+          "build",
+          "dx"
+        ]
+      },
+      {
+        "name": "VueUse",
+        "description": "A collection of over 200 essential Vue Composition Utilities for tasks like storage, browser APIs, and sensors.",
+        "url": "https://vueuse.org/",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Reduces custom composable boilerplate",
+          "Tree-shakeable and TypeScript native",
+          "Includes specialized add-ons for Firebase and Motion"
+        ],
+        "cons": [
+          "Large API surface area to learn",
+          "Dependency on specific Vue versions for some hooks"
+        ],
+        "tags": [
+          "composables",
+          "hooks",
+          "productivity"
+        ]
+      },
+      {
+        "name": "Vitest",
+        "description": "A Vite-native unit testing framework that shares configuration with the build tool for consistency.",
+        "url": "https://vitest.dev/",
+        "category": "Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Compatible with Jest API for easy migration",
+          "Uses the same transform logic as Vite",
+          "Excellent watch mode and UI dashboard"
+        ],
+        "cons": [
+          "Relatively new compared to Jest",
+          "Some edge cases with non-Vite environments"
+        ],
+        "tags": [
+          "unit-testing",
+          "tdd",
+          "ci"
+        ]
+      },
+      {
+        "name": "PrimeVue",
+        "description": "A comprehensive UI component library for Vue with over 90 components and built-in theme designer.",
+        "url": "https://primevue.org/",
+        "category": "UI Components",
+        "pricing_model": "open-source",
+        "pros": [
+          "Massive selection of enterprise-grade components",
+          "Excellent documentation and accessibility support",
+          "Unstyled mode for Tailwind CSS integration"
+        ],
+        "cons": [
+          "Visual styling can be heavy by default",
+          "Learning curve for complex components like DataTable"
+        ],
+        "tags": [
+          "ui-kit",
+          "enterprise",
+          "components"
+        ]
+      },
+      {
+        "name": "Vue Test Utils",
+        "description": "The official low-level library for testing Vue components in isolation.",
+        "url": "https://test-utils.vuejs.org/",
+        "category": "Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Granular control over component mounting",
+          "Supports both synchronous and asynchronous testing",
+          "Works with Vitest, Jest, and Mocha"
+        ],
+        "cons": [
+          "Requires manual mocking of global plugins",
+          "Testing implementation details can lead to brittle tests"
+        ],
+        "tags": [
+          "testing",
+          "components",
+          "qa"
+        ]
+      },
+      {
+        "name": "TanStack Query (Vue)",
+        "description": "Asynchronous state management for Vue, handling caching, synchronization, and server state updates.",
+        "url": "https://tanstack.com/query/latest/docs/framework/vue/overview",
+        "category": "Data Fetching",
+        "pricing_model": "open-source",
+        "pros": [
+          "Eliminates the need for manual loading/error state management",
+          "Built-in cache invalidation and background refetching",
+          "Strong TypeScript support"
+        ],
+        "cons": [
+          "Significant abstraction layer over standard fetch/axios",
+          "Can be overkill for simple applications"
+        ],
+        "tags": [
+          "api",
+          "caching",
+          "async"
+        ]
+      },
+      {
+        "name": "Vue DevTools",
+        "description": "Browser extension and standalone app for debugging Vue applications and inspecting component hierarchies.",
+        "url": "https://devtools.vuejs.org/",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Real-time inspection of reactive state",
+          "Timeline view for performance profiling",
+          "Pinia and Vue Router integration"
+        ],
+        "cons": [
+          "Occasionally disconnects from the application",
+          "Memory usage can spike in very large component trees"
+        ],
+        "tags": [
+          "debugging",
+          "browser-extension",
+          "dx"
+        ]
+      },
+      {
+        "name": "VeeValidate",
+        "description": "A form validation library for Vue that handles complex validation logic and error messages.",
+        "url": "https://vee-validate.logaretm.com/v4/",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Declarative validation using components or composables",
+          "Integration with Zod and Yup for schema-based validation",
+          "Handles form state (dirty, touched, valid) automatically"
+        ],
+        "cons": [
+          "Complex setup for multi-step forms",
+          "Documentation can be fragmented across versions"
+        ],
+        "tags": [
+          "forms",
+          "validation",
+          "zod"
+        ]
+      }
+    ]
+  }
+}

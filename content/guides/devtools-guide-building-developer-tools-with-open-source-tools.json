@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "devtools",
+    "generated_at": "2026-03-12T22:38:46.336Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Developer Tools with open-source tools",
+    "description": "A step-by-step implementation guide for Developer Tools with open-source tools.",
+    "keywords": [
+      "devtools",
+      "developer tools",
+      "guide"
+    ],
+    "slug": "devtools-guide-building-developer-tools-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical implementation of a production-grade CLI tool using TypeScript and Commander.js. It focuses on creating a robust architecture that supports cross-platform execution, automated configuration management, and developer-centric error reporting.",
+    "estimated_time": "4 hours",
+    "prerequisites": [
+      "Node.js (v18 or higher) and npm/pnpm installed",
+      "Basic proficiency with TypeScript and asynchronous programming",
+      "Familiarity with Terminal/Shell environments"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize Project with ESM and Shebang Support",
+        "explanation": "Create a new project directory and initialize it as an ES Module. This ensures compatibility with modern libraries. You must include a shebang line at the top of your entry point to tell the OS loader which interpreter to use.",
+        "code": {
+          "language": "typescript",
+          "content": "#!/usr/bin/env node\nimport { Command } from 'commander';\n\nconst program = new Command();\n\nprogram\n  .name('my-devtools-cli')\n  .description('CLI for internal platform operations')\n  .version('1.0.0');\n\nprogram.parse();",
+          "filename": "src/index.ts"
+        },
+        "pitfalls": [
+          "Forgetting the shebang line will cause the script to fail when executed as a binary.",
+          "Ensure 'type': 'module' is set in package.json to avoid ESM/CJS interop issues."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Robust Configuration Persistence",
+        "explanation": "Use the 'conf' library to manage user preferences, API tokens, and local state. Store these in the standard OS-specific config directories (e.g., ~/.config or %APPDATA%) to ensure persistence across sessions.",
+        "code": {
+          "language": "typescript",
+          "content": "import Conf from 'conf';\n\nconst schema = {\n  apiKey: {\n    type: 'string',\n    default: ''\n  },\n  environment: {\n    type: 'string',\n    enum: ['development', 'staging', 'production'],\n    default: 'development'\n  }\n} as const;\n\nexport const config = new Conf({ schema });",
+          "filename": "src/config.ts"
+        },
+        "pitfalls": [
+          "Hardcoding configuration paths instead of using standard libraries leads to cross-platform failures.",
+          "Storing sensitive API keys in plain text without warning the user."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Design Intuitive Subcommands and Options",
+        "explanation": "Structure your CLI into logical subcommands. Use Commander.js to define mandatory arguments and optional flags. Grouping logic into separate command files improves maintainability as the tool scales.",
+        "code": {
+          "language": "typescript",
+          "content": "program\n  .command('deploy')\n  .description('Deploy service to the cluster')\n  .argument('<service-name>', 'Name of the service to deploy')\n  .option('-f, --force', 'Overwrite existing deployment')\n  .action(async (serviceName, options) => {\n    console.log(`Deploying ${serviceName}...`);\n    if (options.force) console.warn('Force mode enabled');\n  });",
+          "filename": "src/commands/deploy.ts"
+        },
+        "pitfalls": [
+          "Using inconsistent naming conventions for flags (e.g., mixing camelCase and kebab-case).",
+          "Failing to provide helpful descriptions, which breaks the built-in --help output."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate Visual Feedback and TTY Detection",
+        "explanation": "Use 'ora' for spinners and 'chalk' for colored output. Crucially, detect if the process is running in a TTY (interactive terminal) to disable animations in CI/CD environments, preventing log pollution.",
+        "code": {
+          "language": "typescript",
+          "content": "import ora from 'ora';\nimport chalk from 'chalk';\n\nexport const logger = {\n  info: (msg: string) => console.log(chalk.blue('ℹ'), msg),\n  success: (msg: string) => console.log(chalk.green('✔'), msg),\n  error: (msg: string) => console.error(chalk.red('✖'), msg)\n};\n\nconst spinner = ora({ isSilent: !process.stdout.isTTY });",
+          "filename": "src/utils/ui.ts"
+        },
+        "pitfalls": [
+          "Running spinners in non-TTY environments (like GitHub Actions) results in hundreds of lines of escape codes.",
+          "Overusing colors can make the tool inaccessible to users with color blindness."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Standardize Error Handling and Exit Codes",
+        "explanation": "Implement a global error handler that catches asynchronous exceptions. Map specific failure types to standard POSIX exit codes (e.g., 1 for general errors, 127 for command not found) to allow scriptability in bash/zsh.",
+        "code": {
+          "language": "typescript",
+          "content": "process.on('unhandledRejection', (reason) => {\n  console.error(chalk.red('Critical Error:'), reason);\n  process.exit(1);\n});\n\ntry {\n  await program.parseAsync(process.argv);\n} catch (err) {\n  const message = err instanceof Error ? err.message : 'Unknown error';\n  logger.error(message);\n  process.exit(1);\n}",
+          "filename": "src/index.ts"
+        },
+        "pitfalls": [
+          "Exiting with code 0 after a failure prevents CI/CD pipelines from stopping on errors.",
+          "Printing stack traces to the user instead of actionable, human-readable error messages."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Configure Distribution and Binary Linking",
+        "explanation": "Map your entry point in the 'bin' field of package.json. Use a build step (like esbuild or tsc) to bundle the TypeScript into a single executable JS file, ensuring users don't need to install dev dependencies to run the tool.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"name\": \"@org/dev-tool\",\n  \"version\": \"1.0.0\",\n  \"type\": \"module\",\n  \"bin\": {\n    \"dev-tool\": \"./dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc && chmod +x dist/index.js\",\n    \"prepublishOnly\": \"npm run build\"\n  }\n}",
+          "filename": "package.json"
+        },
+        "pitfalls": [
+          "Publishing the src/ directory instead of the compiled dist/ directory.",
+          "Missing 'chmod +x' on the output file, which prevents execution on Unix-based systems after installation."
+        ]
+      }
+    ],
+    "conclusion": "By following this structured approach, you have built a CLI tool that adheres to modern DevTool standards: ESM support, standardized configuration, environment-aware UI, and proper POSIX exit codes. This foundation allows for seamless integration into both developer workstations and automated pipelines."
+  }
+}

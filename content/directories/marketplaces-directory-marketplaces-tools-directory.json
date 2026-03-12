@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "marketplaces",
+    "generated_at": "2026-03-12T22:38:50.491Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Marketplaces tools directory",
+    "description": "A developer-first directory of Marketplaces tools and references.",
+    "keywords": [
+      "marketplaces",
+      "directory"
+    ],
+    "slug": "marketplaces-directory-marketplaces-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure, APIs, and frameworks specifically designed for building and scaling two-sided marketplaces with multi-party payments, identity verification, and search relevance.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Payments & Escrow",
+          "Search & Discovery",
+          "Trust & Safety",
+          "Marketplace Infrastructure",
+          "Communication",
+          "Data & Analytics"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Stripe Connect",
+        "description": "Infrastructure for routing payments between multiple parties, handling KYC, and automating payouts to sellers.",
+        "url": "https://stripe.com/connect",
+        "category": "Payments & Escrow",
+        "pricing_model": "paid",
+        "pros": [
+          "Automated seller onboarding with Express and Custom flows",
+          "Handles global 1099/tax reporting requirements",
+          "Support for complex split-payment logic"
+        ],
+        "cons": [
+          "High percentage-based fees on top of standard processing",
+          "Complex API structure for custom implementations"
+        ],
+        "tags": [
+          "payments",
+          "kyc",
+          "payouts"
+        ]
+      },
+      {
+        "name": "Sharetribe",
+        "description": "A marketplace-specific software-as-a-service and open-source core for building supply-and-demand platforms.",
+        "url": "https://www.sharetribe.com/",
+        "category": "Marketplace Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Pre-built availability and booking logic",
+          "Built-in transaction flow management",
+          "Extensible via custom code in the Flex version"
+        ],
+        "cons": [
+          "Flex version requires significant developer effort",
+          "Monthly subscription costs increase with scale"
+        ],
+        "tags": [
+          "headless",
+          "booking",
+          "platform-as-a-service"
+        ]
+      },
+      {
+        "name": "Algolia",
+        "description": "Search API that enables geo-spatial filtering, faceted search, and real-time matching for marketplace listings.",
+        "url": "https://www.algolia.com/",
+        "category": "Search & Discovery",
+        "pricing_model": "freemium",
+        "pros": [
+          "Sub-millisecond latency for large catalogs",
+          "Native support for geo-radius and polygon search",
+          "Advanced ranking rules for promoted listings"
+        ],
+        "cons": [
+          "Cost scales rapidly with record count and search volume",
+          "Requires syncing primary database with Algolia index"
+        ],
+        "tags": [
+          "search",
+          "geolocation",
+          "discovery"
+        ]
+      },
+      {
+        "name": "Persona",
+        "description": "Identity verification platform to automate KYC, KYB, and age verification for marketplace participants.",
+        "url": "https://withpersona.com/",
+        "category": "Trust & Safety",
+        "pricing_model": "enterprise",
+        "pros": [
+          "Automated document and biometric verification",
+          "Customizable verification flows for different user tiers",
+          "Integrates directly with Stripe for onboarding"
+        ],
+        "cons": [
+          "High minimum contract value for smaller startups",
+          "Integration complexity for custom mobile SDKs"
+        ],
+        "tags": [
+          "kyc",
+          "identity",
+          "trust"
+        ]
+      },
+      {
+        "name": "Clerk",
+        "description": "Authentication and user management service with built-in support for multi-tenant organizations and roles.",
+        "url": "https://clerk.com/",
+        "category": "Marketplace Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Pre-built components for profile management and multi-session",
+          "Organization features simplify buyer/seller role separation",
+          "Seamless integration with Next.js and React"
+        ],
+        "cons": [
+          "Limited customization of low-level auth protocols",
+          "Pricing is based on Monthly Active Users (MAU)"
+        ],
+        "tags": [
+          "auth",
+          "roles",
+          "user-management"
+        ]
+      },
+      {
+        "name": "Mangopay",
+        "description": "Payment environment for marketplaces focusing on e-wallet management and automated escrow logic.",
+        "url": "https://www.mangopay.com/",
+        "category": "Payments & Escrow",
+        "pricing_model": "paid",
+        "pros": [
+          "Dedicated e-wallet architecture for every user",
+          "Strong focus on European regulatory compliance (PSD2)",
+          "White-label payment pages and flows"
+        ],
+        "cons": [
+          "Documentation is less comprehensive than Stripe",
+          "Onboarding process can be slow for non-EU entities"
+        ],
+        "tags": [
+          "escrow",
+          "wallets",
+          "fintech"
+        ]
+      },
+      {
+        "name": "Stream Chat",
+        "description": "Enterprise-grade chat API for enabling real-time communication between buyers and sellers.",
+        "url": "https://getstream.io/chat/",
+        "category": "Communication",
+        "pricing_model": "paid",
+        "pros": [
+          "Built-in moderation tools and profanity filters",
+          "Support for offline notifications and read receipts",
+          "Highly scalable infrastructure for millions of users"
+        ],
+        "cons": [
+          "Expensive entry price for small marketplaces",
+          "UI kits can be difficult to style for custom brands"
+        ],
+        "tags": [
+          "chat",
+          "messaging",
+          "moderation"
+        ]
+      },
+      {
+        "name": "Meilisearch",
+        "description": "Open-source, lightning-fast search engine designed for instant search-as-you-type experiences.",
+        "url": "https://www.meilisearch.com/",
+        "category": "Search & Discovery",
+        "pricing_model": "open-source",
+        "pros": [
+          "Easy to self-host and manage",
+          "Typo tolerance and relevancy tuning out of the box",
+          "No-schema approach simplifies indexing"
+        ],
+        "cons": [
+          "Lacks some of the enterprise features like A/B testing",
+          "High RAM consumption for very large datasets"
+        ],
+        "tags": [
+          "search",
+          "open-source",
+          "matching"
+        ]
+      },
+      {
+        "name": "Checkr",
+        "description": "Background check API for marketplaces in the gig economy and service verticals.",
+        "url": "https://checkr.com/",
+        "category": "Trust & Safety",
+        "pricing_model": "paid",
+        "pros": [
+          "Automated criminal and motor vehicle record checks",
+          "Mobile-friendly candidate experience",
+          "Compliance tools for FCRA requirements"
+        ],
+        "cons": [
+          "Verification times depend on third-party county records",
+          "Pay-per-check model can be costly at high volume"
+        ],
+        "tags": [
+          "vetting",
+          "safety",
+          "screening"
+        ]
+      },
+      {
+        "name": "PostHog",
+        "description": "Product analytics platform with session recording and feature flags to optimize marketplace conversion funnels.",
+        "url": "https://posthog.com/",
+        "category": "Data & Analytics",
+        "pricing_model": "freemium",
+        "pros": [
+          "Combined analytics, session replay, and heatmaps",
+          "Feature flags allow for gradual rollout of matching algorithms",
+          "Generous free tier for startups"
+        ],
+        "cons": [
+          "Self-hosting requires significant DevOps resources",
+          "UI can be overwhelming for non-technical users"
+        ],
+        "tags": [
+          "analytics",
+          "conversion",
+          "funnels"
+        ]
+      }
+    ]
+  }
+}

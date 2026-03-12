@@ -1,0 +1,261 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "react",
+    "generated_at": "2026-03-12T22:38:21.427Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 React (general) resources for developers",
+    "description": "A curated set of practical React (general) resources for engineers.",
+    "keywords": [
+      "react",
+      "react (general)",
+      "resource-article"
+    ],
+    "slug": "react-resource-article-100-react-general-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource provides a technical roadmap for building and optimizing modern React applications using React 19, Vite, and the TanStack ecosystem. It focuses on production-ready patterns for state management, component architecture, and performance testing.",
+    "sections": [
+      {
+        "heading": "Modern State Management and Data Synchronization",
+        "items": [
+          {
+            "title": "Zustand Store Implementation",
+            "description": "Create small, focused stores using the 'create' function to manage global UI state without the boilerplate of Redux or the re-render issues of Context.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "React Query useQuery for Caching",
+            "description": "Implement 'useQuery' with custom 'staleTime' and 'gcTime' to manage server-state fetching and automatic background revalidation.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Optimistic UI with React 19 useOptimistic",
+            "description": "Use the 'useOptimistic' hook to provide immediate visual feedback during form submissions before the server responds.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Zod Schema Validation for Form State",
+            "description": "Integrate Zod with React Hook Form to enforce strict type safety and runtime validation for complex user inputs.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Context API for Design Tokens",
+            "description": "Limit Context usage to static or rarely changing data like theme modes (dark/light) or localization strings to avoid performance degradation.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Jotai for Atomic State",
+            "description": "Apply Jotai atoms for granular state updates in performance-sensitive areas like canvas editors or complex dashboard widgets.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "React Query Mutation Side Effects",
+            "description": "Utilize the 'onSuccess' and 'onSettled' callbacks in 'useMutation' to trigger cache invalidations via 'queryClient.invalidateQueries'.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Zustand Middleware for Persistence",
+            "description": "Apply the 'persist' middleware to automatically sync specific store slices to localStorage or sessionStorage.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Handling Server Actions",
+            "description": "Implement React 19 Server Actions to handle form submissions directly, reducing the need for manual fetch calls and loading state management.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "TanStack Query DevTools",
+            "description": "Integrate the ReactQueryDevtools component to visualize query states, cache timing, and network fetch status during development.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Custom Hook Data Abstraction",
+            "description": "Wrap React Query calls in custom hooks (e.g., useUser, useOrders) to decouple UI components from API endpoints.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "React 19 useActionState Hook",
+            "description": "Manage form state and server-side validation errors using the 'useActionState' hook for native-feeling form handling.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Component Architecture and UI Tooling",
+        "items": [
+          {
+            "title": "shadcn/ui Component Installation",
+            "description": "Use the 'npx shadcn-ui@latest add' command to pull accessible, unstyled components directly into your local 'components/ui' folder.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Tailwind Merge for Dynamic Classes",
+            "description": "Utilize 'twMerge' and 'clsx' utility functions to resolve Tailwind class conflicts in reusable component libraries.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Class Variance Authority (CVA)",
+            "description": "Define component variants (size, color, intent) in a structured object to maintain type-safe CSS-in-JS patterns within Tailwind.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Radix UI Primitive Integration",
+            "description": "Build custom UI components on top of Radix primitives to ensure keyboard navigation and screen reader support out of the box.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Compound Component Pattern",
+            "description": "Structure components like Tabs or Select using a parent-child context relationship for flexible and readable JSX.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Storybook Interaction Testing",
+            "description": "Write 'play' functions in Storybook to automate user interaction tests for UI components without launching a full browser environment.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Polymorphic Components with 'asChild'",
+            "description": "Use the 'Slot' pattern from Radix UI to allow components to merge their props into a child element, improving HTML semantic flexibility.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Lucide React Icon Optimization",
+            "description": "Import specific icons directly (e.g., import { Home } from 'lucide-react') to ensure tree-shaking keeps the bundle size minimal.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Framer Motion Layout Animations",
+            "description": "Apply the 'layout' prop to Framer Motion components to automatically animate position changes when the DOM structure updates.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "React Aria for Complex Inputs",
+            "description": "Use Adobe’s React Aria hooks to implement high-accessibility behaviors for non-standard inputs like date range pickers.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Barrel Export Management",
+            "description": "Avoid massive 'index.ts' barrel files in large projects to prevent Vite from over-parsing modules and slowing down HMR.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Container/Presenter Pattern Refactoring",
+            "description": "Refactor complex components by separating data-fetching logic (containers) from pure UI rendering (presenters) for better testability.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Performance Optimization and Testing",
+        "items": [
+          {
+            "title": "React Compiler Integration",
+            "description": "Enable the React Compiler in your build pipeline to automate 'useMemo' and 'useCallback' logic based on static analysis.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Vitest Unit Testing Setup",
+            "description": "Configure Vitest with 'jsdom' and '@testing-library/react' for fast, Vite-native component unit tests.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Mock Service Worker (MSW) Setup",
+            "description": "Intercept network requests at the service worker level to provide realistic API mocks for both testing and local development.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "React Testing Library user-event",
+            "description": "Replace 'fireEvent' with '@testing-library/user-event' to more accurately simulate browser events like typing and clicking.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "useDeferredValue for Search Filtering",
+            "description": "Implement 'useDeferredValue' to keep the UI responsive by deferring the re-rendering of large lists during rapid text input.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Rollup Plugin Visualizer",
+            "description": "Add 'rollup-plugin-visualizer' to your Vite config to generate a treemap of dependency sizes and identify bloat.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "React Profiler for Render Bottlenecks",
+            "description": "Use the React DevTools Profiler tab to identify 'Commit' phase delays and unnecessary component re-renders.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Lazy Loading with React.lazy",
+            "description": "Implement Code Splitting using 'React.lazy' and 'Suspense' for route-level components to reduce the initial JS payload.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Axe-core Accessibility Auditing",
+            "description": "Integrate 'jest-axe' or 'vitest-axe' into your test suite to catch common WCAG violations automatically during CI/CD.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "TanStack Router Type Safety",
+            "description": "Migrate to TanStack Router to achieve 100% type safety for route parameters, search params, and navigation links.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Memoizing Expensive Computations",
+            "description": "Apply 'useMemo' for heavy data transformations (e.g., sorting 1000+ items) to avoid recalculation on every render.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Eslint-plugin-react-refresh",
+            "description": "Ensure 'eslint-plugin-react-refresh' is active to validate that your components are compatible with Fast Refresh during development.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use the 'key' prop to force-reset a component's internal state when switching between different data entities.",
+      "Avoid using 'useEffect' for data fetching; use a library like TanStack Query or React 19 Server Components to manage async state.",
+      "Utilize the 'AbortController' API inside 'useEffect' cleanup functions to cancel pending network requests when a component unmounts.",
+      "Structure your project by 'feature' folders (e.g., features/auth, features/billing) rather than generic folders like 'components' or 'hooks'.",
+      "Prefer 'useSyncExternalStore' over 'useEffect' when subscribing to browser APIs like window size or online status to ensure store consistency."
+    ]
+  }
+}

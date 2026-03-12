@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "databases",
+    "generated_at": "2026-03-12T22:38:20.258Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Databases for AI Apps with open-source tools",
+    "description": "A step-by-step implementation guide for Databases for AI Apps with open-source tools.",
+    "keywords": [
+      "databases",
+      "databases for ai apps",
+      "guide"
+    ],
+    "slug": "databases-guide-building-databases-for-ai-apps-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide details the implementation of a production-grade database architecture for AI applications using PostgreSQL with the pgvector extension and Drizzle ORM. It focuses on the transition from prototype-level vector storage to a scalable, type-safe infrastructure capable of handling hybrid relational and semantic queries in serverless environments.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "A PostgreSQL instance with pgvector support (e.g., Neon, Supabase, or self-hosted v15+)",
+      "Node.js environment with TypeScript installed",
+      "Basic familiarity with SQL and ORM concepts",
+      "An API key for an embedding provider (e.g., OpenAI, Voyage AI) to generate vector data"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Enable Vector Extensions and Schema Initialization",
+        "explanation": "Before storing embeddings, the pgvector extension must be explicitly enabled in your database. This step also involves setting up the initial database schema to house both structured metadata and high-dimensional vectors.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE EXTENSION IF NOT EXISTS vector;\n\nCREATE TABLE documents (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  content TEXT NOT NULL,\n  metadata JSONB,\n  embedding vector(1536), -- 1536 for OpenAI text-embedding-3-small\n  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()\n);",
+          "filename": "0000_init.sql"
+        },
+        "pitfalls": [
+          "Specifying the wrong vector dimension (e.g., using 1536 for a model that outputs 768) will cause insertion failures.",
+          "Forgetting to enable the extension in the 'public' schema or the specific schema used by your application."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Define Type-Safe Schema with Drizzle ORM",
+        "explanation": "Map the database structure to your application code using Drizzle ORM. This ensures that vector operations are type-checked and that your metadata fields are correctly handled as JSONB.",
+        "code": {
+          "language": "typescript",
+          "content": "import { pgTable, uuid, text, jsonb, customType, timestamp } from 'drizzle-orm/pg-core';\n\n// Custom type for pgvector\nconst vector = customType<{ data: number[] }>({\n  dataType() { return 'vector(1536)'; },\n  toDriver(value: number[]) { return `[${value.join(',')}]`; },\n  fromDriver(value: string) { return value.replace(/[\\[\\]]/g, '').split(',').map(Number); }\n});\n\nexport const documents = pgTable('documents', {\n  id: uuid('id').primaryKey().defaultRandom(),\n  content: text('content').notNull(),\n  metadata: jsonb('metadata'),\n  embedding: vector('embedding'),\n  createdAt: timestamp('created_at').defaultNow(),\n});",
+          "filename": "schema.ts"
+        },
+        "pitfalls": [
+          "Drizzle does not have native vector type support in all versions; custom types are required to handle the cast between JS arrays and Postgres vector strings."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure Connection Pooling for Serverless",
+        "explanation": "AI applications often run on serverless functions (Vercel, AWS Lambda) which can quickly exhaust Postgres connection limits. Use a connection pooler like PgBouncer or a driver-level pooler like @neondatabase/serverless.",
+        "code": {
+          "language": "typescript",
+          "content": "import { drizzle } from 'drizzle-orm/postgres-js';\nimport postgres from 'postgres';\n\nconst connectionString = process.env.DATABASE_URL!;\n\n// Disable prefetch as it is often incompatible with serverless poolers\nconst client = postgres(connectionString, { prepare: false });\nexport const db = drizzle(client);",
+          "filename": "db.ts"
+        },
+        "pitfalls": [
+          "Using default 'prepare: true' settings with external poolers like PgBouncer (transaction mode) causes 'prepared statement already exists' errors."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement HNSW Indexing for Performance",
+        "explanation": "Standard IVFFlat indexes require a minimum amount of data before they become effective. HNSW (Hierarchical Navigable Small World) indexes are generally preferred for AI apps due to higher recall and better performance without needing a training step.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE INDEX ON documents \nUSING hnsw (embedding vector_cosine_ops) \nWITH (m = 16, ef_construction = 64);",
+          "filename": "0001_hnsw_index.sql"
+        },
+        "pitfalls": [
+          "Creating HNSW indexes on large datasets is memory-intensive; ensure your database instance has sufficient RAM relative to the index size.",
+          "Choosing 'vector_l2_ops' instead of 'vector_cosine_ops' if your embedding model is optimized for cosine similarity."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Execute Hybrid Search Queries",
+        "explanation": "Combine semantic search with relational filters. This pattern allows you to find relevant content while restricting results by user ID, date ranges, or categories stored in the metadata.",
+        "code": {
+          "language": "typescript",
+          "content": "import { db } from './db';\nimport { documents } from './schema';\nimport { sql, and, eq } from 'drizzle-orm';\n\nasync function searchDocuments(queryEmbedding: number[], userId: string) {\n  return await db.select({\n    id: documents.id,\n    content: documents.content,\n    similarity: sql<number>`1 - (${documents.embedding} <=> ${JSON.stringify(queryEmbedding)})`\n  })\n  .from(documents)\n  .where(and(\n    sql`${documents.metadata}->>'user_id' = ${userId}`,\n    sql`${documents.embedding} <=> ${JSON.stringify(queryEmbedding)} < 0.5` // Threshold\n  ))\n  .orderBy(sql`${documents.embedding} <=> ${JSON.stringify(queryEmbedding)}`)\n  .limit(5); \n}",
+          "filename": "search.ts"
+        },
+        "pitfalls": [
+          "Stringifying large embedding arrays inside SQL templates can lead to query size limits; use parameterized inputs or binary formats where supported.",
+          "Distance operators (<=> for cosine, <-> for L2) return distance, not similarity; subtract from 1 for cosine similarity."
+        ]
+      }
+    ],
+    "conclusion": "You have implemented a robust database foundation for an AI application. By using PostgreSQL with pgvector, you avoid the complexity of managing a separate vector database while maintaining high-performance semantic search. For next steps, monitor index bloat and consider partitioning your tables if your document count exceeds 10 million records."
+  }
+}

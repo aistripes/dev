@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "embeddings",
+    "generated_at": "2026-03-12T22:38:02.483Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Embeddings & Vector Search resources for developers",
+    "description": "A curated set of practical Embeddings & Vector Search resources for engineers.",
+    "keywords": [
+      "embeddings",
+      "embeddings & vector search",
+      "resource-article"
+    ],
+    "slug": "embeddings-resource-article-100-embeddings-vector-search-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource provides a technical map for implementing embeddings and vector search, focusing on model selection, indexing strategies, and retrieval optimization. It targets developers moving beyond basic prototypes into production-grade semantic search and recommendation systems.",
+    "sections": [
+      {
+        "heading": "Embedding Models and Inference",
+        "items": [
+          {
+            "title": "OpenAI text-embedding-3-small",
+            "description": "Recommended starting point for general-purpose embeddings. Offers a 1536-dimension vector with a 'dimensions' parameter to reduce size without retraining.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Voyage AI voyage-2",
+            "description": "High-performance model optimized for retrieval tasks. Consistently ranks at the top of the MTEB leaderboard for document search.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Cohere Embed v3",
+            "description": "Features a 'compression' parameter for binary or int8 quantization, significantly reducing storage costs in vector databases.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Hugging Face sentence-transformers",
+            "description": "Standard Python library for running open-source models like BGE-large or All-MiniLM-L6-v2 locally or on private infrastructure.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Jina Embeddings v2",
+            "description": "Supports an 8k token context window, making it suitable for long-form document embedding where chunking might lose context.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "MTEB Benchmark",
+            "description": "Massive Text Embedding Benchmark. Use this to compare model performance across specific tasks like clustering, retrieval, and summarization.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Local Inference with ONNX Runtime",
+            "description": "Convert Hugging Face models to ONNX format to run embeddings in Node.js or C# environments with minimal latency.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Mixedbread.ai bge-m3",
+            "description": "A versatile model supporting multi-lingual, multi-functional (dense/sparse), and multi-granularity retrieval within a single embedding.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Infinity Embedding Server",
+            "description": "A high-throughput, MIT-licensed inference server for deploying open-source embedding models via a REST API.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Google Vertex AI Embeddings",
+            "description": "Enterprise-grade embedding models integrated with GCP, offering high rate limits and managed infrastructure.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Vector Databases and Storage",
+        "items": [
+          {
+            "title": "pgvector for PostgreSQL",
+            "description": "Extension enabling vector similarity search in Postgres. Best for teams already using RDS or Supabase to avoid adding new infra.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Qdrant",
+            "description": "Rust-based vector database. Offers advanced payload filtering and high-performance HNSW indexing for production scale.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Pinecone Serverless",
+            "description": "Managed vector database that scales based on usage. Ideal for applications with unpredictable traffic and large datasets.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Weaviate",
+            "description": "Open-source vector DB with a GraphQL interface and native support for multi-modal data (images, video, text).",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "ChromaDB",
+            "description": "Lightweight, developer-centric database often used for local RAG development and small-scale deployments.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Milvus",
+            "description": "Cloud-native vector database designed for billion-scale vector search with decoupled storage and compute.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "LanceDB",
+            "description": "Serverless, disk-based vector database that stores data in the Lance format, optimized for random access and large-scale AI data.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "FAISS (Facebook AI Similarity Search)",
+            "description": "Library for efficient similarity search. Essential for building custom indexing pipelines or running in-memory searches.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Elasticsearch Vector Search",
+            "description": "Utilizes k-NN plugin for vector search. Best for organizations already invested in the ELK stack for logging and search.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "RedisVL",
+            "description": "The Vector Library for Redis, enabling low-latency vector indexing and search directly within a Redis instance.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Retrieval and Optimization Patterns",
+        "items": [
+          {
+            "title": "Hybrid Search (BM25 + Vector)",
+            "description": "Combines traditional keyword search with semantic vector search using Reciprocal Rank Fusion (RRF) for better accuracy.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Cohere Rerank",
+            "description": "A cross-encoder model used as a second stage to re-score the top results from a vector search for higher precision.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "HNSW (Hierarchical Navigable Small World)",
+            "description": "The industry-standard algorithm for approximate nearest neighbor (ANN) search, balancing speed and recall.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Product Quantization (PQ)",
+            "description": "A compression technique that divides vectors into sub-vectors to reduce memory usage by up to 90% at a slight cost to accuracy.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Maximal Marginal Relevance (MMR)",
+            "description": "A retrieval strategy that re-ranks results to reduce redundancy and increase the diversity of the returned items.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Parent-Document Retrieval",
+            "description": "Technique where you embed small chunks for search but return the full parent document to the LLM for better context.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Query Expansion via LLM",
+            "description": "Using an LLM to generate multiple versions of a user's query to catch more relevant vectors during retrieval.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Metadata Pre-filtering",
+            "description": "Applying hard filters (e.g., date > 2023) before performing the vector similarity search to narrow the search space.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Contextual Compression",
+            "description": "Filtering out irrelevant parts of retrieved documents before passing them to an LLM to save on token costs.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Multi-Vector Indexing",
+            "description": "Assigning multiple vectors to a single document (e.g., summary vector and full text vector) to improve retrieval hits.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always normalize your vectors to unit length (L2 norm) if your chosen similarity metric is Cosine Similarity, as many libraries perform faster with Dot Product on normalized data.",
+      "Do not change embedding models mid-project without a plan to re-index; a vector from OpenAI is mathematically incompatible with one from Cohere or Voyage.",
+      "Use 'Scalar Quantization' (int8) in your vector database to reduce memory footprint by 4x with less than 1% loss in retrieval accuracy.",
+      "Implement a 'Dead Letter Queue' for your embedding pipeline to handle documents that fail to embed due to token limits or API timeouts.",
+      "Store the source text or a unique ID in the vector database metadata to avoid a secondary database lookup during the retrieval phase."
+    ]
+  }
+}

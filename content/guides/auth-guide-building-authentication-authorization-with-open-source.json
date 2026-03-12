@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "auth",
+    "generated_at": "2026-03-12T22:38:14.608Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Authentication & Authorization with open-source...",
+    "description": "A step-by-step implementation guide for Authentication & Authorization with open-source tools.",
+    "keywords": [
+      "auth",
+      "authentication & authorization",
+      "guide"
+    ],
+    "slug": "auth-guide-building-authentication-authorization-with-open-source"
+  },
+  "content": {
+    "intro": "This guide outlines the technical implementation of a multi-tenant authentication and authorization system. It focuses on the transition from basic user login to a production-ready architecture that handles organizational isolation, role-based access control (RBAC), and secure session management using modern providers like Clerk or Auth.js.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Experience with a full-stack framework like Next.js or Remix",
+      "Understanding of JWT structure (Header, Payload, Signature)",
+      "Basic knowledge of OAuth 2.0 flows",
+      "Environment variable management in local and production environments"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define the Identity Provider and Data Schema",
+        "explanation": "Select between a managed provider (Clerk, WorkOS) or a library-based solution (Auth.js, Lucia). For multi-tenant SaaS, ensure your data model includes an 'Organization' entity. Every user must be linked to an 'Organization' via a join table (Membership) that stores their specific role (e.g., admin, member, viewer) for that specific tenant.",
+        "pitfalls": [
+          "Hardcoding roles as a simple string on the user object, which prevents users from belonging to multiple organizations.",
+          "Choosing a provider that does not support multi-tenancy natively, forcing you to build complex 'org-switching' logic manually."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure Session Strategy and Middleware",
+        "explanation": "Decide between stateless JWTs or database-backed sessions. For Next.js/SSR apps, use middleware to intercept requests and verify the session before the page renders. This prevents 'flash of unauthenticated content' and secures the edge.",
+        "code": {
+          "language": "typescript",
+          "content": "import { authMiddleware } from '@clerk/nextjs';\n\nexport default authMiddleware({\n  publicRoutes: ['/', '/api/webhooks/clerk'],\n  afterAuth(auth, req) {\n    if (!auth.userId && !auth.isPublicRoute) {\n      return redirectToSignIn({ returnBackUrl: req.url });\n    }\n    if (auth.userId && !auth.orgId && req.nextUrl.pathname !== '/select-org') {\n      return NextResponse.redirect(new URL('/select-org', req.url));\n    }\n  }\n});",
+          "filename": "middleware.ts"
+        },
+        "pitfalls": [
+          "Failing to check the session in middleware, leading to unauthorized API access even if the UI components are hidden.",
+          "Mismatch between JWT expiration and the underlying session store expiration."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Multi-tenant Role-Based Access Control (RBAC)",
+        "explanation": "Inject organization IDs and roles into the JWT claims (custom claims). This allows your backend to verify permissions without a database lookup on every request. Create a utility function to check if a user has the required permission for a specific resource within their active organization.",
+        "code": {
+          "language": "typescript",
+          "content": "export function checkPermission(session: Session, permission: 'document:write' | 'user:manage') {\n  const rolePermissions = {\n    admin: ['document:write', 'user:manage'],\n    member: ['document:write'],\n    viewer: []\n  };\n  const userRole = session.claims.org_role as keyof typeof rolePermissions;\n  return rolePermissions[userRole]?.includes(permission) ?? false;\n}",
+          "filename": "lib/permissions.ts"
+        },
+        "pitfalls": [
+          "Trusting the client-side role state. Always re-verify the role from the decoded JWT or database on the server.",
+          "Oversized JWTs: Including too many custom claims can exceed header size limits (usually 8KB)."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure OAuth Callback and Redirect URI Safety",
+        "explanation": "When integrating social logins (Google, GitHub), strictly define your callback URLs in the provider dashboard. Implement a 'state' parameter check (handled automatically by libraries like Auth.js) to prevent Cross-Site Request Forgery (CSRF). Ensure your production environment variables use HTTPS for all redirect URIs.",
+        "pitfalls": [
+          "Using wildcard redirect URIs, which can be exploited to leak authorization codes to malicious domains.",
+          "Forgetting to sync user metadata (like profile pictures) from the OAuth provider to your local database on the first login."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Secure API Endpoints and AI Gateways",
+        "explanation": "For internal APIs, use the session cookie. For external or AI-related endpoints, implement API Key authentication. Use a library like 'unkey' or a Redis-based rate limiter to prevent a single user from exhausting your LLM credits or hitting rate limits on downstream infrastructure.",
+        "code": {
+          "language": "typescript",
+          "content": "import { Ratelimit } from '@upstash/ratelimit';\nimport { Redis } from '@upstash/redis';\n\nconst ratelimit = new Ratelimit({\n  redis: Redis.fromEnv(),\n  limiter: Ratelimit.slidingWindow(10, '10 s'),\n});\n\nexport async function POST(req: Request) {\n  const { userId } = auth();\n  const { success } = await ratelimit.limit(`limit_${userId}`);\n  if (!success) return new Response('Too Many Requests', { status: 429 });\n  // Proceed to AI endpoint logic\n}",
+          "filename": "app/api/ai/route.ts"
+        },
+        "pitfalls": [
+          "Allowing unauthenticated access to AI endpoints, leading to massive billing spikes.",
+          "Lack of logging for failed authentication attempts, making it impossible to debug integration issues or detect brute-force attacks."
+        ]
+      }
+    ],
+    "conclusion": "A robust auth system requires more than just a login form; it necessitates a data-driven approach to multi-tenancy and server-side verification of every request. By leveraging middleware for protection and custom claims for RBAC, you can build a scalable foundation that secures both your UI and your API infrastructure."
+  }
+}
