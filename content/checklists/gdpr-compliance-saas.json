@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-03-12T00:00:00.000Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "GDPR Compliance Checklist for SaaS Apps",
+    "description": "A practical GDPR compliance checklist for SaaS developers. Cover data collection, consent, retention, and breach notification requirements.",
+    "keywords": ["gdpr compliance checklist", "gdpr saas", "gdpr for developers", "gdpr data processing"],
+    "slug": "gdpr-compliance-saas"
+  },
+  "content": {
+    "intro": "GDPR compliance is not a one-time task — it's an ongoing operational requirement. This checklist covers the key areas SaaS developers must address when processing EU personal data. Work through each section systematically; mark critical items before launch and revisit recommended items in your first sprint post-launch.",
+    "sections": [
+      {
+        "heading": "Legal Basis & Consent",
+        "items": [
+          { "title": "Identify the legal basis for every data processing activity", "description": "Document whether each processing activity relies on consent, legitimate interest, contract, legal obligation, vital interest, or public task.", "priority": "critical" },
+          { "title": "Implement granular consent for non-essential cookies and tracking", "description": "Consent banners must offer genuine choice — pre-checked boxes or bundled consent are non-compliant. Use a CMP like Cookiebot or Termly.", "priority": "critical" },
+          { "title": "Store consent records with timestamps and version of the privacy policy shown", "description": "You must be able to prove when a user consented and what they agreed to. Log consent events in your database.", "priority": "critical" },
+          { "title": "Provide a simple, accessible mechanism to withdraw consent", "description": "Withdrawing consent must be as easy as giving it. A visible link in every email footer and in account settings is the minimum.", "priority": "critical" },
+          { "title": "Review legitimate interest claims with a balancing test", "description": "Legitimate interest requires a three-part test: purpose, necessity, and balancing. Document this for each LI claim.", "priority": "recommended" }
+        ]
+      },
+      {
+        "heading": "Privacy Policy & Notices",
+        "items": [
+          { "title": "Write a privacy policy in plain language — avoid legal boilerplate", "description": "Explain clearly: what data you collect, why, how long you keep it, who you share it with, and how users can exercise their rights.", "priority": "critical" },
+          { "title": "Include a Data Processing Agreement (DPA) with every third-party processor", "description": "Any vendor that processes EU personal data on your behalf requires a DPA. Common examples: analytics tools, email providers, hosting.", "priority": "critical" },
+          { "title": "Add a cookie policy listing every cookie and its purpose", "description": "Categorize cookies as necessary, functional, analytics, or marketing. List third-party cookies from embedded scripts.", "priority": "recommended" },
+          { "title": "Display a privacy notice at every data collection point", "description": "Forms, sign-up flows, and survey links should have a brief notice explaining what data is collected and the legal basis.", "priority": "recommended" },
+          { "title": "Date your privacy policy and notify users when it changes materially", "description": "Keep a changelog or version history. Email notice for material changes to terms is best practice (and sometimes required).", "priority": "recommended" }
+        ]
+      },
+      {
+        "heading": "Data Subject Rights",
+        "items": [
+          { "title": "Implement a self-serve data export feature (right to portability)", "description": "Users can request a machine-readable export of their data. Build an export endpoint that outputs JSON or CSV — don't rely on manual processes.", "priority": "critical" },
+          { "title": "Build an account deletion flow that purges all personal data (right to erasure)", "description": "Deletion must propagate to all data stores: primary DB, caches, backups (on schedule), analytics, and third-party processors.", "priority": "critical" },
+          { "title": "Create an internal process for handling data subject requests within 30 days", "description": "GDPR mandates response within one month. Document who handles requests, how they verify identity, and how they fulfill each type.", "priority": "critical" },
+          { "title": "Provide a contact method for data-related requests in your privacy policy", "description": "An email address like privacy@yourdomain.com is sufficient. A web form with an SLA is better.", "priority": "critical" },
+          { "title": "Test your deletion flow to confirm data is actually removed", "description": "Run test user creation and deletion. Check your database, analytics, and email provider to verify data is gone.", "priority": "recommended" }
+        ]
+      },
+      {
+        "heading": "Data Security & Retention",
+        "items": [
+          { "title": "Encrypt personal data at rest and in transit", "description": "TLS for all connections. Encrypted database fields for sensitive data (PII, payment info). Document your encryption approach.", "priority": "critical" },
+          { "title": "Define and enforce a data retention policy", "description": "Data should not be kept longer than necessary. Set automatic deletion schedules for inactive accounts, logs, and analytics data.", "priority": "critical" },
+          { "title": "Implement access controls and audit logs for who accesses personal data", "description": "Not every employee needs access to production user data. Role-based access controls and access logs demonstrate compliance.", "priority": "recommended" },
+          { "title": "Have a documented data breach notification procedure", "description": "GDPR requires notification to the supervisory authority within 72 hours of discovering a breach. Know your local DPA and have a template ready.", "priority": "critical" },
+          { "title": "Review and minimize the personal data you collect", "description": "Data minimization is a GDPR principle. Audit your sign-up forms and analytics — every unnecessary field is a liability.", "priority": "recommended" }
+        ]
+      },
+      {
+        "heading": "Third-Party & International Transfers",
+        "items": [
+          { "title": "Audit all third-party services for GDPR compliance and DPA availability", "description": "Create a data processing register listing every vendor, the data shared, the legal basis, and where data is processed.", "priority": "critical" },
+          { "title": "For US-based vendors, verify they rely on Standard Contractual Clauses (SCCs) or adequacy decisions", "description": "The EU-US Data Privacy Framework (2023) provides an adequacy decision. Verify vendor certification at dataprivacyframework.gov.", "priority": "recommended" },
+          { "title": "Replace non-compliant analytics with a privacy-first alternative", "description": "Google Analytics requires consent banners for most EU use cases. Plausible, Fathom, or Umami can work without consent banners in many cases.", "priority": "recommended" },
+          { "title": "Review your email provider's data processing location and DPA", "description": "If your email provider processes data in the US, ensure SCCs are in place. Consider EU-based alternatives like Brevo or Mailcoach.", "priority": "optional" },
+          { "title": "Document your data flows in a Record of Processing Activities (RoPA)", "description": "A RoPA is required for organizations of 250+ employees, but recommended for all. It's your audit evidence if the DPA investigates.", "priority": "recommended" }
+        ]
+      }
+    ]
+  }
+}

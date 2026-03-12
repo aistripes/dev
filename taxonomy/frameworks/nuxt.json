@@ -1,0 +1,39 @@
+{
+  "slug": "nuxt",
+  "name": "Nuxt",
+  "category": "frameworks",
+  "context": {
+    "audience": "Vue.js developers building full-stack applications, European startup teams, agencies preferring Vue over React",
+    "pain_points": [
+      "Server-side rendering performance in Nuxt 3",
+      "Migrating from Nuxt 2 to Nuxt 3 Composition API",
+      "Choosing between Vercel, Netlify, or self-hosting for Nuxt",
+      "State management patterns with Pinia and server state",
+      "Integrating AI features without bloating the bundle"
+    ],
+    "monetization": [
+      "SaaS subscriptions",
+      "Freelance Vue/Nuxt development",
+      "UI component library sales",
+      "Online courses and mentoring"
+    ],
+    "tools_and_stack": [
+      "Vercel", "Netlify", "Pinia", "Prisma", "Drizzle",
+      "Tailwind CSS", "NuxtUI", "Stripe", "Supabase"
+    ],
+    "content_that_works": [
+      "Migration guides from Nuxt 2 to Nuxt 3",
+      "Full-stack app tutorials",
+      "Performance optimization techniques",
+      "AI integration patterns"
+    ],
+    "subtopics": [
+      "Nuxt 3 server routes and API layers",
+      "Nuxt + AI SDK integration",
+      "Nuxt module development",
+      "Nuxt deployment on edge runtimes",
+      "Nuxt content management with Nuxt Content"
+    ],
+    "adjacent_niches": ["vue", "vercel", "edge-deployment", "content-platforms"]
+  }
+}

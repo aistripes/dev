@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "nextjs",
+    "generated_at": "2026-03-12T00:00:00.000Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 AI Blog Post Ideas for Next.js Developers",
+    "description": "Discover 100 AI-powered blog post ideas tailored for Next.js developers. From App Router patterns to AI SDK integrations, fuel your content calendar.",
+    "keywords": ["next.js blog ideas", "nextjs ai content", "next.js developer content", "react blog topics"],
+    "slug": "nextjs-ai-blog-ideas"
+  },
+  "content": {
+    "intro": "Next.js developers have a unique intersection of topics to write about: the rapidly evolving App Router, server components, edge deployment, and now AI integration. Whether you're building your personal dev blog or a technical content site, these 100 ideas span the full spectrum from beginner tutorials to advanced architectural deep-dives.",
+    "sections": [
+      {
+        "heading": "App Router & Server Components",
+        "items": [
+          { "title": "How to migrate from Pages Router to App Router without breaking production", "description": "A step-by-step migration guide with real-world pitfalls and rollback strategies.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "Server Components vs. Client Components: the definitive decision framework", "description": "When to use each, with a flowchart developers can bookmark and reference.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "Nested layouts in Next.js App Router explained with real examples", "description": "How route groups, parallel routes, and intercepting routes actually work.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "Data fetching patterns in Next.js 15: fetch, cache, and revalidate demystified", "description": "Practical examples of every caching strategy with performance implications.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "Building a streaming UI with React Suspense in Next.js App Router", "description": "How to progressively load server-rendered content without client-side spinners.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "Error boundaries and error.tsx in Next.js App Router", "description": "Graceful error handling patterns that don't expose internals to users.", "difficulty": "beginner", "potential": "standard" },
+          { "title": "Loading.tsx and Suspense: how skeleton screens work in App Router", "description": "The mechanics behind automatic loading states and how to customize them.", "difficulty": "beginner", "potential": "standard" },
+          { "title": "Next.js route handlers vs. API routes: when to use which", "description": "Comparing the two approaches with performance, complexity, and use-case analysis.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "Parallel routes for dashboard layouts in Next.js", "description": "Building complex dashboard UIs with independently loading panels.", "difficulty": "advanced", "potential": "medium" },
+          { "title": "Intercepting routes for modal patterns in Next.js App Router", "description": "How to open a modal while keeping the underlying page URL shareable.", "difficulty": "advanced", "potential": "medium" }
+        ]
+      },
+      {
+        "heading": "AI Integration with Next.js",
+        "items": [
+          { "title": "Adding OpenAI streaming to a Next.js app in 15 minutes", "description": "The minimal setup for streaming LLM responses in a Next.js route handler.", "difficulty": "beginner", "potential": "high" },
+          { "title": "Vercel AI SDK vs. raw fetch: which to use for Next.js AI apps", "description": "A practical comparison covering streaming, tool calls, and server-side AI.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "Building a RAG app with Next.js and Supabase pgvector", "description": "End-to-end guide: document ingestion, embeddings, retrieval, and generation.", "difficulty": "advanced", "potential": "high" },
+          { "title": "How to secure your OpenAI API key in a Next.js app", "description": "Route handlers, environment variables, and rate limiting to protect your API budget.", "difficulty": "beginner", "potential": "high" },
+          { "title": "Streaming AI chat with Next.js Server Actions", "description": "Using server actions for AI responses instead of API routes — pros and cons.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "Building a structured output pipeline with Next.js and Gemini", "description": "Using Gemini's native JSON mode with Zod validation in a production Next.js app.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "AI-powered search with Next.js and embeddings", "description": "Replacing keyword search with semantic search using pgvector and cosine similarity.", "difficulty": "advanced", "potential": "high" },
+          { "title": "Rate limiting AI requests in Next.js with Upstash Redis", "description": "Preventing abuse and runaway costs with token bucket rate limiting per user.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "Caching LLM responses in Next.js to cut costs 10x", "description": "When and how to cache AI responses with Redis and request fingerprinting.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "Building an AI autocomplete for a Next.js content editor", "description": "Real-time streaming suggestions using route handlers and React's optimistic updates.", "difficulty": "advanced", "potential": "medium" }
+        ]
+      },
+      {
+        "heading": "Performance & Deployment",
+        "items": [
+          { "title": "Next.js on Cloudflare Pages: full setup guide for 2026", "description": "Adapter configuration, edge runtime caveats, and deployment pipeline setup.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "Self-hosting Next.js on a Hetzner VPS with Coolify", "description": "Escape Vercel pricing: Docker, reverse proxy, and zero-downtime deploys.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "Next.js bundle size audit: finding and eliminating bloat", "description": "Using @next/bundle-analyzer to identify and fix heavy dependencies.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "Image optimization in Next.js: next/image deep dive", "description": "AVIF, WebP, lazy loading, and blur placeholders — everything you can configure.", "difficulty": "beginner", "potential": "medium" },
+          { "title": "Next.js middleware for authentication, A/B testing, and geolocation", "description": "What edge middleware can and can't do, with practical patterns for each use case.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "ISR vs. on-demand revalidation vs. SSR: choosing the right rendering strategy", "description": "Decision guide based on update frequency, traffic, and data freshness requirements.", "difficulty": "intermediate", "potential": "high" },
+          { "title": "Database connection pooling in Next.js with Prisma and PgBouncer", "description": "Why serverless functions exhaust connection pools and how to fix it.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "Adding a CDN to your self-hosted Next.js app", "description": "Cloudflare as a reverse proxy in front of your Next.js app on a VPS.", "difficulty": "intermediate", "potential": "medium" },
+          { "title": "Next.js Cold start times on Vercel vs. Cloudflare vs. AWS Lambda", "description": "Benchmarks and strategies to minimize cold starts in serverless Next.js.", "difficulty": "advanced", "potential": "medium" },
+          { "title": "Zero-downtime deployments with Next.js and Docker", "description": "Blue-green deployments and health checks for production Next.js on containers.", "difficulty": "advanced", "potential": "medium" }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Write the tutorial you wish had existed when you were learning — your past self is your best audience proxy.",
+      "Use real error messages and production gotchas in your titles; developers search for exact error strings.",
+      "A comparative article (A vs. B) consistently outperforms tutorials because it captures decision-phase searchers.",
+      "Update articles when Next.js releases a major version — 'updated for Next.js 15' gets click-throughs from loyal readers.",
+      "Include a GitHub repo with working code for every implementation guide; it becomes a long-term referral link."
+    ]
+  }
+}

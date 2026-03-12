@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllContentWithPaths } from '../../lib/content';
+
+export function getStaticPaths() {
+  return [
+    { params: { prefix: 'resources' } },
+    { params: { prefix: 'checklists' } },
+    { params: { prefix: 'comparisons' } },
+    { params: { prefix: 'guides' } },
+    { params: { prefix: 'tools' } },
+    { params: { prefix: 'directories' } },
+  ];
+}
+
+const { prefix } = Astro.params;
+
+const labels: Record<string, { title: string; description: string }> = {
+  resources: {
+    title: 'Resources',
+    description: 'Curated idea lists, tip collections, and structured resources for AI-powered web development.',
+  },
+  checklists: {
+    title: 'Checklists',
+    description: 'Interactive, completable checklists covering deployment, compliance, security, and more.',
+  },
+  comparisons: {
+    title: 'Comparisons',
+    description: 'Structured head-to-head comparisons with detailed criteria and verdicts.',
+  },
+  guides: {
+    title: 'Guides',
+    description: 'Step-by-step implementation guides with code examples and common pitfalls.',
+  },
+  tools: {
+    title: 'Tools',
+    description: 'Interactive utilities that run entirely in your browser. No sign-up required.',
+  },
+  directories: {
+    title: 'Directories',
+    description: 'Curated, filterable listings of tools, services, and resources.',
+  },
+};
+
+const meta = labels[prefix] ?? { title: prefix, description: '' };
+
+const items = getAllContentWithPaths().filter((c) => c.urlPrefix === prefix);
+---
+
+<Base title={meta.title} description={meta.description}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">{meta.title}</h1>
+      <p class="text-gray-600">{meta.description}</p>
+    </header>
+
+    {items.length === 0 ? (
+      <p class="text-gray-500 text-center py-20">No content yet. Check back soon.</p>
+    ) : (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {items.map(({ content, slug }) => (
+          <a
+            href={`/${prefix}/${slug}/`}
+            class="block border border-gray-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-sm transition-all"
+          >
+            <h2 class="font-semibold text-gray-900 mb-2 line-clamp-2">{content.seo.title}</h2>
+            <p class="text-sm text-gray-500 line-clamp-3">{content.seo.description}</p>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Base>

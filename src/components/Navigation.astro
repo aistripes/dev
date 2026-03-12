@@ -1,0 +1,48 @@
+---
+const navLinks = [
+  { href: '/resources/', label: 'Resources' },
+  { href: '/checklists/', label: 'Checklists' },
+  { href: '/comparisons/', label: 'Comparisons' },
+  { href: '/guides/', label: 'Guides' },
+  { href: '/tools/', label: 'Tools' },
+  { href: '/directories/', label: 'Directories' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="border-b border-gray-200 bg-white sticky top-0 z-50">
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+    <a href="/" class="font-bold text-lg text-gray-900 hover:text-blue-600 transition-colors">
+      AI Stripes
+    </a>
+
+    <ul class="hidden md:flex items-center gap-1">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class={[
+              'px-3 py-1.5 rounded-md text-sm font-medium transition-colors',
+              currentPath.startsWith(href)
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100',
+            ].join(' ')}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href="/search"
+      class="text-gray-500 hover:text-gray-900 transition-colors"
+      aria-label="Search"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </a>
+  </nav>
+</header>

@@ -1,0 +1,39 @@
+{
+  "slug": "astro",
+  "name": "Astro",
+  "category": "frameworks",
+  "context": {
+    "audience": "Developers building content-heavy sites, technical bloggers, documentation site maintainers, pSEO practitioners",
+    "pain_points": [
+      "Choosing when to use React islands vs. plain HTML",
+      "Integrating dynamic features without sacrificing static performance",
+      "Content collections setup and Zod schema validation",
+      "Image optimization and responsive image patterns",
+      "Integrating AI-generated content into Astro's content model"
+    ],
+    "monetization": [
+      "Content platforms with affiliate or sponsor revenue",
+      "Programmatic SEO sites",
+      "Documentation sites for paid products",
+      "Freelance web development"
+    ],
+    "tools_and_stack": [
+      "Cloudflare Pages", "Netlify", "Vercel", "Tailwind CSS",
+      "MDX", "Pagefind", "Zod", "React", "Svelte"
+    ],
+    "content_that_works": [
+      "Content collection and Zod schema tutorials",
+      "Performance benchmark comparisons",
+      "Migration guides from other frameworks",
+      "pSEO and content generation tutorials"
+    ],
+    "subtopics": [
+      "Astro content collections and type safety",
+      "Astro islands architecture",
+      "Astro + React integration patterns",
+      "Deploying Astro to Cloudflare Pages",
+      "Astro for programmatic SEO"
+    ],
+    "adjacent_niches": ["nextjs", "sveltekit", "edge-deployment", "programmatic-seo"]
+  }
+}

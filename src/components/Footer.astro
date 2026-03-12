@@ -1,0 +1,59 @@
+---
+const currentYear = new Date().getFullYear();
+
+const footerLinks = [
+  {
+    heading: 'Content',
+    links: [
+      { href: '/resources/', label: 'Resources' },
+      { href: '/checklists/', label: 'Checklists' },
+      { href: '/comparisons/', label: 'Comparisons' },
+      { href: '/guides/', label: 'Guides' },
+      { href: '/tools/', label: 'Tools' },
+      { href: '/directories/', label: 'Directories' },
+    ],
+  },
+  {
+    heading: 'Project',
+    links: [
+      { href: 'https://github.com/aistripes/dev', label: 'GitHub' },
+      { href: '/search', label: 'Search' },
+    ],
+  },
+];
+---
+
+<footer class="border-t border-gray-200 bg-gray-50 mt-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+      <div class="col-span-2">
+        <a href="/" class="font-bold text-xl text-gray-900 block mb-2">AI Stripes</a>
+        <p class="text-sm text-gray-500 max-w-xs">
+          The go-to resource for web developers building AI-powered applications.
+          Open source. Community-driven.
+        </p>
+      </div>
+      {footerLinks.map(({ heading, links }) => (
+        <div>
+          <h3 class="font-semibold text-sm text-gray-900 mb-3">{heading}</h3>
+          <ul class="space-y-2">
+            {links.map(({ href, label }) => (
+              <li>
+                <a href={href} class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-gray-500">
+      <p>© {currentYear} AI Stripes. Content: CC BY-SA 4.0. Code: MIT.</p>
+      <a href="https://github.com/aistripes/dev" class="hover:text-gray-900 transition-colors">
+        Contribute on GitHub ↗
+      </a>
+    </div>
+  </div>
+</footer>

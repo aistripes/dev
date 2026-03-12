@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "structured-output",
+    "generated_at": "2026-03-12T00:00:00.000Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building a Structured Output Pipeline with Gemini Flash and Zod",
+    "description": "Step-by-step guide to building a schema-validated content generation pipeline using Gemini Flash's JSON mode and Zod in Node.js.",
+    "keywords": ["gemini flash structured output", "zod llm validation", "json mode gemini", "llm content pipeline"],
+    "slug": "structured-output-gemini-zod"
+  },
+  "content": {
+    "intro": "Structured output is the technique that turns unreliable LLM prose into validated, type-safe JSON. This guide walks through building a production-ready pipeline using Gemini Flash (Google's cost-efficient model with native JSON output) and Zod for runtime validation in Node.js. By the end, you'll have a reusable pattern for any content generation use case.",
+    "estimated_time": "45–60 minutes",
+    "prerequisites": [
+      "Node.js 20+ installed",
+      "A Google AI Studio API key (free tier is sufficient)",
+      "Basic TypeScript knowledge",
+      "Familiarity with Zod schemas"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Set up your project and install dependencies",
+        "explanation": "Create a new Node.js project and install the Google Generative AI SDK and Zod. We'll use the official @google/generative-ai package which has native structured output support.",
+        "code": {
+          "language": "bash",
+          "content": "mkdir structured-output-demo && cd structured-output-demo\nnpm init -y\nnpm install @google/generative-ai zod\nnpm install -D typescript @types/node tsx\nnpx tsc --init --strict"
+        },
+        "pitfalls": [
+          "Use the @google/generative-ai package (not @google/genai which is a different SDK)",
+          "TypeScript strict mode is recommended — Zod inferred types work best with strict null checks"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Define your output schema with Zod",
+        "explanation": "Before writing any generation code, define exactly what you want the LLM to produce. A Zod schema serves two purposes: it generates a JSON Schema for the API (constraining the model) and validates the output at runtime. Here's a schema for a resource article section.",
+        "code": {
+          "language": "typescript",
+          "filename": "src/schemas/article-section.ts",
+          "content": "import { z } from 'zod';\n\nexport const ArticleSectionSchema = z.object({\n  heading: z.string().describe('Section heading, concise and keyword-rich'),\n  items: z.array(\n    z.object({\n      title: z.string().describe('Item title, under 80 characters'),\n      description: z.string().describe('2-3 sentence description of the item'),\n      difficulty: z.enum(['beginner', 'intermediate', 'advanced'])\n        .describe('Technical difficulty level for the reader'),\n    })\n  ).min(5).max(10).describe('List of actionable items in this section'),\n});\n\nexport type ArticleSection = z.infer<typeof ArticleSectionSchema>;"
+        },
+        "pitfalls": [
+          "Use .describe() on fields — these descriptions become part of the JSON Schema sent to the model and improve output quality significantly",
+          "Keep schemas flat where possible — deeply nested schemas increase token usage and hallucination risk"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Convert your Zod schema to JSON Schema for the API",
+        "explanation": "Gemini's responseSchema parameter accepts JSON Schema format. You can use zod-to-json-schema to convert your Zod schema automatically, avoiding duplication.",
+        "code": {
+          "language": "typescript",
+          "filename": "src/utils/schema-to-json.ts",
+          "content": "import { zodToJsonSchema } from 'zod-to-json-schema';\nimport type { ZodType } from 'zod';\n\nexport function toJsonSchema(schema: ZodType) {\n  const jsonSchema = zodToJsonSchema(schema, { target: 'openApi3' });\n  // Remove unsupported fields that Gemini rejects\n  const { $schema, ...cleanSchema } = jsonSchema as Record<string, unknown>;\n  return cleanSchema;\n}"
+        },
+        "pitfalls": [
+          "Install zod-to-json-schema: npm install zod-to-json-schema",
+          "The target: 'openApi3' option produces cleaner output than the default JSON Schema draft",
+          "Gemini rejects some JSON Schema keywords — strip $schema and $defs if they cause errors"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Initialize the Gemini client and configure structured output",
+        "explanation": "The key configuration is setting responseMimeType to 'application/json' and providing the responseSchema. This constrains the model to produce output matching your schema rather than freeform text.",
+        "code": {
+          "language": "typescript",
+          "filename": "src/generator.ts",
+          "content": "import { GoogleGenerativeAI } from '@google/generative-ai';\nimport { ArticleSectionSchema } from './schemas/article-section.js';\nimport { toJsonSchema } from './utils/schema-to-json.js';\n\nconst genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);\n\nconst model = genAI.getGenerativeModel({\n  model: 'gemini-1.5-flash',\n  generationConfig: {\n    responseMimeType: 'application/json',\n    responseSchema: toJsonSchema(ArticleSectionSchema) as object,\n    temperature: 0.7,\n  },\n});"
+        },
+        "pitfalls": [
+          "Never hardcode your API key — use process.env.GEMINI_API_KEY",
+          "gemini-1.5-flash is more cost-effective than gemini-pro for structured output tasks",
+          "Lower temperature (0.3-0.7) produces more consistent structured output"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Write the generation function with Zod validation",
+        "explanation": "The generation function calls the model and immediately validates the response with your Zod schema. If validation fails, you can retry with a corrective prompt or log the failure. This is your validation gate.",
+        "code": {
+          "language": "typescript",
+          "filename": "src/generator.ts",
+          "content": "import { ArticleSectionSchema, type ArticleSection } from './schemas/article-section.js';\n\nexport async function generateSection(\n  niche: string,\n  heading: string\n): Promise<ArticleSection> {\n  const prompt = `\n    Generate a resource article section for the niche: \"${niche}\".\n    Section heading: \"${heading}\"\n    \n    Produce exactly 7 actionable items. Each item needs a title, a 2-3 sentence description,\n    and a difficulty level. Focus on practical, specific advice — not generic tips.\n  `.trim();\n\n  const result = await model.generateContent(prompt);\n  const raw = result.response.text();\n  \n  // Parse and validate — will throw if schema doesn't match\n  const parsed = JSON.parse(raw);\n  return ArticleSectionSchema.parse(parsed);\n}"
+        },
+        "pitfalls": [
+          "Always JSON.parse() before Zod validation — the response is a string even with JSON mode enabled",
+          "Wrap in a try/catch in production and implement retry logic for validation failures",
+          "Log the raw response on validation failure — it helps debug schema mismatches"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Add retry logic for production robustness",
+        "explanation": "Even with structured output, models occasionally produce invalid JSON or schema-mismatched content (especially for complex schemas). A simple retry wrapper with exponential backoff handles transient failures.",
+        "code": {
+          "language": "typescript",
+          "filename": "src/utils/retry.ts",
+          "content": "export async function withRetry<T>(\n  fn: () => Promise<T>,\n  maxAttempts = 3,\n  delayMs = 1000\n): Promise<T> {\n  let lastError: unknown;\n  \n  for (let attempt = 1; attempt <= maxAttempts; attempt++) {\n    try {\n      return await fn();\n    } catch (error) {\n      lastError = error;\n      console.warn(`Attempt ${attempt}/${maxAttempts} failed:`, error);\n      if (attempt < maxAttempts) {\n        await new Promise(resolve => setTimeout(resolve, delayMs * attempt));\n      }\n    }\n  }\n  \n  throw lastError;\n}"
+        },
+        "pitfalls": [
+          "Don't retry indefinitely — cap at 3-5 attempts to avoid runaway API costs",
+          "Log all failures even when retry succeeds — failure patterns reveal schema or prompt issues",
+          "For batch generation, track failure rate; above 5% usually means a schema or prompt problem"
+        ]
+      }
+    ],
+    "conclusion": "You now have a robust structured output pipeline: a Zod schema that defines your data contract, a JSON Schema conversion for the API, a generation function with runtime validation, and retry logic for production reliability. This pattern scales to any content type — change the schema and prompt, and the pipeline adapts. The validation gate is the key insight: no invalid content reaches your application."
+  }
+}
