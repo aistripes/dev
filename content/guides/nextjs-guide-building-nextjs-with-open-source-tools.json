@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "nextjs",
+    "generated_at": "2026-03-12T21:13:05.334Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Next.js with open-source tools",
+    "description": "A step-by-step implementation guide for Next.js with open-source tools.",
+    "keywords": [
+      "nextjs",
+      "next.js",
+      "guide"
+    ],
+    "slug": "nextjs-guide-building-nextjs-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide provides a technical walkthrough for integrating streaming AI capabilities into a Next.js application. We will use the Vercel AI SDK to bridge the gap between Server Components and client-side chat interfaces, ensuring secure API key management and low-latency streaming via the Edge Runtime.",
+    "estimated_time": "40 minutes",
+    "prerequisites": [
+      "Next.js 14.2+ with App Router",
+      "OpenAI API Key",
+      "Node.js 18.x or higher",
+      "Tailwind CSS for UI components"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Environment and Dependency Setup",
+        "explanation": "Install the core AI SDK and the specific provider package. Configure your environment variables to ensure the API key is accessible only on the server side.",
+        "code": {
+          "language": "bash",
+          "content": "npm install ai @ai-sdk/openai lucide-react",
+          "filename": "terminal"
+        },
+        "pitfalls": [
+          "Do not prefix your AI API key with NEXT_PUBLIC_, as this will expose it to the browser.",
+          "Ensure you are using Node.js 18+ to support the Web Streams API."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure the AI Provider",
+        "explanation": "Create a dedicated utility file to initialize the OpenAI provider. This centralizes model configuration and makes it easier to swap providers (e.g., Anthropic or Mistral) later.",
+        "code": {
+          "language": "typescript",
+          "content": "import { createOpenAI } from '@ai-sdk/openai';\n\nexport const openai = createOpenAI({\n  apiKey: process.env.OPENAI_API_KEY,\n});",
+          "filename": "lib/ai.ts"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Create a Streaming Route Handler",
+        "explanation": "Implement a POST endpoint in the App Router to handle chat requests. Using the Edge Runtime is recommended for streaming to minimize Time to First Byte (TTFB).",
+        "code": {
+          "language": "typescript",
+          "content": "import { openai } from '@/lib/ai';\nimport { streamText } from 'ai';\n\nexport const runtime = 'edge';\n\nexport async function POST(req: Request) {\n  const { messages } = await req.json();\n  const result = await streamText({\n    model: openai('gpt-4o'),\n    messages,\n  });\n  return result.toDataStreamResponse();\n}",
+          "filename": "app/api/chat/route.ts"
+        },
+        "pitfalls": [
+          "If using a database inside this route, ensure your DB driver is compatible with the Edge Runtime.",
+          "Forgetting 'export const runtime = edge' may lead to higher latency on standard serverless functions."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Develop the Chat Interface",
+        "explanation": "Use the useChat hook from the AI SDK to manage message state, input handling, and the streaming lifecycle automatically.",
+        "code": {
+          "language": "tsx",
+          "content": "'use client';\nimport { useChat } from 'ai/react';\n\nexport default function Chat() {\n  const { messages, input, handleInputChange, handleSubmit } = useChat();\n  return (\n    <div className=\"flex flex-col w-full max-w-md py-24 mx-auto stretch\">\n      {messages.map(m => (\n        <div key={m.id} className=\"whitespace-pre-wrap\">\n          {m.role === 'user' ? 'User: ' : 'AI: '}\n          {m.content}\n        </div>\n      ))}\n      <form onSubmit={handleSubmit}>\n        <input\n          className=\"fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl\"\n          value={input}\n          placeholder=\"Say something...\"\n          onChange={handleInputChange}\n        />\n      </form>\n    </div>\n  );\n}",
+          "filename": "components/chat-panel.tsx"
+        },
+        "pitfalls": [
+          "The useChat hook defaults to /api/chat. If your route is elsewhere, you must pass the 'api' option.",
+          "Ensure the component is marked with 'use client' since it uses React state."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement Rate Limiting with Middleware",
+        "explanation": "Protect your API route from abuse by implementing a basic rate limiter using Next.js Middleware and Upstash Redis or a similar edge-compatible store.",
+        "code": {
+          "language": "typescript",
+          "content": "import { NextResponse } from 'next/server';\nimport type { NextRequest } from 'next/server';\n\nexport function middleware(request: NextRequest) {\n  if (request.nextUrl.pathname.startsWith('/api/chat')) {\n    // Logic for rate limiting goes here\n  }\n  return NextResponse.next();\n}",
+          "filename": "middleware.ts"
+        },
+        "pitfalls": [
+          "Standard in-memory rate limiting won't work across multiple serverless instances; use a distributed store like Redis."
+        ]
+      }
+    ],
+    "conclusion": "You have successfully implemented a streaming AI chat feature in Next.js. This architecture leverages the Edge Runtime for performance and the Vercel AI SDK for simplified state management. To scale, consider adding authentication via Clerk or Auth.js and persisting chat history in a database like Prisma or Drizzle."
+  }
+}
