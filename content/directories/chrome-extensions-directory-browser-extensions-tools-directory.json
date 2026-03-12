@@ -1,0 +1,302 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "chrome-extensions",
+    "generated_at": "2026-03-12T22:38:49.073Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Browser Extensions tools directory",
+    "description": "A developer-first directory of Browser Extensions tools and references.",
+    "keywords": [
+      "chrome-extensions",
+      "browser extensions",
+      "directory"
+    ],
+    "slug": "chrome-extensions-directory-browser-extensions-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of frameworks, libraries, and tools specifically designed for building, testing, and monetizing Manifest V3 browser extensions across Chrome, Firefox, and Safari.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Frameworks",
+          "Boilerplates",
+          "Monetization",
+          "Testing & QA",
+          "Deployment",
+          "UI & Components"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Plasmo",
+        "description": "A comprehensive framework for building browser extensions with built-in support for React, Tailwind, and automatic Manifest V3 generation.",
+        "url": "https://www.plasmo.com/",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatic HMR for content scripts and background workers",
+          "Built-in support for assets and environment variables",
+          "Streamlined cross-browser builds for Chrome, Firefox, and Edge"
+        ],
+        "cons": [
+          "Opinionated project structure",
+          "Abstraction layer can complicate highly custom build configurations"
+        ],
+        "tags": [
+          "React",
+          "TypeScript",
+          "Manifest V3",
+          "HMR"
+        ]
+      },
+      {
+        "name": "WXT",
+        "description": "A next-generation framework for developing browser extensions with a focus on developer experience and Vite-based builds.",
+        "url": "https://wxt.dev/",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Fastest build times using Vite",
+          "Excellent TypeScript auto-completion for extension APIs",
+          "Zero-config entry point management"
+        ],
+        "cons": [
+          "Newer ecosystem compared to older boilerplates",
+          "Documentation is still maturing for complex use cases"
+        ],
+        "tags": [
+          "Vite",
+          "TypeScript",
+          "Next-gen",
+          "Cross-browser"
+        ]
+      },
+      {
+        "name": "ExtensionPay",
+        "description": "A payment service designed specifically for browser extensions that works without a backend server.",
+        "url": "https://extensionpay.com/",
+        "category": "Monetization",
+        "pricing_model": "freemium",
+        "pros": [
+          "No backend code required to handle subscriptions",
+          "Works across Chrome, Firefox, and Safari",
+          "Direct integration with Stripe"
+        ],
+        "cons": [
+          "Transaction fees on top of Stripe",
+          "Limited to specific payment flows"
+        ],
+        "tags": [
+          "Payments",
+          "Stripe",
+          "SaaS",
+          "Subscriptions"
+        ]
+      },
+      {
+        "name": "CRXJS Vite Plugin",
+        "description": "A Vite plugin that converts your Vite project into a Chrome Extension with minimal configuration.",
+        "url": "https://crxjs.dev/vite-plugin",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Uses standard Vite configurations",
+          "Excellent HMR for popup and options pages",
+          "Low overhead for existing Vite users"
+        ],
+        "cons": [
+          "Manifest V3 support is in beta for some features",
+          "Can require manual configuration for complex background scripts"
+        ],
+        "tags": [
+          "Vite",
+          "Build Tools",
+          "Chrome"
+        ]
+      },
+      {
+        "name": "web-ext",
+        "description": "A command-line tool from Mozilla to help build, run, and test browser extensions locally.",
+        "url": "https://github.com/mozilla/web-ext",
+        "category": "Testing & QA",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standard tool for Firefox extension development",
+          "Automated linting for manifest files",
+          "Easy signing and packaging for distribution"
+        ],
+        "cons": [
+          "Primary focus is Firefox; Chrome support is secondary",
+          "Command-line only interface"
+        ],
+        "tags": [
+          "Mozilla",
+          "CLI",
+          "Linting",
+          "Firefox"
+        ]
+      },
+      {
+        "name": "Chrome Web Store Upload",
+        "description": "A Node.js module and CLI for uploading and publishing extensions to the Chrome Web Store programmatically.",
+        "url": "https://github.com/fregante/chrome-web-store-upload",
+        "category": "Deployment",
+        "pricing_model": "open-source",
+        "pros": [
+          "Enables CI/CD pipelines for extension updates",
+          "Supports automated versioning",
+          "Reliable API wrapper"
+        ],
+        "cons": [
+          "Requires initial manual API key setup in Google Console",
+          "No GUI for monitoring upload status"
+        ],
+        "tags": [
+          "CI/CD",
+          "Automation",
+          "Publishing"
+        ]
+      },
+      {
+        "name": "WebExtension Browser Polyfill",
+        "description": "A library that allows using the Promise-based browser.* APIs in Chrome, which currently uses callback-based chrome.* APIs.",
+        "url": "https://github.com/mozilla/webextension-polyfill",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standardizes API calls across browsers",
+          "Eliminates 'callback hell' in extension code",
+          "Maintained by Mozilla"
+        ],
+        "cons": [
+          "Adds a small bundle size overhead",
+          "Requires build-step integration for best results"
+        ],
+        "tags": [
+          "Polyfill",
+          "Promises",
+          "Cross-browser"
+        ]
+      },
+      {
+        "name": "Playwright for Extensions",
+        "description": "End-to-end testing framework with specific configurations for testing Chrome extensions in a real browser context.",
+        "url": "https://playwright.dev/docs/chrome-extensions",
+        "category": "Testing & QA",
+        "pricing_model": "open-source",
+        "pros": [
+          "Tests background workers and content script interactions",
+          "Supports screenshots and video of extension UI",
+          "Fast execution in headless modes"
+        ],
+        "cons": [
+          "Complex setup for persistent context and permissions",
+          "Manifest V3 service workers can be tricky to inspect"
+        ],
+        "tags": [
+          "E2E",
+          "Testing",
+          "Automation"
+        ]
+      },
+      {
+        "name": "Extension.js",
+        "description": "A zero-config development tool that allows you to start building extensions with a single command.",
+        "url": "https://extension.js.org/",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "No configuration files needed to start",
+          "Supports React, Vue, and Svelte out of the box",
+          "Handles manifest generation automatically"
+        ],
+        "cons": [
+          "Less flexibility for custom Webpack/Vite configs",
+          "Smaller community compared to Plasmo"
+        ],
+        "tags": [
+          "Zero-config",
+          "CLI",
+          "Rapid Prototyping"
+        ]
+      },
+      {
+        "name": "Bedrock",
+        "description": "A premium boilerplate for Chrome extensions including authentication, payments, and a landing page.",
+        "url": "https://bedrock.mxstbr.com/",
+        "category": "Boilerplates",
+        "pricing_model": "paid",
+        "pros": [
+          "Pre-integrated authentication (SaaS style)",
+          "Includes a marketing site template",
+          "Production-ready architecture"
+        ],
+        "cons": [
+          "High upfront cost for indie developers",
+          "May include more features than needed for simple tools"
+        ],
+        "tags": [
+          "SaaS",
+          "Boilerplate",
+          "Auth",
+          "Full-stack"
+        ]
+      },
+      {
+        "name": "Plasmo CSUI",
+        "description": "A specific feature of Plasmo that allows developers to inject React components into web pages as Shadow DOM elements.",
+        "url": "https://docs.plasmo.com/framework/content-scripts-ui",
+        "category": "UI & Components",
+        "pricing_model": "open-source",
+        "pros": [
+          "Prevents host page CSS from leaking into extension UI",
+          "Full React lifecycle support in content scripts",
+          "Easy positioning and mounting logic"
+        ],
+        "cons": [
+          "Tied to the Plasmo framework",
+          "Shadow DOM can complicate some third-party library integrations"
+        ],
+        "tags": [
+          "Content Scripts",
+          "Shadow DOM",
+          "React"
+        ]
+      },
+      {
+        "name": "Zustand (for Extensions)",
+        "description": "A small, fast state-management library that is highly effective for syncing state between background scripts and popups.",
+        "url": "https://github.com/pmndrs/zustand",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Minimal boilerplate compared to Redux",
+          "Easy to wrap in storage listeners for persistence",
+          "Highly performant for frequent state updates"
+        ],
+        "cons": [
+          "Requires manual setup for cross-context (background/popup) syncing",
+          "No built-in 'extension-native' storage adapter"
+        ],
+        "tags": [
+          "State Management",
+          "React",
+          "Performance"
+        ]
+      }
+    ]
+  }
+}

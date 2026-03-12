@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "international-seo",
+    "generated_at": "2026-03-12T22:38:33.373Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building International SEO with open-source tools",
+    "description": "A step-by-step implementation guide for International SEO with open-source tools.",
+    "keywords": [
+      "international-seo",
+      "international seo",
+      "guide"
+    ],
+    "slug": "international-seo-guide-building-international-seo-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical implementation of International SEO for modern web applications. It focuses on establishing a scalable URL architecture, automating hreflang tag injection, and managing edge-level geo-targeting to ensure search engines correctly index and serve region-specific content.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "A multi-language web framework (e.g., Next.js, Astro, or Nuxt)",
+      "Access to domain DNS or CDN configuration (e.g., Cloudflare)",
+      "Verified Google Search Console account",
+      "Localized content strings or a translation management system (TMS) like Crowdin"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Select and Implement URL Structure",
+        "explanation": "Choose between subdirectories (example.com/de/), subdomains (de.example.com), or ccTLDs (example.de). For most SaaS applications, subdirectories are recommended as they consolidate domain authority and simplify SSL management. Configure your framework to handle locale prefixes in the routing logic.",
+        "code": {
+          "language": "javascript",
+          "content": "// next.config.js example for subdirectory routing\nmodule.exports = {\n  i18n: {\n    locales: ['en-US', 'fr-FR', 'es-ES', 'de-DE'],\n    defaultLocale: 'en-US',\n    localeDetection: false\n  },\n};",
+          "filename": "next.config.js"
+        },
+        "pitfalls": [
+          "Using URL parameters (example.com?lang=fr) which are often ignored or poorly indexed by search engines.",
+          "Mixing subdomains and subdirectories, which splits link equity."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Automate Hreflang Tag Injection",
+        "explanation": "Every localized page must contain <link rel=\"alternate\"> tags in the <head> that point to all other language versions of that page, including a self-referencing tag. This prevents duplicate content issues and helps Google serve the correct version to the user.",
+        "code": {
+          "language": "html",
+          "content": "<!-- Example for a page available in EN and FR -->\n<link rel=\"alternate\" hreflang=\"en-US\" href=\"https://example.com/en-us/product\" />\n<link rel=\"alternate\" hreflang=\"fr-FR\" href=\"https://example.com/fr-fr/product\" />\n<link rel=\"alternate\" hreflang=\"x-default\" href=\"https://example.com/en-us/product\" />",
+          "filename": "head-metadata.html"
+        },
+        "pitfalls": [
+          "Forgetting the self-referencing tag, which can invalidate the entire hreflang set.",
+          "Using relative URLs instead of absolute URLs in the href attribute."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure the x-default Tag",
+        "explanation": "The x-default hreflang attribute signals to search engines which version of the page should be shown to users who do not match any specified language/region. This is typically your global landing page or your primary market version.",
+        "pitfalls": [
+          "Pointing x-default to a page that forces a redirect based on IP, which can prevent crawlers from accessing the content."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Generate Multi-Language XML Sitemaps",
+        "explanation": "Instead of a standard sitemap, generate a sitemap that includes xhtml:link attributes. This provides a secondary signal for language relationships and is more efficient for large sites than head-tag injection alone.",
+        "code": {
+          "language": "xml",
+          "content": "<url>\n  <loc>https://example.com/en/page</loc>\n  <xhtml:link rel=\"alternate\" hreflang=\"de\" href=\"https://example.com/de/page\"/>\n  <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"https://example.com/en/page\"/>\n</url>",
+          "filename": "sitemap.xml"
+        },
+        "pitfalls": [
+          "Inconsistent data between the XML sitemap and the HTML head tags.",
+          "Exceeding the 50,000 URL limit per sitemap file when multiplying pages by locales."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement Edge-Level Redirects and Geolocation Headers",
+        "explanation": "Use a CDN like Cloudflare to detect user location via IP and inject headers (e.g., cf-ipcountry). Use this data to suggest a locale change via a UI banner rather than forcing an automatic redirect, which can frustrate users and block search bots.",
+        "code": {
+          "language": "javascript",
+          "content": "// Cloudflare Worker snippet\naddEventListener('fetch', event => {\n  const country = event.request.headers.get('cf-ipcountry');\n  // Logic to append a recommendation header or cookie\n  event.respondWith(handleRequest(event.request));\n});",
+          "filename": "worker.js"
+        },
+        "pitfalls": [
+          "Hard-redirecting users based on IP, which prevents Googlebot (mostly crawling from US IPs) from seeing your international content.",
+          "Failing to cache the page correctly when varied by country headers."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Validate via Search Console International Targeting",
+        "explanation": "After deployment, use the International Targeting report in Google Search Console to monitor for 'no return tags' errors. This confirms that your cross-page references are correctly reciprocated across your locale-specific URLs.",
+        "pitfalls": [
+          "Ignoring errors in Search Console for more than 48 hours, as incorrect hreflang can lead to rapid de-indexing of regional variants."
+        ]
+      }
+    ],
+    "conclusion": "Successful international SEO implementation relies on maintaining strict consistency between your URL structure, HTML metadata, and XML sitemaps. By automating the generation of these signals and avoiding forced redirects, you ensure that both users and search engines can navigate your global content efficiently."
+  }
+}

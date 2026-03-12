@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "ecommerce",
+    "generated_at": "2026-03-12T22:38:53.782Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "E-Commerce tools directory",
+    "description": "A developer-first directory of E-Commerce tools and references.",
+    "keywords": [
+      "ecommerce",
+      "e-commerce",
+      "directory"
+    ],
+    "slug": "ecommerce-directory-e-commerce-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, platforms, and services for developers building modern, headless e-commerce architectures, focusing on performance, scalability, and developer experience.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Commerce Engines",
+          "Payments & Tax",
+          "Search & Discovery",
+          "CMS",
+          "Media Management",
+          "Performance & Monitoring"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Medusa",
+        "description": "An open-source Node.js commerce engine designed for modularity and extensibility via a plugin-based architecture.",
+        "url": "https://medusajs.com/",
+        "category": "Commerce Engines",
+        "pricing_model": "open-source",
+        "pros": [
+          "Highly extensible through custom plugins",
+          "Self-hostable for full data control",
+          "Clear documentation for backend customization"
+        ],
+        "cons": [
+          "Requires more infrastructure management than SaaS",
+          "Smaller ecosystem of pre-built integrations"
+        ],
+        "tags": [
+          "headless",
+          "nodejs",
+          "backend"
+        ]
+      },
+      {
+        "name": "Shopify Hydrogen",
+        "description": "A React-based framework for building custom, performant storefronts on the Shopify platform using Remix.",
+        "url": "https://hydrogen.shopify.dev/",
+        "category": "Commerce Engines",
+        "pricing_model": "paid",
+        "pros": [
+          "Native integration with Shopify Storefront API",
+          "Built-in edge caching and streaming SSR",
+          "Optimized for high-performance product pages"
+        ],
+        "cons": [
+          "Vendor lock-in to Shopify ecosystem",
+          "Best performance requires Oxygen hosting"
+        ],
+        "tags": [
+          "react",
+          "remix",
+          "shopify"
+        ]
+      },
+      {
+        "name": "Saleor",
+        "description": "A GraphQL-first headless commerce platform built with Python/Django, offering robust multi-channel capabilities.",
+        "url": "https://saleor.io/",
+        "category": "Commerce Engines",
+        "pricing_model": "open-source",
+        "pros": [
+          "Comprehensive GraphQL API for all operations",
+          "Native support for multi-warehouse and multi-currency",
+          "Clean, modern dashboard for store management"
+        ],
+        "cons": [
+          "Steep learning curve for developers new to GraphQL",
+          "Complex local setup for development"
+        ],
+        "tags": [
+          "graphql",
+          "python",
+          "multichannel"
+        ]
+      },
+      {
+        "name": "Stripe",
+        "description": "Financial infrastructure platform providing APIs for payment processing, subscription management, and global tax compliance.",
+        "url": "https://stripe.com/",
+        "category": "Payments & Tax",
+        "pricing_model": "paid",
+        "pros": [
+          "Industry-standard documentation and SDKs",
+          "Pre-built checkout components and elements",
+          "Handles complex global tax and compliance automatically"
+        ],
+        "cons": [
+          "Transaction fees can be high for low-margin businesses",
+          "Account freezes can occur without warning during disputes"
+        ],
+        "tags": [
+          "payments",
+          "checkout",
+          "tax"
+        ]
+      },
+      {
+        "name": "Algolia",
+        "description": "A hosted search and discovery API that provides sub-millisecond search results and AI-powered recommendations.",
+        "url": "https://www.algolia.com/",
+        "category": "Search & Discovery",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extremely fast search response times",
+          "Robust UI libraries for React, Vue, and JavaScript",
+          "Powerful merchandising and ranking controls"
+        ],
+        "cons": [
+          "Costs scale rapidly with record count and search volume",
+          "Configuration complexity for multi-language search"
+        ],
+        "tags": [
+          "search",
+          "ai",
+          "discovery"
+        ]
+      },
+      {
+        "name": "Cloudinary",
+        "description": "Cloud-based image and video management service that automates media optimization and delivery via URL parameters.",
+        "url": "https://cloudinary.com/",
+        "category": "Media Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Automatic format selection (WebP/AVIF) based on browser",
+          "On-the-fly resizing and cropping via URL",
+          "Global CDN for low-latency asset delivery"
+        ],
+        "cons": [
+          "Management console is complex and cluttered",
+          "Bandwidth costs can be unpredictable"
+        ],
+        "tags": [
+          "images",
+          "optimization",
+          "cdn"
+        ]
+      },
+      {
+        "name": "Sanity.io",
+        "description": "A platform for structured content that treats content as data, enabling real-time collaboration and custom editing environments.",
+        "url": "https://www.sanity.io/",
+        "category": "CMS",
+        "pricing_model": "freemium",
+        "pros": [
+          "Highly customizable 'Studio' using React",
+          "Powerful GROQ query language for complex data fetching",
+          "Real-time multi-user editing and versioning"
+        ],
+        "cons": [
+          "Requires significant developer setup time",
+          "GROQ has a learning curve compared to REST"
+        ],
+        "tags": [
+          "headless-cms",
+          "structured-content",
+          "real-time"
+        ]
+      },
+      {
+        "name": "Meilisearch",
+        "description": "An open-source, lightning-fast search engine designed to be a simpler, self-hosted alternative to Algolia.",
+        "url": "https://www.meilisearch.com/",
+        "category": "Search & Discovery",
+        "pricing_model": "open-source",
+        "pros": [
+          "Easy to install and maintain",
+          "Excellent typo tolerance out of the box",
+          "No complex configuration required for basic use"
+        ],
+        "cons": [
+          "Lacks some advanced AI features found in Algolia",
+          "Memory usage can be high for very large datasets"
+        ],
+        "tags": [
+          "search",
+          "self-hosted",
+          "performance"
+        ]
+      },
+      {
+        "name": "TaxJar",
+        "description": "Automated sales tax calculation, reporting, and filing service specifically for e-commerce businesses.",
+        "url": "https://www.taxjar.com/",
+        "category": "Payments & Tax",
+        "pricing_model": "paid",
+        "pros": [
+          "Real-time tax calculation at checkout",
+          "Automated nexus tracking across US states",
+          "Simplifies multi-state tax filing"
+        ],
+        "cons": [
+          "Pricing is based on transaction volume",
+          "Primarily focused on the US market"
+        ],
+        "tags": [
+          "tax",
+          "compliance",
+          "automation"
+        ]
+      },
+      {
+        "name": "Sentry",
+        "description": "Application monitoring and error tracking tool that helps developers identify and fix checkout and performance issues.",
+        "url": "https://sentry.io/",
+        "category": "Performance & Monitoring",
+        "pricing_model": "freemium",
+        "pros": [
+          "Session replay to see exactly where users fail in checkout",
+          "Detailed stack traces for frontend and backend errors",
+          "Performance profiling for slow API calls"
+        ],
+        "cons": [
+          "Can be noisy if alerts are not properly filtered",
+          "Data retention limits on free tier"
+        ],
+        "tags": [
+          "monitoring",
+          "errors",
+          "ux"
+        ]
+      }
+    ]
+  }
+}

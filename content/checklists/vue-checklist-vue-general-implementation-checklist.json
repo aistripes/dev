@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "vue",
+    "generated_at": "2026-03-12T22:38:17.990Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Vue (general) implementation checklist",
+    "description": "A practical checklist for shipping Vue (general) projects safely.",
+    "keywords": [
+      "vue",
+      "vue (general)",
+      "checklist"
+    ],
+    "slug": "vue-checklist-vue-general-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for validating Vue 3 applications before production deployment, focusing on performance, type safety, and state management integrity.",
+    "sections": [
+      {
+        "heading": "Performance and Build Optimization",
+        "items": [
+          {
+            "title": "Route-based Code Splitting",
+            "description": "Verify all non-initial routes in the Vue Router configuration use dynamic imports to reduce the main bundle size.",
+            "priority": "critical"
+          },
+          {
+            "title": "Tree-shaking Verification",
+            "description": "Run a production build and use a bundle visualizer to ensure that unused components and heavy libraries are not included in the final assets.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Async Component Implementation",
+            "description": "Wrap heavy third-party components (e.g., charts, editors) in 'defineAsyncComponent' to defer loading until they are rendered.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Image and Asset Optimization",
+            "description": "Configure Vite plugins to compress static assets and ensure responsive image sets are used for high-resolution displays.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Prefetching Strategy",
+            "description": "Implement link prefetching for high-probability navigation paths using the browser's idle time.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "TypeScript and Type Safety",
+        "items": [
+          {
+            "title": "Build-time Type Checking",
+            "description": "Integrate 'vue-tsc --noEmit' into the CI/CD pipeline to catch template-level type errors that 'tsc' ignores.",
+            "priority": "critical"
+          },
+          {
+            "title": "Prop and Emit Typing",
+            "description": "Ensure all components use generic 'defineProps' and 'defineEmits' interfaces rather than runtime-only declarations.",
+            "priority": "critical"
+          },
+          {
+            "title": "Template Ref Typing",
+            "description": "Verify all DOM and component refs are strictly typed (e.g., ref<HTMLButtonElement | null>(null)) to prevent runtime null pointers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Strict Mode Configuration",
+            "description": "Enable 'strict: true' and 'noImplicitAny' in tsconfig.json to ensure full coverage across the codebase.",
+            "priority": "critical"
+          },
+          {
+            "title": "External Data Typing",
+            "description": "Apply Zod or similar schema validation to API responses before casting them to TypeScript interfaces.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "State Management with Pinia",
+        "items": [
+          {
+            "title": "Reactivity Preservation",
+            "description": "Audit all store usage to ensure 'storeToRefs' is used when destructuring state to avoid losing reactivity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Action-based State Updates",
+            "description": "Enforce a pattern where state is only modified through actions to ensure updates are traceable in DevTools.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Subscription Cleanup",
+            "description": "Manually unsubscribe from store '$subscribe' or '$onAction' listeners in the 'onUnmounted' hook if they are created outside of setup.",
+            "priority": "recommended"
+          },
+          {
+            "title": "State Reset Logic",
+            "description": "Implement and call a '$reset' method for all user-related stores during the logout flow to prevent data leakage.",
+            "priority": "critical"
+          },
+          {
+            "title": "Persisted State Validation",
+            "description": "Verify that any state persisted to LocalStorage is versioned and cleared if the schema changes.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Error Handling and Resilience",
+        "items": [
+          {
+            "title": "Global Error Hook",
+            "description": "Configure 'app.config.errorHandler' to pipe runtime errors to a monitoring service like Sentry or LogRocket.",
+            "priority": "critical"
+          },
+          {
+            "title": "Component Error Boundaries",
+            "description": "Wrap high-risk components (e.g., third-party widgets) in parent components using the 'onErrorCaptured' hook.",
+            "priority": "recommended"
+          },
+          {
+            "title": "API Feedback Loops",
+            "description": "Ensure every network request has a corresponding loading state and a user-facing error message for 4xx/5xx responses.",
+            "priority": "critical"
+          },
+          {
+            "title": "Watcher Cleanup",
+            "description": "Verify that manually created 'watch' or 'effect' calls have their stop handles invoked to prevent memory leaks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Environment Variable Validation",
+            "description": "Confirm that only non-sensitive variables are prefixed with 'VITE_' and that secrets are never committed to the repository.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Testing and Quality Assurance",
+        "items": [
+          {
+            "title": "Composable Unit Testing",
+            "description": "Verify that business logic extracted into composables has 100% test coverage using Vitest.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Component Mount Testing",
+            "description": "Test critical UI components using Vue Test Utils to verify correct event emission and prop rendering.",
+            "priority": "recommended"
+          },
+          {
+            "title": "E2E Critical Path Testing",
+            "description": "Execute Playwright or Cypress tests for the primary user flows (login, checkout, profile updates).",
+            "priority": "critical"
+          },
+          {
+            "title": "Accessibility (A11y) Audit",
+            "description": "Run an automated accessibility scanner (e.g., axe-core) to check for missing ARIA labels and low contrast ratios.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Linting and Formatting",
+            "description": "Run 'eslint --ext .js,.vue' and 'prettier --check' to ensure code consistency and prevent common syntax anti-patterns.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "laravel",
+    "generated_at": "2026-03-12T22:38:12.331Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Laravel tools directory",
+    "description": "A developer-first directory of Laravel tools and references.",
+    "keywords": [
+      "laravel",
+      "directory"
+    ],
+    "slug": "laravel-directory-laravel-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, libraries, and infrastructure platforms specifically designed to accelerate development, testing, and deployment within the Laravel ecosystem.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Frontend & UI",
+          "DevOps & Deployment",
+          "Architecture & SaaS",
+          "Testing & Quality",
+          "Monitoring & Debugging",
+          "AI & Integration"
+        ]
+      },
+      {
+        "name": "Stack Preference",
+        "values": [
+          "Livewire",
+          "Inertia.js",
+          "API-only"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Filament",
+        "description": "A collection of full-stack components for building administrative interfaces, form builders, and tables using the TALL stack.",
+        "url": "https://filamentphp.com",
+        "category": "Frontend & UI",
+        "pricing_model": "open-source",
+        "pros": [
+          "Rapid generation of CRUD interfaces from Eloquent models",
+          "Deep integration with Livewire and Alpine.js",
+          "Extensive plugin ecosystem for custom field types"
+        ],
+        "cons": [
+          "Requires Livewire knowledge",
+          "Can be difficult to customize outside of the provided component patterns"
+        ],
+        "tags": [
+          "Admin Panel",
+          "TALL Stack",
+          "Livewire"
+        ]
+      },
+      {
+        "name": "Laravel Forge",
+        "description": "Server management and deployment platform for provisioning PHP servers on DigitalOcean, Linode, and AWS.",
+        "url": "https://forge.laravel.com",
+        "category": "DevOps & Deployment",
+        "pricing_model": "paid",
+        "pros": [
+          "Automated Nginx and PHP-FPM configuration",
+          "Built-in SSL management via Let's Encrypt",
+          "One-click deployment for Laravel apps"
+        ],
+        "cons": [
+          "Monthly subscription cost per user",
+          "Does not include the cost of the actual VPS provider"
+        ],
+        "tags": [
+          "Hosting",
+          "DevOps",
+          "Deployment"
+        ]
+      },
+      {
+        "name": "Pest",
+        "description": "A PHP testing framework with a focus on simplicity and functional-style syntax, built on top of PHPUnit.",
+        "url": "https://pestphp.com",
+        "category": "Testing & Quality",
+        "pricing_model": "open-source",
+        "pros": [
+          "Highly readable syntax that reduces boilerplate code",
+          "Native support for parallel testing",
+          "Excellent architectural testing features"
+        ],
+        "cons": [
+          "Different mental model from traditional class-based PHPUnit",
+          "Requires a specific plugin for some IDE features"
+        ],
+        "tags": [
+          "Testing",
+          "TDD",
+          "PHPUnit"
+        ]
+      },
+      {
+        "name": "Inertia.js",
+        "description": "A framework for building single-page apps using classic server-side routing and controllers with Vue, React, or Svelte.",
+        "url": "https://inertiajs.com",
+        "category": "Frontend & UI",
+        "pricing_model": "open-source",
+        "pros": [
+          "Eliminates the need for a client-side router",
+          "Maintains the Laravel controller-to-view workflow",
+          "Strong TypeScript support"
+        ],
+        "cons": [
+          "Requires managing a JavaScript build process",
+          "Initial SEO setup is more complex than standard Blade"
+        ],
+        "tags": [
+          "SPA",
+          "Vue",
+          "React",
+          "Frontend"
+        ]
+      },
+      {
+        "name": "Laravel Vapor",
+        "description": "A serverless deployment platform for Laravel, powered by AWS Lambda.",
+        "url": "https://vapor.laravel.com",
+        "category": "DevOps & Deployment",
+        "pricing_model": "paid",
+        "pros": [
+          "Auto-scaling capabilities for high-traffic events",
+          "Managed database and cache scaling",
+          "Integration with AWS CloudFront for CDN assets"
+        ],
+        "cons": [
+          "AWS costs can be unpredictable",
+          "Cold starts can affect latency for low-traffic sites"
+        ],
+        "tags": [
+          "Serverless",
+          "AWS",
+          "Scaling"
+        ]
+      },
+      {
+        "name": "Tenancy for Laravel",
+        "description": "A multi-tenancy package providing automatic database separation and tenant identification.",
+        "url": "https://tenancyforlaravel.com",
+        "category": "Architecture & SaaS",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatic migration isolation for tenants",
+          "Supports multi-database and single-database strategies",
+          "Non-intrusive integration with existing models"
+        ],
+        "cons": [
+          "Complex configuration for custom domain mapping",
+          "Steep learning curve for testing multi-tenant logic"
+        ],
+        "tags": [
+          "SaaS",
+          "Multi-tenancy",
+          "Architecture"
+        ]
+      },
+      {
+        "name": "Saloon",
+        "description": "A library for building API integrations and SDKs with a clean, object-oriented syntax.",
+        "url": "https://docs.saloon.dev",
+        "category": "AI & Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standardizes API request and response handling",
+          "Built-in support for authentication and pagination",
+          "Easily mockable for unit testing"
+        ],
+        "cons": [
+          "Additional abstraction layer if only making one simple request",
+          "Requires PHP 8.1+"
+        ],
+        "tags": [
+          "API",
+          "SDK",
+          "Integration"
+        ]
+      },
+      {
+        "name": "Laravel Pulse",
+        "description": "A real-time health and performance monitoring dashboard for Laravel applications.",
+        "url": "https://pulse.laravel.com",
+        "category": "Monitoring & Debugging",
+        "pricing_model": "open-source",
+        "pros": [
+          "Identifies slow routes and heavy database queries",
+          "Monitors queue throughput and job failures",
+          "First-party support and seamless installation"
+        ],
+        "cons": [
+          "Storing metrics can increase database load on high-traffic apps",
+          "Limited historical data retention compared to paid APM tools"
+        ],
+        "tags": [
+          "Monitoring",
+          "Performance",
+          "Diagnostics"
+        ]
+      },
+      {
+        "name": "Laravel Data",
+        "description": "A package to create rich Data Transfer Objects (DTOs) from requests, models, and arrays.",
+        "url": "https://spatie.be/docs/laravel-data",
+        "category": "Architecture & SaaS",
+        "pricing_model": "open-source",
+        "pros": [
+          "Combines validation and data structuring in one class",
+          "Automatic transformation to TypeScript definitions",
+          "Reduces reliance on associative arrays"
+        ],
+        "cons": [
+          "Adds overhead in object instantiation",
+          "Requires strict typing discipline"
+        ],
+        "tags": [
+          "DTO",
+          "Validation",
+          "Architecture"
+        ]
+      },
+      {
+        "name": "Laravel OpenAI",
+        "description": "A PHP client that integrates OpenAI's API directly into the Laravel service container.",
+        "url": "https://github.com/openai-php/laravel",
+        "category": "AI & Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native Laravel service provider and facades",
+          "Supports streaming responses for chat interfaces",
+          "Easy integration with Laravel's HTTP client"
+        ],
+        "cons": [
+          "Dependent on OpenAI's API stability",
+          "Strictly for OpenAI; switching LLM providers requires code changes"
+        ],
+        "tags": [
+          "AI",
+          "LLM",
+          "OpenAI"
+        ]
+      }
+    ]
+  }
+}

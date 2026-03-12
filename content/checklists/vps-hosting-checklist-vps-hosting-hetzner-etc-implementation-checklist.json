@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "vps-hosting",
+    "generated_at": "2026-03-12T22:38:32.616Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "VPS Hosting (Hetzner, etc.) implementation checklist",
+    "description": "A practical checklist for shipping VPS Hosting (Hetzner, etc.) projects safely.",
+    "keywords": [
+      "vps-hosting",
+      "vps hosting (hetzner, etc.)",
+      "checklist"
+    ],
+    "slug": "vps-hosting-checklist-vps-hosting-hetzner-etc-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the essential steps for moving a production application from a managed environment to a self-managed VPS on providers like Hetzner, OVH, or Contabo. It focuses on security, reliability, and automation to ensure high availability without the overhead of managed platforms.",
+    "sections": [
+      {
+        "heading": "Initial Server Hardening",
+        "items": [
+          {
+            "title": "Disable Root SSH Login",
+            "description": "Modify /etc/ssh/sshd_config to set PermitRootLogin no and verify you can login as a sudo user.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enforce SSH Key Authentication",
+            "description": "Set PasswordAuthentication no in SSH config to prevent brute-force password attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure UFW/NFTables",
+            "description": "Set a default deny policy and explicitly allow only ports 22, 80, and 443.",
+            "priority": "critical"
+          },
+          {
+            "title": "Install Fail2Ban",
+            "description": "Configure jails for SSH and your web server to automatically ban IP addresses with multiple failed login attempts.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Enable Unattended Upgrades",
+            "description": "Install the unattended-upgrades package and configure it to automatically install security patches daily.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Reverse Proxy and SSL",
+        "items": [
+          {
+            "title": "Automated SSL Renewal",
+            "description": "Configure Caddy or Nginx with Certbot to ensure Let's Encrypt certificates renew before the 90-day expiration.",
+            "priority": "critical"
+          },
+          {
+            "title": "HSTS Header Implementation",
+            "description": "Add the Strict-Transport-Security header to proxy responses to force HTTPS-only connections.",
+            "priority": "recommended"
+          },
+          {
+            "title": "IPv6 Connectivity",
+            "description": "Verify the VPS has a valid AAAA record and the reverse proxy is listening on [::] to support European mobile networks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Request Rate Limiting",
+            "description": "Define limit_req zones in Nginx or use Caddy's rate_limit directive to prevent application-layer DoS.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Proxy Health Checks",
+            "description": "Configure the reverse proxy to check the backend service status before routing traffic to prevent 502 errors.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Container and App Management",
+        "items": [
+          {
+            "title": "Docker Log Rotation",
+            "description": "Set max-size and max-file in /etc/docker/daemon.json to prevent container logs from filling the system disk.",
+            "priority": "critical"
+          },
+          {
+            "title": "Non-Root Container Users",
+            "description": "Verify Dockerfiles include a USER directive so the application process does not run with root privileges inside the container.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Resource Constraints",
+            "description": "Apply memory and CPU limits in docker-compose.yml to prevent a single container from crashing the entire VPS.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Automated Image Pruning",
+            "description": "Schedule a weekly cron job for 'docker system prune -f' to remove unused images and build cache.",
+            "priority": "optional"
+          },
+          {
+            "title": "Kamal/Coolify Deployment Hooks",
+            "description": "Configure post-deployment health checks to verify the new container is responding before shutting down the old one.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Backups and Disaster Recovery",
+        "items": [
+          {
+            "title": "Provider-Level Snapshots",
+            "description": "Enable daily automated snapshots in the Hetzner or OVH control panel for full-server recovery.",
+            "priority": "critical"
+          },
+          {
+            "title": "Off-site Database Backups",
+            "description": "Configure a cron job to stream encrypted database dumps to S3-compatible storage outside the VPS provider's network.",
+            "priority": "critical"
+          },
+          {
+            "title": "Backup Restoration Test",
+            "description": "Manually restore a database backup to a local development environment to verify data integrity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Volume Mounting for Persistence",
+            "description": "Ensure all database data and user uploads are stored on attached block storage volumes, not the local OS disk.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Environment Variable Backup",
+            "description": "Store an encrypted copy of the .env file or secrets in a secure password manager or vault.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring and Performance",
+        "items": [
+          {
+            "title": "External Uptime Monitoring",
+            "description": "Set up an external service to ping the application's health endpoint every 60 seconds.",
+            "priority": "critical"
+          },
+          {
+            "title": "Disk Space Alerts",
+            "description": "Configure a monitoring agent (e.g., Netdata or Prometheus) to alert when disk usage exceeds 80%.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Swap Space",
+            "description": "Create a swap file (2-4GB) to provide a buffer for memory spikes on low-RAM VPS instances.",
+            "priority": "recommended"
+          },
+          {
+            "title": "NTP Time Synchronization",
+            "description": "Ensure systemd-timesyncd is active to prevent clock drift, which can cause issues with SSL and auth tokens.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Centralized Log Aggregation",
+            "description": "Forward system and application logs to a dedicated logging server or service for post-mortem analysis.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

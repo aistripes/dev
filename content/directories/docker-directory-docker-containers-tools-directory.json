@@ -1,0 +1,289 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "docker",
+    "generated_at": "2026-03-12T22:38:25.363Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Docker & Containers tools directory",
+    "description": "A developer-first directory of Docker & Containers tools and references.",
+    "keywords": [
+      "docker",
+      "docker & containers",
+      "directory"
+    ],
+    "slug": "docker-directory-docker-containers-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools and resources for containerization, focusing on image optimization, security, and local development efficiency.",
+    "filter_dimensions": [
+      {
+        "name": "category",
+        "values": [
+          "Build Tools",
+          "Runtimes",
+          "Orchestration",
+          "Security",
+          "Networking",
+          "Management"
+        ]
+      },
+      {
+        "name": "pricing_model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Hadolint",
+        "description": "A smarter Dockerfile linter that helps you build best-practice Docker images by parsing the Dockerfile into an AST and performing static analysis.",
+        "url": "https://github.com/hadolint/hadolint",
+        "category": "Build Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "Validates inline bash scripts within Dockerfiles",
+          "Integrates directly into VS Code and CI pipelines",
+          "Identifies inefficient layer usage"
+        ],
+        "cons": [
+          "Requires Haskell environment if building from source"
+        ],
+        "tags": [
+          "linting",
+          "dockerfile",
+          "static-analysis"
+        ]
+      },
+      {
+        "name": "Dive",
+        "description": "A tool for exploring a docker image, layer contents, and discovering ways to shrink the size of your Docker/OCI image.",
+        "url": "https://github.com/wagoodman/dive",
+        "category": "Build Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "Shows exactly what changed in each layer",
+          "Calculates image efficiency score",
+          "Integrates into CI to fail builds if efficiency is too low"
+        ],
+        "cons": [
+          "CLI-only interface may be difficult for complex layer trees"
+        ],
+        "tags": [
+          "optimization",
+          "debugging",
+          "cli"
+        ]
+      },
+      {
+        "name": "Trivy",
+        "description": "A comprehensive security scanner for vulnerabilities in container images, file systems, and Git repositories.",
+        "url": "https://github.com/aquasecurity/trivy",
+        "category": "Security",
+        "pricing_model": "open-source",
+        "pros": [
+          "Detects OS package vulnerabilities and language-specific dependencies",
+          "Fast scanning speed",
+          "Supports Infrastructure as Code (IaC) scanning"
+        ],
+        "cons": [
+          "Database updates can be large and slow on first run"
+        ],
+        "tags": [
+          "security",
+          "vulnerability-scanning",
+          "compliance"
+        ]
+      },
+      {
+        "name": "Traefik Proxy",
+        "description": "An edge router that automatically discovers container configurations to route traffic to backend services.",
+        "url": "https://traefik.io/traefik/",
+        "category": "Networking",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native integration with Docker labels",
+          "Automatic Let's Encrypt SSL management",
+          "Real-time dashboard for traffic monitoring"
+        ],
+        "cons": [
+          "Steep learning curve for complex middleware configurations"
+        ],
+        "tags": [
+          "reverse-proxy",
+          "load-balancer",
+          "ingress"
+        ]
+      },
+      {
+        "name": "Portainer",
+        "description": "A centralized service delivery platform for container management with a user-friendly GUI.",
+        "url": "https://www.portainer.io/",
+        "category": "Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Simplifies container management for non-CLI users",
+          "Supports Docker, Swarm, and Kubernetes",
+          "Role-based access control for teams"
+        ],
+        "cons": [
+          "Adds additional overhead to the host system"
+        ],
+        "tags": [
+          "gui",
+          "management",
+          "dashboard"
+        ]
+      },
+      {
+        "name": "Podman",
+        "description": "A daemonless container engine for developing, managing, and running OCI Containers on Linux systems.",
+        "url": "https://podman.io/",
+        "category": "Runtimes",
+        "pricing_model": "open-source",
+        "pros": [
+          "No root privileges required (rootless mode)",
+          "Daemonless architecture improves security and stability",
+          "Compatible with Docker CLI commands via alias"
+        ],
+        "cons": [
+          "Compatibility issues with some Docker-specific volumes",
+          "Limited support on Windows/macOS compared to Docker Desktop"
+        ],
+        "tags": [
+          "runtime",
+          "rootless",
+          "security"
+        ]
+      },
+      {
+        "name": "Coolify",
+        "description": "An open-source and self-hostable alternative to Heroku / Netlify for managing Docker-based deployments.",
+        "url": "https://coolify.io/",
+        "category": "Orchestration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automates deployment from GitHub/GitLab",
+          "Built-in database management and backups",
+          "Zero-downtime deployments via reverse proxy"
+        ],
+        "cons": [
+          "Less mature than enterprise PaaS solutions"
+        ],
+        "tags": [
+          "paas",
+          "self-hosting",
+          "deployment"
+        ]
+      },
+      {
+        "name": "BuildKit",
+        "description": "The next-generation build toolkit for Docker that enables parallel stage execution and cache exports.",
+        "url": "https://github.com/moby/buildkit",
+        "category": "Build Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "Significantly faster build times through concurrency",
+          "Advanced caching mechanisms for CI/CD",
+          "Support for secrets without baking them into layers"
+        ],
+        "cons": [
+          "Requires modern Docker versions and DOCKER_BUILDKIT=1 flag"
+        ],
+        "tags": [
+          "build",
+          "caching",
+          "performance"
+        ]
+      },
+      {
+        "name": "Lazydocker",
+        "description": "A simple terminal UI for both docker and docker-compose, written in Go with gocui.",
+        "url": "https://github.com/jesseduffield/lazydocker",
+        "category": "Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Keyboard-driven interface for fast container management",
+          "Visualizes CPU and memory usage in real-time",
+          "One-key cleaning of unused images and volumes"
+        ],
+        "cons": [
+          "Limited to terminal environments"
+        ],
+        "tags": [
+          "tui",
+          "cli",
+          "productivity"
+        ]
+      },
+      {
+        "name": "Watchtower",
+        "description": "A process for automating Docker container base image updates.",
+        "url": "https://containrrr.dev/watchtower/",
+        "category": "Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatically pulls new images and restarts containers",
+          "Configurable via Docker labels",
+          "Supports private registries"
+        ],
+        "cons": [
+          "Risk of breaking production if semver is not strictly followed"
+        ],
+        "tags": [
+          "automation",
+          "updates",
+          "ci-cd"
+        ]
+      },
+      {
+        "name": "Docker Slim",
+        "description": "Minifies Docker images by analyzing application behavior to remove unnecessary files.",
+        "url": "https://github.com/slimtoolkit/slim",
+        "category": "Build Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "Reduces image size by up to 30x",
+          "Improves security by reducing attack surface",
+          "No manual Dockerfile changes required"
+        ],
+        "cons": [
+          "Analysis phase can be slow for large applications",
+          "May remove files required for edge-case runtime scenarios"
+        ],
+        "tags": [
+          "optimization",
+          "security",
+          "minification"
+        ]
+      },
+      {
+        "name": "Kaniko",
+        "description": "A tool to build container images from a Dockerfile inside a container or Kubernetes cluster without a Docker daemon.",
+        "url": "https://github.com/GoogleContainerTools/kaniko",
+        "category": "Build Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "Ideal for Kubernetes-based CI/CD pipelines",
+          "Does not require privileged mode",
+          "Works with standard Dockerfiles"
+        ],
+        "cons": [
+          "Build performance can be slower than BuildKit",
+          "Caching requires external storage like GCS or S3"
+        ],
+        "tags": [
+          "kubernetes",
+          "ci-cd",
+          "daemonless"
+        ]
+      }
+    ]
+  }
+}

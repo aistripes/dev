@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "security",
+    "generated_at": "2026-03-12T22:38:49.403Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Security for AI Apps implementation checklist",
+    "description": "A practical checklist for shipping Security for AI Apps projects safely.",
+    "keywords": [
+      "security",
+      "security for ai apps",
+      "checklist"
+    ],
+    "slug": "security-checklist-security-for-ai-apps-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical verification steps required to secure LLM-integrated applications against prompt injection, data leakage, and infrastructure vulnerabilities before moving to a production environment.",
+    "sections": [
+      {
+        "heading": "Prompt Injection Mitigation",
+        "items": [
+          {
+            "title": "Implement Delimiter Separation",
+            "description": "Enclose user input within distinct delimiters (e.g., triple quotes or XML tags) in the prompt template to help the LLM distinguish between developer instructions and user-provided data.",
+            "priority": "critical"
+          },
+          {
+            "title": "Deploy an Injection Detection Layer",
+            "description": "Integrate a dedicated security tool like Rebuff or a secondary 'judge' LLM to analyze incoming user prompts for known injection patterns before they reach the primary model.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enforce Input Schema Validation",
+            "description": "Use Zod or Pydantic to strictly validate the structure, type, and length of user inputs to prevent unexpected payloads from being processed by the LLM.",
+            "priority": "critical"
+          },
+          {
+            "title": "Apply Least-Privilege System Instructions",
+            "description": "Audit the system prompt to ensure it explicitly instructs the model to ignore any user commands that attempt to override its core security constraints or access internal tools.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Test Against Indirect Injection",
+            "description": "Verify that data fetched from third-party APIs or external websites is treated as untrusted user input and passed through the same sanitization pipeline as direct user prompts.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Data Privacy and PII Protection",
+        "items": [
+          {
+            "title": "Implement Pre-Inference PII Scrubbing",
+            "description": "Use a library like Microsoft Presidio or LLM Guard to identify and redact Personally Identifiable Information (PII) from user prompts before they are sent to external LLM providers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Disable Provider Data Training",
+            "description": "Verify in the LLM provider's settings (e.g., OpenAI Enterprise or Azure OpenAI) that user data is not utilized for model training or retained beyond the required retention period.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit Few-Shot Prompt Context",
+            "description": "Scan the hardcoded examples in your prompt templates to ensure no production secrets, internal database schemas, or sensitive employee data are included as context.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Data Localization Compliance",
+            "description": "Confirm that the LLM provider's data center region aligns with your organization's residency requirements (e.g., GDPR data processing within the EU).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Encrypt Data in Transit and Rest",
+            "description": "Ensure all communication with LLM APIs occurs over TLS 1.3 and that any locally cached prompt history is encrypted using AES-256.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Output Guardrails and Moderation",
+        "items": [
+          {
+            "title": "Enable Native Moderation APIs",
+            "description": "Pipe all LLM generated content through a moderation endpoint (e.g., OpenAI Moderation API) to block responses containing hate speech, self-harm, or illegal content.",
+            "priority": "critical"
+          },
+          {
+            "title": "Verify Output Structural Integrity",
+            "description": "Use Guardrails AI or NeMo Guardrails to validate that the LLM output conforms to the expected JSON schema or code format before it is parsed by the application.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Filter Sensitive Information Leakage",
+            "description": "Implement regex-based scanners on the LLM output to detect and block the accidental disclosure of internal IP addresses, API keys, or proprietary internal terminology.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set Token Response Limits",
+            "description": "Configure a strict 'max_tokens' parameter on all inference calls to prevent resource exhaustion and mitigate potential Denial of Wallet attacks via excessively long responses.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Sanitize Output for XSS",
+            "description": "Apply standard HTML escaping to LLM-generated text before rendering it in a web UI to prevent the execution of malicious scripts injected via the model output.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Infrastructure and Secret Management",
+        "items": [
+          {
+            "title": "Centralize API Key Storage",
+            "description": "Move LLM provider API keys from environment variables into a managed secret store like AWS Secrets Manager, HashiCorp Vault, or Azure Key Vault.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement User-Level Rate Limiting",
+            "description": "Apply rate limits based on the authenticated user ID rather than IP address to prevent a single compromised account from draining your LLM API credits.",
+            "priority": "critical"
+          },
+          {
+            "title": "Rotate Production API Credentials",
+            "description": "Establish an automated rotation policy for all LLM service keys and verify that legacy keys are immediately revoked upon rotation.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Use IAM Roles for Cloud LLMs",
+            "description": "When using services like AWS Bedrock or Vertex AI, utilize IAM roles and service accounts instead of static access keys to follow the principle of least privilege.",
+            "priority": "critical"
+          },
+          {
+            "title": "Isolate AI Microservices",
+            "description": "Deploy LLM-handling logic in an isolated network segment (VPC) with restricted egress to only the specific domains required by the LLM providers.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring and Incident Response",
+        "items": [
+          {
+            "title": "Log Inference Metadata",
+            "description": "Record prompt/response pairs, token usage, and latency in a secure, centralized logging system (e.g., Datadog, ELK) while ensuring PII is masked in the logs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Alert on High Refusal Rates",
+            "description": "Configure monitoring alerts for when the LLM or moderation layer returns a high frequency of 'safety-related' refusals, which may indicate an active injection attempt.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Establish an Emergency Kill Switch",
+            "description": "Implement a feature flag or configuration toggle that can instantly disable LLM functionality across the application without requiring a full code redeploy.",
+            "priority": "critical"
+          },
+          {
+            "title": "Perform Red-Teaming Exercises",
+            "description": "Conduct a scheduled 'jailbreak' test where security engineers attempt to bypass current guardrails using techniques from the OWASP LLM Top 10.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Monitor Token Usage Anomalies",
+            "description": "Set up automated alerts for token consumption spikes that exceed the 95th percentile of historical usage to detect automated abuse or recursive loop bugs.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "rails",
+    "generated_at": "2026-03-12T22:38:10.442Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Ruby on Rails with open-source tools",
+    "description": "A step-by-step implementation guide for Ruby on Rails with open-source tools.",
+    "keywords": [
+      "rails",
+      "ruby on rails",
+      "guide"
+    ],
+    "slug": "rails-guide-building-ruby-on-rails-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide details the implementation of a production-ready Rails 8 application using the 'No-PaaS' stack. It focuses on replacing Redis-dependent background processing with Solid Queue and deploying to a VPS using Kamal. This architecture minimizes infrastructure complexity while maintaining scalability for full-stack web applications.",
+    "estimated_time": "45-60 minutes",
+    "prerequisites": [
+      "Ruby 3.3.0 or higher installed",
+      "Rails 8.0.0.beta1 or higher",
+      "Docker installed locally and on the target server",
+      "A VPS (e.g., Hetzner, DigitalOcean) with SSH access",
+      "A container registry account (Docker Hub, GitHub Packages, or AWS ECR)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure Solid Queue for Background Jobs",
+        "explanation": "Rails 8 defaults to Solid Queue for background processing to remove the Redis dependency. Ensure your database configuration supports the queue schema and that the adapter is correctly set for production.",
+        "code": {
+          "language": "ruby",
+          "content": "# config/environments/production.rb\nconfig.active_job.queue_adapter = :solid_queue\n\n# config/database.yml\nproduction:\n  primary:\n    <<: *default\n    database: storage/production.sqlite3\n  queue:\n    <<: *default\n    database: storage/production_queue.sqlite3\n    migrations_paths: db/queue_migrate",
+          "filename": "config/environments/production.rb"
+        },
+        "pitfalls": [
+          "Failure to run 'bin/rails solid_queue:install' will result in missing migration files for the queue schema.",
+          "Using a single SQLite database for both data and queueing can lead to lock contention under high write loads; use separate database files as shown."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Initialize Kamal Deployment Configuration",
+        "explanation": "Kamal handles Docker-based deployments to any Linux server. Initialize the configuration to generate the deploy.yml file and the necessary directory structure.",
+        "code": {
+          "language": "bash",
+          "content": "bundle add kamal\nkamal init",
+          "filename": "Terminal"
+        },
+        "pitfalls": [
+          "Do not commit the generated .env file to version control; it will contain sensitive registry and server credentials."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Define Infrastructure in deploy.yml",
+        "explanation": "Configure your application name, container registry, and server IP addresses. Specifically, define a separate role for the Solid Queue worker to ensure background tasks do not starve the web server of CPU cycles.",
+        "code": {
+          "language": "yaml",
+          "content": "service: my-rails-app\nimage: username/my-rails-app\n\nservers:\n  web:\n    hosts:\n      - 192.168.1.100\n  job:\n    hosts:\n      - 192.168.1.100\n    command: bundle exec rake solid_queue:start\n\nregistry:\n  username: [REGISTRY_USERNAME]\n  password:\n    - KAMAL_REGISTRY_PASSWORD\n\nenv:\n  secret:\n    - RAILS_MASTER_KEY",
+          "filename": "config/deploy.yml"
+        },
+        "pitfalls": [
+          "Ensure the 'job' role command correctly points to the solid_queue runner; otherwise, jobs will remain in the 'pending' state.",
+          "Verify that port 80/443 is open on the host firewall for the 'web' role."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure Health Checks for Zero-Downtime",
+        "explanation": "Kamal uses a health check endpoint to verify the new container is ready before stopping the old one. Rails 8 includes a built-in health check controller; ensure it is properly mapped in deploy.yml.",
+        "code": {
+          "language": "yaml",
+          "content": "proxy:\n  ssl: true\n  host: app.example.com\n  healthcheck:\n    path: /up\n    interval: 5s\n    timeout: 2s",
+          "filename": "config/deploy.yml"
+        },
+        "pitfalls": [
+          "If your /up endpoint requires authentication or database connections that are not yet established, the deployment will roll back automatically.",
+          "Mismatch between the proxy port (default 80) and the Rails Puma port (default 3000) will cause health check failures."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Provision and Deploy",
+        "explanation": "The final step is to prepare the server and push the application. Kamal will install Docker on the remote host, build the image locally (or via builder), push it to the registry, and pull it to the server.",
+        "code": {
+          "language": "bash",
+          "content": "kamal setup",
+          "filename": "Terminal"
+        },
+        "pitfalls": [
+          "First-time setup may fail if the SSH user does not have passwordless sudo access on the target server.",
+          "Asset compilation failures during the Docker build stage are often caused by missing environment variables required by Tailwind CSS or Propshaft."
+        ]
+      }
+    ],
+    "conclusion": "Your Rails 8 application is now configured for modern production standards using Solid Queue for background processing and Kamal for deployment. This setup provides the benefits of a managed PaaS while retaining full control over the underlying hardware. For scaling, you can now add additional IP addresses to the 'web' or 'job' roles in deploy.yml and run 'kamal deploy' to distribute the load."
+  }
+}

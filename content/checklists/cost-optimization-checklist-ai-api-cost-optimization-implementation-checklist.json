@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "cost-optimization",
+    "generated_at": "2026-03-12T22:38:20.947Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI API Cost Optimization implementation checklist",
+    "description": "A practical checklist for shipping AI API Cost Optimization projects safely.",
+    "keywords": [
+      "cost-optimization",
+      "ai api cost optimization",
+      "checklist"
+    ],
+    "slug": "cost-optimization-checklist-ai-api-cost-optimization-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for reducing LLM API expenses by optimizing model selection, implementing caching layers, and enforcing strict token management protocols before scaling to production.",
+    "sections": [
+      {
+        "heading": "Model Tiering and Routing Strategy",
+        "items": [
+          {
+            "title": "Implement a Multi-Model Gateway",
+            "description": "Deploy a proxy like LiteLLM or OpenRouter to programmatically switch between providers without refactoring code.",
+            "priority": "critical"
+          },
+          {
+            "title": "Benchmark Against 'Mini' Models",
+            "description": "Verify if tasks like classification, summarization, or extraction can be handled by GPT-4o mini, Gemini Flash, or Claude Haiku instead of flagship models.",
+            "priority": "critical"
+          },
+          {
+            "title": "Define Intent-Based Routing Logic",
+            "description": "Implement a lightweight classifier to route high-complexity queries to flagship models and low-complexity queries to cheaper alternatives.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Configure Automated Fallback Sequences",
+            "description": "Set up logic to attempt requests on a cheaper model first, falling back to a more expensive model only if the output fails validation or safety checks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Utilize Local Models for Dev/Test",
+            "description": "Configure Ollama or vLLM for local development and CI/CD testing to eliminate API costs during the build phase.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Caching and Redundancy Reduction",
+        "items": [
+          {
+            "title": "Deploy Exact-Match Request Caching",
+            "description": "Implement a Redis-based cache to store and return identical prompt-response pairs for 0 tokens.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Semantic Caching",
+            "description": "Use a vector database to identify and serve cached responses for prompts that are semantically similar but not identical.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Enforce Per-User Cache Isolation",
+            "description": "Ensure cache keys include user identifiers to prevent data leakage between different user sessions while maintaining cost savings.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Cache TTLs",
+            "description": "Set time-to-live values on cached LLM responses to ensure data freshness and prevent stale content delivery.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Monitor Cache Hit Rates",
+            "description": "Integrate tools like Helicone or Portkey to track the financial impact of your caching layer in real-time.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Token Management and Prompt Optimization",
+        "items": [
+          {
+            "title": "Enforce Hard max_tokens Limits",
+            "description": "Set explicit output token limits on every API call to prevent runaway generation and predictable cost ceilings.",
+            "priority": "critical"
+          },
+          {
+            "title": "Prune System Prompts",
+            "description": "Audit system messages to remove redundant instructions, filler text, and overly verbose formatting requirements.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Dynamic Few-Shot Selection",
+            "description": "Retrieve only the most relevant few-shot examples for the current context rather than sending a static, large block of examples.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Use Stop Sequences",
+            "description": "Define specific stop sequences to terminate generation as soon as the relevant data is produced, avoiding trailing filler tokens.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Truncate Chat History",
+            "description": "Implement a sliding window or summarization strategy for conversation history to keep context windows small and manageable.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Observability and Budgetary Controls",
+        "items": [
+          {
+            "title": "Tag Requests with Metadata",
+            "description": "Attach user_id, feature_id, and environment tags to every API call for granular cost attribution.",
+            "priority": "critical"
+          },
+          {
+            "title": "Set Automated Budget Alerts",
+            "description": "Configure provider-level and proxy-level alerts at 50%, 80%, and 100% of the monthly budget.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Circuit Breakers",
+            "description": "Code automated triggers that disable high-cost features if a specific user or feature exceeds a daily spend threshold.",
+            "priority": "critical"
+          },
+          {
+            "title": "Calculate Unit Economics",
+            "description": "Establish a metric for cost-per-successful-interaction to identify features that are economically unviable.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Audit Token-to-Word Ratios",
+            "description": "Monitor the efficiency of your tokenizer; identify if specific languages or formats are inflating token counts unexpectedly.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Infrastructure and Batch Processing",
+        "items": [
+          {
+            "title": "Migrate Async Tasks to Batch APIs",
+            "description": "Use OpenAI or Anthropic Batch APIs for non-real-time tasks to receive a 50% discount on token pricing.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Client-Side Validation",
+            "description": "Use Pydantic or Zod to validate inputs before sending to the LLM, preventing costs on malformed requests.",
+            "priority": "critical"
+          },
+          {
+            "title": "Use Structured Output Modes",
+            "description": "Force JSON mode or tool calling to reduce the need for retries caused by parsing errors.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Pre-Calculate RAG Embeddings",
+            "description": "Ensure embeddings for static knowledge bases are calculated once during ingestion, never during the query runtime.",
+            "priority": "critical"
+          },
+          {
+            "title": "Evaluate Fine-Tuning for Compression",
+            "description": "Test if a fine-tuned smaller model can match the performance of a large model with a long complex prompt.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

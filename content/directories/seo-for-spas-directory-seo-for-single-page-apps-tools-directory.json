@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "seo-for-spas",
+    "generated_at": "2026-03-12T22:38:42.152Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "SEO for Single-Page Apps tools directory",
+    "description": "A developer-first directory of SEO for Single-Page Apps tools and references.",
+    "keywords": [
+      "seo-for-spas",
+      "seo for single-page apps",
+      "directory"
+    ],
+    "slug": "seo-for-spas-directory-seo-for-single-page-apps-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, frameworks, and services designed to solve indexing and crawling challenges inherent in client-rendered Single-Page Applications (SPAs).",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Frameworks",
+          "Prerendering",
+          "Meta Management",
+          "Auditing & Testing",
+          "Infrastructure"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Next.js",
+        "description": "React framework offering built-in Server-Side Rendering (SSR) and Static Site Generation (SSG) to ensure crawlers receive fully rendered HTML.",
+        "url": "https://nextjs.org/",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native support for SSR and SSG",
+          "Automatic code splitting",
+          "Optimized Image and Link components"
+        ],
+        "cons": [
+          "Requires migration from standard Create React App structures",
+          "Server-side runtime management required"
+        ],
+        "tags": [
+          "react",
+          "ssr",
+          "ssg"
+        ]
+      },
+      {
+        "name": "Nuxt",
+        "description": "Vue.js framework that automates the configuration of server-side rendering and static generation for Vue applications.",
+        "url": "https://nuxt.com/",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Zero-config SSR for Vue apps",
+          "Module ecosystem for SEO (Sitemap, Robots)",
+          "Powerful file-based routing"
+        ],
+        "cons": [
+          "Steep learning curve for Vue developers used to client-only SPAs",
+          "Version migrations can be complex"
+        ],
+        "tags": [
+          "vue",
+          "ssr",
+          "ssg"
+        ]
+      },
+      {
+        "name": "Prerender.io",
+        "description": "Middleware service that detects search engine crawlers and serves a cached, static HTML version of your SPA pages.",
+        "url": "https://prerender.io/",
+        "category": "Prerendering",
+        "pricing_model": "freemium",
+        "pros": [
+          "No major code changes required to existing SPAs",
+          "Supports any JavaScript framework",
+          "Reduces server load by offloading rendering"
+        ],
+        "cons": [
+          "Ongoing subscription costs",
+          "Potential for cache staleness"
+        ],
+        "tags": [
+          "dynamic-rendering",
+          "caching",
+          "middleware"
+        ]
+      },
+      {
+        "name": "React Helmet Async",
+        "description": "Thread-safe library for managing the document head in React applications, enabling dynamic SEO tags per route.",
+        "url": "https://github.com/staylor/react-helmet-async",
+        "category": "Meta Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Prevents memory leaks in SSR environments",
+          "Declarative API for title and meta tags",
+          "Supports all standard head tags"
+        ],
+        "cons": [
+          "Requires manual implementation on every route",
+          "Metadata only visible to crawlers if using SSR or prerendering"
+        ],
+        "tags": [
+          "react",
+          "metadata",
+          "head-tags"
+        ]
+      },
+      {
+        "name": "Screaming Frog SEO Spider",
+        "description": "Desktop crawler that can execute JavaScript to audit how search engines see client-side rendered content.",
+        "url": "https://www.screamingfrog.co.uk/seo-spider/",
+        "category": "Auditing & Testing",
+        "pricing_model": "freemium",
+        "pros": [
+          "Accurately renders JS-heavy sites",
+          "Identifies broken links inside SPAs",
+          "Compares original HTML vs. rendered HTML"
+        ],
+        "cons": [
+          "Heavy resource usage on local machines",
+          "Paid version required for large sites"
+        ],
+        "tags": [
+          "audit",
+          "crawling",
+          "javascript-rendering"
+        ]
+      },
+      {
+        "name": "Angular Universal",
+        "description": "The official server-side rendering solution for Angular, allowing for pre-rendering of application routes.",
+        "url": "https://angular.io/guide/universal",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "First-party support from the Angular team",
+          "Improves perceived performance for users",
+          "Enables social media previews"
+        ],
+        "cons": [
+          "Complex configuration for existing large projects",
+          "Requires Node.js server to run"
+        ],
+        "tags": [
+          "angular",
+          "ssr",
+          "typescript"
+        ]
+      },
+      {
+        "name": "Rendertron",
+        "description": "A Dockerized headless Chrome rendering solution designed to provide dynamic rendering for SPAs.",
+        "url": "https://github.com/GoogleChrome/rendertron",
+        "category": "Prerendering",
+        "pricing_model": "open-source",
+        "pros": [
+          "Complete control over the rendering environment",
+          "Uses real Chrome for high fidelity rendering",
+          "Compatible with any web framework"
+        ],
+        "cons": [
+          "Maintenance is currently in sunset mode",
+          "Requires self-hosting and infrastructure management"
+        ],
+        "tags": [
+          "headless-chrome",
+          "dynamic-rendering",
+          "docker"
+        ]
+      },
+      {
+        "name": "Unhead",
+        "description": "A framework-agnostic document head manager with specialized integrations for Vue, React, and Nuxt.",
+        "url": "https://unhead.unjs.io/",
+        "category": "Meta Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely lightweight and type-safe",
+          "Works across different frontend frameworks",
+          "Optimized for SSR/SSG workflows"
+        ],
+        "cons": [
+          "Newer ecosystem compared to React Helmet",
+          "Requires learning UnJS specific patterns"
+        ],
+        "tags": [
+          "metadata",
+          "vue",
+          "react",
+          "typescript"
+        ]
+      },
+      {
+        "name": "Google Search Console",
+        "description": "Essential tool for verifying how Googlebot renders SPA pages and identifying indexing errors.",
+        "url": "https://search.google.com/search-console/",
+        "category": "Auditing & Testing",
+        "pricing_model": "free",
+        "pros": [
+          "Direct feedback from Google's index",
+          "URL Inspection tool shows the rendered DOM",
+          "Alerts for mobile usability issues in SPAs"
+        ],
+        "cons": [
+          "Data reporting has a 2-3 day lag",
+          "Limited to Google's search engine data"
+        ],
+        "tags": [
+          "indexing",
+          "googlebot",
+          "analytics"
+        ]
+      },
+      {
+        "name": "Vercel",
+        "description": "Deployment platform optimized for Next.js and frontend frameworks with built-in edge functions for SEO manipulation.",
+        "url": "https://vercel.com/",
+        "category": "Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Automatic SSR/SSG deployment",
+          "Global edge network reduces TTFB",
+          "Built-in analytics for Core Web Vitals"
+        ],
+        "cons": [
+          "Can become expensive at high traffic levels",
+          "Vendor lock-in for certain Next.js features"
+        ],
+        "tags": [
+          "deployment",
+          "edge-computing",
+          "performance"
+        ]
+      }
+    ]
+  }
+}

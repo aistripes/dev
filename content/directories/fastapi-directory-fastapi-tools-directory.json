@@ -1,0 +1,360 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "fastapi",
+    "generated_at": "2026-03-12T22:38:14.333Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "FastAPI tools directory",
+    "description": "A developer-first directory of FastAPI tools and references.",
+    "keywords": [
+      "fastapi",
+      "directory"
+    ],
+    "slug": "fastapi-directory-fastapi-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of production-ready tools and libraries specifically selected for the FastAPI ecosystem, focusing on asynchronous performance, type safety, and AI model serving.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "ORM & Databases",
+          "Authentication",
+          "Deployment & Servers",
+          "Testing & Validation",
+          "AI & LLM Integration",
+          "Observability"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "open-source",
+          "freemium",
+          "free",
+          "paid",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "SQLModel",
+        "description": "An ORM designed by the creator of FastAPI that combines SQLAlchemy and Pydantic for seamless type-hinting and data validation.",
+        "url": "https://sqlmodel.tiangolo.com/",
+        "category": "ORM & Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "Eliminates code duplication between Pydantic models and DB models",
+          "Full editor support with autocompletion",
+          "Built on top of SQLAlchemy 2.0"
+        ],
+        "cons": [
+          "Newer than SQLAlchemy and may lack some edge-case features",
+          "Smaller community compared to raw SQLAlchemy"
+        ],
+        "tags": [
+          "orm",
+          "pydantic",
+          "sqlalchemy"
+        ]
+      },
+      {
+        "name": "FastAPI Users",
+        "description": "Ready-to-use authentication system providing registration, login, and social OAuth2 integration for FastAPI projects.",
+        "url": "https://fastapi-users.github.io/fastapi-users/",
+        "category": "Authentication",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports multiple database backends via SQLAlchemy or Tortoise",
+          "Includes built-in routes for password resets and verification",
+          "Extensible plugin architecture"
+        ],
+        "cons": [
+          "Steep learning curve for custom user model overrides",
+          "Tight coupling with specific database adapters"
+        ],
+        "tags": [
+          "auth",
+          "oauth2",
+          "jwt"
+        ]
+      },
+      {
+        "name": "Uvicorn",
+        "description": "The standard ASGI server implementation for FastAPI based on uvloop and httptools.",
+        "url": "https://www.uvicorn.org/",
+        "category": "Deployment & Servers",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely high performance for async workloads",
+          "Support for WebSockets and HTTP/1.1",
+          "Native reload mode for rapid development"
+        ],
+        "cons": [
+          "Lacks advanced process management features found in Gunicorn",
+          "Configuration can be complex for SSL termination"
+        ],
+        "tags": [
+          "asgi",
+          "server",
+          "performance"
+        ]
+      },
+      {
+        "name": "Alembic",
+        "description": "A lightweight database migration tool for usage with SQLAlchemy, essential for managing schema changes in FastAPI.",
+        "url": "https://alembic.sqlalchemy.org/",
+        "category": "ORM & Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "Autogenerates migration scripts by comparing models to DB state",
+          "Supports complex branching and merging of migrations",
+          "Industry standard for Python DB versioning"
+        ],
+        "cons": [
+          "Manual script editing often required for complex renames",
+          "CLI syntax is not always intuitive for beginners"
+        ],
+        "tags": [
+          "migrations",
+          "sql",
+          "devops"
+        ]
+      },
+      {
+        "name": "HTTPX",
+        "description": "A fully featured HTTP client for Python 3, providing both sync and async interfaces for testing and external API calls.",
+        "url": "https://www.python-httpx.org/",
+        "category": "Testing & Validation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Strictly follows the Requests API while adding async support",
+          "Built-in support for calling ASGI apps directly without a server",
+          "Supports HTTP/2"
+        ],
+        "cons": [
+          "Slightly slower than aiohttp for high-concurrency raw benchmarks",
+          "Middleware API differs from Requests"
+        ],
+        "tags": [
+          "testing",
+          "async",
+          "client"
+        ]
+      },
+      {
+        "name": "Logfire",
+        "description": "An observability platform built by the Pydantic team designed to provide deep insights into FastAPI and Pydantic performance.",
+        "url": "https://pydantic.dev/logfire",
+        "category": "Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Zero-config integration with Pydantic models",
+          "Visualizes nested async calls and database queries",
+          "Native support for OpenTelemetry"
+        ],
+        "cons": [
+          "Proprietary cloud component for data storage",
+          "Relatively new tool in the ecosystem"
+        ],
+        "tags": [
+          "monitoring",
+          "pydantic",
+          "tracing"
+        ]
+      },
+      {
+        "name": "Casbin",
+        "description": "An authorization library that supports access control models like RBAC and ABAC for FastAPI applications.",
+        "url": "https://casbin.org/",
+        "category": "Authentication",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports over 50 languages and frameworks",
+          "Highly flexible policy definition using a configuration file",
+          "Decouples authz logic from application code"
+        ],
+        "cons": [
+          "The configuration DSL has a learning curve",
+          "Overkill for simple role-based access"
+        ],
+        "tags": [
+          "rbac",
+          "abac",
+          "authorization"
+        ]
+      },
+      {
+        "name": "Tortoise ORM",
+        "description": "An easy-to-use asyncio ORM inspired by Django but built for FastAPI/ASGI.",
+        "url": "https://tortoise.github.io/",
+        "category": "ORM & Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "Familiar API for developers coming from Django",
+          "Native async support from the ground up",
+          "Built-in migration tool (Aerich)"
+        ],
+        "cons": [
+          "Smaller ecosystem than SQLAlchemy",
+          "Does not support sync execution"
+        ],
+        "tags": [
+          "orm",
+          "django-style",
+          "async"
+        ]
+      },
+      {
+        "name": "FastAPI Pagination",
+        "description": "A simple library to add pagination support to FastAPI endpoints with minimal boilerplate.",
+        "url": "https://uriyyo-fastapi-pagination.netlify.app/",
+        "category": "Testing & Validation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports SQLAlchemy, Tortoise, and many other backends",
+          "Automatically handles OpenAPI schema generation for paginated data",
+          "Flexible limit-offset or page-number styles"
+        ],
+        "cons": [
+          "Can be tricky to customize the response wrapper globally",
+          "Adds another dependency for a relatively simple task"
+        ],
+        "tags": [
+          "pagination",
+          "api",
+          "utility"
+        ]
+      },
+      {
+        "name": "Scalar",
+        "description": "An interactive API documentation generator that serves as a modern alternative to Swagger UI.",
+        "url": "https://scalar.com/",
+        "category": "Testing & Validation",
+        "pricing_model": "freemium",
+        "pros": [
+          "Much cleaner and more modern UI than default Swagger",
+          "Built-in API client for testing endpoints directly",
+          "Easy integration via a few lines of FastAPI code"
+        ],
+        "cons": [
+          "Customizing themes can require more effort than Swagger",
+          "Less documentation for advanced configuration"
+        ],
+        "tags": [
+          "documentation",
+          "openapi",
+          "swagger"
+        ]
+      },
+      {
+        "name": "Beanie",
+        "description": "An asynchronous Python object-document mapper (ODM) for MongoDB that uses Pydantic models.",
+        "url": "https://beanie-odm.dev/",
+        "category": "ORM & Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "Uses Pydantic for data validation and schema definition",
+          "Native async support using the Motor driver",
+          "Supports migrations and complex aggregation pipelines"
+        ],
+        "cons": [
+          "Limited to MongoDB",
+          "Type hinting can sometimes get complex with generic documents"
+        ],
+        "tags": [
+          "mongodb",
+          "odm",
+          "nosql"
+        ]
+      },
+      {
+        "name": "FastAPI Limiter",
+        "description": "A Redis-backed rate limiting dependency for FastAPI endpoints.",
+        "url": "https://github.com/long2ice/fastapi-limiter",
+        "category": "Deployment & Servers",
+        "pricing_model": "open-source",
+        "pros": [
+          "Simple to use as a FastAPI dependency",
+          "Distributed rate limiting via Redis",
+          "Supports custom key functions (IP, User ID, etc.)"
+        ],
+        "cons": [
+          "Requires a running Redis instance",
+          "Minimal configurability for burst handling"
+        ],
+        "tags": [
+          "rate-limiting",
+          "redis",
+          "security"
+        ]
+      },
+      {
+        "name": "vLLM",
+        "description": "A high-throughput library for LLM inference that can be easily wrapped in FastAPI for production model serving.",
+        "url": "https://github.com/vllm-project/vllm",
+        "category": "AI & LLM Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "PagedAttention significantly improves GPU memory usage",
+          "Native OpenAI-compatible API server built with FastAPI",
+          "Supports continuous batching for high throughput"
+        ],
+        "cons": [
+          "Requires significant GPU resources",
+          "Complex to set up for multi-node inference"
+        ],
+        "tags": [
+          "llm",
+          "inference",
+          "gpu"
+        ]
+      },
+      {
+        "name": "Pytest-Asyncio",
+        "description": "A pytest plugin that provides support for testing asynchronous code, vital for FastAPI test suites.",
+        "url": "https://github.com/pytest-dev/pytest-asyncio",
+        "category": "Testing & Validation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Allows writing async test functions directly",
+          "Provides fixtures for managing the event loop",
+          "Integrates perfectly with HTTPX for integration tests"
+        ],
+        "cons": [
+          "Configuration of loop scopes can be confusing",
+          "Conflict with other async plugins if not configured correctly"
+        ],
+        "tags": [
+          "testing",
+          "async",
+          "pytest"
+        ]
+      },
+      {
+        "name": "FastAPI Filter",
+        "description": "A library to provide easy-to-use filtering for SQLAlchemy and Tortoise querysets via URL parameters.",
+        "url": "https://github.com/arthurio/fastapi-filter",
+        "category": "ORM & Databases",
+        "pricing_model": "open-source",
+        "pros": [
+          "Auto-generates OpenAPI documentation for filters",
+          "Reduces boilerplate in GET endpoints",
+          "Supports nested filtering and ordering"
+        ],
+        "cons": [
+          "Strict dependency on specific ORM versions",
+          "Can be difficult to implement custom complex logic"
+        ],
+        "tags": [
+          "filtering",
+          "query",
+          "sqlalchemy"
+        ]
+      }
+    ]
+  }
+}

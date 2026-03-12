@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "ci-cd",
+    "generated_at": "2026-03-12T22:38:21.745Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 CI/CD for AI Apps resources for developers",
+    "description": "A curated set of practical CI/CD for AI Apps resources for engineers.",
+    "keywords": [
+      "ci-cd",
+      "ci/cd for ai apps",
+      "resource-article"
+    ],
+    "slug": "ci-cd-resource-article-100-cicd-for-ai-apps-resources-for-developers"
+  },
+  "content": {
+    "intro": "Building CI/CD pipelines for AI applications requires moving beyond traditional unit tests to handle non-deterministic LLM outputs, prompt versioning, and high-cost evaluation suites. This resource provides a curated list of tools and strategies to automate the testing, deployment, and monitoring of AI features using modern DevOps practices.",
+    "sections": [
+      {
+        "heading": "Automated Evaluation and Testing Frameworks",
+        "items": [
+          {
+            "title": "Promptfoo CLI",
+            "description": "Run test cases against your prompts using a matrix of LLM providers. Integrates into GitHub Actions to fail builds if semantic similarity or assertion checks fail.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "DeepEval",
+            "description": "A Python framework for unit testing LLM outputs. It uses 'LLM-as-a-judge' to score metrics like faithfulness, relevancy, and hallucination during the CI phase.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Giskard",
+            "description": "An open-source library for detecting vulnerabilities in LLMs, including prompt injection and biases. Use it in CI to scan for regressions in model behavior.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "RAGAS for RAG Pipelines",
+            "description": "Specific metrics for Retrieval Augmented Generation. Automate the evaluation of context precision and recall within your CI pipeline to ensure retrieval quality.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "LangSmith CI Integration",
+            "description": "Use LangSmith to run evaluation datasets automatically on every commit. It provides a dashboard to compare performance across different versions of your application.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Braintrust Eval",
+            "description": "A high-performance framework for running evals in parallel. Use their CLI to trigger evaluation runs that track performance improvements over time.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "TruLens-Eval",
+            "description": "Provides 'feedback functions' to evaluate LLM apps. Can be integrated into build steps to verify that new prompt versions meet quality thresholds.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Athina AI",
+            "description": "A platform for automated LLM monitoring and evaluation. Useful for setting up CI gates that prevent the deployment of models with high error rates.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Continuous Eval by Relari",
+            "description": "Open-source toolkit for modular evaluation of RAG pipelines. Ideal for testing specific components like the retriever or the generator in isolation.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "UpTrain",
+            "description": "Provides automated checks for LLM responses. Use it to ensure that your model's output adheres to specific guidelines or formatting requirements in CI.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Prompt Management and Versioning Tools",
+        "items": [
+          {
+            "title": "Pezzo",
+            "description": "An open-source prompt management platform. It allows you to decouple prompts from code, enabling instant updates without redeploying the entire application.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Portkey Prompt Registry",
+            "description": "Version and manage prompts in a centralized registry. Use the SDK to pull specific prompt versions in production while maintaining a history in Git.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "DVC (Data Version Control)",
+            "description": "Manage large model files and datasets alongside your code. Use DVC to version the data used for fine-tuning or few-shot prompting in your CI pipeline.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Weights & Biases (W&B) Prompts",
+            "description": "Track prompt iterations and visualize results. Integrate with CI to log the performance of each prompt variant during automated testing.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Humanloop",
+            "description": "A tool for prompt engineering that includes versioning and evaluation. It helps bridge the gap between prompt design and CI/CD deployment workflows.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "LangChain Hub",
+            "description": "A central repository for sharing and versioning LangChain prompts. Use it to pull vetted prompt templates into your build process.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "HoneyHive",
+            "description": "An evaluation and observability platform. Use their CI integration to run regression tests on prompts before they are merged into the main branch.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Git LFS for Model Weights",
+            "description": "Use Git Large File Storage to manage local model weights or configuration binaries within your repository, ensuring they are synced across CI environments.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "PromptLayer",
+            "description": "A middleware for logging and managing prompts. Use it to version-tag prompts in CI to ensure the correct version is used by the application at runtime.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "YAML-based Prompt Templates",
+            "description": "Standardize prompts as YAML files in your repo. This allows for standard Git diffs and automated validation of variable placeholders in CI scripts.",
+            "difficulty": "beginner",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Infrastructure and Deployment Automation",
+        "items": [
+          {
+            "title": "Vercel AI SDK",
+            "description": "Streamlines the deployment of AI-powered edge functions. Provides built-in support for streaming responses and automated preview deployments.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "BentoML",
+            "description": "A framework for building and deploying machine learning services. Use it to package models as Docker containers for automated deployment via CI/CD.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "SkyPilot",
+            "description": "Run LLMs on any cloud provider with optimized cost. Use SkyPilot in CI to spin up GPU instances for heavy evaluation jobs or model fine-tuning.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Kamal for GPU Deployments",
+            "description": "Deploy Dockerized AI applications to bare-metal GPU servers with zero-downtime. Excellent for self-hosting models like Llama 3 using CI pipelines.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Cloudflare Workers AI",
+            "description": "Deploy AI models directly to the edge. Use the Wrangler CLI in your CI/CD pipeline to automate the deployment of inference functions.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Truss by Baseten",
+            "description": "An open-source model packaging tool. Use it in CI to ensure your model environment is reproducible and ready for production serving.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Cog by Replicate",
+            "description": "Standardizes the environment for ML models. Use Cog in your build step to create a production-ready Docker container with all GPU dependencies.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Terraform for Vector Databases",
+            "description": "Automate the provisioning of Pinecone or Milvus indexes. Ensure your vector database schema and metadata filtering are version-controlled.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Fly.io GPU Instances",
+            "description": "Easily deploy GPU-backed containers. Use Fly's GitHub Action to automate the deployment of inference servers with attached local storage.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "ArgoCD for Model Mesh",
+            "description": "Implement GitOps for AI models. Use ArgoCD to manage the state of model deployments on Kubernetes, ensuring the live version matches the repo.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Use LLM-as-a-judge for semantic evaluation in CI to catch regressions that traditional string matching misses.",
+      "Implement cost-capping in CI by using smaller models like Llama-3-8B or GPT-4o-mini for routine unit tests instead of full-scale models.",
+      "Store prompt templates as structured YAML or JSON files to allow for meaningful Git diffs and automated validation during Pull Requests.",
+      "Utilize shadow deployments (mirroring traffic) to compare a new model version's performance against production without impacting end-users.",
+      "Cache evaluation results for identical prompt-input pairs in CI to significantly reduce API costs during frequent build cycles."
+    ]
+  }
+}

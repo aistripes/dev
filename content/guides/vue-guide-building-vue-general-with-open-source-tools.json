@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "vue",
+    "generated_at": "2026-03-12T22:38:10.286Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Vue (general) with open-source tools",
+    "description": "A step-by-step implementation guide for Vue (general) with open-source tools.",
+    "keywords": [
+      "vue",
+      "vue (general)",
+      "guide"
+    ],
+    "slug": "vue-guide-building-vue-general-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide provides a structured workflow for migrating legacy Vue 2 Options API components to the Vue 3 Composition API using <script setup>, TypeScript, and Pinia. It focuses on maintaining type safety and architectural consistency during the transition.",
+    "estimated_time": "45-60 minutes per component",
+    "prerequisites": [
+      "Vue 3.x project environment configured with Vite",
+      "TypeScript 4.5+ installed and configured",
+      "Pinia installed as the primary state management library",
+      "Existing Vue 2 Options API component for refactoring"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize Script Setup and Define Component Interfaces",
+        "explanation": "Replace the standard export default block with <script setup lang='ts'>. Define TypeScript interfaces for Props and Emits to replace the props and emits options. This enables better IDE intellisense and compile-time type checking.",
+        "code": {
+          "language": "typescript",
+          "content": "interface Props {\n  title: string;\n  count?: number;\n}\n\nconst props = defineProps<Props>();\n\nconst emit = defineEmits<{\n  (e: 'update', value: number): void;\n  (e: 'close'): void;\n}>();",
+          "filename": "MyComponent.vue"
+        },
+        "pitfalls": [
+          "Do not use reactive() for props; they are already reactive and should be accessed via the props object to maintain reactivity loss prevention."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Migrate Data and Computed Properties",
+        "explanation": "Convert the data() function into individual ref() or reactive() variables. Map computed properties to the computed() function. Use ref() for primitives and reactive() for complex objects where deep reactivity is required.",
+        "code": {
+          "language": "typescript",
+          "content": "import { ref, computed } from 'vue';\n\nconst internalCount = ref(0);\nconst doubleCount = computed(() => internalCount.value * 2);\n\nconst state = reactive({\n  user: { name: 'Dev', role: 'Admin' },\n  settings: { theme: 'dark' }\n});",
+          "filename": "MyComponent.vue"
+        },
+        "pitfalls": [
+          "Forgetting to use .value when accessing ref variables inside the script block.",
+          "Overusing reactive() which can lead to losing reactivity if destructuring occurs."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Transition Methods and Lifecycle Hooks",
+        "explanation": "Convert Options API methods into standard JavaScript functions. Replace lifecycle hooks like mounted() and destroyed() with their Composition API equivalents: onMounted() and onUnmounted().",
+        "code": {
+          "language": "typescript",
+          "content": "import { onMounted, onUnmounted } from 'vue';\n\nfunction handleIncrement() {\n  internalCount.value++;\n  emit('update', internalCount.value);\n}\n\nonMounted(() => {\n  console.log('Component initialized');\n});",
+          "filename": "MyComponent.vue"
+        },
+        "pitfalls": [
+          "The created() and beforeCreate() hooks do not have equivalents in Composition API; their logic should be placed directly in the setup body."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Inject Pinia Stores and Replace Vuex Calls",
+        "explanation": "Replace this.$store access with Pinia store instances. Import the specific store hook (e.g., useUserStore) and initialize it at the top of the setup function. This allows for direct access to state, getters, and actions without the overhead of mapState or mapActions.",
+        "code": {
+          "language": "typescript",
+          "content": "import { useUserStore } from '@/stores/user';\nimport { storeToRefs } from 'pinia';\n\nconst userStore = useUserStore();\nconst { name, isAdmin } = storeToRefs(userStore);\n\nfunction updateProfile() {\n  userStore.updateName('New Name');\n}",
+          "filename": "MyComponent.vue"
+        },
+        "pitfalls": [
+          "Destructuring state directly from a Pinia store will break reactivity; use storeToRefs() to maintain the reactive connection."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Refactor Template Refs and V-Model",
+        "explanation": "In Vue 3, template refs are handled by creating a ref with the same name as the 'ref' attribute in the template. Additionally, update v-model usage if the component uses multiple models or the default 'modelValue' prop name.",
+        "code": {
+          "language": "typescript",
+          "content": "// In Script\nconst inputElement = ref<HTMLInputElement | null>(null);\n\n// In Template\n// <input ref=\"inputElement\" type=\"text\" />",
+          "filename": "MyComponent.vue"
+        },
+        "pitfalls": [
+          "Ensure the ref variable is initialized with null and typed correctly (e.g., HTMLInputElement) to avoid runtime errors before the component is mounted.",
+          "Vue 3 changed the default v-model prop from 'value' to 'modelValue'."
+        ]
+      }
+    ],
+    "conclusion": "Successful migration to the Composition API improves code colocation and TypeScript integration. Once the component is refactored, consider extracting reusable logic into standalone composables in separate files to maximize code sharing across the application."
+  }
+}

@@ -1,0 +1,310 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "vps-hosting",
+    "generated_at": "2026-03-12T22:38:38.006Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "VPS Hosting (Hetzner, etc.) tools directory",
+    "description": "A developer-first directory of VPS Hosting (Hetzner, etc.) tools and references.",
+    "keywords": [
+      "vps-hosting",
+      "vps hosting (hetzner, etc.)",
+      "directory"
+    ],
+    "slug": "vps-hosting-directory-vps-hosting-hetzner-etc-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure providers, deployment tools, and security utilities optimized for developers managing their own VPS environments. This list focuses on high-performance European providers and open-source management stacks.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Infrastructure",
+          "PaaS-like Tools",
+          "Networking & Proxy",
+          "Security",
+          "Automation",
+          "Monitoring"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Hetzner Cloud",
+        "description": "High-performance cloud instances with primary data centers in Germany, Finland, and the USA. Known for market-leading price-to-performance ratios.",
+        "url": "https://www.hetzner.com/cloud",
+        "category": "Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "Exceptional CPU performance for the price",
+          "GDPR compliant with EU-based data centers",
+          "User-friendly API and CLI tools"
+        ],
+        "cons": [
+          "Strict account verification process",
+          "Limited managed services compared to AWS"
+        ],
+        "tags": [
+          "vps",
+          "germany",
+          "bare-metal",
+          "cloud"
+        ]
+      },
+      {
+        "name": "Kamal",
+        "description": "A tool by 37signals to deploy Dockerized applications to any VPS using SSH. Handles zero-downtime deploys and rolling restarts without a complex PaaS.",
+        "url": "https://kamal-deploy.org/",
+        "category": "Automation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Zero-downtime deployments via Traefik",
+          "No vendor lock-in; works on any SSH-enabled server",
+          "Simplifies multi-server orchestration"
+        ],
+        "cons": [
+          "Requires Docker knowledge",
+          "No built-in logging or monitoring dashboard"
+        ],
+        "tags": [
+          "deployment",
+          "docker",
+          "ruby",
+          "devops"
+        ]
+      },
+      {
+        "name": "Coolify",
+        "description": "An open-source, self-hosted alternative to Heroku and Netlify. Provides a GUI for managing VPS deployments, databases, and services.",
+        "url": "https://coolify.io/",
+        "category": "PaaS-like Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "One-click installation of complex stacks",
+          "Supports GitHub/GitLab integration",
+          "Built-in backup and monitoring"
+        ],
+        "cons": [
+          "Resource overhead on small 1GB RAM instances",
+          "Still in rapid development with frequent UI changes"
+        ],
+        "tags": [
+          "paas",
+          "self-hosting",
+          "docker",
+          "management"
+        ]
+      },
+      {
+        "name": "Caddy",
+        "description": "An extensible, open-source web server with automatic HTTPS by default. Ideal for use as a reverse proxy on a single VPS.",
+        "url": "https://caddyserver.com/",
+        "category": "Networking & Proxy",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatic SSL certificate issuance via Let's Encrypt",
+          "Extremely simple configuration file (Caddyfile)",
+          "Written in Go with no external dependencies"
+        ],
+        "cons": [
+          "Performance slightly lower than Nginx for raw throughput",
+          "Module ecosystem requires custom builds"
+        ],
+        "tags": [
+          "proxy",
+          "https",
+          "web-server",
+          "ssl"
+        ]
+      },
+      {
+        "name": "Contabo",
+        "description": "German hosting provider offering high-specification VPS with large amounts of RAM and storage at very low price points.",
+        "url": "https://contabo.com/",
+        "category": "Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "Highest RAM-per-dollar ratio in the market",
+          "Solid state drive storage included",
+          "Global data center locations"
+        ],
+        "cons": [
+          "Provisioning can take longer than cloud providers",
+          "Old-school dashboard interface"
+        ],
+        "tags": [
+          "vps",
+          "budget",
+          "germany",
+          "storage"
+        ]
+      },
+      {
+        "name": "Netdata",
+        "description": "Real-time performance and health monitoring for Linux systems. Provides high-resolution metrics with zero configuration.",
+        "url": "https://www.netdata.cloud/",
+        "category": "Monitoring",
+        "pricing_model": "freemium",
+        "pros": [
+          "Per-second metric collection",
+          "Extremely low CPU/RAM footprint",
+          "Beautiful out-of-the-box dashboards"
+        ],
+        "cons": [
+          "Data retention requires external database for long-term storage",
+          "Cloud dashboard can be overwhelming"
+        ],
+        "tags": [
+          "monitoring",
+          "metrics",
+          "linux",
+          "performance"
+        ]
+      },
+      {
+        "name": "Ansible",
+        "description": "Agentless automation tool for configuring and managing VPS instances via SSH. Uses YAML-based playbooks.",
+        "url": "https://www.ansible.com/",
+        "category": "Automation",
+        "pricing_model": "open-source",
+        "pros": [
+          "No agent installation required on target servers",
+          "Human-readable configuration syntax",
+          "Massive library of community roles (Ansible Galaxy)"
+        ],
+        "cons": [
+          "Steep learning curve for complex orchestrations",
+          "SSH overhead can slow down tasks on many servers"
+        ],
+        "tags": [
+          "iac",
+          "automation",
+          "configuration",
+          "ssh"
+        ]
+      },
+      {
+        "name": "Tailscale",
+        "description": "A zero-config VPN that creates a secure mesh network between your VPS, local machine, and other devices using WireGuard.",
+        "url": "https://tailscale.com/",
+        "category": "Security",
+        "pricing_model": "freemium",
+        "pros": [
+          "Securely access VPS internal ports without public exposure",
+          "Effortless NAT traversal",
+          "SSH access management integrated with SSO"
+        ],
+        "cons": [
+          "Proprietary control plane",
+          "Performance overhead of user-space WireGuard in some cases"
+        ],
+        "tags": [
+          "vpn",
+          "security",
+          "networking",
+          "wireguard"
+        ]
+      },
+      {
+        "name": "Uptime Kuma",
+        "description": "A self-hosted monitoring tool that checks the status of your services and sends notifications when they go down.",
+        "url": "https://github.com/louislam/uptime-kuma",
+        "category": "Monitoring",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports HTTP(S), Ping, DNS, and Docker container checks",
+          "Integrated with Telegram, Discord, and Slack notifications",
+          "Easy to deploy via Docker"
+        ],
+        "cons": [
+          "Requires a separate VPS for reliable 'outsider' monitoring",
+          "Limited historical data analysis"
+        ],
+        "tags": [
+          "status-page",
+          "uptime",
+          "monitoring",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "Fail2ban",
+        "description": "An intrusion prevention framework that protects servers against brute-force attacks by monitoring log files and banning IPs.",
+        "url": "https://github.com/fail2ban/fail2ban",
+        "category": "Security",
+        "pricing_model": "open-source",
+        "pros": [
+          "Essential for securing SSH on public-facing VPS",
+          "Highly customizable filter rules",
+          "Lightweight background service"
+        ],
+        "cons": [
+          "Can accidentally lock out legitimate users",
+          "Regex-based log parsing can be complex to debug"
+        ],
+        "tags": [
+          "security",
+          "firewall",
+          "linux",
+          "hardening"
+        ]
+      },
+      {
+        "name": "Dokku",
+        "description": "The smallest PaaS implementation you've ever seen. Allows 'git push' deployments to your own VPS using Docker.",
+        "url": "https://dokku.com/",
+        "category": "PaaS-like Tools",
+        "pricing_model": "open-source",
+        "pros": [
+          "Heroku-compatible buildpacks",
+          "Minimal resource overhead compared to K8s",
+          "Extensive plugin system for databases and SSL"
+        ],
+        "cons": [
+          "Single-node by design (harder to scale horizontally)",
+          "Primarily CLI-driven with no official GUI"
+        ],
+        "tags": [
+          "paas",
+          "docker",
+          "git-push",
+          "deployment"
+        ]
+      },
+      {
+        "name": "OVHcloud",
+        "description": "One of the largest European hosting providers offering a wide range of VPS and dedicated server options with strong DDoS protection.",
+        "url": "https://www.ovhcloud.com/",
+        "category": "Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "World-class DDoS protection included by default",
+          "Transparent pricing with no hidden bandwidth costs",
+          "Massive global infrastructure"
+        ],
+        "cons": [
+          "Support response times can be slow on basic plans",
+          "Interface is complex due to the volume of products"
+        ],
+        "tags": [
+          "vps",
+          "france",
+          "ddos-protection",
+          "hosting"
+        ]
+      }
+    ]
+  }
+}

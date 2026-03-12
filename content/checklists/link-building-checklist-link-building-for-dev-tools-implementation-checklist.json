@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "link-building",
+    "generated_at": "2026-03-12T22:38:50.397Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Link Building for Dev Tools implementation checklist",
+    "description": "A practical checklist for shipping Link Building for Dev Tools projects safely.",
+    "keywords": [
+      "link-building",
+      "link building for dev tools",
+      "checklist"
+    ],
+    "slug": "link-building-checklist-link-building-for-dev-tools-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical and strategic requirements for launching linkable assets and managing link acquisition campaigns for developer-focused products.",
+    "sections": [
+      {
+        "heading": "Technical Asset Audit",
+        "items": [
+          {
+            "title": "Core Web Vitals Performance",
+            "description": "Ensure the asset achieves a Lighthouse score of 90+ for Performance and LCP under 2.5s to prevent bounce-backs from high-authority referrers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Mobile Responsiveness Verification",
+            "description": "Test interactive tools (calculators, formatters, visualizers) on viewport widths of 320px and 768px to ensure functional parity.",
+            "priority": "critical"
+          },
+          {
+            "title": "HTTPS/SSL Validation",
+            "description": "Verify that all assets are served over HTTPS and that no mixed-content warnings exist, which can block link placement in enterprise environments.",
+            "priority": "critical"
+          },
+          {
+            "title": "W3C HTML Validation",
+            "description": "Run the asset through the W3C Markup Validation Service to ensure clean code, as broken tags can impact crawler interpretation.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Print CSS Optimization",
+            "description": "Provide a print stylesheet for long-form guides or technical whitepapers to facilitate offline reading and internal sharing.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Shareability and Metadata",
+        "items": [
+          {
+            "title": "Open Graph and Twitter Card Implementation",
+            "description": "Configure og:image, og:title, and twitter:card tags. Use a 1200x630px image with high-contrast technical branding.",
+            "priority": "critical"
+          },
+          {
+            "title": "Canonical Tag Configuration",
+            "description": "Set self-referencing canonical tags to prevent link equity dilution from tracking parameters or URL variants.",
+            "priority": "critical"
+          },
+          {
+            "title": "Copy-to-Clipboard Functionality",
+            "description": "Implement direct 'Copy Link' buttons for specific sections or tool outputs to encourage deep-linking within developer forums.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Embed Code Generation",
+            "description": "Provide an iframe or script-based embed code for visual assets (charts, calculators) to facilitate inclusion in third-party technical blogs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "JSON-LD Schema Markup",
+            "description": "Apply Article, SoftwareApplication, or Dataset schema to improve Rich Result visibility in SERPs.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Content and Data Integrity",
+        "items": [
+          {
+            "title": "Methodology Documentation",
+            "description": "Include a visible 'How we calculated this' or 'Data Sources' section to establish credibility for original datasets or benchmarks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Code Snippet Validation",
+            "description": "Manually execute and lint every code snippet provided in the asset to ensure they are error-free and copy-paste ready.",
+            "priority": "critical"
+          },
+          {
+            "title": "Automated Freshness Timestamp",
+            "description": "Display a 'Last Updated' date that programmatically updates when the underlying data or code is refreshed.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Peer Review Verification",
+            "description": "Subject the technical content to a review by a subject matter expert (SME) to ensure no factual errors that could damage reputation.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Downloadable Asset Formats",
+            "description": "Offer raw data in CSV or JSON formats for researchers and developers who want to use your data in their own projects.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Outreach Infrastructure",
+        "items": [
+          {
+            "title": "Email Deliverability Setup",
+            "description": "Verify SPF, DKIM, and DMARC records for the outreach domain to ensure emails land in the primary inbox of site owners.",
+            "priority": "critical"
+          },
+          {
+            "title": "Contact List Verification",
+            "description": "Run all outreach targets through a tool like Hunter.io or NeverBounce to maintain a bounce rate below 3%.",
+            "priority": "critical"
+          },
+          {
+            "title": "Technical Personalization Tokens",
+            "description": "Include custom fields in the outreach database for 'Target Site Tech Stack' or 'Relevant Recent Article' to avoid generic templates.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Unsubscribe Mechanism",
+            "description": "Ensure a clear, functional unsubscribe link or process is in place to comply with CAN-SPAM and GDPR regulations.",
+            "priority": "critical"
+          },
+          {
+            "title": "CRM/Pipeline Integration",
+            "description": "Sync outreach efforts with a CRM (e.g., Pitchbox or HubSpot) to track touchpoints and prevent double-emailing the same contact.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Open Source and Community Readiness",
+        "items": [
+          {
+            "title": "GitHub README Optimization",
+            "description": "If the asset is a tool, ensure the README includes clear installation steps, usage examples, and a link back to the main site.",
+            "priority": "critical"
+          },
+          {
+            "title": "License File Inclusion",
+            "description": "Explicitly include a LICENSE file (e.g., MIT, Apache 2.0) to allow developers to safely use and link to the project.",
+            "priority": "critical"
+          },
+          {
+            "title": "Community-Specific Landing Pages",
+            "description": "Create unique variations of the asset landing page for Hacker News, Reddit, or Product Hunt to improve conversion from those referrers.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Contributing Guide (CONTRIBUTING.md)",
+            "description": "Provide a guide for external contributors to encourage community involvement and natural link growth through PRs.",
+            "priority": "optional"
+          },
+          {
+            "title": "Issue Template Setup",
+            "description": "Configure GitHub Issue templates to capture feedback efficiently and keep the project active in the eyes of visitors.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Tracking and Analytics",
+        "items": [
+          {
+            "title": "Google Search Console Verification",
+            "description": "Ensure the domain property is verified to monitor new backlinks and organic search performance in real-time.",
+            "priority": "critical"
+          },
+          {
+            "title": "UTM Parameter Strategy",
+            "description": "Define a standardized UTM naming convention for all manual outreach and community posts to track referral traffic accurately.",
+            "priority": "critical"
+          },
+          {
+            "title": "Backlink Monitoring Alerts",
+            "description": "Set up brand mention and backlink alerts in Ahrefs or SEMrush to respond to new links or fix broken ones immediately.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Conversion Event Tracking",
+            "description": "Configure GA4 events for 'Tool Usage', 'Data Download', or 'Newsletter Sign-up' to measure the business value of link-driven traffic.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Referral Spam Filtering",
+            "description": "Apply filters in your analytics dashboard to exclude known bot traffic and referral spam that skews performance data.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

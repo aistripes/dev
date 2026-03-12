@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "embeddings",
+    "generated_at": "2026-03-12T22:37:57.054Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Embeddings & Vector Search implementation checklist",
+    "description": "A practical checklist for shipping Embeddings & Vector Search projects safely.",
+    "keywords": [
+      "embeddings",
+      "embeddings & vector search",
+      "checklist"
+    ],
+    "slug": "embeddings-checklist-embeddings-vector-search-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for deploying embedding-based search and retrieval systems into production. It focuses on performance, accuracy, and infrastructure stability.",
+    "sections": [
+      {
+        "heading": "Embedding Model Selection & Latency",
+        "items": [
+          {
+            "title": "Verify Distance Metric Alignment",
+            "description": "Ensure the vector database is configured with the exact distance metric (Cosine, Euclidean, or Dot Product) recommended by the embedding model provider.",
+            "priority": "critical"
+          },
+          {
+            "title": "Benchmark Embedding Latency",
+            "description": "Measure the round-trip time for a single vector generation; if it exceeds 200ms, implement a client-side timeout and fallback mechanism.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Token Truncation Logic",
+            "description": "Programmatically truncate input text to the model's maximum context window (e.g., 8192 tokens for text-embedding-3-small) before calling the API to avoid 400 errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Batch Processing",
+            "description": "Group multiple documents into a single API request up to the provider's batch limit to minimize network overhead during bulk indexing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Local Embedding Fallback",
+            "description": "Deploy a lightweight local model (e.g., BGE-micro) as a fallback for critical path queries if the primary embedding API experiences an outage.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Vector Database Configuration",
+        "items": [
+          {
+            "title": "HNSW Parameter Tuning",
+            "description": "Set ef_construction and M parameters based on the dataset size; verify that recall rates meet the 90%+ threshold in a staging environment.",
+            "priority": "critical"
+          },
+          {
+            "title": "Index Persistence and Backups",
+            "description": "Configure automated snapshots of the vector index to a persistent storage layer like S3 or GCS to prevent total data loss on node failure.",
+            "priority": "critical"
+          },
+          {
+            "title": "Memory-to-Vector Ratio",
+            "description": "Calculate the RAM required to hold the index in memory (Dimensions * 4 bytes * Number of Vectors) and ensure the instance has 20% overhead.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Metadata Indexing",
+            "description": "Explicitly define which metadata fields require filtering (e.g., user_id, timestamp) and enable indexing on those fields to avoid full-table scans.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Quantization Evaluation",
+            "description": "Test Scalar Quantization (SQ) or Product Quantization (PQ) to reduce memory footprint and compare the resulting drop in recall against storage savings.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Retrieval Strategy & Accuracy",
+        "items": [
+          {
+            "title": "Hybrid Search Calibration",
+            "description": "Implement a reciprocal rank fusion (RRF) or weighted score algorithm to combine BM25 keyword results with vector similarity scores.",
+            "priority": "critical"
+          },
+          {
+            "title": "Query Pre-processing",
+            "description": "Apply the same text normalization (lowercasing, punctuation removal) to the search query that was applied to the document chunks during indexing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Top-K Sensitivity Analysis",
+            "description": "Determine the optimal 'k' value by measuring the tradeoff between retrieval recall and the latency added by processing more candidates.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Reranking Pipeline",
+            "description": "Integrate a Cross-Encoder reranker to re-score the top 20-50 results retrieved from the vector database for higher precision.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Similarity Thresholding",
+            "description": "Define a minimum similarity score cutoff to prevent the system from returning irrelevant results when no high-quality matches exist.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Data Sync & Pipeline Integrity",
+        "items": [
+          {
+            "title": "Idempotent Upsert Logic",
+            "description": "Use a unique deterministic ID (e.g., a hash of the source URL) for each vector to prevent duplicate entries during pipeline retries.",
+            "priority": "critical"
+          },
+          {
+            "title": "Delete Propagation",
+            "description": "Implement a listener on the source database to trigger vector deletions when records are removed from the primary system of record.",
+            "priority": "critical"
+          },
+          {
+            "title": "Embedding Versioning",
+            "description": "Include a model_version field in the vector metadata to facilitate zero-downtime migrations when switching to a newer embedding model.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Change Data Capture (CDC) Latency",
+            "description": "Monitor and alert if the lag between source data updates and vector index updates exceeds a defined threshold (e.g., 5 minutes).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Chunk Overlap Verification",
+            "description": "Validate that text chunking includes a 10-15% overlap to ensure semantic context is preserved across chunk boundaries.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring & Cost Management",
+        "items": [
+          {
+            "title": "Token Usage Tracking",
+            "description": "Log the number of tokens processed per request to monitor costs and detect anomalous spikes in API consumption.",
+            "priority": "critical"
+          },
+          {
+            "title": "Vector Drift Monitoring",
+            "description": "Schedule a weekly job to compare the average distance of new embeddings against a baseline to detect shifts in data distribution.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Multi-tenant Isolation",
+            "description": "Verify that queries are strictly scoped using metadata filters to prevent cross-tenant data leakage in multi-user applications.",
+            "priority": "critical"
+          },
+          {
+            "title": "Dead Letter Queue (DLQ) for Failed Embeddings",
+            "description": "Route text snippets that fail the embedding process (e.g., due to content filtering or API errors) to a DLQ for manual inspection.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Request Rate Limiting",
+            "description": "Implement a leaky-bucket rate limiter on the search endpoint to protect the vector database and embedding API from exhaustion.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "angular",
+    "generated_at": "2026-03-12T22:38:00.427Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Angular tools directory",
+    "description": "A developer-first directory of Angular tools and references.",
+    "keywords": [
+      "angular",
+      "directory"
+    ],
+    "slug": "angular-directory-angular-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, libraries, and resources specifically selected for enterprise Angular development, focusing on monorepos, state management, and migration at scale.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "State Management",
+          "Build & Tooling",
+          "UI Components",
+          "Testing",
+          "Architecture",
+          "Internationalization"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Angular Update Guide",
+        "description": "Interactive tool that generates version-specific migration steps and command-line instructions for upgrading Angular applications.",
+        "url": "https://update.angular.io/",
+        "category": "Build & Tooling",
+        "pricing_model": "open-source",
+        "pros": [
+          "Provides exact CLI commands for peer dependency resolution",
+          "Covers breaking changes across multiple major versions",
+          "Official documentation source"
+        ],
+        "cons": [
+          "Does not account for third-party library incompatibilities",
+          "Limited guidance on complex RxJS migrations"
+        ],
+        "tags": [
+          "migration",
+          "cli",
+          "maintenance"
+        ]
+      },
+      {
+        "name": "Nx",
+        "description": "Smart, fast, and extensible build system with first-class Angular support, optimized for monorepo management and distributed task execution.",
+        "url": "https://nx.dev/",
+        "category": "Build & Tooling",
+        "pricing_model": "freemium",
+        "pros": [
+          "Enforces architectural boundaries between libraries",
+          "Significant speed improvements via computation caching",
+          "Automated dependency graph visualization"
+        ],
+        "cons": [
+          "Steep learning curve for teams used to standard CLI",
+          "Can add configuration overhead for small projects"
+        ],
+        "tags": [
+          "monorepo",
+          "performance",
+          "architecture"
+        ]
+      },
+      {
+        "name": "NgRx Store",
+        "description": "RxJS-powered state management for Angular applications, inspired by Redux, designed for handling complex data flows in large-scale apps.",
+        "url": "https://ngrx.io/",
+        "category": "State Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Predictable state changes via pure functions",
+          "Excellent DevTools integration for time-travel debugging",
+          "Strong community support and pattern standardization"
+        ],
+        "cons": [
+          "High boilerplate code requirements",
+          "Requires deep understanding of RxJS operators"
+        ],
+        "tags": [
+          "redux",
+          "rxjs",
+          "state"
+        ]
+      },
+      {
+        "name": "Spectator",
+        "description": "A library that simplifies Angular unit testing by removing the boilerplate associated with TestBed and component setup.",
+        "url": "https://github.com/ngneat/spectator",
+        "category": "Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Reduces test file size by up to 50%",
+          "Clean API for mocking dependencies and triggering events",
+          "Supports both components and services"
+        ],
+        "cons": [
+          "Another abstraction layer over standard Angular testing utilities",
+          "Occasional delays in supporting the newest Angular versions"
+        ],
+        "tags": [
+          "unit-testing",
+          "jest",
+          "productivity"
+        ]
+      },
+      {
+        "name": "PrimeNG",
+        "description": "Extensive collection of over 80 UI components designed for enterprise applications, featuring advanced data tables and charts.",
+        "url": "https://primeng.org/",
+        "category": "UI Components",
+        "pricing_model": "freemium",
+        "pros": [
+          "High-performance DataTable with filtering, sorting, and lazy loading",
+          "Built-in accessibility (A11y) support",
+          "Theming API for corporate design systems"
+        ],
+        "cons": [
+          "Visual styling can be difficult to override without deep CSS knowledge",
+          "Premium templates require a paid license"
+        ],
+        "tags": [
+          "ui-kit",
+          "datatable",
+          "enterprise"
+        ]
+      },
+      {
+        "name": "Compodoc",
+        "description": "Documentation tool for Angular applications that generates static documentation based on the source code structure.",
+        "url": "https://compodoc.app/",
+        "category": "Architecture",
+        "pricing_model": "open-source",
+        "pros": [
+          "Visualizes module dependencies and routing trees",
+          "Searchable documentation generated from JSDoc comments",
+          "Supports standalone components and signals"
+        ],
+        "cons": [
+          "Large projects can result in slow documentation build times",
+          "Generated UI feels slightly dated"
+        ],
+        "tags": [
+          "documentation",
+          "static-analysis",
+          "governance"
+        ]
+      },
+      {
+        "name": "Transloco",
+        "description": "Internationalization (i18n) library for Angular that enables runtime translation loading and flexible key management.",
+        "url": "https://ngneat.github.io/transloco/",
+        "category": "Internationalization",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports lazy loading of translation files",
+          "Rich API for pluralization and localization",
+          "Better performance than standard ngx-translate"
+        ],
+        "cons": [
+          "Requires initial setup of loaders and configuration",
+          "Can lead to key-management complexity in large teams"
+        ],
+        "tags": [
+          "i18n",
+          "localization",
+          "enterprise"
+        ]
+      },
+      {
+        "name": "Angular ESLint",
+        "description": "The standard linting tool for Angular projects, providing rules for best practices, template syntax, and component structure.",
+        "url": "https://github.com/angular-eslint/angular-eslint",
+        "category": "Build & Tooling",
+        "pricing_model": "open-source",
+        "pros": [
+          "Direct replacement for deprecated TSLint",
+          "Includes Angular-specific rules for templates and components",
+          "Easily extensible for custom corporate coding standards"
+        ],
+        "cons": [
+          "Configuration can be complex in Nx monorepos",
+          "Large rule sets can increase IDE latency"
+        ],
+        "tags": [
+          "linting",
+          "code-quality",
+          "typescript"
+        ]
+      },
+      {
+        "name": "Taiga UI",
+        "description": "A modular UI kit for Angular designed for heavy-duty enterprise applications with a focus on customization and strict typing.",
+        "url": "https://taiga-ui.dev/",
+        "category": "UI Components",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely flexible with high-level abstraction",
+          "No external dependencies except Angular and RxJS",
+          "Strictly typed and highly accessible"
+        ],
+        "cons": [
+          "Unique architectural concepts take time to master",
+          "Smaller community compared to Angular Material"
+        ],
+        "tags": [
+          "ui-components",
+          "accessibility",
+          "design-system"
+        ]
+      },
+      {
+        "name": "NgRx Signal Store",
+        "description": "A functional state management solution for Angular that leverages the Signal API for fine-grained reactivity.",
+        "url": "https://ngrx.io/guide/signals/signal-store",
+        "category": "State Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Significantly less boilerplate than Redux-style NgRx",
+          "Native integration with Angular's new reactivity model",
+          "Tree-shakable and lightweight"
+        ],
+        "cons": [
+          "Newer library with evolving best practices",
+          "Requires Angular 16+ for core functionality"
+        ],
+        "tags": [
+          "signals",
+          "reactivity",
+          "state"
+        ]
+      }
+    ]
+  }
+}

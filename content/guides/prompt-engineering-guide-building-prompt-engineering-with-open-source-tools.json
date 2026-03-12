@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "prompt-engineering",
+    "generated_at": "2026-03-12T22:37:56.984Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Prompt Engineering with open-source tools",
+    "description": "A step-by-step implementation guide for Prompt Engineering with open-source tools.",
+    "keywords": [
+      "prompt-engineering",
+      "prompt engineering",
+      "guide"
+    ],
+    "slug": "prompt-engineering-guide-building-prompt-engineering-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines a production-grade workflow for prompt engineering, moving beyond trial-and-error to a systematic approach that ensures reliability, cost-efficiency, and model portability. You will learn how to structure complex logic, implement regression testing, and manage prompt versions as application code.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Access to LLM APIs (OpenAI, Anthropic, or Google Gemini)",
+      "Environment configured for Python or Node.js",
+      "Basic knowledge of JSON Schema for structured output",
+      "A dataset of at least 10-20 'gold standard' input/output pairs"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define Structured System Instructions and Output Schemas",
+        "explanation": "Start by defining a strict system prompt that establishes the persona, constraints, and output format. Use JSON schema to enforce structure, as this allows your application code to parse LLM responses reliably without regex or brittle string manipulation.",
+        "code": {
+          "language": "typescript",
+          "content": "const schema = {\n  type: \"object\",\n  properties: {\n    analysis: { type: \"string\" },\n    confidence_score: { type: \"number\" },\n    tags: { type: \"array\", items: { type: \"string\" } }\n  },\n  required: [\"analysis\", \"confidence_score\", \"tags\"]\n};\n\nconst systemPrompt = `You are a technical analyst. You must return your findings strictly in JSON format according to this schema: ${JSON.stringify(schema)}. Do not include markdown formatting or preamble.`;",
+          "filename": "prompt-config.ts"
+        },
+        "pitfalls": [
+          "Mixing instructions for formatting and logic in the same paragraph",
+          "Failing to specify how the model should handle cases where it lacks sufficient information"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Few-Shot Examples for Pattern Matching",
+        "explanation": "LLMs perform significantly better when provided with 3-5 high-quality examples of the desired transformation. These examples should cover common edge cases and the specific 'tone' or 'reasoning' required.",
+        "code": {
+          "language": "json",
+          "content": "[\n  { \"role\": \"user\", \"content\": \"Process: User updated subscription to Pro.\" },\n  { \"role\": \"assistant\", \"content\": \"{ \\\"event\\\": \\\"billing_update\\\", \\\"tier\\\": \\\"pro\\\", \\\"action\\\": \\\"upgrade\\\" }\" },\n  { \"role\": \"user\", \"content\": \"Process: User canceled trial early.\" },\n  { \"role\": \"assistant\", \"content\": \"{ \\\"event\\\": \\\"billing_update\\\", \\\"tier\\\": \\\"trial\\\", \\\"action\\\": \\\"churn\\\" }\" }\n]",
+          "filename": "few-shot-examples.json"
+        },
+        "pitfalls": [
+          "Using synthetic examples that don't reflect real-world messy data",
+          "Providing too many examples that consume unnecessary tokens and dilute the system instructions"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Integrate Chain-of-Thought (CoT) for Complex Logic",
+        "explanation": "For tasks requiring multi-step reasoning, explicitly instruct the model to think through the problem step-by-step. This reduces hallucinations by forcing the model to generate a logical bridge before arriving at the final answer.",
+        "code": {
+          "language": "markdown",
+          "content": "To determine the correct classification:\n1. Identify the primary intent of the user request.\n2. Check for conflicting keywords in the request body.\n3. Evaluate the request against the compliance checklist provided.\n4. Output the final classification only after completing these steps.",
+          "filename": "cot-instructions.txt"
+        },
+        "pitfalls": [
+          "Asking for CoT in the same field as the final JSON output, which can break parsers",
+          "Not providing enough scratchpad space for the model to 'think'"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Externalize and Version Prompt Templates",
+        "explanation": "Do not hardcode prompts inside your application logic. Use a templating engine (like Mustache or Jinja) or a dedicated prompt management tool. This allows you to update prompts without redeploying the entire application and enables A/B testing.",
+        "code": {
+          "language": "python",
+          "content": "from jinja2 import Template\n\nprompt_template = Template(\"Analyze the following log entry for {{ user_id }}: {{ log_content }}\")\nformatted_prompt = prompt_template.render(user_id=\"123\", log_content=\"Timeout at 08:00\")",
+          "filename": "prompt_manager.py"
+        },
+        "pitfalls": [
+          "Treating prompts as static strings rather than code artifacts",
+          "Losing track of which prompt version was used for a specific production output"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Establish an Evaluation Framework (LLM-as-a-Judge)",
+        "explanation": "Automate the evaluation of prompt changes by using a more capable model (e.g., GPT-4o or Claude 3.5 Sonnet) to grade the outputs of your production model based on a rubric. This catches regressions that simple string matching cannot.",
+        "code": {
+          "language": "typescript",
+          "content": "const evalRubric = `Grade the response from 1-5 on:\n1. Accuracy to the source text\n2. Adherence to JSON schema\n3. Conciseness`;\n\n// Run this as part of your CI/CD pipeline\nconst score = await evaluatorModel.predict(evalRubric, targetResponse);",
+          "filename": "eval-suite.ts"
+        },
+        "pitfalls": [
+          "Relying solely on manual inspection of 1-2 outputs",
+          "Using biased rubrics that don't penalize common model failures like verbosity"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Optimize for Token Usage and Latency",
+        "explanation": "Analyze the prompt to remove redundant instructions and shorten examples. Use tools like Helicone or LangSmith to monitor token usage per request and identify prompts that are unnecessarily 'heavy' for the task.",
+        "pitfalls": [
+          "Including large chunks of documentation in the prompt that are rarely relevant",
+          "Ignoring the impact of long system prompts on TTFT (Time to First Token)"
+        ]
+      },
+      {
+        "number": 7,
+        "title": "Implement Provider-Specific Adapters",
+        "explanation": "Different models respond differently to prompt structures (e.g., Anthropic prefers XML tags, while OpenAI excels with Markdown). Create an adapter layer that transforms your generic prompt template into the optimal format for the target provider.",
+        "code": {
+          "language": "typescript",
+          "content": "const wrapForClaude = (content: string) => `<instructions>${content}</instructions>`;\nconst wrapForGPT = (content: string) => `### Instructions\\n${content}`;",
+          "filename": "adapters.ts"
+        },
+        "pitfalls": [
+          "Assuming a prompt that works perfectly for GPT-4 will work identically for Claude",
+          "Failing to normalize parameters like 'temperature' or 'top_p' across different providers"
+        ]
+      }
+    ],
+    "conclusion": "By treating prompt engineering as a software development lifecycle—complete with versioning, structured schemas, and automated evaluations—you ensure that your AI features are reliable and maintainable. Always prioritize small, iterative changes backed by evaluation scores over massive, sweeping prompt rewrites."
+  }
+}

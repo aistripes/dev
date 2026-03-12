@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "remix",
+    "generated_at": "2026-03-12T22:38:13.965Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Remix tools directory",
+    "description": "A developer-first directory of Remix tools and references.",
+    "keywords": [
+      "remix",
+      "directory"
+    ],
+    "slug": "remix-directory-remix-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of essential tools, libraries, and deployment platforms for building full-stack applications with Remix and React Router v7.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Framework Core",
+          "Data Persistence",
+          "Authentication",
+          "Form Management",
+          "Deployment",
+          "Testing",
+          "UI & Styling"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "React Router v7",
+        "description": "The unified core of Remix and React Router, providing the framework for routing, data loading, and mutations.",
+        "url": "https://reactrouter.com/",
+        "category": "Framework Core",
+        "pricing_model": "open-source",
+        "pros": [
+          "Unified codebase for SPA and SSR applications",
+          "Native support for nested routing",
+          "Automatic code splitting and data prefetching"
+        ],
+        "cons": [
+          "Steep learning curve for developers coming from client-only React"
+        ],
+        "tags": [
+          "core",
+          "routing",
+          "ssr"
+        ]
+      },
+      {
+        "name": "Prisma",
+        "description": "Next-generation ORM with an auto-generated query builder and type-safe migrations for Remix backends.",
+        "url": "https://www.prisma.io/",
+        "category": "Data Persistence",
+        "pricing_model": "open-source",
+        "pros": [
+          "Auto-generated TypeScript types based on schema",
+          "Intuitive migration CLI",
+          "Excellent Studio UI for data exploration"
+        ],
+        "cons": [
+          "Can have cold-start issues on serverless functions",
+          "Large binary size compared to lighter alternatives"
+        ],
+        "tags": [
+          "orm",
+          "database",
+          "postgresql",
+          "mysql"
+        ]
+      },
+      {
+        "name": "Drizzle ORM",
+        "description": "Headless TypeScript ORM with a focus on maximum performance and zero overhead, ideal for edge functions.",
+        "url": "https://orm.drizzle.team/",
+        "category": "Data Persistence",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely lightweight with no heavy binaries",
+          "Native support for Cloudflare D1 and SQLite",
+          "SQL-like syntax that remains type-safe"
+        ],
+        "cons": [
+          "Smaller ecosystem compared to Prisma",
+          "Requires deeper SQL knowledge"
+        ],
+        "tags": [
+          "orm",
+          "edge",
+          "sqlite",
+          "performance"
+        ]
+      },
+      {
+        "name": "Conform",
+        "description": "A type-safe form validation library designed specifically for the Remix/React Router progressive enhancement model.",
+        "url": "https://conform.guide/",
+        "category": "Form Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports server-side validation without JavaScript",
+          "Integrates directly with Zod",
+          "Handles complex nested objects and arrays"
+        ],
+        "cons": [
+          "API can be verbose for simple forms",
+          "Documentation is dense"
+        ],
+        "tags": [
+          "forms",
+          "validation",
+          "zod"
+        ]
+      },
+      {
+        "name": "Remix Auth",
+        "description": "A strategy-based authentication library for Remix, modeled after Passport.js but built for the Web Fetch API.",
+        "url": "https://github.com/sergiodxa/remix-auth",
+        "category": "Authentication",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extensible strategy system (OAuth, Form, OTP)",
+          "Works with standard Remix cookie sessions",
+          "Server-side only execution"
+        ],
+        "cons": [
+          "Requires manual setup of session storage",
+          "Community-maintained strategies vary in quality"
+        ],
+        "tags": [
+          "auth",
+          "security",
+          "oauth"
+        ]
+      },
+      {
+        "name": "The Epic Stack",
+        "description": "A comprehensive opinionated project starter by Kent C. Dodds including SQLite, Prisma, and Fly.io deployment.",
+        "url": "https://www.epicweb.dev/stack",
+        "category": "Framework Core",
+        "pricing_model": "open-source",
+        "pros": [
+          "Includes pre-configured testing with Vitest and Playwright",
+          "Production-ready authentication and email handling",
+          "Optimized for multi-region SQLite deployment"
+        ],
+        "cons": [
+          "High complexity for beginners",
+          "Difficult to remove unwanted features"
+        ],
+        "tags": [
+          "boilerplate",
+          "template",
+          "fullstack"
+        ]
+      },
+      {
+        "name": "Fly.io",
+        "description": "Public cloud platform that runs applications close to users, optimized for Remix's Node.js or Docker deployments.",
+        "url": "https://fly.io/",
+        "category": "Deployment",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native support for multi-region SQLite via LiteFS",
+          "Simple CLI-based deployment workflow",
+          "Excellent performance for SSR applications"
+        ],
+        "cons": [
+          "Requires Docker knowledge for custom configurations",
+          "Pricing can be unpredictable with high traffic"
+        ],
+        "tags": [
+          "hosting",
+          "paas",
+          "edge"
+        ]
+      },
+      {
+        "name": "Cloudflare Workers",
+        "description": "Edge computing platform that allows Remix applications to run globally with zero cold starts.",
+        "url": "https://workers.cloudflare.com/",
+        "category": "Deployment",
+        "pricing_model": "freemium",
+        "pros": [
+          "Zero cold start times",
+          "Extremely low latency via global edge network",
+          "Generous free tier"
+        ],
+        "cons": [
+          "Restricted Node.js API compatibility",
+          "Requires specific adapters for database connections"
+        ],
+        "tags": [
+          "serverless",
+          "edge",
+          "hosting"
+        ]
+      },
+      {
+        "name": "Vitest",
+        "description": "A Vite-native unit test framework used for testing Remix loaders, actions, and utilities.",
+        "url": "https://vitest.dev/",
+        "category": "Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Shared configuration with Vite/Remix setup",
+          "Extremely fast execution with HMR",
+          "Compatible with Jest-style assertions"
+        ],
+        "cons": [
+          "Can require complex mocking for browser-only globals"
+        ],
+        "tags": [
+          "unit-testing",
+          "vite",
+          "ci"
+        ]
+      },
+      {
+        "name": "Remix Development Tools",
+        "description": "A browser extension and library for debugging Remix routes, loaders, and state management.",
+        "url": "https://remix-development-tools.vercel.app/",
+        "category": "Framework Core",
+        "pricing_model": "open-source",
+        "pros": [
+          "Visualizes route hierarchy and data flow",
+          "Inspects active loaders and action data",
+          "Provides performance metrics for SSR"
+        ],
+        "cons": [
+          "Adds overhead to development build",
+          "Occasional UI glitches with complex nested routes"
+        ],
+        "tags": [
+          "devtools",
+          "debugging",
+          "browser-extension"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "prompt-engineering",
+    "generated_at": "2026-03-12T22:38:01.903Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Prompt Engineering tools directory",
+    "description": "A developer-first directory of Prompt Engineering tools and references.",
+    "keywords": [
+      "prompt-engineering",
+      "prompt engineering",
+      "directory"
+    ],
+    "slug": "prompt-engineering-directory-prompt-engineering-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, libraries, and reference materials for developers to optimize prompt management, evaluation, and structured output generation.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Prompt Management",
+          "Evaluation & Testing",
+          "Frameworks",
+          "Reference & Libraries",
+          "Observability"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "PromptLayer",
+        "description": "A middleware platform for logging, versioning, and managing LLM prompts with a focus on non-technical collaborator access.",
+        "url": "https://promptlayer.com/",
+        "category": "Prompt Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Decouples prompt strings from application code",
+          "Provides a searchable history of all LLM requests",
+          "Supports A/B testing different prompt versions"
+        ],
+        "cons": [
+          "Adds network latency as an intermediary",
+          "Requires integration with a proprietary SDK"
+        ],
+        "tags": [
+          "versioning",
+          "collaboration",
+          "logging"
+        ]
+      },
+      {
+        "name": "Promptfoo",
+        "description": "A CLI tool and library for testing prompt quality by running test cases against multiple models and comparing outputs.",
+        "url": "https://www.promptfoo.dev/",
+        "category": "Evaluation & Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Local-first development workflow",
+          "Generates matrix views comparing prompts vs models",
+          "Supports assertions for JSON schema and regex validation"
+        ],
+        "cons": [
+          "Steeper learning curve for non-developers",
+          "Requires manual configuration of test suites"
+        ],
+        "tags": [
+          "testing",
+          "ci-cd",
+          "cli"
+        ]
+      },
+      {
+        "name": "Instructor",
+        "description": "A library for getting structured data back from LLMs using Pydantic in Python or Zod in TypeScript.",
+        "url": "https://github.com/jxnl/instructor",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Enforces strict type safety for LLM outputs",
+          "Automatic retries based on validation errors",
+          "Minimal overhead compared to full orchestration frameworks"
+        ],
+        "cons": [
+          "Tightly coupled to specific schema libraries",
+          "Limited built-in support for complex multi-step agents"
+        ],
+        "tags": [
+          "structured-output",
+          "pydantic",
+          "validation"
+        ]
+      },
+      {
+        "name": "LangSmith",
+        "description": "An integrated platform for debugging, testing, and monitoring LLM applications built with LangChain or other frameworks.",
+        "url": "https://www.langchain.com/langsmith",
+        "category": "Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Deep visibility into complex chain execution traces",
+          "Native integration with the LangChain ecosystem",
+          "Built-in dataset management for regression testing"
+        ],
+        "cons": [
+          "Can become expensive at high request volumes",
+          "UI can be overwhelming for simple use cases"
+        ],
+        "tags": [
+          "tracing",
+          "debugging",
+          "monitoring"
+        ]
+      },
+      {
+        "name": "Anthropic Prompt Library",
+        "description": "A collection of optimized prompt templates for Claude models across various business and technical use cases.",
+        "url": "https://docs.anthropic.com/en/prompt-library/library",
+        "category": "Reference & Libraries",
+        "pricing_model": "free",
+        "pros": [
+          "High-quality, model-specific optimization",
+          "Covers diverse scenarios from coding to creative writing",
+          "Demonstrates advanced techniques like XML tagging"
+        ],
+        "cons": [
+          "Specific to Claude; may require porting for other models",
+          "Static examples rather than dynamic tools"
+        ],
+        "tags": [
+          "templates",
+          "claude",
+          "best-practices"
+        ]
+      },
+      {
+        "name": "DSPy",
+        "description": "A framework for programming—rather than prompting—LLMs, using modules and optimizers to improve performance.",
+        "url": "https://github.com/stanfordnlp/dspy",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Replaces fragile manual prompting with systematic optimization",
+          "Automatically generates few-shot examples",
+          "Improves reliability across different model sizes"
+        ],
+        "cons": [
+          "High conceptual barrier to entry",
+          "Requires a mindset shift from string manipulation to programming"
+        ],
+        "tags": [
+          "optimization",
+          "programmatic-ai",
+          "research"
+        ]
+      },
+      {
+        "name": "Braintrust",
+        "description": "An enterprise-grade platform for evaluating, logging, and improving AI products with high-performance data handling.",
+        "url": "https://www.braintrustdata.com/",
+        "category": "Evaluation & Testing",
+        "pricing_model": "enterprise",
+        "pros": [
+          "Extremely fast UI and data processing",
+          "Robust support for custom scoring functions",
+          "Seamless transition from playground to production logs"
+        ],
+        "cons": [
+          "Pricing is geared toward well-funded teams",
+          "Heavy focus on enterprise integration"
+        ],
+        "tags": [
+          "evals",
+          "enterprise",
+          "performance"
+        ]
+      },
+      {
+        "name": "Helicone",
+        "description": "An open-source LLM observability platform that acts as a proxy to provide analytics and cost tracking.",
+        "url": "https://www.helicone.ai/",
+        "category": "Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "One-line integration via base URL change",
+          "Detailed cost and latency breakdown per prompt",
+          "Open-source core for self-hosting"
+        ],
+        "cons": [
+          "Proxy architecture introduces a single point of failure",
+          "Limited advanced evaluation features compared to competitors"
+        ],
+        "tags": [
+          "analytics",
+          "cost-tracking",
+          "proxy"
+        ]
+      },
+      {
+        "name": "Fabric",
+        "description": "An open-source framework for augmenting humans using AI through a curated set of prompt patterns.",
+        "url": "https://github.com/danielmiessler/fabric",
+        "category": "Reference & Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Large community-driven library of 'patterns'",
+          "Focuses on practical, modular task automation",
+          "CLI-first approach for easy pipeline integration"
+        ],
+        "cons": [
+          "Opinionated structure may not fit all workflows",
+          "Requires local setup and configuration"
+        ],
+        "tags": [
+          "patterns",
+          "automation",
+          "community"
+        ]
+      },
+      {
+        "name": "Outlines",
+        "description": "A library for neural text generation that allows for guided generation using regular expressions and JSON schemas.",
+        "url": "https://github.com/outlines-dev/outlines",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Guarantees output follows specific formats",
+          "Faster than post-generation validation via logit masking",
+          "Integrates well with local models (vLLM, Transformers)"
+        ],
+        "cons": [
+          "Primarily supports local model architectures",
+          "Requires deeper understanding of sampling and logits"
+        ],
+        "tags": [
+          "guided-generation",
+          "regex",
+          "json-schema"
+        ]
+      },
+      {
+        "name": "Portkey",
+        "description": "A control plane for AI apps to manage prompts, implement fallbacks, and track usage across multiple providers.",
+        "url": "https://portkey.ai/",
+        "category": "Prompt Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Unified API for multiple LLM providers",
+          "Built-in caching to reduce costs and latency",
+          "Automatic retries and failover logic"
+        ],
+        "cons": [
+          "Adds another dependency to the critical path",
+          "Feature set overlaps with multiple smaller tools"
+        ],
+        "tags": [
+          "gateway",
+          "multi-model",
+          "caching"
+        ]
+      },
+      {
+        "name": "OpenAI Cookbook",
+        "description": "Official collection of examples and guides for using the OpenAI API effectively, including advanced prompting.",
+        "url": "https://cookbook.openai.com/",
+        "category": "Reference & Libraries",
+        "pricing_model": "free",
+        "pros": [
+          "Directly from the source of GPT models",
+          "Includes practical Python code for RAG and agents",
+          "Regularly updated with new model features"
+        ],
+        "cons": [
+          "Exclusive to OpenAI's ecosystem",
+          "Can be fragmented across many notebooks"
+        ],
+        "tags": [
+          "openai",
+          "python",
+          "tutorials"
+        ]
+      }
+    ]
+  }
+}

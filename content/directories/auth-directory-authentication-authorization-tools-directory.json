@@ -1,0 +1,265 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "auth",
+    "generated_at": "2026-03-12T22:38:19.995Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Authentication & Authorization tools directory",
+    "description": "A developer-first directory of Authentication & Authorization tools and references.",
+    "keywords": [
+      "auth",
+      "authentication & authorization",
+      "directory"
+    ],
+    "slug": "auth-directory-authentication-authorization-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of authentication providers, libraries, and security tools designed for modern full-stack development, multi-tenant SaaS architecture, and secure session management.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Managed Provider",
+          "Open Source Library",
+          "Self-Hosted Infrastructure",
+          "Enterprise SSO",
+          "Developer Tooling"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Clerk",
+        "description": "Managed authentication and user management service with pre-built React/Next.js components and hooks.",
+        "url": "https://clerk.com",
+        "category": "Managed Provider",
+        "pricing_model": "freemium",
+        "pros": [
+          "Provides ready-to-use UI components for login/profile",
+          "Deep integration with Next.js middleware and SSR",
+          "Built-in support for multi-session handling"
+        ],
+        "cons": [
+          "High cost per monthly active user at scale",
+          "Limited customization of core UI components beyond CSS"
+        ],
+        "tags": [
+          "nextjs",
+          "react",
+          "user-management",
+          "saas"
+        ]
+      },
+      {
+        "name": "Auth.js",
+        "description": "Flexible open-source authentication library for JavaScript frameworks, formerly known as NextAuth.js.",
+        "url": "https://authjs.dev",
+        "category": "Open Source Library",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports 50+ OAuth providers out of the box",
+          "Database agnostic with multiple official adapters",
+          "Free to use without vendor lock-in"
+        ],
+        "cons": [
+          "Complex configuration for non-standard session patterns",
+          "Documentation can be fragmented across versions"
+        ],
+        "tags": [
+          "oauth",
+          "javascript",
+          "nextjs",
+          "session-management"
+        ]
+      },
+      {
+        "name": "Lucia",
+        "description": "A lean, database-centric authentication library that focuses on session management rather than pre-built UI.",
+        "url": "https://lucia-auth.com",
+        "category": "Open Source Library",
+        "pricing_model": "open-source",
+        "pros": [
+          "Gives developers full control over the database schema",
+          "No 'magic' abstractions; follows standard web patterns",
+          "Extremely lightweight compared to Auth.js"
+        ],
+        "cons": [
+          "Requires manual implementation of login forms and UI",
+          "Smaller ecosystem of community adapters"
+        ],
+        "tags": [
+          "typescript",
+          "session",
+          "database-agnostic",
+          "security"
+        ]
+      },
+      {
+        "name": "WorkOS",
+        "description": "Enterprise-grade identity platform specializing in SAML SSO, SCIM, and B2B SaaS user management.",
+        "url": "https://workos.com",
+        "category": "Enterprise SSO",
+        "pricing_model": "freemium",
+        "pros": [
+          "Simplifies complex SAML integrations with enterprise IT",
+          "Automated user provisioning via SCIM",
+          "Admin Portal for customer self-service SSO setup"
+        ],
+        "cons": [
+          "Pricing is geared toward high-revenue B2B contracts",
+          "Overkill for simple B2C applications"
+        ],
+        "tags": [
+          "b2b",
+          "sso",
+          "saml",
+          "scim"
+        ]
+      },
+      {
+        "name": "Supabase Auth",
+        "description": "Authentication service built on GoTrue, integrated directly with Supabase's Postgres Row Level Security (RLS).",
+        "url": "https://supabase.com/auth",
+        "category": "Managed Provider",
+        "pricing_model": "freemium",
+        "pros": [
+          "Direct integration with Postgres RLS for data isolation",
+          "Includes email, phone, and social login providers",
+          "Can be self-hosted as part of the Supabase stack"
+        ],
+        "cons": [
+          "Difficult to use as a standalone service without Postgres",
+          "JWT-based session management can be rigid"
+        ],
+        "tags": [
+          "postgres",
+          "rls",
+          "multi-tenancy",
+          "backend-as-a-service"
+        ]
+      },
+      {
+        "name": "Ory Kratos",
+        "description": "Headless identity server implementing modern security protocols like OIDC, OAuth2, and WebAuthn.",
+        "url": "https://www.ory.sh/kratos",
+        "category": "Self-Hosted Infrastructure",
+        "pricing_model": "open-source",
+        "pros": [
+          "Cloud-native architecture designed for Kubernetes",
+          "Supports hardware security keys and biometrics",
+          "Clean separation between identity logic and UI"
+        ],
+        "cons": [
+          "Steep learning curve for initial configuration",
+          "Infrastructure management overhead for self-hosting"
+        ],
+        "tags": [
+          "oidc",
+          "webauthn",
+          "kubernetes",
+          "security"
+        ]
+      },
+      {
+        "name": "Zitadel",
+        "description": "Identity management platform built specifically for multi-tenancy and complex organization structures.",
+        "url": "https://zitadel.com",
+        "category": "Managed Provider",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native support for B2B multi-tenant isolation",
+          "Detailed audit trails and security logging",
+          "API-first design for custom management consoles"
+        ],
+        "cons": [
+          "Dashboard UI can be overwhelming for simple use cases",
+          "Documentation for complex RBAC can be dense"
+        ],
+        "tags": [
+          "multi-tenancy",
+          "rbac",
+          "audit-logs",
+          "b2b"
+        ]
+      },
+      {
+        "name": "Keycloak",
+        "description": "Open-source identity and access management solution providing SSO, social login, and user federation.",
+        "url": "https://www.keycloak.org",
+        "category": "Self-Hosted Infrastructure",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extensive feature set including user federation (LDAP/AD)",
+          "Highly customizable through Java themes and extensions",
+          "Industry standard for self-hosted enterprise IAM"
+        ],
+        "cons": [
+          "High resource consumption (Java/Wildfly base)",
+          "Complex to upgrade and maintain in production"
+        ],
+        "tags": [
+          "iam",
+          "ldap",
+          "self-hosted",
+          "enterprise"
+        ]
+      },
+      {
+        "name": "JWT.io",
+        "description": "Developer utility for decoding, verifying, and generating JSON Web Tokens for API testing.",
+        "url": "https://jwt.io",
+        "category": "Developer Tooling",
+        "pricing_model": "free",
+        "pros": [
+          "Instant visual debugging of token payloads",
+          "Supports multiple signature algorithms (HS256, RS256)",
+          "Includes a library list for JWT implementation in 20+ languages"
+        ],
+        "cons": [
+          "Security risk if production secrets are pasted into the browser",
+          "No support for encrypted JWTs (JWE)"
+        ],
+        "tags": [
+          "jwt",
+          "debugging",
+          "api-security",
+          "tokens"
+        ]
+      },
+      {
+        "name": "Stytch",
+        "description": "Developer-first API for passwordless authentication, including magic links, OTPs, and biometrics.",
+        "url": "https://stytch.com",
+        "category": "Managed Provider",
+        "pricing_model": "freemium",
+        "pros": [
+          "Optimized for conversion with frictionless login flows",
+          "Robust fraud prevention and device fingerprinting",
+          "Strong B2B organization management features"
+        ],
+        "cons": [
+          "SDK can be large for simple web implementations",
+          "Higher cost for SMS/OTP based authentication"
+        ],
+        "tags": [
+          "passwordless",
+          "magic-links",
+          "biometrics",
+          "fraud-prevention"
+        ]
+      }
+    ]
+  }
+}

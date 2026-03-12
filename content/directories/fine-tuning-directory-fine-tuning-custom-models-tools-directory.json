@@ -1,0 +1,265 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "fine-tuning",
+    "generated_at": "2026-03-12T22:38:01.274Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Fine-Tuning & Custom Models tools directory",
+    "description": "A developer-first directory of Fine-Tuning & Custom Models tools and references.",
+    "keywords": [
+      "fine-tuning",
+      "fine-tuning & custom models",
+      "directory"
+    ],
+    "slug": "fine-tuning-directory-fine-tuning-custom-models-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of frameworks, platforms, and utilities for fine-tuning large language models, focusing on parameter-efficient techniques, dataset quality, and production-grade inference.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Training Frameworks",
+          "Dataset Management",
+          "Evaluation & Observability",
+          "Managed Infrastructure",
+          "Model Serving"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Axolotl",
+        "description": "A configuration-based framework for fine-tuning LLMs that supports various attention mechanisms and efficient training techniques like LoRA and QLoRA.",
+        "url": "https://github.com/OpenAccess-AI-Collective/axolotl",
+        "category": "Training Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports a wide range of models including Llama, Mistral, and Falcon",
+          "Declarative YAML configuration reduces boilerplate code",
+          "Integrated with DeepSpeed and FSDP for multi-GPU scaling"
+        ],
+        "cons": [
+          "Documentation can be sparse for advanced custom configurations",
+          "Steep learning curve for users unfamiliar with Kubernetes or Docker"
+        ],
+        "tags": [
+          "LoRA",
+          "QLoRA",
+          "Config-driven",
+          "Multi-GPU"
+        ]
+      },
+      {
+        "name": "Unsloth",
+        "description": "An optimization library that speeds up LLM fine-tuning by up to 2x and reduces memory usage by 70% without losing accuracy.",
+        "url": "https://github.com/unslothai/unsloth",
+        "category": "Training Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Significant reduction in VRAM requirements for consumer GPUs",
+          "Manual autograd engine optimization for faster backpropagation",
+          "Seamless integration with Hugging Face ecosystem"
+        ],
+        "cons": [
+          "Primarily supports Llama, Mistral, and Gemma architectures only",
+          "Requires specific NVIDIA GPU architectures for maximum benefit"
+        ],
+        "tags": [
+          "Performance",
+          "Memory-Optimization",
+          "Llama-3",
+          "Fine-tuning"
+        ]
+      },
+      {
+        "name": "Hugging Face TRL (Transformer Reinforcement Learning)",
+        "description": "A full-stack library for training transformer language models with reinforcement learning, covering SFT, Reward Modeling, and PPO/DPO.",
+        "url": "https://huggingface.co/docs/trl/index",
+        "category": "Training Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native support for Direct Preference Optimization (DPO)",
+          "Built on top of the standard Transformers library",
+          "Extensive documentation and community examples"
+        ],
+        "cons": [
+          "Abstracts away lower-level details which can make debugging complex",
+          "Can be resource-intensive for large-scale RLHF runs"
+        ],
+        "tags": [
+          "DPO",
+          "RLHF",
+          "SFT",
+          "Alignment"
+        ]
+      },
+      {
+        "name": "Argilla",
+        "description": "An open-source data curation platform designed for LLM fine-tuning and evaluation workflows.",
+        "url": "https://argilla.io/",
+        "category": "Dataset Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Facilitates human-in-the-loop feedback for RLHF",
+          "Integrates directly with Hugging Face datasets",
+          "Supports bulk labeling and semantic search for data discovery"
+        ],
+        "cons": [
+          "Requires hosting infrastructure for the server and database",
+          "UI can become sluggish with very large datasets (millions of rows)"
+        ],
+        "tags": [
+          "Data-Labeling",
+          "RLHF",
+          "Curation",
+          "HCI"
+        ]
+      },
+      {
+        "name": "Weights & Biases",
+        "description": "A developer tool for tracking experiments, versioning datasets, and collaborating on ML projects.",
+        "url": "https://wandb.ai/",
+        "category": "Evaluation & Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Real-time visualization of loss curves and GPU utilization",
+          "Easy comparison between different fine-tuning hyperparameter runs",
+          "Automated artifact versioning for model checkpoints"
+        ],
+        "cons": [
+          "Proprietary cloud storage for logs (though local hosting is possible)",
+          "Pricing scales quickly for large enterprise teams"
+        ],
+        "tags": [
+          "Experiment-Tracking",
+          "MLOps",
+          "Monitoring",
+          "Visualization"
+        ]
+      },
+      {
+        "name": "OpenAI Fine-Tuning API",
+        "description": "Managed service for customizing OpenAI models (GPT-4o, GPT-3.5) with proprietary data via a REST API.",
+        "url": "https://platform.openai.com/docs/guides/fine-tuning",
+        "category": "Managed Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "No infrastructure management or GPU provisioning required",
+          "Simplified data format (JSONL) for training",
+          "Consistent API interface for inference post-tuning"
+        ],
+        "cons": [
+          "High cost per token compared to self-hosted open models",
+          "Limited control over training hyperparameters and base model weights"
+        ],
+        "tags": [
+          "SaaS",
+          "Managed-AI",
+          "GPT-4",
+          "API"
+        ]
+      },
+      {
+        "name": "vLLM",
+        "description": "A high-throughput serving engine for LLMs featuring PagedAttention for efficient memory management.",
+        "url": "https://github.com/vllm-project/vllm",
+        "category": "Model Serving",
+        "pricing_model": "open-source",
+        "pros": [
+          "State-of-the-art throughput for concurrent requests",
+          "Supports LoRA adapter swapping without model reloading",
+          "Compatible with OpenAI API protocol"
+        ],
+        "cons": [
+          "Optimized for NVIDIA GPUs; limited support for other hardware",
+          "Complex setup for multi-node distributed serving"
+        ],
+        "tags": [
+          "Inference",
+          "Throughput",
+          "Serving",
+          "PagedAttention"
+        ]
+      },
+      {
+        "name": "Cleanlab",
+        "description": "Automated data quality tool that detects label errors and outliers in training datasets.",
+        "url": "https://cleanlab.ai/",
+        "category": "Dataset Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Identifies low-quality examples that degrade fine-tuning performance",
+          "Works with text, image, and tabular data",
+          "Provides actionable scores for data pruning"
+        ],
+        "cons": [
+          "Full feature set requires a paid license for enterprise data",
+          "Computational overhead when processing very large datasets"
+        ],
+        "tags": [
+          "Data-Quality",
+          "Denoising",
+          "Automated-ML",
+          "Preprocessing"
+        ]
+      },
+      {
+        "name": "Together AI",
+        "description": "Cloud platform providing GPU clusters and managed fine-tuning workflows for open-source models.",
+        "url": "https://www.together.ai/products#fine-tuning",
+        "category": "Managed Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "Access to H100 and A100 GPUs without long-term contracts",
+          "Optimized kernels for faster training of Llama and Mistral",
+          "Integrated API for serverless inference of custom models"
+        ],
+        "cons": [
+          "Platform lock-in for certain optimized features",
+          "Availability of specific GPU types can be limited during peak times"
+        ],
+        "tags": [
+          "GPU-Cloud",
+          "Training-Platform",
+          "Open-Models",
+          "Serverless"
+        ]
+      },
+      {
+        "name": "Giskard",
+        "description": "An open-source testing framework for LLMs to detect regressions, hallucinations, and biases after fine-tuning.",
+        "url": "https://www.giskard.ai/",
+        "category": "Evaluation & Observability",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automated scan for common LLM vulnerabilities",
+          "Integration with CI/CD pipelines for model regression testing",
+          "Support for domain-specific evaluation rubrics"
+        ],
+        "cons": [
+          "Requires setup of custom evaluators for niche domain tasks",
+          "Can produce false positives in heuristic-based scans"
+        ],
+        "tags": [
+          "Testing",
+          "QA",
+          "Bias-Detection",
+          "Evaluation"
+        ]
+      }
+    ]
+  }
+}

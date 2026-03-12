@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "marketplaces",
+    "generated_at": "2026-03-12T22:38:54.944Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Marketplaces resources for developers",
+    "description": "A curated set of practical Marketplaces resources for engineers.",
+    "keywords": [
+      "marketplaces",
+      "resource-article"
+    ],
+    "slug": "marketplaces-resource-article-100-marketplaces-resources-for-developers"
+  },
+  "content": {
+    "intro": "Building a marketplace requires solving complex multi-party workflows, including split payments, supply-demand matching, and trust verification. This guide provides actionable technical resources and implementation strategies for developers using modern stacks like Next.js, Stripe, and Supabase.",
+    "sections": [
+      {
+        "heading": "Payment Infrastructure and Escrow Logic",
+        "items": [
+          {
+            "title": "Stripe Connect Express Integration",
+            "description": "Implement Express accounts to offload KYC and onboarding to Stripe while maintaining control over the payout schedule.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Application Fee Implementation",
+            "description": "Calculate and deduct platform commissions using the 'application_fee_amount' parameter in Stripe PaymentIntents.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Delayed Payouts for Escrow",
+            "description": "Set 'payout_schedule' to manual or use a 7-14 day delay to ensure buyer satisfaction before releasing funds to sellers.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Multi-Seller Cart Logic",
+            "description": "Architect checkout flows that create separate 'Transfer' objects for each vendor from a single customer payment.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Handling Stripe Webhooks for Payouts",
+            "description": "Listen for 'payout.paid' and 'payout.failed' events to update internal vendor balances and ledger states.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Tax Documentation Automation",
+            "description": "Use Stripe Tax or Avalara to automate 1099-K generation and sales tax calculation across different jurisdictions.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Refund and Dispute Management",
+            "description": "Implement a logic flow to claw back funds from seller Connect accounts when a buyer initiates a dispute.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Currency Conversion Strategy",
+            "description": "Utilize Stripe's 'on_behalf_of' attribute to charge customers in their local currency while paying sellers in theirs.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Platform Ledgering with LedgerSync",
+            "description": "Maintain a double-entry bookkeeping system in PostgreSQL to track internal credits, debits, and platform fees.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Subscription Tiers for Sellers",
+            "description": "Integrate Stripe Billing to charge sellers a monthly SaaS fee for premium listing features or lower commission rates.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Search, Discovery, and Matching",
+        "items": [
+          {
+            "title": "Algolia Geo-Search Implementation",
+            "description": "Configure '_geoloc' attributes in Algolia to allow users to filter marketplace listings by radius or bounding box.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "PostgreSQL Full-Text Search",
+            "description": "Utilize 'tsvector' and 'tsquery' for low-latency search on listing titles and descriptions without external dependencies.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Fairness-Based Ranking Algorithms",
+            "description": "Implement a decay function in your SQL queries to ensure new listings get visibility alongside top-rated sellers.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Dynamic Attribute Faceting",
+            "description": "Build a schema-less attribute system in Supabase using JSONB to allow category-specific filters like 'Size' or 'Color'.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Real-time Availability with Redis",
+            "description": "Use Redis sets to track and update item availability instantly, preventing double-booking in rental marketplaces.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Vector Search for Recommendations",
+            "description": "Use pgvector and OpenAI embeddings to suggest 'similar items' based on semantic descriptions rather than keywords.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Saved Search Alerts",
+            "description": "Combine Cron jobs with Resend to notify buyers when new supply matching their specific filters is uploaded.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "SEO-Friendly Listing Pages",
+            "description": "Use Next.js Dynamic Routes and Metadata API to generate unique, indexable URLs for every marketplace listing.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Image Optimization with Cloudinary",
+            "description": "Automate marketplace image resizing and format conversion (WebP) to ensure fast loading search result pages.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Click-Through Rate (CTR) Tracking",
+            "description": "Log search result clicks to a 'search_analytics' table to identify and demote low-quality or misleading listings.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Trust, Safety, and Reputation",
+        "items": [
+          {
+            "title": "Bayesian Rating Systems",
+            "description": "Implement a weighted average formula to prevent a new seller with one 5-star review from outranking a veteran with 4.8 stars.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Identity Verification with Stripe Identity",
+            "description": "Require sellers to upload government ID and perform a biometric check before their listings go live.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Automated Content Moderation",
+            "description": "Pipe listing descriptions through the OpenAI Moderation API to flag prohibited items or offensive language.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Verified Purchase Badges",
+            "description": "Link the review system to the 'orders' table to ensure only users who completed a transaction can leave feedback.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Messaging Leakage Prevention",
+            "description": "Use regex patterns or LLMs to detect and block phone numbers or emails in marketplace chats to prevent off-platform deals.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Seller Response Time Metrics",
+            "description": "Track the delta between buyer inquiry and seller response to display 'Typically responds in X hours' on profiles.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Role-Based Access Control (RBAC)",
+            "description": "Use Clerk to manage distinct 'Buyer', 'Seller', and 'Admin' permissions and dashboard views.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Dispute Resolution Workflow",
+            "description": "Build a dedicated admin UI for support staff to review chat logs and issue partial or full refunds.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Two-Factor Authentication (2FA)",
+            "description": "Enforce 2FA for sellers via Clerk or Supabase Auth to prevent account takeovers and fraudulent payouts.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Activity Feeds for Trust",
+            "description": "Display 'Recent Sales' or 'Joined X years ago' on seller profiles to build social proof for new buyers.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use 'transfer_group' in Stripe to link a single payment to multiple transfers, making reconciliation and refunds significantly easier.",
+      "Solve the chicken-and-egg problem by scraping or manually onboarding 'seed supply' before launching to buyers.",
+      "Implement a 'soft-delete' on listings to preserve transaction history and SEO value while removing the item from active search.",
+      "Use a Bayesian average for ratings to ensure that sellers with hundreds of reviews are ranked fairly against those with only a few.",
+      "Prevent platform leakage by offering value-adds like shipping labels or insurance that are only available if the transaction happens on-site."
+    ]
+  }
+}

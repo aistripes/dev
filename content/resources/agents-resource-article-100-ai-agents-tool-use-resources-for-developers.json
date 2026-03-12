@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "agents",
+    "generated_at": "2026-03-12T22:38:04.771Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 AI Agents & Tool Use resources for developers",
+    "description": "A curated set of practical AI Agents & Tool Use resources for engineers.",
+    "keywords": [
+      "agents",
+      "ai agents & tool use",
+      "resource-article"
+    ],
+    "slug": "agents-resource-article-100-ai-agents-tool-use-resources-for-developers"
+  },
+  "content": {
+    "intro": "Building production-ready AI agents requires moving beyond simple prompt-response loops toward stateful orchestration, robust tool-calling schemas, and sandboxed execution environments. This resource guide focuses on the tools and patterns necessary to implement autonomous workflows using frameworks like LangGraph and standards like the Model Context Protocol (MCP).",
+    "sections": [
+      {
+        "heading": "Agent Frameworks & Orchestration",
+        "items": [
+          {
+            "title": "LangGraph",
+            "description": "A library for building stateful, multi-actor applications with LLMs. Use this when you need cycles, persistence, and fine-grained control over agent state transitions.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "CrewAI",
+            "description": "Framework for orchestrating role-playing autonomous agents. Ideal for collaborative tasks where specific personas need to hand off work to one another.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "PydanticAI",
+            "description": "A model-agnostic framework from the Pydantic team. It uses Python type hints for tool definitions and structured output validation, ensuring type-safe agent responses.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "AutoGen",
+            "description": "Microsoft's framework for multi-agent conversations. Best suited for complex problem solving where agents require different configurations and can converse autonomously.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Inngest Agent Runtime",
+            "description": "Provides durable execution for agentic workflows. Use this to handle long-running agent tasks that require retries, state recovery, and human-in-the-loop pauses.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Bee Agent Framework",
+            "description": "An open-source framework from IBM designed for scaling agents. It emphasizes governance and structured workflows for enterprise environments.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "OpenAI Swarm",
+            "description": "An educational framework for lightweight multi-agent orchestration. Use this as a reference for implementing hand-offs and routine patterns without heavy dependencies.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Vercel AI SDK Core",
+            "description": "Provides a unified `generateText` and `streamText` interface with built-in tool calling support for OpenAI, Anthropic, and Google Gemini.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "AgentStack",
+            "description": "A CLI tool for scaffolding agent projects. It automates the setup of frameworks like CrewAI or LangChain with pre-configured observability and environment variables.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Camel-AI",
+            "description": "A communicative agent framework focusing on 'role-playing' to solve tasks. Useful for generating synthetic data or simulating user-agent interactions.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Tool Execution & Connectivity",
+        "items": [
+          {
+            "title": "Model Context Protocol (MCP)",
+            "description": "An open standard from Anthropic that allows agents to connect to external data sources and tools (like Slack, GitHub, or Postgres) using a unified interface.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "E2B Code Interpreter",
+            "description": "A cloud-based, sandboxed environment for agents to execute code. Essential for data analysis tasks where the agent needs to run Python or JS securely.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Composio",
+            "description": "A platform providing over 100+ pre-built tool integrations (GitHub, Jira, Salesforce) formatted specifically for LLM function calling.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Tavily Search API",
+            "description": "A search engine optimized for LLMs. It returns clean, concise content snippets instead of raw HTML, reducing token usage and hallucination.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Firecrawl",
+            "description": "Converts websites into clean markdown for LLM consumption. Use this as a tool for agents that need to crawl and reason over live web documentation.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Toolhouse",
+            "description": "A serverless tool marketplace that injects tools directly into your LLM prompt, handling authentication and execution logic on the backend.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "MultiOn",
+            "description": "An agentic web browser API. Allows agents to perform actions on the web (e.g., booking flights, filling forms) using a high-level API.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Browserbase",
+            "description": "A headless browser platform specifically for AI agents. Includes built-in stealth mode and session recording for debugging agent actions.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Pydantic Tool Schemas",
+            "description": "The standard pattern for defining tool parameters. Use Pydantic's `model_json_schema()` to generate the JSON spec required by OpenAI and Anthropic.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "EXA (formerly Metaphor)",
+            "description": "A neural search engine that allows agents to find links based on content similarity rather than keyword matching.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Observability & Reliability",
+        "items": [
+          {
+            "title": "LangSmith",
+            "description": "A platform for tracing and evaluating LLM applications. Critical for debugging agent loops where you need to see exactly which tool was called and why.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "AgentOps",
+            "description": "SDK specifically for monitoring autonomous agents. Tracks tool usage, success rates, and session costs in real-time.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Arize Phoenix",
+            "description": "Open-source observability for LLMs. Provides OpenInference-compatible tracing to visualize agentic workflows and detect performance bottlenecks.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Promptfoo",
+            "description": "A CLI tool to run test cases against your agent. Use it to verify that agents call the correct tools given specific user input scenarios.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Helicone",
+            "description": "An LLM observability proxy. Use it to cache agent requests, monitor latency, and set up custom properties for tracking specific agent IDs.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Literal AI",
+            "description": "A platform for agent evaluation and monitoring. It focuses on the 'Chain of Thought' and multi-step reasoning visualization for complex agents.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Braintrust",
+            "description": "An enterprise-grade platform for evaluating and tracking LLM workflows. It includes a high-speed logging SDK and a web UI for side-by-side comparisons.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Portkey Gateway",
+            "description": "An AI gateway that provides load balancing and failover between LLM providers, ensuring your agent doesn't crash if a specific API is down.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Agent Protocol",
+            "description": "A standardized API specification for interacting with AI agents. Implementing this allows your agent to work with various third-party monitoring tools.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Weights & Biases Weave",
+            "description": "A lightweight toolkit for tracking and versioning LLM inputs and outputs, integrated into the popular ML project management suite.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Use Pydantic models with detailed docstrings for tool definitions; LLMs use these docstrings to understand when and how to invoke the tool.",
+      "Implement a 'Max Iterations' cap in every agent loop to prevent infinite loops and runaway API costs during unexpected failure modes.",
+      "Always use 'Human-in-the-Loop' patterns for destructive tool actions like database deletions or financial transactions by requiring a manual state approval.",
+      "Pass a unique session ID through your agent's state to enable tracing and debugging of multi-step interactions in production environments.",
+      "For complex agents, prefer 'Small, Specialized Tools' over 'One Big Tool'; LLMs struggle to correctly populate schemas with more than 10-15 parameters."
+    ]
+  }
+}

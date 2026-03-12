@@ -1,0 +1,266 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "streaming",
+    "generated_at": "2026-03-12T22:37:59.251Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Streaming LLM Responses tools directory",
+    "description": "A developer-first directory of Streaming LLM Responses tools and references.",
+    "keywords": [
+      "streaming",
+      "streaming llm responses",
+      "directory"
+    ],
+    "slug": "streaming-directory-streaming-llm-responses-tools-directory"
+  },
+  "content": {
+    "intro": "A specialized directory of libraries, protocols, and infrastructure tools designed to help developers implement, parse, and render real-time streaming LLM responses with minimal latency.",
+    "filter_dimensions": [
+      {
+        "name": "Type",
+        "values": [
+          "SDK",
+          "Parsing Library",
+          "Infrastructure",
+          "UI Component",
+          "Protocol"
+        ]
+      },
+      {
+        "name": "Language",
+        "values": [
+          "TypeScript",
+          "Python",
+          "Go",
+          "Rust"
+        ]
+      },
+      {
+        "name": "Stack",
+        "values": [
+          "Next.js",
+          "Cloudflare Workers",
+          "AWS Lambda",
+          "React"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Vercel AI SDK",
+        "description": "A high-level framework for building AI-powered streaming interfaces with hooks like useChat and useCompletion.",
+        "url": "https://sdk.vercel.ai/docs",
+        "category": "SDK",
+        "pricing_model": "open-source",
+        "pros": [
+          "Built-in support for React, Svelte, and Vue",
+          "Seamless integration with Next.js Route Handlers",
+          "Automatic handling of Server-Sent Events (SSE)"
+        ],
+        "cons": [
+          "Opinionated towards the Vercel ecosystem",
+          "Can be overkill for simple single-provider implementations"
+        ],
+        "tags": [
+          "React",
+          "Next.js",
+          "Streaming",
+          "TypeScript"
+        ]
+      },
+      {
+        "name": "eventsource-parser",
+        "description": "A lightweight, zero-dependency parser for Server-Sent Events (SSE) designed for LLM token streams.",
+        "url": "https://github.com/aslakhellesoy/eventsource-parser",
+        "category": "Parsing Library",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely small footprint",
+          "Framework agnostic",
+          "Handles fragmented data chunks effectively"
+        ],
+        "cons": [
+          "Low-level API requires manual stream management",
+          "No built-in reconnection logic"
+        ],
+        "tags": [
+          "SSE",
+          "Infrastructure",
+          "Node.js",
+          "Browser"
+        ]
+      },
+      {
+        "name": "zod-stream",
+        "description": "A library for extracting and validating structured data from LLM streams using Zod schemas.",
+        "url": "https://github.com/khulnasoft/zod-stream",
+        "category": "Parsing Library",
+        "pricing_model": "open-source",
+        "pros": [
+          "Parses partial JSON in real-time",
+          "Provides type-safe structured outputs",
+          "Compatible with OpenAI and Anthropic streams"
+        ],
+        "cons": [
+          "Requires Zod as a dependency",
+          "Higher CPU overhead for complex schemas"
+        ],
+        "tags": [
+          "Structured Output",
+          "JSON",
+          "Validation",
+          "TypeScript"
+        ]
+      },
+      {
+        "name": "Cloudflare Workers Streaming",
+        "description": "Edge computing platform that supports the TransformStream API for modifying LLM responses on the fly.",
+        "url": "https://developers.cloudflare.com/workers/runtime-apis/streams/",
+        "category": "Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Zero-latency overhead from edge locations",
+          "Native support for Web Streams API",
+          "Bypasses standard serverless execution timeouts"
+        ],
+        "cons": [
+          "Strict memory limits (128MB on standard plan)",
+          "Requires specific runtime knowledge (Service Workers)"
+        ],
+        "tags": [
+          "Edge",
+          "Infrastructure",
+          "Serverless"
+        ]
+      },
+      {
+        "name": "LangChain.js Streaming",
+        "description": "The JavaScript implementation of LangChain with specific support for LCEL and streamable runnables.",
+        "url": "https://js.langchain.com/docs/expression_language/streaming",
+        "category": "SDK",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports streaming through complex chains and agents",
+          "Unified interface for multiple LLM providers",
+          "Built-in callback handlers for stream events"
+        ],
+        "cons": [
+          "Large package size",
+          "Steep learning curve for the LCEL syntax"
+        ],
+        "tags": [
+          "Agents",
+          "Orchestration",
+          "TypeScript"
+        ]
+      },
+      {
+        "name": "AWS Lambda Response Streaming",
+        "description": "Feature allowing Lambda functions to send partial response payloads back to the client as they are generated.",
+        "url": "https://aws.amazon.com/blogs/compute/introducing-aws-lambda-response-streaming/",
+        "category": "Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "Supports large payloads up to 20MB",
+          "Reduces Time to First Byte (TTFB)",
+          "Works with standard HTTP triggers"
+        ],
+        "cons": [
+          "Requires specific configuration in AWS Console/IAC",
+          "Only available for Node.js and custom runtimes"
+        ],
+        "tags": [
+          "AWS",
+          "Backend",
+          "Serverless"
+        ]
+      },
+      {
+        "name": "partial-json-parser",
+        "description": "A tool to parse incomplete JSON strings, essential for UI rendering of streaming structured data.",
+        "url": "https://github.com/p-m-p/partial-json-parser",
+        "category": "Parsing Library",
+        "pricing_model": "open-source",
+        "pros": [
+          "Handles malformed/incomplete JSON strings",
+          "Lightweight with no dependencies",
+          "Ideal for streaming previews"
+        ],
+        "cons": [
+          "May return unexpected shapes if JSON is heavily malformed",
+          "Not a replacement for full JSON validation"
+        ],
+        "tags": [
+          "JSON",
+          "Frontend",
+          "Utilities"
+        ]
+      },
+      {
+        "name": "OpenAI Node SDK (Streaming Mode)",
+        "description": "The official client library for OpenAI, featuring native async iterators for stream processing.",
+        "url": "https://github.com/openai/openai-node",
+        "category": "SDK",
+        "pricing_model": "open-source",
+        "pros": [
+          "First-party support for all OpenAI models",
+          "Native TypeScript support",
+          "Simple async iterable interface"
+        ],
+        "cons": [
+          "Locked to OpenAI-compatible APIs",
+          "Manual error handling for stream breaks required"
+        ],
+        "tags": [
+          "OpenAI",
+          "Node.js",
+          "API"
+        ]
+      },
+      {
+        "name": "AI Chat UI Components (shadcn/ui)",
+        "description": "Community-driven UI patterns for building streaming chat interfaces using Tailwind CSS.",
+        "url": "https://ui.shadcn.com/docs/components/scroll-area",
+        "category": "UI Component",
+        "pricing_model": "free",
+        "pros": [
+          "Highly customizable and accessible",
+          "Includes patterns for auto-scrolling containers",
+          "Copy-paste implementation"
+        ],
+        "cons": [
+          "Not a standalone library; requires manual integration",
+          "No built-in state management for streams"
+        ],
+        "tags": [
+          "React",
+          "Tailwind",
+          "UX"
+        ]
+      },
+      {
+        "name": "Anthropic SDK (Messages Streaming)",
+        "description": "Official SDK for Claude models with specialized event types for content blocks and usage metadata.",
+        "url": "https://github.com/anthropics/anthropic-sdk-typescript",
+        "category": "SDK",
+        "pricing_model": "open-source",
+        "pros": [
+          "Detailed event types for input/output tokens",
+          "Robust handling of multi-modal streams",
+          "Low-latency response headers"
+        ],
+        "cons": [
+          "Proprietary event format differs from OpenAI",
+          "Limited to Anthropic models"
+        ],
+        "tags": [
+          "Claude",
+          "Anthropic",
+          "TypeScript"
+        ]
+      }
+    ]
+  }
+}

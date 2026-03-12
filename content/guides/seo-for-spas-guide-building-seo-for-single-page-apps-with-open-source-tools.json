@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "seo-for-spas",
+    "generated_at": "2026-03-12T22:38:41.886Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building SEO for Single-Page Apps with open-source tools",
+    "description": "A step-by-step implementation guide for SEO for Single-Page Apps with open-source tools.",
+    "keywords": [
+      "seo-for-spas",
+      "seo for single-page apps",
+      "guide"
+    ],
+    "slug": "seo-for-spas-guide-building-seo-for-single-page-apps-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide provides a technical roadmap for ensuring single-page applications (SPAs) are fully indexable by search engines. It addresses the 'empty shell' problem where crawlers receive a root div before JavaScript execution, ensuring that content, metadata, and status codes are correctly processed by Googlebot and other search engines.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Production access to Google Search Console",
+      "Existing SPA built with React, Vue, or Angular",
+      "Control over the deployment server (Nginx, Apache, or Cloudflare Workers)",
+      "Node.js environment for build-time scripts"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Audit Initial Indexing and Rendering",
+        "explanation": "Before implementing fixes, use Google Search Console's URL Inspection tool to see how Google currently renders your SPA. Compare the 'Crawled Page' (HTML source) with the 'Live Test' screenshot. If the screenshot is blank or missing key content, your client-side hydration is failing or timing out for the crawler.",
+        "pitfalls": [
+          "Relying solely on the 'view source' in the browser which doesn't execute JS.",
+          "Ignoring the 'View Tested Page' tab in GSC which shows console errors encountered by Googlebot."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Dynamic Meta Tags",
+        "explanation": "Inject unique titles and meta descriptions for every route. In React, use react-helmet-async; in Vue, use vue-meta. Ensure these tags are updated as soon as the route changes but before the component fully mounts if possible.",
+        "code": {
+          "language": "javascript",
+          "content": "import { Helmet } from 'react-helmet-async';\n\nconst ProductPage = ({ product }) => (\n  <>\n    <Helmet>\n      <title>{product.name} | My Store</title>\n      <meta name=\"description\" content={product.description} />\n      <link rel=\"canonical\" href={`https://example.com/p/${product.id}`} />\n    </Helmet>\n    <h1>{product.name}</h1>\n  </>\n);",
+          "filename": "ProductPage.jsx"
+        },
+        "pitfalls": [
+          "Forgetting to wrap the app in HelmetProvider.",
+          "Using document.title directly which may not be picked up by older crawlers."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure Dynamic Rendering (Prerendering)",
+        "explanation": "For existing SPAs where migrating to Next.js or Nuxt is too costly, implement dynamic rendering. Configure your web server to detect bot User-Agents (Googlebot, Bingbot) and proxy those requests to a service like Prerender.io or a self-hosted Rendertron instance.",
+        "code": {
+          "language": "nginx",
+          "content": "location / {\n  set $prerender 0;\n  if ($http_user_agent ~* \"googlebot|bingbot|baiduspider|twitterbot|facebookexternalhit|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest\\/0\\.|developers.google.com\\/\\+\\/web\\/snippet\") {\n    set $prerender 1;\n  }\n\n  if ($prerender = 1) {\n    rewrite .* /https://$host$request_uri break;\n    proxy_pass http://service.prerender.io;\n  }\n\n  try_files $uri $uri/ /index.html;\n}",
+          "filename": "nginx.conf"
+        },
+        "pitfalls": [
+          "Caching the prerendered HTML for too long, leading to stale content in SERPs.",
+          "Failing to whitelist your own API calls within the prerenderer."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Convert Hash Routing to History API",
+        "explanation": "Search engines traditionally ignore anything after the '#' in a URL. Ensure your SPA uses the HTML5 History API (BrowserRouter in React Router) so each view has a unique, clean URL path (e.g., /products/123 instead of /#/products/123).",
+        "pitfalls": [
+          "Forgetting to configure the server to fallback to index.html for all sub-routes, causing 404s on page refresh."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Handle 404 Status Codes Programmatically",
+        "explanation": "SPAs usually return a 200 OK status even for non-existent routes because the server serves index.html. To fix this, you must either use a server-side middleware to check route validity or use a meta tag 'fragment' that signals to crawlers that the page is a 404.",
+        "code": {
+          "language": "html",
+          "content": "<!-- In your 404 component template -->\n<meta name=\"prerender-status-code\" content=\"404\">",
+          "filename": "NotFound.html"
+        },
+        "pitfalls": [
+          "Allowing 'Soft 404s' where a 'Page Not Found' message is displayed but the HTTP status code remains 200."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Generate and Automate XML Sitemaps",
+        "explanation": "Since crawlers may struggle to discover all links in a complex JS-driven UI, provide a static XML sitemap. Create a script that fetches your product/post slugs from your API and writes a sitemap.xml to your public folder during the build process.",
+        "code": {
+          "language": "javascript",
+          "content": "const fs = require('fs');\nconst axios = require('axios');\n\nasync function generateSitemap() {\n  const resp = await axios.get('https://api.example.com/posts');\n  const xml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n    <urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n      ${resp.data.map(post => `<url><loc>https://example.com/blog/${post.slug}</loc></url>`).join('')}\n    </urlset>`;\n  fs.writeFileSync('./public/sitemap.xml', xml);\n}\n\ngenerateSitemap();",
+          "filename": "scripts/sitemap-gen.js"
+        }
+      },
+      {
+        "number": 7,
+        "title": "Validate with Schema.org Structured Data",
+        "explanation": "Help crawlers understand your content without relying on text parsing. Inject JSON-LD structured data into the head of your SPA. This is especially critical for SPAs to ensure Google identifies products, articles, or breadcrumbs correctly despite the client-side rendering delay.",
+        "code": {
+          "language": "javascript",
+          "content": "const structuredData = {\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Product\",\n  \"name\": product.name,\n  \"description\": product.description\n};\n\n<script type=\"application/ld+json\">\n  {JSON.stringify(structuredData)}\n</script>",
+          "filename": "StructuredData.jsx"
+        }
+      }
+    ],
+    "conclusion": "Optimizing an SPA for SEO requires moving beyond client-side logic and managing how the server and crawlers interact. By implementing dynamic rendering, clean URLs, and proper metadata management, you can achieve the performance benefits of an SPA without sacrificing organic search visibility. Regularly monitor the 'Coverage' report in Google Search Console to catch rendering regressions early."
+  }
+}

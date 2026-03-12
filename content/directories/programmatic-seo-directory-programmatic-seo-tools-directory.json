@@ -1,0 +1,253 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "programmatic-seo",
+    "generated_at": "2026-03-12T22:38:39.469Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Programmatic SEO tools directory",
+    "description": "A developer-first directory of Programmatic SEO tools and references.",
+    "keywords": [
+      "programmatic-seo",
+      "programmatic seo",
+      "directory"
+    ],
+    "slug": "programmatic-seo-directory-programmatic-seo-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of technical tools and frameworks designed for building, managing, and scaling programmatic SEO pipelines. This resource focuses on performance-first static site generation, data validation, and automated indexing workflows.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Frameworks",
+          "Data Management",
+          "Analysis & Research",
+          "AI Content Generation",
+          "Deployment & Infrastructure"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Astro",
+        "description": "Static site generator optimized for speed. Uses content collections to manage thousands of Markdown or JSON files with schema validation.",
+        "url": "https://astro.build",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Zero-JS by default for high Core Web Vitals",
+          "Built-in schema validation via Zod",
+          "Fast build times for thousands of static pages"
+        ],
+        "cons": [
+          "Limited dynamic server-side features compared to Next.js"
+        ],
+        "tags": [
+          "SSG",
+          "Performance",
+          "Content Collections"
+        ]
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework supporting Incremental Static Regeneration (ISR), allowing developers to update programmatic pages without rebuilding the entire site.",
+        "url": "https://nextjs.org",
+        "category": "Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "ISR enables scaling to millions of pages",
+          "Native image optimization",
+          "Robust middleware for dynamic routing"
+        ],
+        "cons": [
+          "Higher infrastructure costs for server-side features",
+          "Complex caching logic"
+        ],
+        "tags": [
+          "React",
+          "ISR",
+          "Dynamic Routing"
+        ]
+      },
+      {
+        "name": "Zod",
+        "description": "TypeScript-first schema declaration and validation library for ensuring data integrity across large pSEO datasets.",
+        "url": "https://zod.dev",
+        "category": "Data Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Prevents build failures caused by malformed data",
+          "Static type inference",
+          "Lightweight with no dependencies"
+        ],
+        "cons": [
+          "Requires TypeScript for maximum benefit"
+        ],
+        "tags": [
+          "Validation",
+          "TypeScript",
+          "Data Integrity"
+        ]
+      },
+      {
+        "name": "Ahrefs Keywords Explorer",
+        "description": "Tool for identifying high-volume, low-competition long-tail keywords for pSEO templates.",
+        "url": "https://ahrefs.com/keywords-explorer",
+        "category": "Analysis & Research",
+        "pricing_model": "paid",
+        "pros": [
+          "Accurate search volume for niche queries",
+          "Parent topic grouping for template planning",
+          "Comprehensive backlink data"
+        ],
+        "cons": [
+          "Expensive entry-level pricing",
+          "Credit-based usage limits"
+        ],
+        "tags": [
+          "Keyword Research",
+          "Backlinks",
+          "SEO Analysis"
+        ]
+      },
+      {
+        "name": "OpenAI API",
+        "description": "Programmatic access to GPT-4 for generating unique meta descriptions, introductions, and content variations at scale.",
+        "url": "https://openai.com/api",
+        "category": "AI Content Generation",
+        "pricing_model": "paid",
+        "pros": [
+          "High-quality natural language generation",
+          "Structured output mode for JSON data",
+          "Extensive documentation and SDKs"
+        ],
+        "cons": [
+          "Cost scales quickly with page volume",
+          "Requires prompt engineering to avoid generic content"
+        ],
+        "tags": [
+          "LLM",
+          "Automation",
+          "Content Generation"
+        ]
+      },
+      {
+        "name": "Cloudflare Pages",
+        "description": "Hosting platform for static sites with integrated CDN and edge functions for dynamic content injection.",
+        "url": "https://pages.cloudflare.com",
+        "category": "Deployment & Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Fast global distribution",
+          "Unlimited bandwidth on free tier",
+          "Direct integration with Git workflows"
+        ],
+        "cons": [
+          "Build time limits on free plan",
+          "Limited server-side execution environment"
+        ],
+        "tags": [
+          "Hosting",
+          "Edge Computing",
+          "CDN"
+        ]
+      },
+      {
+        "name": "Screaming Frog SEO Spider",
+        "description": "Desktop-based crawler for auditing internal link structures and identifying broken links on large programmatic sites.",
+        "url": "https://www.screamingfrog.co.uk/seo-spider/",
+        "category": "Analysis & Research",
+        "pricing_model": "freemium",
+        "pros": [
+          "Efficiently crawls thousands of URLs locally",
+          "Identifies duplicate content and meta issues",
+          "Generates XML sitemaps"
+        ],
+        "cons": [
+          "Requires local hardware resources",
+          "UI is dated and complex for beginners"
+        ],
+        "tags": [
+          "Audit",
+          "Crawling",
+          "Technical SEO"
+        ]
+      },
+      {
+        "name": "Google Indexing API",
+        "description": "API to notify Google of new or updated pages, bypassing standard crawl delays for time-sensitive programmatic content.",
+        "url": "https://developers.google.com/search/apis/indexing-api",
+        "category": "Analysis & Research",
+        "pricing_model": "free",
+        "pros": [
+          "Faster indexing of new pages",
+          "Direct communication with Search Console",
+          "Automates the indexing workflow"
+        ],
+        "cons": [
+          "Intended primarily for JobPostings and BroadcastEvents",
+          "Daily quota limits"
+        ],
+        "tags": [
+          "Indexing",
+          "API",
+          "Google Search"
+        ]
+      },
+      {
+        "name": "Supabase",
+        "description": "Open-source Firebase alternative for managing relational data used to populate programmatic templates via SQL.",
+        "url": "https://supabase.com",
+        "category": "Data Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "PostgreSQL backend for complex data relationships",
+          "Auto-generated REST APIs",
+          "Built-in authentication and edge functions"
+        ],
+        "cons": [
+          "Learning curve for SQL-based management",
+          "Connection limits on lower tiers"
+        ],
+        "tags": [
+          "Database",
+          "Postgres",
+          "Backend"
+        ]
+      },
+      {
+        "name": "Low-Code pSEO Kit",
+        "description": "A collection of tools like Whalesync and Airtable to sync structured data into CMS platforms like Webflow or WordPress.",
+        "url": "https://www.whalesync.com",
+        "category": "Data Management",
+        "pricing_model": "paid",
+        "pros": [
+          "No-code data syncing between sources",
+          "Simplifies management for non-developers",
+          "Two-way sync capabilities"
+        ],
+        "cons": [
+          "Scaling costs per record are high",
+          "Vendor lock-in for data pipelines"
+        ],
+        "tags": [
+          "No-code",
+          "Data Sync",
+          "CMS"
+        ]
+      }
+    ]
+  }
+}

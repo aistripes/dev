@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "edge-deployment",
+    "generated_at": "2026-03-12T22:38:28.103Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Edge Deployment implementation checklist",
+    "description": "A practical checklist for shipping Edge Deployment projects safely.",
+    "keywords": [
+      "edge-deployment",
+      "edge deployment",
+      "checklist"
+    ],
+    "slug": "edge-deployment-checklist-edge-deployment-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist ensures edge-deployed functions and applications meet production standards for performance, security, and runtime compatibility on platforms like Cloudflare Workers and Deno Deploy.",
+    "sections": [
+      {
+        "heading": "Runtime Compatibility and API Compliance",
+        "items": [
+          {
+            "title": "Node.js API Audit",
+            "description": "Verify that no restricted Node.js core modules such as 'fs', 'net', or 'os' are imported in the production bundle.",
+            "priority": "critical"
+          },
+          {
+            "title": "Dependency Compatibility Check",
+            "description": "Run a build-time check to ensure all third-party npm packages are compatible with V8 isolates and do not rely on native C++ addons.",
+            "priority": "critical"
+          },
+          {
+            "title": "Global Object Usage",
+            "description": "Ensure code uses web-standard APIs like 'Fetch', 'Request', and 'Response' instead of platform-specific HTTP implementations.",
+            "priority": "critical"
+          },
+          {
+            "title": "Polyfill Minimization",
+            "description": "Identify and remove heavy polyfills for 'Buffer' or 'process' to keep the worker script size within platform limits.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Dynamic Import Verification",
+            "description": "Confirm that any dynamic imports are supported by the target edge runtime and do not exceed execution time limits during resolution.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Database and Persistence Strategy",
+        "items": [
+          {
+            "title": "HTTP/WebSocket Driver Migration",
+            "description": "Replace standard TCP database drivers with HTTP-based drivers or connection pools like Prisma Accelerate or Upstash Redis.",
+            "priority": "critical"
+          },
+          {
+            "title": "Connection Pooling Configuration",
+            "description": "Configure a global connection pooler to prevent 'too many connections' errors during high-concurrency edge execution.",
+            "priority": "critical"
+          },
+          {
+            "title": "Regional Affinity Mapping",
+            "description": "Set the execution region or database replica location to minimize the round-trip time between the edge function and the data source.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Query Result Pagination",
+            "description": "Enforce strict limits on database query result sizes to prevent exceeding the edge function's memory heap limit.",
+            "priority": "recommended"
+          },
+          {
+            "title": "D1/KV Consistency Check",
+            "description": "Verify that application logic accounts for eventual consistency if using distributed stores like Cloudflare KV.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Resource and Performance Optimization",
+        "items": [
+          {
+            "title": "CPU Time Budget Audit",
+            "description": "Profile the function to ensure logic completes within the 10ms-50ms CPU time limit typical for standard edge tiers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Bundle Size Validation",
+            "description": "Verify the final compressed worker script is under the platform's limit (e.g., 1MB for Cloudflare Workers Free, 10MB for Workers Unbound).",
+            "priority": "critical"
+          },
+          {
+            "title": "Memory Usage Profiling",
+            "description": "Monitor peak memory usage during request processing to ensure it remains below the 128MB or 256MB runtime threshold.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cold Start Mitigation",
+            "description": "Minimize top-level code execution and heavy global initializations to reduce startup latency for new isolates.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Tree-Shaking Verification",
+            "description": "Check build artifacts to ensure unused code from libraries is being correctly removed by the bundler.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Secrets Management",
+        "items": [
+          {
+            "title": "Environment Variable Migration",
+            "description": "Move all sensitive credentials from .env files to the platform's encrypted secret store (e.g., 'wrangler secret put').",
+            "priority": "critical"
+          },
+          {
+            "title": "CORS Policy Enforcement",
+            "description": "Implement an explicit Cross-Origin Resource Sharing policy within the edge function to restrict access to authorized domains.",
+            "priority": "critical"
+          },
+          {
+            "title": "Edge Rate Limiting",
+            "description": "Configure platform-level rate limiting rules to protect edge endpoints from brute force and DDoS attacks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Input Validation Layer",
+            "description": "Validate all incoming request bodies and headers before performing expensive operations or database queries.",
+            "priority": "critical"
+          },
+          {
+            "title": "Secure Header Injection",
+            "description": "Automatically append security headers like HSTS, X-Content-Type-Options, and CSP at the edge response layer.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Observability and Error Handling",
+        "items": [
+          {
+            "title": "Structured JSON Logging",
+            "description": "Implement structured logging that can be piped to external drains like Axiom, Datadog, or Cloudflare Logpush.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Edge-Compatible Error Tracking",
+            "description": "Integrate an edge-compatible SDK (e.g., Sentry for Workers) to capture unhandled exceptions and stack traces.",
+            "priority": "critical"
+          },
+          {
+            "title": "Request Tracing Implementation",
+            "description": "Propagate trace IDs (e.g., CF-Ray or custom headers) through all downstream service calls for distributed tracing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Health Check Endpoint",
+            "description": "Expose a lightweight /health endpoint that verifies connectivity to critical upstream dependencies.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Custom Error Pages",
+            "description": "Define fallback logic at the edge to serve user-friendly error pages when upstream origins are unavailable.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and CI/CD",
+        "items": [
+          {
+            "title": "Local Simulation Testing",
+            "description": "Run the full test suite against a local simulator (e.g., Miniflare) to catch runtime-specific errors before deployment.",
+            "priority": "critical"
+          },
+          {
+            "title": "Preview Environment Validation",
+            "description": "Verify changes in a staging or preview environment that uses the exact same resource limits as production.",
+            "priority": "critical"
+          },
+          {
+            "title": "Atomic Rollback Procedure",
+            "description": "Test the platform's rollback command to ensure service can be restored within seconds if a deployment fails.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cache-Control Strategy",
+            "description": "Audit Cache-Control headers to ensure sensitive data is not being cached at the edge POPs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Versioned API Routes",
+            "description": "Ensure API endpoints are versioned to prevent breaking changes when deploying new worker logic.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

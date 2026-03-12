@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "mobile-web",
+    "generated_at": "2026-03-12T22:38:51.562Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Mobile Web / PWA with open-source tools",
+    "description": "A step-by-step implementation guide for Mobile Web / PWA with open-source tools.",
+    "keywords": [
+      "mobile-web",
+      "mobile web / pwa",
+      "guide"
+    ],
+    "slug": "mobile-web-guide-building-mobile-web-pwa-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide provides a technical roadmap for converting a standard web application into a production-ready Progressive Web App (PWA). We focus on implementing resilient offline support using Workbox, optimizing manifest configurations for cross-platform installs, and handling the specific lifecycle events required for a seamless mobile user experience.",
+    "estimated_time": "3 hours",
+    "prerequisites": [
+      "Node.js environment with Vite or Next.js installed",
+      "Basic understanding of Service Worker lifecycles",
+      "HTTPS-enabled development environment or localhost access",
+      "Mobile device or emulator for testing touch interactions"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure the Web App Manifest",
+        "explanation": "Create a `manifest.webmanifest` file to define how your app appears on the mobile OS. You must provide at least two icons (192x192 and 512x512) and set the `display` property to `standalone` to remove browser UI elements.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"name\": \"Pro Mobile App\",\n  \"short_name\": \"ProApp\",\n  \"start_url\": \"/\",\n  \"display\": \"standalone\",\n  \"background_color\": \"#ffffff\",\n  \"theme_color\": \"#000000\",\n  \"icons\": [\n    { \"src\": \"/icon-192.png\", \"type\": \"image/png\", \"sizes\": \"192x192\" },\n    { \"src\": \"/icon-512.png\", \"type\": \"image/png\", \"sizes\": \"512x512\", \"purpose\": \"any maskable\" }\n  ]\n}",
+          "filename": "public/manifest.webmanifest"
+        },
+        "pitfalls": [
+          "Missing 'maskable' icons will cause unsightly borders on Android devices.",
+          "iOS ignores the theme_color property in the manifest; use the meta tag <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'> instead."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Integrate Vite PWA Plugin for Service Worker Management",
+        "explanation": "Use `vite-plugin-pwa` to automate service worker generation. This handles the 'GenerateSW' or 'InjectManifest' strategies, ensuring your static assets are automatically precached during the build process.",
+        "code": {
+          "language": "javascript",
+          "content": "import { VitePWA } from 'vite-plugin-pwa';\n\nexport default defineConfig({\n  plugins: [\n    VitePWA({\n      registerType: 'autoUpdate',\n      workbox: {\n        globPatterns: ['**/*.{js,css,html,ico,png,svg}']\n      }\n    })\n  ]\n});",
+          "filename": "vite.config.ts"
+        },
+        "pitfalls": [
+          "Setting registerType to 'autoUpdate' may interrupt user sessions by reloading the app; consider 'prompt' for complex applications.",
+          "Ensure the service worker file is served from the root directory to maximize its scope."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Runtime Caching for Dynamic Routes",
+        "explanation": "Configure Workbox runtime caching to handle API requests and external resources. Use the 'StaleWhileRevalidate' strategy for assets that need to be fast but can afford to be slightly out of date, and 'NetworkFirst' for critical data.",
+        "code": {
+          "language": "javascript",
+          "content": "workbox: {\n  runtimeCaching: [{\n    urlPattern: /^https:\\/\\/api\\.example\\.com\\/v1\\/.*$/,\n    handler: 'NetworkFirst',\n    options: {\n      cacheName: 'api-cache',\n      expiration: {\n        maxEntries: 50,\n        maxAgeSeconds: 86400\n      }\n    }\n  }]\n}",
+          "filename": "vite.config.ts"
+        },
+        "pitfalls": [
+          "Caching POST requests is not supported by default and requires custom handling in the fetch event.",
+          "Large cache sizes can lead to 'QuotaExceeded' errors on mobile devices with low storage."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Handle the Custom Install Prompt",
+        "explanation": "Browsers like Chrome trigger a `beforeinstallprompt` event. Capture this event to provide a custom UI button for installation, as the default browser banner is often suppressed or ignored by users.",
+        "code": {
+          "language": "javascript",
+          "content": "let deferredPrompt;\nwindow.addEventListener('beforeinstallprompt', (e) => {\n  e.preventDefault();\n  deferredPrompt = e;\n  showInstallButton();\n});\n\nasync function installApp() {\n  if (deferredPrompt) {\n    deferredPrompt.prompt();\n    const { outcome } = await deferredPrompt.userChoice;\n    deferredPrompt = null;\n  }\n}",
+          "filename": "install-handler.js"
+        },
+        "pitfalls": [
+          "The beforeinstallprompt event is currently not supported on iOS Safari.",
+          "The event will only fire if the PWA meets all installability criteria (HTTPS, valid manifest, service worker with fetch handler)."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Add an Offline Fallback Page",
+        "explanation": "When a user is offline and attempts to navigate to a page not in the cache, the app should serve a custom `offline.html` instead of the browser's default error page. This ensures the app feels like a native experience even without connectivity.",
+        "code": {
+          "language": "javascript",
+          "content": "workbox: {\n  offlineGoogleAnalytics: true,\n  runtimeCaching: [{\n    handler: 'NetworkOnly',\n    urlPattern: /\\/api\\/.*$/,\n    options: {\n      precacheFallback: {\n        fallbackURL: '/offline.html'\n      }\n    }\n  }]\n}",
+          "filename": "vite.config.ts"
+        },
+        "pitfalls": [
+          "Failing to precache the offline.html file itself will result in a 404 when the user is actually offline.",
+          "Ensure the offline page has minimal external dependencies (CSS/JS) or that they are also precached."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Optimize Performance for Mobile Hardware",
+        "explanation": "PWAs are often run on devices with limited CPU. Implement content-visibility: auto for long lists, use SVGs over heavy PNGs, and ensure all touch targets are at least 44x44px to comply with accessibility and mobile usability standards.",
+        "code": {
+          "language": "css",
+          "content": ".list-item {\n  content-visibility: auto;\n  contain-intrinsic-size: 0 50px;\n  min-height: 48px;\n  padding: 12px;\n  touch-action: manipulation;\n}",
+          "filename": "styles.css"
+        },
+        "pitfalls": [
+          "Overusing heavy JavaScript frameworks can lead to high 'Time to Interactive' on mid-range Android devices.",
+          "Not using 'touch-action: manipulation' can cause a 300ms delay on older mobile browsers."
+        ]
+      }
+    ],
+    "conclusion": "By following these steps, you have moved beyond a simple website to a resilient PWA. Your application now supports offline access, features a platform-integrated installation flow, and is optimized for the hardware constraints of mobile devices. Continuous monitoring via Lighthouse and WebPageTest is recommended to ensure the service worker and caching strategies remain performant as the app grows."
+  }
+}

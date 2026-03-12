@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "api-products",
+    "generated_at": "2026-03-12T22:38:39.936Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building API-First Products with open-source tools",
+    "description": "A step-by-step implementation guide for API-First Products with open-source tools.",
+    "keywords": [
+      "api-products",
+      "api-first products",
+      "guide"
+    ],
+    "slug": "api-products-guide-building-api-first-products-with-open-source-tools"
+  },
+  "content": {
+    "intro": "Building an API-first product requires transitioning from internal endpoints to a public-facing infrastructure that prioritizes developer experience, security, and monetization. This guide outlines the steps to implement a robust API product lifecycle including contract-first design, secure key management, and usage-based billing integration.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "A backend framework (FastAPI, Express, or Hono)",
+      "A Stripe account for billing infrastructure",
+      "Familiarity with OpenAPI 3.0/3.1 specifications",
+      "A key management service like Unkey or a custom Redis implementation"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define the API Contract (OpenAPI First)",
+        "explanation": "Before writing implementation code, define your API structure in an OpenAPI 3.1 YAML file. This serves as the single source of truth for your documentation, client generation, and validation. Ensure every endpoint has clear 'summary', 'operationId', and 'responses' fields defined.",
+        "code": {
+          "language": "yaml",
+          "content": "openapi: 3.1.0\ninfo:\n  title: AI Wrapper API\n  version: 1.0.0\npaths:\n  /v1/generate:\n    post:\n      summary: Generate text using AI\n      operationId: generateText\n      security:\n        - ApiKeyAuth: []\n      responses:\n        '200':\n          description: Success\n        '429':\n          description: Rate limit exceeded",
+          "filename": "openapi.yaml"
+        },
+        "pitfalls": [
+          "Generating OpenAPI from code instead of vice versa often leads to breaking changes without versioning alerts.",
+          "Missing clear error schemas makes it difficult for consumers to handle exceptions programmatically."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement API Key Authentication and Scoping",
+        "explanation": "Avoid using standard JWTs for API products; developers prefer long-lived API keys. Use a service like Unkey or build a hashing mechanism to store keys securely. Map every key to a 'workspaceId' and a set of 'permissions' to ensure fine-grained access control.",
+        "code": {
+          "language": "typescript",
+          "content": "import { verifyKey } from '@unkey/api';\n\nasync function authenticate(req: Request) {\n  const key = req.headers.get('Authorization')?.replace('Bearer ', '');\n  if (!key) return new Response('Unauthorized', { status: 401 });\n\n  const { result, error } = await verifyKey(key);\n  if (error || !result.valid) return new Response('Forbidden', { status: 403 });\n\n  return result.ownerId; // Use this to track usage\n}",
+          "filename": "auth.ts"
+        },
+        "pitfalls": [
+          "Storing API keys in plain text in the database.",
+          "Failing to provide a 'prefix' (e.g., sk_live_...) for keys, which makes it harder for secret scanners to identify leaks."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure Usage-Based Rate Limiting",
+        "explanation": "Implement rate limiting at the edge or middleware level. Use a sliding window algorithm to prevent spikes. For API products, rate limits should be tied to the API key's tier (e.g., 100 req/min for Free, 5000 req/min for Pro).",
+        "code": {
+          "language": "javascript",
+          "content": "const rateLimit = async (userId, tier) => {\n  const limit = tier === 'pro' ? 5000 : 100;\n  const current = await redis.incr(`ratelimit:${userId}`);\n  if (current === 1) await redis.expire(`ratelimit:${userId}`, 60);\n  \n  return current <= limit;\n};",
+          "filename": "middleware/rateLimiter.js"
+        },
+        "pitfalls": [
+          "Using a fixed window algorithm which allows double the traffic at the window boundary.",
+          "Not returning 'X-RateLimit-Remaining' headers to the client."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate Usage Metering for Billing",
+        "explanation": "For usage-based pricing, you must report consumption to your billing provider (e.g., Stripe). Instead of reporting on every request (which adds latency), aggregate usage in a background worker or use a high-performance buffer and send it in batches.",
+        "code": {
+          "language": "javascript",
+          "content": "const stripe = require('stripe')(process.env.STRIPE_SECRET);\n\nasync function reportUsage(subscriptionItemId, quantity) {\n  await stripe.subscriptionItems.createUsageRecord(\n    subscriptionItemId,\n    {\n      quantity,\n      timestamp: Math.floor(Date.now() / 1000),\n      action: 'increment',\n    }\n  );\n}",
+          "filename": "services/billing.js"
+        },
+        "pitfalls": [
+          "Reporting usage synchronously in the request path, significantly increasing latency.",
+          "Not handling Stripe API downtime; use a local queue (like BullMQ or RabbitMQ) for retries."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Automate Documentation and SDK Generation",
+        "explanation": "Ensure your documentation stays in sync with your API. Use tools like Redocly or Mintlify to render your OpenAPI spec. Optionally, use Stainless or Fern to generate typed SDKs (TypeScript, Python, Go) to reduce integration friction for your users.",
+        "pitfalls": [
+          "Manual documentation updates that lag behind the actual implementation.",
+          "Providing code snippets that are syntactically incorrect or out of date."
+        ]
+      }
+    ],
+    "conclusion": "Successfully launching an API product hinges on the 'Time to First Hello World'. By prioritizing a contract-first approach and automating the billing/documentation pipeline, you ensure that your API is scalable, monetizable, and developer-friendly. Monitor your '429' error rates and 'latency per endpoint' to identify when users need to upgrade or when your infrastructure needs optimization."
+  }
+}

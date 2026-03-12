@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "remix",
+    "generated_at": "2026-03-12T22:38:11.955Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Remix with open-source tools",
+    "description": "A step-by-step implementation guide for Remix with open-source tools.",
+    "keywords": [
+      "remix",
+      "guide"
+    ],
+    "slug": "remix-guide-building-remix-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a type-safe data mutation flow in Remix (React Router v7), focusing on progressive enhancement, server-side validation, and optimistic UI updates for production-grade applications.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "Node.js v20 or higher",
+      "Existing Remix or React Router v7 project",
+      "Configured Database ORM (Prisma or Drizzle)",
+      "TypeScript configured in the project"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define the Server-Side Action and Schema",
+        "explanation": "Create a server-side action to handle incoming POST requests. Use a validation library like Zod to parse the request's formData. This ensures that the data entering your database is valid and provides a single source of truth for error types.",
+        "code": {
+          "language": "typescript",
+          "content": "import { ActionFunctionArgs, json } from '@remix-run/node';\nimport { z } from 'zod';\n\nconst TaskSchema = z.object({\n  title: z.string().min(3, 'Title too short'),\n  description: z.string().optional(),\n});\n\nexport async function action({ request }: ActionFunctionArgs) {\n  const formData = await request.formData();\n  const result = TaskSchema.safeParse(Object.fromEntries(formData));\n\n  if (!result.success) {\n    return json({ errors: result.error.flatten().fieldErrors }, { status: 400 });\n  }\n\n  await db.task.create({ data: result.data });\n  return json({ ok: true });\n}",
+          "filename": "app/routes/tasks.tsx"
+        },
+        "pitfalls": [
+          "Returning a raw Error object instead of a JSON response with status codes.",
+          "Forgetting to handle the 'null' case when formData keys are missing."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement the Progressively Enhanced Form",
+        "explanation": "Use the Remix <Form> component instead of the native HTML <form>. This allows the framework to intercept the submission and perform a client-side transition while still falling back to a standard POST request if JavaScript fails to load.",
+        "code": {
+          "language": "typescript",
+          "content": "import { Form, useActionData } from '@remix-run/react';\n\nexport default function TaskRoute() {\n  const actionData = useActionData<typeof action>();\n\n  return (\n    <Form method=\"post\">\n      <input type=\"text\" name=\"title\" />\n      {actionData?.errors?.title && <p>{actionData.errors.title}</p>}\n      <textarea name=\"description\" />\n      <button type=\"submit\">Create Task</button>\n    </Form>\n  );\n}",
+          "filename": "app/routes/tasks.tsx"
+        },
+        "pitfalls": [
+          "Using method='GET' for mutations, which violates HTTP idempotency rules.",
+          "Hardcoding action URLs instead of relying on the current route context."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Add Optimistic UI Transitions",
+        "explanation": "Improve perceived performance by using the 'useNavigation' hook. This allows you to render the 'pending' state of the UI immediately upon form submission, before the server responds.",
+        "code": {
+          "language": "typescript",
+          "content": "import { useNavigation } from '@remix-run/react';\n\nexport default function TaskRoute() {\n  const navigation = useNavigation();\n  const isSubmitting = navigation.state === 'submitting';\n  const optimisticTitle = navigation.formData?.get('title');\n\n  return (\n    <div>\n      {isSubmitting && <p>Adding: {optimisticTitle}...</p>}\n      <Form method=\"post\">\n        <fieldset disabled={isSubmitting}>\n          {/* inputs */}\n        </fieldset>\n      </Form>\n    </div>\n  );\n}",
+          "filename": "app/routes/tasks.tsx"
+        },
+        "pitfalls": [
+          "Not disabling the submit button during the 'submitting' state, leading to duplicate POST requests.",
+          "Relying on state variables instead of navigation.formData for optimistic values."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Handle Multiple Intents in One Route",
+        "explanation": "When a single page has multiple actions (e.g., Delete, Complete, Edit), use a hidden 'intent' input. This allows the server-side action to switch logic based on the user's specific interaction.",
+        "code": {
+          "language": "typescript",
+          "content": "export async function action({ request }: ActionFunctionArgs) {\n  const formData = await request.formData();\n  const intent = formData.get('intent');\n\n  switch (intent) {\n    case 'delete':\n      return deleteTask(formData.get('id'));\n    case 'update':\n      return updateTask(formData);\n    default:\n      throw new Response('Invalid Intent', { status: 400 });\n  }\n}",
+          "filename": "app/routes/tasks.tsx"
+        },
+        "pitfalls": [
+          "Using multiple <Form> components with different 'action' props when the logic belongs to the same route index.",
+          "Overcomplicating the action by not delegating logic to helper functions."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Configure Global Loading States",
+        "explanation": "Implement a global progress bar or spinner in the root layout using 'useNavigation'. This provides feedback during data revalidation, which Remix triggers automatically after every action.",
+        "code": {
+          "language": "typescript",
+          "content": "import { useNavigation } from '@remix-run/react';\n\nexport default function App() {\n  const navigation = useNavigation();\n  const isLoading = navigation.state === 'loading';\n\n  return (\n    <html>\n      <body>\n        {isLoading && <div className=\"progress-bar\" />}\n        <Outlet />\n      </body>\n    </html>\n  );\n}",
+          "filename": "app/root.tsx"
+        },
+        "pitfalls": [
+          "Confusing 'submitting' (POST) with 'loading' (revalidation/GET), leading to incorrect UI feedback.",
+          "Neglecting to handle network-level errors that prevent the loading state from resolving."
+        ]
+      }
+    ],
+    "conclusion": "By following this sequence, you ensure that your Remix application handles data mutations with high resilience. This pattern leverages the platform's native form handling while providing the instantaneous feedback expected of modern SPAs."
+  }
+}

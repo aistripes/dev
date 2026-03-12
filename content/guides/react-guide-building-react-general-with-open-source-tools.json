@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "react",
+    "generated_at": "2026-03-12T22:38:12.173Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building React (general) with open-source tools",
+    "description": "A step-by-step implementation guide for React (general) with open-source tools.",
+    "keywords": [
+      "react",
+      "react (general)",
+      "guide"
+    ],
+    "slug": "react-guide-building-react-general-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide details the implementation of a type-safe form architecture in React 19 using React Hook Form and Zod, specifically optimized for integration with Server Actions and shadcn/ui components. This approach reduces boilerplate while ensuring robust client and server-side validation.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "React 19 environment installed",
+      "TypeScript 5.0+ configured",
+      "Zod and @hookform/resolvers installed",
+      "Basic familiarity with React Server Components (RSC)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define the Validation Schema and Types",
+        "explanation": "Create a centralized schema using Zod. This schema serves as the single source of truth for both client-side validation logic and TypeScript type definitions, preventing drift between the UI and the API.",
+        "code": {
+          "language": "typescript",
+          "content": "import { z } from 'zod';\n\nexport const profileSchema = z.object({\n  username: z.string().min(3, 'Username must be at least 3 characters'),\n  email: z.string().email('Invalid email address'),\n  role: z.enum(['admin', 'user', 'guest'])\n});\n\nexport type ProfileFormValues = z.infer<typeof profileSchema>;",
+          "filename": "schema.ts"
+        },
+        "pitfalls": [
+          "Defining the schema inside the component, which causes unnecessary re-creations on every render.",
+          "Forgetting to export the inferred type, leading to manual type definitions that can fall out of sync."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Initialize React Hook Form with Zod Resolver",
+        "explanation": "Configure the useForm hook using the zodResolver. This connects Zod's validation engine to the form's internal state management.",
+        "code": {
+          "language": "tsx",
+          "content": "import { useForm } from 'react-hook-form';\nimport { zodResolver } from '@hookform/resolvers/zod';\nimport { profileSchema, type ProfileFormValues } from './schema';\n\nconst form = useForm<ProfileFormValues>({\n  resolver: zodResolver(profileSchema),\n  defaultValues: {\n    username: '',\n    email: '',\n    role: 'user'\n  }\n});",
+          "filename": "ProfileForm.tsx"
+        },
+        "pitfalls": [
+          "Omitting defaultValues, which can lead to 'uncontrolled to controlled' input warnings in React.",
+          "Not passing the generic type to useForm, resulting in 'any' types for form values."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Server Action with State Handling",
+        "explanation": "In React 19, use the useActionState hook to manage the lifecycle of a form submission, including pending states and server-side error responses.",
+        "code": {
+          "language": "typescript",
+          "content": "import { useActionState } from 'react';\nimport { updateProfileAction } from './actions';\n\nconst [state, formAction, isPending] = useActionState(updateProfileAction, {\n  success: false,\n  errors: {}\n});",
+          "filename": "ProfileForm.tsx"
+        },
+        "pitfalls": [
+          "Trying to use useActionState in a Server Component; it must be used in a Client Component ('use client').",
+          "Not providing an initial state object, which can cause runtime errors when accessing state.errors."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Connect React Hook Form to the Server Action",
+        "explanation": "Bridge the gap between the client-side form state and the Server Action. Use the form.handleSubmit method to perform final client validation before triggering the action via the form's action prop or a manual call.",
+        "code": {
+          "language": "tsx",
+          "content": "<form action={formAction} onSubmit={form.handleSubmit(() => {\n  const formData = new FormData();\n  Object.entries(form.getValues()).forEach(([key, value]) => {\n    formData.append(key, value);\n  });\n  formAction(formData);\n})}>\n  {/* Form Fields */}\n</form>",
+          "filename": "ProfileForm.tsx"
+        },
+        "pitfalls": [
+          "Directly passing form.handleSubmit to the action prop without handling the FormData conversion.",
+          "Failing to prevent default behavior if manual action triggering is required."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Build Accessible Form Fields with shadcn/ui",
+        "explanation": "Utilize the FormField pattern to ensure accessible labels, descriptions, and error messages are linked via ARIA attributes automatically.",
+        "code": {
+          "language": "tsx",
+          "content": "import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';\n\n<FormField\n  control={form.control}\n  name=\"username\"\n  render={({ field }) => (\n    <FormItem>\n      <FormLabel>Username</FormLabel>\n      <FormControl>\n        <Input {...field} disabled={isPending} />\n      </FormControl>\n      <FormMessage />\n    </FormItem>\n  )}\n/>",
+          "filename": "ProfileForm.tsx"
+        },
+        "pitfalls": [
+          "Hardcoding IDs for labels and inputs instead of relying on the context-provided IDs from the FormField component.",
+          "Forgetting to disable inputs during the isPending state, allowing double submissions."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Synchronize Server Errors Back to the Form",
+        "explanation": "After the Server Action completes, if there are server-side validation errors (e.g., 'username taken'), use the setError method to display them on the relevant fields.",
+        "code": {
+          "language": "tsx",
+          "content": "useEffect(() => {\n  if (state.errors) {\n    Object.entries(state.errors).forEach(([key, message]) => {\n      form.setError(key as keyof ProfileFormValues, {\n        type: 'server',\n        message: message as string\n      });\n    });\n  }\n}, [state.errors, form]);",
+          "filename": "ProfileForm.tsx"
+        },
+        "pitfalls": [
+          "Infinite loops in useEffect if the state object reference is not stable.",
+          "Overwriting client-side validation errors with stale server errors if the user starts typing again."
+        ]
+      }
+    ],
+    "conclusion": "By combining React Hook Form's client-side efficiency with React 19's useActionState and Zod's schema safety, you create a form architecture that is resilient, accessible, and type-safe from the UI layer down to the server execution logic."
+  }
+}

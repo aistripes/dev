@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "databases",
+    "generated_at": "2026-03-12T22:38:29.911Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Databases for AI Apps resources for developers",
+    "description": "A curated set of practical Databases for AI Apps resources for engineers.",
+    "keywords": [
+      "databases",
+      "databases for ai apps",
+      "resource-article"
+    ],
+    "slug": "databases-resource-article-100-databases-for-ai-apps-resources-for-developers"
+  },
+  "content": {
+    "intro": "The shift toward AI-integrated applications has redefined database requirements, moving beyond traditional CRUD operations to include high-dimensional vector search and low-latency serverless connectivity. This resource focuses on the implementation of hybrid data models where relational integrity and semantic search coexist, emphasizing tools that support pgvector, edge-compatible drivers, and schema evolution for embeddings.",
+    "sections": [
+      {
+        "heading": "Relational & Multi-Model Vector Engines",
+        "items": [
+          {
+            "title": "pgvector for PostgreSQL",
+            "description": "The industry standard for adding vector similarity search to Postgres. Supports L2 distance, inner product, and cosine distance for embeddings.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Neon Serverless Postgres",
+            "description": "Postgres implementation featuring storage/compute separation and an HTTP driver for accessing data from serverless environments without connection limits.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Supabase Vector",
+            "description": "A managed pgvector environment that includes a client-side library for performing vector similarity searches directly from the frontend or edge functions.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Turso (libSQL)",
+            "description": "SQLite-based edge database that supports vector extensions, optimized for low-latency access in globally distributed applications.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Cloudflare D1 Vector Search",
+            "description": "Native vector search capabilities within Cloudflare's distributed SQLite database, allowing for semantic search at the edge.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "MongoDB Atlas Vector Search",
+            "description": "Enables vector search on unstructured BSON data, allowing developers to store metadata and embeddings in a single document.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "RedisVL (Redis Vector Library)",
+            "description": "A purpose-built library for using Redis as a vector database, ideal for high-speed semantic caching and session-based RAG.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "PlanetScale Boost",
+            "description": "A specialized query caching layer for MySQL that can be used to accelerate the retrieval of AI-related metadata and conversation histories.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "ClickHouse Vector Search",
+            "description": "High-performance analytical database used for massive-scale vector similarity searches where ingestion speed is a bottleneck.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "TiDB Serverless Vector",
+            "description": "MySQL-compatible distributed database with built-in vector search support, designed for scaling AI workloads horizontally.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Data Access, ORMs, and Schema Management",
+        "items": [
+          {
+            "title": "Drizzle ORM pgvector Extension",
+            "description": "Provides TypeScript-first schema definitions for vector columns and helper functions for distance-based filtering.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Prisma $queryRaw for Vectors",
+            "description": "Implementation pattern for executing vector similarity searches using raw SQL within Prisma while maintaining type safety for other models.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Kysely-pgvector",
+            "description": "Type-safe SQL query builder integration for pgvector, allowing for complex joins between relational data and vector results.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Atlas Schema Migrations",
+            "description": "A database schema management tool that supports HNSW and IVFFlat index declarations for pgvector in declarative HCL files.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "TypeORM Vector Transformers",
+            "description": "Using custom value transformers to map float arrays to Postgres vector types in NestJS or Node.js applications.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Prisma Accelerate",
+            "description": "A global database cache and connection pooler that solves the connection exhaustion problem common in serverless AI apps.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "SQLAlchemy pgvector (Python)",
+            "description": "The primary integration for Python-based AI backends to manage vector storage within a relational SQLAlchemy model.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Drizzle Kit Migrations",
+            "description": "CLI tool for generating SQL migrations that correctly handle adding vector dimensions and modifying HNSW index parameters.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "EdgeDB AI",
+            "description": "A graph-relational database that treats vectors as first-class citizens with a high-level query language (EdgeQL) for RAG.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "PostgREST Vector RPCs",
+            "description": "Exposing pgvector similarity functions as RESTful endpoints by wrapping them in Postgres stored procedures.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Infrastructure & Optimization Tools",
+        "items": [
+          {
+            "title": "PgBouncer Configuration",
+            "description": "Configuring transaction-mode pooling to handle the high volume of short-lived connections from AI worker processes.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Neon Serverless Driver",
+            "description": "A WebSocket-based driver that allows querying Postgres over HTTP, bypassing TCP connection overhead in edge environments.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "HNSW Index Tuning",
+            "description": "Optimizing m and ef_construction parameters in pgvector to balance search speed against memory consumption.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "IVFFlat Centroid Calculation",
+            "description": "Strategy for determining the optimal number of lists for IVFFlat indexes based on total row count for faster search.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Semantic Caching with Redis",
+            "description": "Using vector similarity to check if a similar prompt has been answered, reducing LLM API costs and database load.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Postgres Table Partitioning",
+            "description": "Splitting large vector tables by time or metadata category to improve index maintenance and query performance.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Vector Quantization Techniques",
+            "description": "Reducing the precision of embeddings (e.g., from float32 to int8) to decrease the storage footprint and memory usage in Postgres.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Supabase Hyperion",
+            "description": "An optimized connection pooler designed specifically for massive scale in serverless Postgres environments.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Upstash Vector",
+            "description": "A serverless vector database with an HTTP API, designed for use cases where zero-configuration and edge compatibility are required.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Zilliz Cloud (Managed Milvus)",
+            "description": "Transition path for applications that outgrow pgvector, providing a dedicated engine for billion-scale vector search.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always normalize your vectors to unit length (magnitude of 1.0) before insertion to use dot product distance, which is computationally cheaper than cosine distance.",
+      "Store original text or source metadata in a JSONB column within the same table as the vector to enable hybrid filtering in a single SQL query.",
+      "Wait until you have at least 1,000-5,000 rows before creating an IVFFlat or HNSW index; otherwise, sequential scans are often faster for small datasets.",
+      "Use a dedicated database schema for conversation memory with TTL (Time-To-Live) logic to prevent vector indexes from bloating with stale session data.",
+      "When using serverless functions, utilize HTTP-based database drivers instead of standard TCP drivers to avoid the 'too many connections' error during traffic spikes."
+    ]
+  }
+}

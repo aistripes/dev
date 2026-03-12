@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "prompt-engineering",
+    "generated_at": "2026-03-12T22:38:04.451Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Prompt Engineering resources for developers",
+    "description": "A curated set of practical Prompt Engineering resources for engineers.",
+    "keywords": [
+      "prompt-engineering",
+      "prompt engineering",
+      "resource-article"
+    ],
+    "slug": "prompt-engineering-resource-article-100-prompt-engineering-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource guide provides developers with the specific patterns, evaluation frameworks, and implementation tools required to move beyond basic chat interfaces and build reliable, production-grade LLM applications. It focuses on systematic prompt engineering, structured output enforcement, and regression testing.",
+    "sections": [
+      {
+        "heading": "Core Prompting Patterns and Techniques",
+        "items": [
+          {
+            "title": "Chain-of-Thought (CoT) Reasoning",
+            "description": "Instruct the model to 'think step-by-step' before providing a final answer to improve performance on logic and math tasks.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Few-Shot In-Context Learning",
+            "description": "Provide 3-5 high-quality examples of input-output pairs within the prompt to define specific formatting and stylistic requirements.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "XML Tagging for Context Separation",
+            "description": "Use tags like <context>, <instruction>, and <examples> to help models like Claude 3.5 Sonnet distinguish between metadata and task data.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Chain-of-Verification (CoVe)",
+            "description": "A multi-step process where the model generates a response, identifies its own potential errors, and verifies facts before final output.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Skeleton-of-Thought (SoT)",
+            "description": "Prompt the model to generate a high-level outline first, then expand each section to reduce latency and improve structural coherence.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Negative Constraints and Guardrails",
+            "description": "Explicitly list forbidden words, topics, or formats (e.g., 'Do not use markdown') to prevent unwanted output behavior.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Persona-Based System Prompts",
+            "description": "Define a specific professional role (e.g., 'You are a Senior Site Reliability Engineer') to prime the model for specific technical jargon and tone.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Self-Consistency Sampling",
+            "description": "Generate multiple outputs for the same prompt and use a majority vote or LLM-as-a-judge to select the most accurate result.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Dynamic Context Window Management",
+            "description": "Using RAG or sliding windows to pass only the most relevant 20-30% of document context to avoid the 'lost in the middle' phenomenon.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Output Formatting via Pydantic",
+            "description": "Force the model to return valid JSON by providing a strict schema, often implemented via libraries like Instructor.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Evaluation and Observability Tools",
+        "items": [
+          {
+            "title": "Promptfoo CLI",
+            "description": "A matrix testing tool that allows you to run prompts against multiple models and check outputs against predefined assertions.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "LangSmith (LangChain)",
+            "description": "A platform for tracing, debugging, and evaluating LLM applications with integrated dataset management for regression testing.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Braintrust",
+            "description": "An enterprise-grade stack for logging LLM calls, managing prompt versions, and running automated evaluation workflows.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "DeepEval (Pytest for LLMs)",
+            "description": "A Python framework for unit testing LLM outputs based on metrics like faithfulness, relevance, and hallucination scores.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Helicone",
+            "description": "An open-source observability proxy that tracks costs, latency, and token usage for OpenAI and Anthropic requests.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "PromptLayer",
+            "description": "A middleware for logging and versioning prompts, allowing developers to roll back to previous prompt iterations without code changes.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Giskard",
+            "description": "An open-source library for detecting vulnerabilities, hallucinations, and biases in LLM-based applications.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Honeycomb LLM Observability",
+            "description": "Distributed tracing for LLMs to understand the latency impact of each step in a complex multi-agent chain.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Weights & Biases Prompts",
+            "description": "A suite of tools for visualizing and inspecting the execution flow of LLM chains and pipelines.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Arize Phoenix",
+            "description": "Open-source observability for RAG and LLM applications, focusing on embedding visualization and retrieval evaluation.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Structured Output and Tooling",
+        "items": [
+          {
+            "title": "Instructor Library",
+            "description": "The industry standard for getting structured data (JSON) from LLMs using Pydantic models for Python or Zod for TS.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Vercel AI SDK (generateObject)",
+            "description": "A unified interface for generating type-safe JSON objects across OpenAI, Anthropic, and Google Gemini models.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Outlines (by .txt)",
+            "description": "A library for neural text generation that uses regex and context-free grammars to guarantee 100% valid JSON or code.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "LMQL (Language Model Query Language)",
+            "description": "A programming language that combines logic programming with LLM generation to constrain output at the token level.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Guidance (Microsoft)",
+            "description": "A template language for controlling LLMs, allowing you to interleave generation, control flow, and fixed strings.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Marvin AI",
+            "description": "A lightweight library that uses LLMs to power standard Python functions, handling the prompt engineering under the hood.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "TypeChat",
+            "description": "Microsoft's library for replacing complex prompt engineering with schema-based type definitions to guide model output.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Jsonformer",
+            "description": "A library specifically designed to fill in the values of a JSON schema while the structure is pre-defined, saving tokens.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "SGLang",
+            "description": "A fast backend and frontend for structured generation, optimized for high-throughput serving and complex control flow.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Portkey AI Gateway",
+            "description": "A control plane to manage multiple LLMs with built-in retries, fallbacks, and load balancing across providers.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Use XML tags for Anthropic Claude models to separate instructions from input data; it significantly reduces instruction-following failures.",
+      "Implement 'Prompt Caching' on supported models (Anthropic, Gemini) to reduce costs and latency by up to 90% for long system instructions.",
+      "Avoid using superlatives like 'be creative' or 'be amazing'; instead, provide quantitative metrics or specific examples of what 'good' looks like.",
+      "Always specify the exact model version (e.g., gpt-4o-2024-05-13) in production to avoid silent regressions when providers update their aliases.",
+      "Log your 'LLM-as-a-judge' scores alongside human evaluations to calibrate your automated testing suite before relying on it for CI/CD."
+    ]
+  }
+}

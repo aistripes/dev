@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "vps-hosting",
+    "generated_at": "2026-03-12T22:38:31.597Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building VPS Hosting (Hetzner, etc.) with open-source tools",
+    "description": "A step-by-step implementation guide for VPS Hosting (Hetzner, etc.) with open-source tools.",
+    "keywords": [
+      "vps-hosting",
+      "vps hosting (hetzner, etc.)",
+      "guide"
+    ],
+    "slug": "vps-hosting-guide-building-vps-hosting-hetzner-etc-with-open-source-tools"
+  },
+  "content": {
+    "intro": "Transitioning from managed platforms like Vercel or Heroku to a VPS (Hetzner, OVH, etc.) requires manual implementation of security, routing, and deployment pipelines. This guide provides a production-ready sequence to transform a fresh Ubuntu installation into a hardened, automated application host using Docker and Caddy.",
+    "estimated_time": "45-60 minutes",
+    "prerequisites": [
+      "A fresh VPS instance (Ubuntu 22.04 or 24.04 recommended)",
+      "A registered domain name with DNS access",
+      "Local SSH client and generated SSH key pair",
+      "Basic familiarity with Docker and the Linux command line"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initial Access and SSH Hardening",
+        "explanation": "Disable password-based authentication and change the default SSH port to mitigate automated brute-force attacks. Always verify your key-based access in a second terminal before closing your current session.",
+        "code": {
+          "language": "bash",
+          "content": "mkdir -p ~/.ssh && chmod 700 ~/.ssh\necho \"your-public-key-content\" >> ~/.ssh/authorized_keys\nchmod 600 ~/.ssh/authorized_keys\nsedo -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config\nsedo -i 's/PermitRootLogin yes/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config\nsystemctl restart ssh",
+          "filename": "setup_ssh.sh"
+        },
+        "pitfalls": [
+          "Locking yourself out of the server by disabling passwords before successfully testing SSH key access.",
+          "Forgetting to update the SSH port in your local ~/.ssh/config if you choose a non-standard port."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Firewall Configuration and Fail2Ban",
+        "explanation": "Configure the Uncomplicated Firewall (UFW) to only allow essential traffic and install Fail2Ban to automatically ban IP addresses that exhibit malicious behavior.",
+        "code": {
+          "language": "bash",
+          "content": "apt update && apt install ufw fail2ban -y\nufw allow 22/tcp\nufw allow 80/tcp\nufw allow 443/tcp\nufw enable\ncp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local\nsystemctl enable fail2ban\nsystemctl start fail2ban",
+          "filename": "security.sh"
+        },
+        "pitfalls": [
+          "Enabling the firewall before allowing the SSH port, which will immediately drop your connection.",
+          "Over-restricting ports needed for Docker internal networking if using complex custom bridges."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Docker Engine and Compose Setup",
+        "explanation": "Install Docker to containerize applications, ensuring environment parity between local development and the VPS. This eliminates 'works on my machine' issues common in manual VPS setups.",
+        "code": {
+          "language": "bash",
+          "content": "curl -fsSL https://get.docker.com -o get-docker.sh\nsh get-docker.sh\nusermod -aG docker ${USER}\ndocker compose version",
+          "filename": "install_docker.sh"
+        },
+        "pitfalls": [
+          "Using the outdated 'docker-compose' (Python version) instead of the modern 'docker compose' V2 plugin.",
+          "Failing to logout/login after adding the user to the docker group, resulting in permission denied errors."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Reverse Proxy Deployment with Caddy",
+        "explanation": "Use Caddy as a reverse proxy to handle automatic SSL certificate issuance and renewal via Let's Encrypt. Caddy's configuration is significantly more concise than Nginx for standard VPS use cases.",
+        "code": {
+          "language": "caddyfile",
+          "content": "app.example.com {\n    reverse_proxy localhost:3000\n    header {\n        Strict-Transport-Security \"max-age=31536000;\"\n        X-Content-Type-Options nosniff\n        X-Frame-Options DENY\n    }\n}",
+          "filename": "Caddyfile"
+        },
+        "pitfalls": [
+          "DNS propagation delay: SSL issuance will fail if the A record for the domain does not yet point to the VPS IP.",
+          "Port conflicts if another service (like default Apache/Nginx) is already listening on port 80."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Automated Deployment via GitHub Actions",
+        "explanation": "Set up a continuous deployment pipeline that builds a Docker image and triggers a remote update on the VPS. This avoids manual 'git pull' and 'docker restart' commands on the server.",
+        "code": {
+          "language": "yaml",
+          "content": "jobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Deploy via SSH\n        uses: appleboy/ssh-action@master\n        with:\n          host: ${{ secrets.HOST }}\n          username: root\n          key: ${{ secrets.SSH_KEY }}\n          script: |\n            cd /app\n            docker compose pull\n            docker compose up -d",
+          "filename": "deploy.yml"
+        },
+        "pitfalls": [
+          "Storing the private SSH key in plain text in the repository instead of using GitHub Secrets.",
+          "Failing to include a health check in the docker-compose.yml, which can lead to zero-downtime deployment failures."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Automated Backups and Maintenance",
+        "explanation": "Configure unattended-upgrades for security patches and set up a cron job to backup application databases/volumes to off-site storage (e.g., S3 or Hetzner Storage Box).",
+        "code": {
+          "language": "bash",
+          "content": "apt install unattended-upgrades -y\ndpkg-reconfigure -plow unattended-upgrades\n# Example daily DB backup cron\n0 2 * * * docker exec db_container pg_dump -U user dbname > /backups/db_$(date +\\%F).sql",
+          "filename": "backup_config.sh"
+        },
+        "pitfalls": [
+          "Assuming provider-level snapshots are sufficient; snapshots often don't guarantee database consistency unlike dumps.",
+          "Disk exhaustion caused by storing backups locally on the VPS without a rotation/cleanup policy."
+        ]
+      }
+    ],
+    "conclusion": "Your VPS is now secured, routed via SSL, and integrated into a CI/CD pipeline. To scale further, consider moving from a single-server setup to a managed database (like Hetzner Managed Postgres) or implementing a lightweight orchestrator like Kamal or Coolify to manage multiple containers across different nodes."
+  }
+}

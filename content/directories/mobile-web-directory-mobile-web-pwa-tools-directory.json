@@ -1,0 +1,298 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "mobile-web",
+    "generated_at": "2026-03-12T22:38:53.990Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Mobile Web / PWA tools directory",
+    "description": "A developer-first directory of Mobile Web / PWA tools and references.",
+    "keywords": [
+      "mobile-web",
+      "mobile web / pwa",
+      "directory"
+    ],
+    "slug": "mobile-web-directory-mobile-web-pwa-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of essential tools, libraries, and platforms for developing, testing, and deploying high-performance Progressive Web Apps and mobile-first web experiences.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Frameworks & Libraries",
+          "Testing & Auditing",
+          "Push Notifications",
+          "Native Bridges",
+          "Asset Optimization",
+          "Documentation"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Workbox",
+        "description": "A set of libraries for adding offline support and handling service worker caching strategies like Stale-While-Revalidate.",
+        "url": "https://developer.chrome.com/docs/workbox/",
+        "category": "Frameworks & Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Simplifies complex service worker lifecycle management",
+          "Pre-built strategies for common caching needs",
+          "Modular architecture allows importing only required features"
+        ],
+        "cons": [
+          "Steep learning curve for advanced custom strategies",
+          "Debugging service workers remains difficult even with abstraction"
+        ],
+        "tags": [
+          "service-worker",
+          "offline-first",
+          "caching"
+        ]
+      },
+      {
+        "name": "PWA Builder",
+        "description": "Microsoft-backed tool to generate web app manifests and package PWAs for distribution in app stores like Google Play and Microsoft Store.",
+        "url": "https://www.pwabuilder.com/",
+        "category": "Frameworks & Libraries",
+        "pricing_model": "free",
+        "pros": [
+          "Automated manifest generation and validation",
+          "Simplifies the packaging process for app stores",
+          "Provides snippet library for common PWA features"
+        ],
+        "cons": [
+          "Generated code can be verbose",
+          "Store submission still requires manual developer accounts"
+        ],
+        "tags": [
+          "deployment",
+          "manifest",
+          "app-stores"
+        ]
+      },
+      {
+        "name": "Vite PWA Plugin",
+        "description": "Zero-config PWA integration for Vite-based projects with built-in asset hashing and service worker generation.",
+        "url": "https://vite-pwa-org.netlify.app/",
+        "category": "Frameworks & Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Fast integration with React, Vue, and Svelte",
+          "Automatic asset discovery and caching",
+          "Supports both generateSW and injectManifest modes"
+        ],
+        "cons": [
+          "Limited to the Vite ecosystem",
+          "Requires understanding of Vite's build lifecycle"
+        ],
+        "tags": [
+          "vite",
+          "build-tools",
+          "automation"
+        ]
+      },
+      {
+        "name": "Lighthouse",
+        "description": "Automated tool for improving the quality of web pages, specifically auditing PWA criteria, performance, and accessibility.",
+        "url": "https://developer.chrome.com/docs/lighthouse/",
+        "category": "Testing & Auditing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standardized PWA checklist validation",
+          "Actionable performance optimization suggestions",
+          "Integrates directly into Chrome DevTools"
+        ],
+        "cons": [
+          "Synthetic results may differ from real-world user metrics",
+          "High CPU usage during local audits"
+        ],
+        "tags": [
+          "audit",
+          "performance",
+          "compliance"
+        ]
+      },
+      {
+        "name": "Capacitor",
+        "description": "Cross-platform native bridge that allows web apps to access native device APIs and run as truly native apps.",
+        "url": "https://capacitorjs.com/",
+        "category": "Native Bridges",
+        "pricing_model": "open-source",
+        "pros": [
+          "Direct access to native APIs using JavaScript",
+          "Compatible with any web framework",
+          "Much lighter than traditional Cordova implementations"
+        ],
+        "cons": [
+          "Requires Xcode or Android Studio for native builds",
+          "Plugins may lag behind native OS updates"
+        ],
+        "tags": [
+          "hybrid-apps",
+          "native-api",
+          "mobile"
+        ]
+      },
+      {
+        "name": "OneSignal",
+        "description": "Push notification service providing a unified SDK for web and mobile push notifications with segmentation features.",
+        "url": "https://onesignal.com/",
+        "category": "Push Notifications",
+        "pricing_model": "freemium",
+        "pros": [
+          "Robust support for web push on iOS and Android",
+          "User segmentation and automated messaging workflows",
+          "Detailed delivery and click-through analytics"
+        ],
+        "cons": [
+          "Free tier includes data sharing clauses",
+          "Advanced features require expensive enterprise plans"
+        ],
+        "tags": [
+          "notifications",
+          "engagement",
+          "marketing"
+        ]
+      },
+      {
+        "name": "WebPageTest",
+        "description": "Advanced performance testing tool that simulates real-world mobile devices and network throttling conditions.",
+        "url": "https://www.webpagetest.org/",
+        "category": "Testing & Auditing",
+        "pricing_model": "freemium",
+        "pros": [
+          "Tests on actual physical mobile hardware",
+          "Visual comparison of filmstrip views during page load",
+          "Detailed waterfall charts for resource bottlenecks"
+        ],
+        "cons": [
+          "Interface is dense and complex for beginners",
+          "Public test queues can be long on free tier"
+        ],
+        "tags": [
+          "performance",
+          "mobile-testing",
+          "waterfall"
+        ]
+      },
+      {
+        "name": "Maskable.app",
+        "description": "Utility for testing and creating maskable icons to ensure PWA icons look correct across different Android launcher shapes.",
+        "url": "https://maskable.app/",
+        "category": "Asset Optimization",
+        "pricing_model": "free",
+        "pros": [
+          "Visual preview of icons in circle, square, and teardrop shapes",
+          "Ensures icons meet Android's safe zone requirements",
+          "Simple drag-and-drop editor"
+        ],
+        "cons": [
+          "Single-purpose tool with limited functionality",
+          "No bulk export for all splash screen sizes"
+        ],
+        "tags": [
+          "icons",
+          "ui-ux",
+          "android"
+        ]
+      },
+      {
+        "name": "Squoosh",
+        "description": "Image compression tool by Google Chrome Labs that allows comparing different codecs like WebP and AVIF for mobile optimization.",
+        "url": "https://squoosh.app/",
+        "category": "Asset Optimization",
+        "pricing_model": "open-source",
+        "pros": [
+          "Side-by-side visual comparison of compression loss",
+          "Supports modern formats like AVIF and WebP",
+          "Runs entirely in the browser for privacy"
+        ],
+        "cons": [
+          "Manual processing is slow for large asset sets",
+          "No native CLI for automated build pipelines"
+        ],
+        "tags": [
+          "images",
+          "optimization",
+          "performance"
+        ]
+      },
+      {
+        "name": "Firebase Cloud Messaging",
+        "description": "Google's infrastructure for sending push notifications and data messages to web and mobile clients.",
+        "url": "https://firebase.google.com/docs/cloud-messaging",
+        "category": "Push Notifications",
+        "pricing_model": "free",
+        "pros": [
+          "High reliability and massive scale",
+          "Deep integration with other Firebase services",
+          "No cost for basic message delivery"
+        ],
+        "cons": [
+          "Requires complex setup of service worker listeners",
+          "Documentation can be fragmented across different versions"
+        ],
+        "tags": [
+          "notifications",
+          "firebase",
+          "google"
+        ]
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework designed for building responsive, mobile-first layouts without leaving HTML.",
+        "url": "https://tailwindcss.com/",
+        "category": "Frameworks & Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Mobile-first breakpoint system is intuitive",
+          "Removes unused CSS automatically for smaller bundles",
+          "Consistent design tokens for mobile UI components"
+        ],
+        "cons": [
+          "Initial HTML can become cluttered with classes",
+          "Requires a build step for optimal performance"
+        ],
+        "tags": [
+          "css",
+          "ui",
+          "mobile-first"
+        ]
+      },
+      {
+        "name": "BrowserStack",
+        "description": "Cloud-based platform to test web applications on thousands of real mobile devices and browsers.",
+        "url": "https://www.browserstack.com/",
+        "category": "Testing & Auditing",
+        "pricing_model": "paid",
+        "pros": [
+          "Access to real physical devices, not just emulators",
+          "Supports local testing behind firewalls",
+          "Integrates with CI/CD pipelines for automated testing"
+        ],
+        "cons": [
+          "Subscription costs are high for small teams",
+          "Latency can occur during interactive remote sessions"
+        ],
+        "tags": [
+          "cross-browser",
+          "testing",
+          "qa"
+        ]
+      }
+    ]
+  }
+}

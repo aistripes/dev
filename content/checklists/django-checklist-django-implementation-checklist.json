@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "django",
+    "generated_at": "2026-03-12T22:37:58.838Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Django implementation checklist",
+    "description": "A practical checklist for shipping Django projects safely.",
+    "keywords": [
+      "django",
+      "checklist"
+    ],
+    "slug": "django-checklist-django-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical verification path for transitioning Django applications from development to production environments, focusing on performance, security, and scalability.",
+    "sections": [
+      {
+        "heading": "Security and Environment Configuration",
+        "items": [
+          {
+            "title": "Disable Debug Mode",
+            "description": "Set DEBUG=False in the production settings to prevent the exposure of sensitive tracebacks and environment variables.",
+            "priority": "critical"
+          },
+          {
+            "title": "Secret Key Externalization",
+            "description": "Ensure SECRET_KEY is loaded from an environment variable or a secret manager, and is not hardcoded in the repository.",
+            "priority": "critical"
+          },
+          {
+            "title": "Secure Cookie Settings",
+            "description": "Set SESSION_COOKIE_SECURE=True and CSRF_COOKIE_SECURE=True to ensure cookies are only transmitted over HTTPS.",
+            "priority": "critical"
+          },
+          {
+            "title": "Host Header Validation",
+            "description": "Define ALLOWED_HOSTS with specific domain names to prevent HTTP Host header attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "HSTS Implementation",
+            "description": "Set SECURE_HSTS_SECONDS, SECURE_HSTS_INCLUDE_SUBDOMAINS, and SECURE_HSTS_PRELOAD to enforce SSL at the browser level.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Database and Performance Optimization",
+        "items": [
+          {
+            "title": "Database Connection Pooling",
+            "description": "Set CONN_MAX_AGE to a value (e.g., 60) to persist database connections and reduce overhead on high-traffic sites.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Index Verification",
+            "description": "Audit models for db_index=True or Meta.indexes on fields used in filtering and ordering to prevent full table scans.",
+            "priority": "critical"
+          },
+          {
+            "title": "N+1 Query Audit",
+            "description": "Review views and serializers for missing select_related or prefetch_related calls on foreign key and many-to-many relationships.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Database Migration Dry-Run",
+            "description": "Verify that all migrations have been applied and that no pending model changes exist via 'python manage.py makemigrations --check'.",
+            "priority": "critical"
+          },
+          {
+            "title": "Read-Replica Routing",
+            "description": "Configure a database router if using read-replicas to offload SELECT queries from the primary write database.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "API and DRF Standards",
+        "items": [
+          {
+            "title": "Global Throttling Policy",
+            "description": "Configure DEFAULT_THROTTLE_CLASSES and DEFAULT_THROTTLE_RATES in DRF settings to prevent API abuse.",
+            "priority": "critical"
+          },
+          {
+            "title": "Mandatory Pagination",
+            "description": "Enforce DEFAULT_PAGINATION_CLASS for all list views to prevent large database dumps from crashing the application.",
+            "priority": "critical"
+          },
+          {
+            "title": "CORS Whitelist",
+            "description": "Configure django-cors-headers to only allow requests from trusted frontend origins.",
+            "priority": "critical"
+          },
+          {
+            "title": "Schema Documentation",
+            "description": "Generate and verify OpenAPI/Swagger documentation using drf-spectacular or similar tools for consumer integration.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Renderer Optimization",
+            "description": "Remove BrowsableAPIRenderer from production settings to reduce response payload size and overhead.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Async and Background Tasks",
+        "items": [
+          {
+            "title": "Broker Connectivity and Security",
+            "description": "Ensure Celery/Redis connections use TLS/SSL and that the broker is not accessible from the public internet.",
+            "priority": "critical"
+          },
+          {
+            "title": "Worker Concurrency Limits",
+            "description": "Configure worker concurrency based on available CPU/RAM to prevent OOM (Out of Memory) kills during peak loads.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Task Result Expiry",
+            "description": "Set CELERY_RESULT_BACKEND_MAX_AGE to prevent the result backend database from growing indefinitely.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Dead Letter Queues",
+            "description": "Implement retry logic with exponential backoff and a dead-letter queue for failing background tasks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "ASGI Timeout Configuration",
+            "description": "If using async views, configure the ASGI server (e.g., Daphne/Uvicorn) timeouts to match the expected load-balancer timeout.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Static Files and Assets",
+        "items": [
+          {
+            "title": "Manifest Storage",
+            "description": "Use ManifestStaticFilesStorage to enable cache-busting by appending MD5 hashes to filenames.",
+            "priority": "recommended"
+          },
+          {
+            "title": "WhiteNoise Integration",
+            "description": "Configure WhiteNoise or a dedicated CDN to serve static files efficiently without hitting the Django process.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Media File Externalization",
+            "description": "Ensure MEDIA_ROOT is pointed to a persistent volume or cloud storage (S3) rather than ephemeral container storage.",
+            "priority": "critical"
+          },
+          {
+            "title": "Collection Verification",
+            "description": "Run 'python manage.py collectstatic --noinput' as part of the CI/CD pipeline to verify asset integrity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Compression Implementation",
+            "description": "Enable Gzip or Brotli compression for static assets via WhiteNoise or Nginx configuration.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Logging and Monitoring",
+        "items": [
+          {
+            "title": "Structured Logging",
+            "description": "Configure JSON logging formatters to allow ELK or Splunk stacks to parse Django logs effectively.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Error Tracking Integration",
+            "description": "Initialize Sentry or a similar SDK to capture unhandled exceptions and performance bottlenecks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Health Check Endpoint",
+            "description": "Implement a /health/ endpoint that checks database and cache connectivity for load balancer liveness probes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Query Logging Thresholds",
+            "description": "Set up alerts for slow queries exceeding a specific millisecond threshold in the database layer.",
+            "priority": "optional"
+          },
+          {
+            "title": "Log Rotation",
+            "description": "Ensure file-based logs (if used) have rotation policies to prevent disk exhaustion.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

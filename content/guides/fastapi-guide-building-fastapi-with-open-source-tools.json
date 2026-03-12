@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "fastapi",
+    "generated_at": "2026-03-12T22:38:07.639Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building FastAPI with open-source tools",
+    "description": "A step-by-step implementation guide for FastAPI with open-source tools.",
+    "keywords": [
+      "fastapi",
+      "guide"
+    ],
+    "slug": "fastapi-guide-building-fastapi-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a production-ready FastAPI architecture designed for high-concurrency LLM streaming and asynchronous database management. It focuses on solving common bottlenecks in project structure, connection pooling, and non-blocking I/O.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "Python 3.10+",
+      "PostgreSQL",
+      "Docker and Docker Compose",
+      "Basic understanding of Python Type Hinting and Asyncio"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Establish a Scalable Directory Structure",
+        "explanation": "Move beyond single-file applications by separating concerns into discrete modules. Use an 'app' directory containing 'api' (routes), 'core' (config/security), 'models' (SQLAlchemy), and 'schemas' (Pydantic). This prevents circular imports and simplifies testing.",
+        "code": {
+          "language": "text",
+          "content": "project_root/\n├── app/\n│   ├── api/          # Route handlers\n│   ├── core/         # Config, security, constants\n│   ├── models/       # Database models\n│   ├── schemas/      # Pydantic models\n│   ├── services/     # Business logic/LLM clients\n│   └── main.py       # Application entry point\n├── alembic/          # Database migrations\n└── docker-compose.yml"
+        },
+        "pitfalls": [
+          "Placing business logic directly inside route handlers, making unit testing difficult.",
+          "Circular dependencies between models and schemas."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure Asynchronous SQLAlchemy and Connection Pooling",
+        "explanation": "Use 'sqlalchemy.ext.asyncio' with 'asyncpg' to handle database operations without blocking the event loop. Configure the engine with 'pool_size' and 'max_overflow' based on your expected concurrent user load.",
+        "code": {
+          "language": "python",
+          "content": "from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession\n\nDATABASE_URL = \"postgresql+asyncpg://user:pass@localhost/db\"\n\nengine = create_async_engine(\n    DATABASE_URL,\n    pool_size=20,\n    max_overflow=10,\n    pool_pre_ping=True\n)\n\nAsyncSessionLocal = async_sessionmaker(\n    bind=engine,\n    autoflush=False,\n    autocommit=False,\n    expire_on_commit=False\n)",
+          "filename": "app/core/db.py"
+        },
+        "pitfalls": [
+          "Using a synchronous driver like 'psycopg2' which blocks the FastAPI event loop.",
+          "Setting pool_size too high, exceeding the PostgreSQL 'max_connections' limit."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Dependency Injection for Database Sessions",
+        "explanation": "Create a dependency that yields a session to ensure every request gets its own connection and that the connection is properly closed after the request finishes, even if an exception occurs.",
+        "code": {
+          "language": "python",
+          "content": "from typing import AsyncGenerator\nfrom app.core.db import AsyncSessionLocal\n\nasync def get_db() -> AsyncGenerator:\n    async with AsyncSessionLocal() as session:\n        try:\n            yield session\n            await session.commit()\n        except Exception:\n            await session.rollback()\n            raise\n        finally:\n            await session.close()",
+          "filename": "app/api/deps.py"
+        },
+        "pitfalls": [
+          "Forgetting to call 'await session.close()', leading to connection leaks.",
+          "Sharing a single session object across multiple concurrent requests."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Create a Streaming LLM Response Endpoint",
+        "explanation": "Use FastAPI's 'StreamingResponse' with an async generator to pipe tokens from an LLM provider (like OpenAI or a local vLLM instance) to the client. This reduces perceived latency by providing data as it is generated.",
+        "code": {
+          "language": "python",
+          "content": "from fastapi import APIRouter\nfrom fastapi.responses import StreamingResponse\n\nrouter = APIRouter()\n\nasync def mock_llm_generator():\n    tokens = [\"FastAPI\", \" is\", \" extremely\", \" fast.\"]\n    for token in tokens:\n        yield f\"data: {token}\\n\\n\"\n        await asyncio.sleep(0.1)\n\n@router.get(\"/stream\")\nasync def stream_llm():\n    return StreamingResponse(mock_llm_generator(), media_type=\"text/event-stream\")",
+          "filename": "app/api/v1/llm.py"
+        },
+        "pitfalls": [
+          "Not setting the correct 'media_type', which can cause browsers to buffer the response.",
+          "Using a synchronous generator that blocks the worker while waiting for the next token."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Optimize Deployment with Gunicorn and Uvicorn Workers",
+        "explanation": "For production, run FastAPI behind Gunicorn using the Uvicorn worker class. This provides process management (Gunicorn) while retaining async capabilities (Uvicorn). Set the number of workers to (2 x $num_cores) + 1.",
+        "code": {
+          "language": "bash",
+          "content": "CMD [\"gunicorn\", \"-w\", \"4\", \"-k\", \"uvicorn.workers.UvicornWorker\", \"app.main:app\", \"--bind\", \"0.0.0.0:8000\"]",
+          "filename": "Dockerfile"
+        },
+        "pitfalls": [
+          "Running with '--reload' in production, which significantly degrades performance.",
+          "Using an insufficient number of workers for CPU-bound tasks like Pydantic validation on large payloads."
+        ]
+      }
+    ],
+    "conclusion": "Following this architecture ensures that your FastAPI application remains maintainable as it grows and performs efficiently under load. By utilizing async database sessions and streaming responses, you maximize the throughput of your hardware while providing a responsive experience for AI-driven features."
+  }
+}

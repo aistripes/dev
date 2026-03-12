@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "programmatic-seo",
+    "generated_at": "2026-03-12T22:38:37.525Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Programmatic SEO implementation checklist",
+    "description": "A practical checklist for shipping Programmatic SEO projects safely.",
+    "keywords": [
+      "programmatic-seo",
+      "programmatic seo",
+      "checklist"
+    ],
+    "slug": "programmatic-seo-checklist-programmatic-seo-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for deploying programmatic SEO campaigns at scale. It focuses on data integrity, template performance, and automated indexing strategies to ensure thousands of pages rank without triggering spam filters.",
+    "sections": [
+      {
+        "heading": "Data Integrity and Validation",
+        "items": [
+          {
+            "title": "Schema Validation with Zod",
+            "description": "Implement Zod or a similar library to validate all incoming data from CSVs, APIs, or databases before the build step to prevent runtime errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Duplicate Slug Detection",
+            "description": "Run a script to identify and resolve duplicate URL slugs across the entire dataset to prevent routing conflicts.",
+            "priority": "critical"
+          },
+          {
+            "title": "Null and Empty Field Handling",
+            "description": "Verify that templates have conditional logic to hide or replace UI sections when data fields are missing, preventing 'ghost' content placeholders.",
+            "priority": "critical"
+          },
+          {
+            "title": "Data Type Consistency",
+            "description": "Ensure numeric fields (prices, counts) are correctly typed and formatted with locale-specific symbols before injection into templates.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Character Limit Verification",
+            "description": "Check that string values for titles and descriptions do not exceed database or HTML length limits, which could truncate important SEO keywords.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "On-Page SEO and Template Design",
+        "items": [
+          {
+            "title": "Dynamic Meta Tag Injection",
+            "description": "Verify that every page generates a unique <title> and <meta name=\"description\"> using specific variables from the dataset.",
+            "priority": "critical"
+          },
+          {
+            "title": "Self-Referential Canonical Tags",
+            "description": "Ensure every programmatically generated page contains a canonical link pointing to its own absolute URL to prevent duplicate content issues.",
+            "priority": "critical"
+          },
+          {
+            "title": "Semantic Header Hierarchy",
+            "description": "Audit templates to ensure H1-H6 tags follow a logical hierarchy and that the H1 contains the primary target long-tail keyword.",
+            "priority": "critical"
+          },
+          {
+            "title": "JSON-LD Schema Implementation",
+            "description": "Inject structured data (e.g., Product, FAQ, or LocalBusiness) dynamically based on the page content to improve Rich Snippet eligibility.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Image Alt Text Automation",
+            "description": "Configure build scripts to generate descriptive alt text for images using primary and secondary keywords from the data row.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Internal Linking Architecture",
+        "items": [
+          {
+            "title": "Breadcrumb Navigation",
+            "description": "Implement a dynamic breadcrumb component that reflects the site hierarchy and provides path-based internal links.",
+            "priority": "critical"
+          },
+          {
+            "title": "Related Pages Component",
+            "description": "Create a logic-based 'Related' section that links to 5-10 pages within the same category or geographic proximity to distribute link equity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Crawl Depth Optimization",
+            "description": "Verify that no programmatic page is more than 3 clicks away from the homepage using a crawler like Screaming Frog.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Hub and Spoke Linking",
+            "description": "Ensure every 'spoke' (leaf page) links back to its parent 'hub' (category page) to strengthen topical authority.",
+            "priority": "recommended"
+          },
+          {
+            "title": "HTML Sitemap Generation",
+            "description": "Generate a paginated HTML sitemap for users and bots to discover pages that might not be prominently featured in the main navigation.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "AI Content Quality and Guardrails",
+        "items": [
+          {
+            "title": "Minimum Word Count Filter",
+            "description": "Set a threshold (e.g., 300 words) for AI-generated sections; discard or flag pages that fall below this to avoid 'thin content' penalties.",
+            "priority": "critical"
+          },
+          {
+            "title": "Keyword Stuffing Audit",
+            "description": "Run a script to check keyword density in AI-generated paragraphs; ensure the primary keyword does not exceed 2-3% of the total text.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Fact-Checking Placeholders",
+            "description": "Scan AI output for generic placeholders like [Insert Info] or [Company Name] that indicate generation failure.",
+            "priority": "critical"
+          },
+          {
+            "title": "Programmatic Variation Check",
+            "description": "Compare 10 random pages to ensure the 'boilerplate' to 'unique content' ratio is healthy (ideally >30% unique content).",
+            "priority": "recommended"
+          },
+          {
+            "title": "LLM Hallucination Filter",
+            "description": "Use a secondary LLM pass or regex patterns to flag impossible data points (e.g., dates in the future or negative prices).",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and Technical Infrastructure",
+        "items": [
+          {
+            "title": "XML Sitemap Fragmentation",
+            "description": "Split XML sitemaps into chunks of 40,000 URLs or 50MB to comply with Search Engine limits and improve indexing speed.",
+            "priority": "critical"
+          },
+          {
+            "title": "Image Optimization Pipeline",
+            "description": "Automate the conversion of all external or dynamic images to WebP/AVIF format and implement lazy-loading.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Static Generation Strategy",
+            "description": "Configure Next.js (ISR) or Astro to pre-render the top 10% of high-traffic pages while generating others on-demand to save build time.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Edge Caching Configuration",
+            "description": "Set Cache-Control headers on Cloudflare or Vercel to cache programmatic pages for at least 24 hours to reduce server load.",
+            "priority": "critical"
+          },
+          {
+            "title": "Robots.txt Configuration",
+            "description": "Explicitly define the path to all XML sitemap fragments within the robots.txt file.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring and Iteration",
+        "items": [
+          {
+            "title": "GSC API Integration",
+            "description": "Connect to the Google Search Console API to monitor indexing status and 'Crawled - currently not indexed' errors for specific sub-folders.",
+            "priority": "recommended"
+          },
+          {
+            "title": "404 Error Tracking",
+            "description": "Set up alerts for spikes in 404 errors, which often indicate a breaking change in the programmatic URL generation logic.",
+            "priority": "critical"
+          },
+          {
+            "title": "Core Web Vitals Sampling",
+            "description": "Run Lighthouse or PageSpeed Insights on a representative sample of 50 programmatic pages to ensure template-wide performance.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Search Intent Alignment Check",
+            "description": "Manually review 20 pages to ensure the programmatically generated content actually answers the query implied by the URL slug.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Conversion Rate Tracking",
+            "description": "Embed unique tracking IDs or hidden fields in CTAs to attribute conversions to specific programmatic clusters.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "no-code-low-code",
+    "generated_at": "2026-03-12T22:38:55.238Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "No-Code / Low-Code Platforms implementation checklist",
+    "description": "A practical checklist for shipping No-Code / Low-Code Platforms projects safely.",
+    "keywords": [
+      "no-code-low-code",
+      "no-code / low-code platforms",
+      "checklist"
+    ],
+    "slug": "no-code-low-code-checklist-no-code-low-code-platforms-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for transitioning a no-code or low-code application from a development prototype to a production environment. It focuses on data integrity, security configurations, and workflow reliability across platforms like Bubble, Xano, and Make.",
+    "sections": [
+      {
+        "heading": "Data Architecture and Integrity",
+        "items": [
+          {
+            "title": "Define Primary Keys and Relationships",
+            "description": "Verify that every table has a unique identifier and that cross-platform relationships (e.g., Airtable to Xano) are mapped using stable IDs rather than names or labels.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Server-Side Validation",
+            "description": "Ensure that data validation logic is enforced at the database level (e.g., Xano/Supabase constraints) rather than just on the visual front-end (e.g., Bubble/Webflow forms).",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Automated Backups",
+            "description": "Enable daily automated snapshots of all primary databases and test a restoration process to verify data recovery time objectives.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit Data Redundancy",
+            "description": "Identify and remove duplicate data entry points between the visual builder and the external backend to prevent synchronization conflicts.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set Up Data Export Scripts",
+            "description": "Create a recurring script or automated workflow to export critical business data into a platform-agnostic format (CSV/JSON) to mitigate vendor lock-in.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Access Control",
+        "items": [
+          {
+            "title": "Enable Row-Level Security (RLS)",
+            "description": "Configure database rules so that users can only access or modify records associated with their specific User ID.",
+            "priority": "critical"
+          },
+          {
+            "title": "Secure API Keys and Secrets",
+            "description": "Move all third-party API keys (OpenAI, Stripe, SendGrid) from front-end elements to server-side environment variables or secret managers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Disable Public API Access",
+            "description": "Verify that all database endpoints are private by default and require a valid Bearer token or API key for access.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enforce Multi-Factor Authentication (MFA)",
+            "description": "Enable MFA for all administrative accounts on the primary no-code platform and connected automation tools.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Audit Plugin Permissions",
+            "description": "Review the permissions of all installed third-party plugins to ensure they do not have unnecessary access to user data or private keys.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and Resource Management",
+        "items": [
+          {
+            "title": "Optimize Asset Delivery",
+            "description": "Compress all images to WebP format and host videos on dedicated CDNs rather than uploading directly to the no-code builder's internal storage.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement List Pagination",
+            "description": "Configure all repeating groups or lists to use pagination or 'load more' functionality to prevent browser crashes on large datasets.",
+            "priority": "critical"
+          },
+          {
+            "title": "Minimize API Round-Trips",
+            "description": "Consolidate multiple sequential API calls into a single backend function or 'Single Source of Truth' endpoint to reduce latency.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set Up Conditional Loading",
+            "description": "Configure visual elements to only render or fetch data when they are visible in the user's viewport.",
+            "priority": "optional"
+          },
+          {
+            "title": "Monitor Platform Capacity",
+            "description": "Check the platform's 'Workflow Units' or 'Capacity' dashboard and set alerts for when usage exceeds 80% of the plan limit.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Automation and Workflow Reliability",
+        "items": [
+          {
+            "title": "Implement Error Handling Paths",
+            "description": "Add 'On Error' branches in Make/Zapier/n8n to catch failed steps and trigger notifications to the engineering team.",
+            "priority": "critical"
+          },
+          {
+            "title": "Use Idempotency Keys",
+            "description": "Ensure that payment or order creation workflows use unique keys to prevent duplicate transactions if a workflow is retried.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Webhook Signatures",
+            "description": "Verify that incoming webhooks from external providers include a valid signature to prevent spoofing attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Dead-Letter Queues",
+            "description": "Set up a dedicated table or log to store data from failed automation runs for manual re-processing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Test Workflow Rate Limits",
+            "description": "Simulate peak load to ensure that automation steps do not trigger rate limits on third-party APIs.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and Governance",
+        "items": [
+          {
+            "title": "Isolate Environments",
+            "description": "Confirm that Development, Staging, and Production environments use separate databases and API keys.",
+            "priority": "critical"
+          },
+          {
+            "title": "Document Custom Code Snippets",
+            "description": "Maintain a central repository (e.g., GitHub or Notion) for all custom CSS, JavaScript, or SQL used within the no-code platform.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set Up Uptime Monitoring",
+            "description": "Configure external monitoring (e.g., UptimeRobot or Better Stack) for the application URL and critical API endpoints.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Review Legal and Compliance",
+            "description": "Verify that data storage locations (e.g., AWS US-East vs EU-West) comply with regional data residency requirements like GDPR.",
+            "priority": "critical"
+          },
+          {
+            "title": "Final Domain and SSL Verification",
+            "description": "Confirm that the custom domain is correctly routed and that the SSL certificate is active and auto-renewing.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "laravel",
+    "generated_at": "2026-03-12T22:38:14.549Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Laravel implementation checklist",
+    "description": "A practical checklist for shipping Laravel projects safely.",
+    "keywords": [
+      "laravel",
+      "checklist"
+    ],
+    "slug": "laravel-checklist-laravel-implementation-checklist"
+  },
+  "content": {
+    "intro": "A comprehensive technical audit for deploying Laravel applications to production environments, ensuring security, performance, and reliability.",
+    "sections": [
+      {
+        "heading": "Environment & Security",
+        "items": [
+          {
+            "title": "Disable Debug Mode",
+            "description": "Verify that APP_DEBUG is set to false in the production .env file to prevent stack traces and sensitive environment variables from being exposed.",
+            "priority": "critical"
+          },
+          {
+            "title": "Generate Application Key",
+            "description": "Ensure APP_KEY is set to a unique 32-character string via 'php artisan key:generate' to secure session cookies and encrypted data.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enforce HTTPS",
+            "description": "Use URL::forceScheme('https') in the AppServiceProvider boot method and ensure the TRUSTED_PROXIES configuration is set for load balancers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Secure Session Cookies",
+            "description": "Set SESSION_SECURE_COOKIE to true and SESSION_HTTP_ONLY to true in config/session.php to prevent cross-site scripting and man-in-the-middle attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Rate Limiting",
+            "description": "Apply the 'throttle' middleware to all authentication and API routes in routes/web.php and routes/api.php to mitigate brute-force attacks.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Performance Optimization",
+        "items": [
+          {
+            "title": "Cache Configuration",
+            "description": "Execute 'php artisan config:cache' during the deployment process to combine all configuration files into a single cached file.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Cache Routes",
+            "description": "Execute 'php artisan route:cache' to reduce the overhead of route registration, especially in applications with hundreds of routes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Optimize Autoloader",
+            "description": "Run 'composer install --optimize-autoloader --no-dev' to ensure the PHP class map is pre-built for faster class loading.",
+            "priority": "critical"
+          },
+          {
+            "title": "Pre-compile Blade Views",
+            "description": "Execute 'php artisan view:cache' to pre-compile Blade templates so they do not need to be compiled on the first request.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Detect N+1 Queries",
+            "description": "Use Model::preventLazyLoading(!app()->isProduction()) during development to ensure all production queries are properly eager-loaded with the 'with' method.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Queues & Background Workers",
+        "items": [
+          {
+            "title": "Set Persistent Queue Driver",
+            "description": "Change QUEUE_CONNECTION from 'sync' to a persistent driver like 'redis' or 'database' in the production environment.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Supervisor",
+            "description": "Create a Supervisor configuration file to manage the 'php artisan queue:work' process and ensure it automatically restarts if it crashes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Horizon",
+            "description": "If using Redis, install Laravel Horizon and verify the dashboard access is restricted via a Gate in the HorizonServiceProvider.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Define Job Timeouts",
+            "description": "Explicitly set the $timeout and $tries properties on job classes to prevent long-running processes from hanging worker threads.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Failed Job Monitoring",
+            "description": "Ensure the failed_jobs table is migrated and configure a notification listener for the JobFailed event.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Database & Storage",
+        "items": [
+          {
+            "title": "Automate Migrations",
+            "description": "Include 'php artisan migrate --force' in the deployment script to update the database schema without manual intervention.",
+            "priority": "critical"
+          },
+          {
+            "title": "Establish Backup Routine",
+            "description": "Configure 'spatie/laravel-backup' to perform daily database dumps and upload them to an external S3 bucket.",
+            "priority": "critical"
+          },
+          {
+            "title": "Link Public Storage",
+            "description": "Run 'php artisan storage:link' on the production server to make files in 'storage/app/public' accessible via the 'public/storage' URL.",
+            "priority": "critical"
+          },
+          {
+            "title": "Redis Eviction Policy",
+            "description": "Verify that the Redis instance used for caching has the 'maxmemory-policy' set to 'allkeys-lru' to prevent memory overflow.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Database Indexing",
+            "description": "Run a query audit to ensure all columns used in 'where', 'order by', and 'join' clauses have appropriate database indexes.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring & Observability",
+        "items": [
+          {
+            "title": "Centralized Error Tracking",
+            "description": "Integrate an external service like Sentry, Flare, or Bugsnag to capture production exceptions and notify the team.",
+            "priority": "critical"
+          },
+          {
+            "title": "Log Rotation Configuration",
+            "description": "Set LOG_CHANNEL to 'daily' or 'syslog' in .env to prevent the application log file from growing indefinitely and consuming disk space.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Health Check Endpoint",
+            "description": "Create a route that verifies database connectivity, cache availability, and disk space, returning a non-200 status on failure.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Performance Monitoring",
+            "description": "Install Laravel Pulse or an APM like New Relic to monitor slow routes, high-memory jobs, and database bottlenecks.",
+            "priority": "optional"
+          },
+          {
+            "title": "Audit Sensitive Actions",
+            "description": "Implement a logging mechanism for high-risk actions such as user deletions, permission changes, or data exports.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Frontend & Assets",
+        "items": [
+          {
+            "title": "Production Asset Build",
+            "description": "Run 'npm run build' to generate minified and versioned CSS and JS files via Vite or Laravel Mix.",
+            "priority": "critical"
+          },
+          {
+            "title": "Tailwind CSS Purge",
+            "description": "Verify that the Tailwind configuration includes all relevant Blade and JS paths to ensure unused CSS is stripped from the production build.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Manage SSR Processes",
+            "description": "If using Inertia.js with Server-Side Rendering, ensure the 'php artisan inertia:start-ssr' process is managed by Supervisor.",
+            "priority": "optional"
+          },
+          {
+            "title": "Content Security Policy",
+            "description": "Implement CSP headers to restrict the sources from which scripts and styles can be loaded, reducing XSS risks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "CDN Integration",
+            "description": "Configure the ASSET_URL in .env to point to a CDN for serving static assets to reduce load on the application server.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

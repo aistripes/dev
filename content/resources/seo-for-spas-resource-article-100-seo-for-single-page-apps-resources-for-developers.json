@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "seo-for-spas",
+    "generated_at": "2026-03-12T22:38:46.741Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 SEO for Single-Page Apps resources for developers",
+    "description": "A curated set of practical SEO for Single-Page Apps resources for engineers.",
+    "keywords": [
+      "seo-for-spas",
+      "seo for single-page apps",
+      "resource-article"
+    ],
+    "slug": "seo-for-spas-resource-article-100-seo-for-single-page-apps-resources-for-developers"
+  },
+  "content": {
+    "intro": "Single-page applications (SPAs) built with React, Vue, or Angular often struggle with SEO because search engine crawlers may not consistently execute the JavaScript required to display content. This resource provides technical solutions for rendering strategies, metadata management, and indexing diagnostics to ensure your SPA is discoverable and ranks effectively.",
+    "sections": [
+      {
+        "heading": "Rendering Strategies and Frameworks",
+        "items": [
+          {
+            "title": "Next.js (SSR/ISR)",
+            "description": "Utilize Server-Side Rendering (SSR) or Incremental Static Regeneration (ISR) to serve pre-rendered HTML to crawlers while maintaining SPA functionality.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Nuxt.js Universal Mode",
+            "description": "Deploy Vue.js applications with built-in server-side rendering to ensure all components are indexed without relying on crawler JS execution.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Angular Universal",
+            "description": "Implement the official SSR engine for Angular to generate static HTML on the server for improved initial load and SEO.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Prerender.io",
+            "description": "Integrate middleware that detects search bots and serves a cached, fully-rendered HTML version of your SPA pages.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Rendertron",
+            "description": "Deploy a headless Chrome rendering solution as a proxy to render and return HTML for bots in real-time.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Astro Islands",
+            "description": "Migrate content-heavy sections to Astro to use partial hydration, serving zero-JS HTML by default while keeping interactive components.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Vite-plugin-ssr",
+            "description": "Add flexible server-side rendering to Vite-based projects without committing to a full framework like Next or Nuxt.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "SvelteKit Static Adapter",
+            "description": "Convert Svelte apps into SEO-friendly static sites during the build process using the '@sveltejs/adapter-static' package.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "React-snap",
+            "description": "A zero-config pre-rendering tool for React apps that crawls your site and saves each route as a static HTML file.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Gatsby Data Layer",
+            "description": "Use Gatsby's GraphQL data layer to generate highly optimized static pages with pre-integrated SEO plugins for React.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Metadata and Structured Data Management",
+        "items": [
+          {
+            "title": "React Helmet Async",
+            "description": "Manage the document head in React apps; use the async version to prevent memory leaks and ensure thread safety during SSR.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Vue Meta 3.0",
+            "description": "Standardize metadata management for Vue 3 apps, allowing dynamic updates to titles and meta tags based on component state.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Vercel Satori",
+            "description": "Generate dynamic Open Graph images from HTML/CSS templates to improve social sharing visibility for SPA routes.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "JSON-LD Schema Injection",
+            "description": "Programmatically inject Schema.org structured data into the DOM to provide search engines with explicit context about your content.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Next.js Metadata API",
+            "description": "Use the built-in 'generateMetadata' function in the Next.js App Router for dynamic, server-side SEO tag generation.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Dynamic Canonical Links",
+            "description": "Ensure every SPA route dynamically updates its canonical tag to prevent duplicate content issues caused by query parameters.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Zod-based Metadata Validation",
+            "description": "Use Zod schemas to validate SEO properties (title length, description presence) before they are injected into the head.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Hreflang Implementation",
+            "description": "Manage multi-language SPA routes by dynamically injecting hreflang tags to direct users to the correct localized version.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Sitemap.xml Automation",
+            "description": "Use 'next-sitemap' or 'nuxt/sitemap' to automatically generate updated XML sitemaps including all dynamic SPA routes.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Robots.txt Configuration",
+            "description": "Configure your robots.txt to allow crawlers access to the JS bundles necessary for rendering your application's content.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Indexing Diagnostics and Performance",
+        "items": [
+          {
+            "title": "Google Search Console URL Inspection",
+            "description": "Use the 'Test Live URL' feature to see exactly how Googlebot renders your SPA and identify missing content.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Screaming Frog JS Rendering",
+            "description": "Configure Screaming Frog to use its JavaScript rendering engine to identify broken links and missing tags in SPAs.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Lighthouse SEO Audit",
+            "description": "Run automated audits via Chrome DevTools to check for basic SEO best practices and mobile-friendliness.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Chrome DevTools JS Disable",
+            "description": "Manually disable JavaScript in your browser to verify if critical content is visible to crawlers that don't execute JS.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Google Rich Results Test",
+            "description": "Validate that your dynamic JSON-LD injections are correctly parsed and eligible for rich snippets in search results.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Web Vitals Monitoring",
+            "description": "Implement 'web-vitals' library to track LCP, FID, and CLS, which are critical ranking factors for modern web apps.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Bing Webmaster Tools",
+            "description": "Monitor how Bing handles your SPA, as its rendering engine behavior often differs significantly from Googlebot.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Log File Analysis",
+            "description": "Analyze server logs to see how frequently crawlers hit your JS files vs. your HTML entry points.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "View Source vs. Inspect Element",
+            "description": "Compare 'View Source' (server output) with 'Inspect Element' (DOM) to identify gaps in your SSR/Prerendering setup.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Merkle Schema Generator",
+            "description": "Use this tool to generate valid JSON-LD code snippets for complex objects like FAQ, LocalBusiness, and Product.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use the History API (pushState) for routing; hash-based URLs (/#/page) are generally ignored or treated as a single page by search engines.",
+      "Ensure your server returns a 404 HTTP status code for non-existent routes instead of redirecting all errors to the SPA root with a 200 OK.",
+      "Avoid using 'display: none' for critical SEO text that is waiting for JS to load; crawlers may flag this as hidden text or cloaking.",
+      "Prioritize 'Critical CSS' in the initial HTML response to prevent Layout Shift (CLS) when the SPA hydrates, which affects search rankings.",
+      "Use the 'Link' header to prefetch or preload the main JS bundle to minimize the time crawlers spend waiting for the application to initialize."
+    ]
+  }
+}

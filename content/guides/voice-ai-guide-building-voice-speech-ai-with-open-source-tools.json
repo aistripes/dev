@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "voice-ai",
+    "generated_at": "2026-03-12T22:37:58.992Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Voice & Speech AI with open-source tools",
+    "description": "A step-by-step implementation guide for Voice & Speech AI with open-source tools.",
+    "keywords": [
+      "voice-ai",
+      "voice & speech ai",
+      "guide"
+    ],
+    "slug": "voice-ai-guide-building-voice-speech-ai-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical implementation of a low-latency, real-time voice-to-voice pipeline. It focuses on integrating Deepgram for streaming Speech-to-Text (STT), an LLM for processing, and ElevenLabs for streaming Text-to-Speech (TTS). The primary objective is to minimize the glass-to-glass latency below 1500ms to maintain natural conversation flow.",
+    "estimated_time": "3 hours",
+    "prerequisites": [
+      "Node.js environment (v18+)",
+      "Deepgram API Key for real-time transcription",
+      "OpenAI API Key for streaming chat completions",
+      "ElevenLabs API Key with WebSocket access",
+      "Basic understanding of WebSockets and Buffer handling in JavaScript"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure Client-Side Audio Capture",
+        "explanation": "Use the MediaRecorder API to capture raw audio from the user's microphone. To minimize latency, you must stream audio in small chunks (20ms to 100ms) rather than waiting for a full recording. Convert the MediaStream to a Blob or ArrayBuffer and send it immediately via WebSocket.",
+        "code": {
+          "language": "javascript",
+          "content": "const stream = await navigator.mediaDevices.getUserMedia({ audio: true });\nconst mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm; codecs=opus' });\n\nmediaRecorder.ondataavailable = (event) => {\n  if (event.data.size > 0 && socket.readyState === WebSocket.OPEN) {\n    socket.send(event.data);\n  }\n};\nmediaRecorder.start(100); // 100ms chunks",
+          "filename": "client-audio.js"
+        },
+        "pitfalls": [
+          "Sending chunks that are too small (<20ms) can increase network overhead significantly.",
+          "Ensure the mimeType is supported by your STT engine to avoid server-side transcoding latency."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Establish Streaming STT via Deepgram",
+        "explanation": "Initialize a persistent WebSocket connection to Deepgram. Configure the request with 'interim_results: true' to get immediate feedback and 'utterance_end_ms' to detect when a user has finished speaking. This allows the system to start LLM processing before the audio stream technically ends.",
+        "code": {
+          "language": "javascript",
+          "content": "const deepgram = new Deepgram(DEEPGRAM_API_KEY);\nconst dgLive = deepgram.transcription.live({\n  punctuate: true,\n  interim_results: true,\n  tier: 'nova',\n  model: 'general',\n  language: 'en-US'\n});\n\ndgLive.addListener('transcriptReceived', (message) => {\n  const data = JSON.parse(message);\n  if (data.is_final) {\n    processInput(data.channel.alternatives[0].transcript);\n  }\n});",
+          "filename": "stt-service.js"
+        },
+        "pitfalls": [
+          "Failure to handle 'is_final' flags correctly results in duplicated text sent to the LLM.",
+          "Ignoring the 'speech_final' event can lead to slow response times in quiet environments."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Streaming LLM Response",
+        "explanation": "When the STT finalizes a transcript, pipe it into an LLM (e.g., GPT-4) using stream mode. Instead of waiting for the full response, process the stream chunk-by-chunk. You need to buffer these chunks until you have a complete sentence or a meaningful phrase before sending them to the TTS engine to ensure natural prosody.",
+        "code": {
+          "language": "javascript",
+          "content": "const stream = await openai.chat.completions.create({\n  model: 'gpt-4',\n  messages: [{ role: 'user', content: transcript }],\n  stream: true,\n});\n\nlet sentenceBuffer = '';\nfor await (const chunk of stream) {\n  const content = chunk.choices[0]?.delta?.content || '';\n  sentenceBuffer += content;\n  if (/[.!?]\\s/.test(sentenceBuffer)) {\n    sendToTTS(sentenceBuffer);\n    sentenceBuffer = '';\n  }\n}",
+          "filename": "llm-streamer.js"
+        },
+        "pitfalls": [
+          "Sending single words to TTS results in robotic, disjointed speech.",
+          "Waiting for the full LLM response adds 2-5 seconds of unnecessary latency."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate ElevenLabs WebSocket TTS",
+        "explanation": "Open a WebSocket to ElevenLabs for text-to-audio conversion. This is faster than REST because it allows for continuous audio streaming. Use the 'pcm_44100' output format for the lowest processing overhead on the client side.",
+        "code": {
+          "language": "javascript",
+          "content": "const ttsSocket = new WebSocket(`wss://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream-input?model_id=eleven_turbo_v2`);\n\nfunction sendToTTS(text) {\n  const message = {\n    text: text,\n    try_trigger_generation: true,\n  };\n  ttsSocket.send(JSON.stringify(message));\n}\n\nttsSocket.onmessage = (event) => {\n  const response = JSON.parse(event.data);\n  if (response.audio) {\n    const audioBuffer = Buffer.from(response.audio, 'base64');\n    playAudioChunk(audioBuffer);\n  }\n};",
+          "filename": "tts-service.js"
+        },
+        "pitfalls": [
+          "Not sending the 'try_trigger_generation' flag can cause the TTS to wait for more text, increasing latency.",
+          "Base64 decoding on the main thread can cause UI jank; use Web Workers for high-throughput audio."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Manage Audio Playback Queue",
+        "explanation": "Since TTS returns audio in chunks, you must manage a playback queue to prevent gaps or 'popping' sounds between segments. Use the Web Audio API with a SourceNode or a simple Audio object queue. Ensure you handle 'interrupt' logic—if the user starts speaking again, immediately clear the queue and stop the current playback.",
+        "code": {
+          "language": "javascript",
+          "content": "let audioQueue = [];\nlet isPlaying = false;\n\nfunction playAudioChunk(buffer) {\n  const blob = new Blob([buffer], { type: 'audio/mpeg' });\n  const url = URL.createObjectURL(blob);\n  audioQueue.push(new Audio(url));\n  if (!isPlaying) playNext();\n}\n\nfunction playNext() {\n  if (audioQueue.length === 0) { isPlaying = false; return; }\n  isPlaying = true;\n  const audio = audioQueue.shift();\n  audio.onended = playNext;\n  audio.play();\n}",
+          "filename": "playback-manager.js"
+        },
+        "pitfalls": [
+          "Standard <audio> tags have a slight delay between source changes; use AudioContext for sample-accurate scheduling.",
+          "Failing to clear the queue on new user input leads to 'overlapping' conversations."
+        ]
+      }
+    ],
+    "conclusion": "By utilizing WebSockets across STT, LLM, and TTS layers, you minimize the overhead of repeated HTTP handshakes. The key to a production-ready voice AI is the balance between chunk size (for speed) and context length (for speech quality). Always implement a robust interruption handler to make the AI feel responsive and human-like."
+  }
+}

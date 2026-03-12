@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "docker",
+    "generated_at": "2026-03-12T22:38:29.129Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Docker & Containers implementation checklist",
+    "description": "A practical checklist for shipping Docker & Containers projects safely.",
+    "keywords": [
+      "docker",
+      "docker & containers",
+      "checklist"
+    ],
+    "slug": "docker-checklist-docker-containers-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides actionable verification steps for securing, optimizing, and deploying Docker containers to production environments. It focuses on reducing attack surfaces, ensuring resource availability, and maintaining operational visibility.",
+    "sections": [
+      {
+        "heading": "Image Hardening and Optimization",
+        "items": [
+          {
+            "title": "Implement Non-Root User",
+            "description": "Verify the Dockerfile includes a 'USER' instruction with a specific UID/GID to prevent the container from running as root.",
+            "priority": "critical"
+          },
+          {
+            "title": "Pin Base Image Versions",
+            "description": "Replace 'latest' tags with specific version numbers or SHA256 digests to ensure build reproducibility and prevent breaking changes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Utilize Multi-Stage Builds",
+            "description": "Separate the build environment from the runtime environment to ensure the production image contains only the compiled binary and necessary dependencies.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Clean Package Manager Caches",
+            "description": "Ensure 'apt-get clean' or equivalent commands are executed within the same 'RUN' layer as package installation to minimize image size.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Scan for Vulnerabilities",
+            "description": "Run an automated scan using Trivy or Docker Scout and verify that no 'Critical' or 'High' severity CVEs exist in the final image.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Resource Management",
+        "items": [
+          {
+            "title": "Define Memory Limits",
+            "description": "Set hard memory limits (e.g., 'mem_limit' in Compose) to prevent a single container from causing host-wide Out-Of-Memory (OOM) events.",
+            "priority": "critical"
+          },
+          {
+            "title": "Set CPU Reservations",
+            "description": "Configure CPU limits or shares to ensure the host scheduler provides enough cycles for critical system processes and other containers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Restart Policies",
+            "description": "Set the restart policy to 'unless-stopped' or 'on-failure' to ensure service availability after crashes or host reboots.",
+            "priority": "critical"
+          },
+          {
+            "title": "Enable Log Rotation",
+            "description": "Configure the 'json-file' or 'journald' log driver with 'max-size' and 'max-file' options to prevent disk exhaustion from container logs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Set Ulimits",
+            "description": "Adjust 'nofile' and 'nproc' ulimits in the container configuration to handle the expected number of concurrent connections or processes.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Networking and Security",
+        "items": [
+          {
+            "title": "Use Custom Bridge Networks",
+            "description": "Verify that containers are attached to user-defined bridge networks rather than the default bridge to enable automatic DNS resolution and isolation.",
+            "priority": "critical"
+          },
+          {
+            "title": "Restrict Port Exposure",
+            "description": "Audit the 'EXPOSE' instruction and '-p' flags to ensure only the minimum required ports are accessible to the host or external network.",
+            "priority": "critical"
+          },
+          {
+            "title": "Apply Read-Only Root Filesystem",
+            "description": "Run the container with the '--read-only' flag and use temporary volumes for directories requiring write access (e.g., /tmp).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Disable Inter-Container Communication",
+            "description": "Where isolation is required, set '--icc=false' on the Docker daemon or use network aliases to strictly control traffic between services.",
+            "priority": "optional"
+          },
+          {
+            "title": "Enable No-New-Privileges",
+            "description": "Set the 'no-new-privileges' security option to prevent processes from gaining new privileges via setuid or setgid binaries.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Storage and Persistence",
+        "items": [
+          {
+            "title": "Use Named Volumes for Persistence",
+            "description": "Ensure all stateful data is stored in named Docker volumes rather than the container's writable layer to prevent data loss during container recreation.",
+            "priority": "critical"
+          },
+          {
+            "title": "Avoid Bind Mounts in Production",
+            "description": "Replace host bind mounts with named volumes or specialized drivers to reduce dependency on specific host filesystem paths.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Verify Volume Backup Strategy",
+            "description": "Test the restoration process of volume data from snapshots or off-site backups to ensure business continuity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Clean Up Unused Volumes",
+            "description": "Implement a routine 'docker volume prune' or manual audit to reclaim disk space from orphaned volumes.",
+            "priority": "optional"
+          },
+          {
+            "title": "Set Volume Mount Permissions",
+            "description": "Explicitly set the ':ro' (read-only) flag on volume mounts that the container should not have permission to modify.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Runtime and Observability",
+        "items": [
+          {
+            "title": "Define Healthchecks",
+            "description": "Include a 'HEALTHCHECK' instruction that verifies the application is actually serving requests, not just that the process is running.",
+            "priority": "critical"
+          },
+          {
+            "title": "Handle SIGTERM Gracefully",
+            "description": "Verify the application responds to SIGTERM by closing database connections and finishing active requests within the stop grace period.",
+            "priority": "critical"
+          },
+          {
+            "title": "Externalize Secrets",
+            "description": "Confirm no secrets (API keys, passwords) are stored in environment variables visible to 'docker inspect'; use Docker Secrets or a Vault provider.",
+            "priority": "critical"
+          },
+          {
+            "title": "Standardize Logging",
+            "description": "Ensure the application logs exclusively to stdout and stderr to allow the Docker daemon to capture and forward logs to a central aggregator.",
+            "priority": "critical"
+          },
+          {
+            "title": "Use .dockerignore",
+            "description": "Verify a .dockerignore file exists to prevent sensitive local files (.env, .git, SSH keys) from being copied into the image build context.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

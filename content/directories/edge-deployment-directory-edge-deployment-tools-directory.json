@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "edge-deployment",
+    "generated_at": "2026-03-12T22:38:27.403Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Edge Deployment tools directory",
+    "description": "A developer-first directory of Edge Deployment tools and references.",
+    "keywords": [
+      "edge-deployment",
+      "edge deployment",
+      "directory"
+    ],
+    "slug": "edge-deployment-directory-edge-deployment-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure, databases, and tooling specifically designed for edge runtimes like V8 isolates and WASM. This resource focuses on low-latency execution and tools compatible with restricted APIs found in edge environments.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Runtime Platform",
+          "Database",
+          "Framework",
+          "Tooling",
+          "Observability"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Cloudflare Workers",
+        "description": "Serverless execution environment based on V8 isolates, providing low-latency execution at over 300 global data centers.",
+        "url": "https://workers.cloudflare.com/",
+        "category": "Runtime Platform",
+        "pricing_model": "freemium",
+        "pros": [
+          "0ms cold starts",
+          "Extensive global network",
+          "Built-in Key-Value storage and Cron triggers"
+        ],
+        "cons": [
+          "Strict 128MB memory limit on standard plan",
+          "No support for Node.js built-in modules like 'fs' or 'net'"
+        ],
+        "tags": [
+          "v8-isolates",
+          "serverless",
+          "edge-computing"
+        ]
+      },
+      {
+        "name": "Deno Deploy",
+        "description": "Distributed system that runs JavaScript, TypeScript, and WebAssembly at the edge with native support for Web APIs.",
+        "url": "https://deno.com/deploy",
+        "category": "Runtime Platform",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native TypeScript support without build steps",
+          "No vendor lock-in via Deno CLI compatibility",
+          "Integrated KV database and Queues"
+        ],
+        "cons": [
+          "Smaller ecosystem compared to Node.js/npm",
+          "Limited third-party integration compared to Cloudflare"
+        ],
+        "tags": [
+          "deno",
+          "typescript",
+          "wasm"
+        ]
+      },
+      {
+        "name": "Turso",
+        "description": "Edge-hosted database based on libSQL, designed for low-latency access from edge functions via HTTP.",
+        "url": "https://turso.tech/",
+        "category": "Database",
+        "pricing_model": "freemium",
+        "pros": [
+          "SQLite-compatible API",
+          "Data replication to multiple regions",
+          "Extremely low cold start latency"
+        ],
+        "cons": [
+          "Limited to SQL-based workloads",
+          "Relatively new ecosystem"
+        ],
+        "tags": [
+          "sqlite",
+          "libsql",
+          "database-at-edge"
+        ]
+      },
+      {
+        "name": "Upstash",
+        "description": "Serverless Redis, Kafka, and Vector database services with per-request pricing and HTTP-based access.",
+        "url": "https://upstash.com/",
+        "category": "Database",
+        "pricing_model": "freemium",
+        "pros": [
+          "HTTP API bypasses TCP connection limits in edge functions",
+          "Global replication support",
+          "Pay-as-you-go pricing"
+        ],
+        "cons": [
+          "Higher latency than local in-memory cache",
+          "Strict rate limits on free tier"
+        ],
+        "tags": [
+          "redis",
+          "caching",
+          "serverless"
+        ]
+      },
+      {
+        "name": "Hono",
+        "description": "Small, fast web framework built for edge runtimes like Cloudflare Workers, Fastly, and Deno.",
+        "url": "https://hono.dev/",
+        "category": "Framework",
+        "pricing_model": "open-source",
+        "pros": [
+          "Zero dependencies",
+          "Built-in middleware for JWT, CORS, and Validation",
+          "Extremely fast router performance"
+        ],
+        "cons": [
+          "Minimalist approach may require manual setup for complex apps",
+          "Documentation focused primarily on TypeScript"
+        ],
+        "tags": [
+          "framework",
+          "router",
+          "typescript"
+        ]
+      },
+      {
+        "name": "Wrangler",
+        "description": "The official CLI for managing, testing, and deploying Cloudflare Workers and Pages.",
+        "url": "https://developers.cloudflare.com/workers/wrangler/",
+        "category": "Tooling",
+        "pricing_model": "open-source",
+        "pros": [
+          "Local simulation of production environment",
+          "Integrated secret management",
+          "Support for multi-environment deployments"
+        ],
+        "cons": [
+          "Can be complex to configure for monorepos",
+          "Specific to the Cloudflare ecosystem"
+        ],
+        "tags": [
+          "cli",
+          "deployment",
+          "local-dev"
+        ]
+      },
+      {
+        "name": "Fastly Compute",
+        "description": "WASM-based edge computing platform offering high performance and security isolation.",
+        "url": "https://www.fastly.com/products/compute",
+        "category": "Runtime Platform",
+        "pricing_model": "paid",
+        "pros": [
+          "Supports Rust, Go, and JavaScript via WASM",
+          "Advanced cache control and purging",
+          "No cold starts due to pre-initialized instances"
+        ],
+        "cons": [
+          "Higher barrier to entry for non-WASM languages",
+          "Pricing is geared toward enterprise usage"
+        ],
+        "tags": [
+          "wasm",
+          "rust",
+          "cdn"
+        ]
+      },
+      {
+        "name": "PlanetScale",
+        "description": "Serverless MySQL database platform with horizontal scaling and branching workflows.",
+        "url": "https://planetscale.com/",
+        "category": "Database",
+        "pricing_model": "enterprise",
+        "pros": [
+          "Vitess-powered scaling",
+          "Non-blocking schema changes",
+          "Connection string compatibility with edge adapters"
+        ],
+        "cons": [
+          "Removed free tier recently",
+          "No foreign key constraint support in some configurations"
+        ],
+        "tags": [
+          "mysql",
+          "vitess",
+          "database"
+        ]
+      },
+      {
+        "name": "Miniflare",
+        "description": "A fully-featured local simulator for Cloudflare Workers, including KV, D1, and R2 support.",
+        "url": "https://miniflare.dev/",
+        "category": "Tooling",
+        "pricing_model": "open-source",
+        "pros": [
+          "Fast local feedback loop",
+          "Simulates persistence for KV and D1",
+          "Easy integration with Jest or Vitest"
+        ],
+        "cons": [
+          "Minor discrepancies from production runtime behavior",
+          "Memory usage can spike with large simulated datasets"
+        ],
+        "tags": [
+          "testing",
+          "simulation",
+          "local-dev"
+        ]
+      },
+      {
+        "name": "Logflare",
+        "description": "Cloud-native logging and analytics platform optimized for Cloudflare Workers and Vercel.",
+        "url": "https://logflare.app/",
+        "category": "Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Real-time log streaming",
+          "BigQuery integration for long-term storage",
+          "Easy setup via Cloudflare Apps"
+        ],
+        "cons": [
+          "UI can be less intuitive than Datadog",
+          "Limited advanced alerting on lower tiers"
+        ],
+        "tags": [
+          "logging",
+          "analytics",
+          "monitoring"
+        ]
+      },
+      {
+        "name": "Itty Router",
+        "description": "An ultra-lightweight (approx 450 bytes) router specifically for edge functions.",
+        "url": "https://itty-router.dev/",
+        "category": "Framework",
+        "pricing_model": "open-source",
+        "pros": [
+          "Minimal bundle size impact",
+          "Easy to understand API",
+          "No dependencies"
+        ],
+        "cons": [
+          "Lacks built-in middleware for common tasks like CORS",
+          "Manual error handling required"
+        ],
+        "tags": [
+          "router",
+          "micro-framework",
+          "performance"
+        ]
+      },
+      {
+        "name": "Prisma Accelerate",
+        "description": "A global database cache and connection pooler designed for serverless and edge functions.",
+        "url": "https://www.prisma.io/data-platform/accelerate",
+        "category": "Tooling",
+        "pricing_model": "freemium",
+        "pros": [
+          "Solves connection pooling issues at the edge",
+          "Global edge caching for database queries",
+          "Works with existing Prisma ORM workflows"
+        ],
+        "cons": [
+          "Adds an extra network hop to the request",
+          "Requires using Prisma as your ORM"
+        ],
+        "tags": [
+          "orm",
+          "caching",
+          "connection-pooling"
+        ]
+      }
+    ]
+  }
+}

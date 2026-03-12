@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "monitoring",
+    "generated_at": "2026-03-12T22:38:26.719Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Monitoring & Observability with open-source tools",
+    "description": "A step-by-step implementation guide for Monitoring & Observability with open-source tools.",
+    "keywords": [
+      "monitoring",
+      "monitoring & observability",
+      "guide"
+    ],
+    "slug": "monitoring-guide-building-monitoring-observability-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a production-grade observability stack focused on distributed tracing, LLM cost management, and error tracking. It moves beyond basic logging to provide a unified view of system health and AI pipeline performance using OpenTelemetry and specialized monitoring proxies.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Existing backend service (Python, Node.js, or Go)",
+      "API access to an LLM provider (OpenAI, Anthropic, or Azure)",
+      "Docker environment for local testing of monitoring collectors",
+      "Basic familiarity with Prometheus metrics and OpenTelemetry concepts"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Instrument Application with OpenTelemetry SDK",
+        "explanation": "Initialize the OpenTelemetry SDK to capture traces and metrics automatically. This provides the foundation for distributed tracing across services. Use the OTLP exporter to send data to a vendor-neutral collector.",
+        "code": {
+          "language": "python",
+          "content": "from opentelemetry import trace\nfrom opentelemetry.sdk.trace import TracerProvider\nfrom opentelemetry.sdk.trace.export import BatchSpanProcessor\nfrom opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter\n\nprovider = TracerProvider()\nprocessor = BatchSpanProcessor(OTLPSpanExporter(endpoint=\"http://localhost:4317\", insecure=True))\nprovider.add_span_processor(processor)\ntrace.set_tracer_provider(provider)\n\ntracer = trace.get_tracer(__name__)\nwith tracer.start_as_current_span(\"process_request\"):\n    # Application logic here\n    pass",
+          "filename": "tracing_setup.py"
+        },
+        "pitfalls": [
+          "High overhead from excessive span creation in tight loops",
+          "Missing context propagation across asynchronous boundaries or message queues",
+          "Hardcoding exporter endpoints instead of using environment variables"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure Error Tracking and Breadcrumbs",
+        "explanation": "Integrate Sentry or a similar error tracking tool to capture unhandled exceptions and context-rich breadcrumbs. Ensure that OpenTelemetry trace IDs are attached to error reports to link logs with specific traces.",
+        "code": {
+          "language": "python",
+          "content": "import sentry_sdk\nfrom sentry_sdk.integrations.opentelemetry import SentrySpanProcessor\n\nsentry_sdk.init(\n    dsn=\"YOUR_SENTRY_DSN\",\n    traces_sample_rate=1.0,\n    profiles_sample_rate=1.0,\n)\n\n# Link Sentry to OpenTelemetry\nprovider.add_span_processor(SentrySpanProcessor())",
+          "filename": "sentry_config.py"
+        },
+        "pitfalls": [
+          "Leaking PII (Personally Identifiable Information) in breadcrumbs or error messages",
+          "Alert fatigue caused by not grouping similar errors correctly",
+          "Exceeding quota limits by not setting reasonable sample rates for high-traffic endpoints"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement LLM Observability via Proxy",
+        "explanation": "Route LLM API calls through an observability proxy like Helicone or LangSmith. This allows for tracking token usage, latency, and cost without adding significant latency to the application code itself.",
+        "code": {
+          "language": "python",
+          "content": "from openai import OpenAI\n\nclient = OpenAI(\n    api_key=\"YOUR_OPENAI_API_KEY\",\n    base_url=\"https://oai.hconeai.com/v1\",\n    default_headers={\n        \"Helicone-Auth\": f\"Bearer {HELICONE_API_KEY}\",\n        \"Helicone-Cache-Enabled\": \"true\"\n    }\n)\n\nresponse = client.chat.completions.create(\n    model=\"gpt-4\",\n    messages=[{\"role\": \"user\", \"content\": \"Analyze this trace data.\"}]\n)",
+          "filename": "llm_monitoring.py"
+        },
+        "pitfalls": [
+          "Adding a single point of failure if the proxy service goes down (implement fallbacks)",
+          "Increased latency if the proxy region is geographically distant from your compute",
+          "Inaccurate cost reporting if the proxy does not support the specific model versions used"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Define SLOs and Alerting Rules",
+        "explanation": "Set up Prometheus alerting rules for Service Level Objectives (SLOs). Focus on the 'Golden Signals': Latency, Traffic, Errors, and Saturation. Use Alertmanager to route critical alerts to PagerDuty or Slack while silencing non-actionable noise.",
+        "code": {
+          "language": "yaml",
+          "content": "groups:\n- name: api_alerts\n  rules:\n  - alert: HighErrorRate\n    expr: rate(http_requests_total{status=~\"5..\"}[5m]) / rate(http_requests_total[5m]) > 0.05\n    for: 2m\n    labels:\n      severity: critical\n    annotations:\n      summary: \"High error rate on {{ $labels.instance }}\"",
+          "filename": "prometheus_rules.yml"
+        },
+        "pitfalls": [
+          "Setting alerts based on averages instead of percentiles (P95/P99)",
+          "Creating alerts for transient network blips that self-resolve",
+          "Failing to include 'runbook' links in alert annotations"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Consolidate Dashboards in Grafana",
+        "explanation": "Create a centralized dashboard that correlates system metrics (CPU/RAM), application metrics (request rate/latency), and business metrics (LLM cost per user). Use variables to filter by environment and service name.",
+        "pitfalls": [
+          "Overcrowding dashboards with too many graphs, making them unreadable during incidents",
+          "Using inconsistent time zones across different data sources",
+          "Querying too much data at once, leading to slow dashboard load times and high load on Prometheus/Datadog"
+        ]
+      }
+    ],
+    "conclusion": "By following this sequence, you establish a monitoring stack that covers both traditional infrastructure and modern AI-driven workloads. The key is to maintain the link between traces and errors while ensuring that LLM costs are tracked at the request level. Regularly review your alerting thresholds to minimize fatigue as your application scales."
+  }
+}

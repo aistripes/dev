@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "fine-tuning",
+    "generated_at": "2026-03-12T22:37:57.582Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Fine-Tuning & Custom Models implementation checklist",
+    "description": "A practical checklist for shipping Fine-Tuning & Custom Models projects safely.",
+    "keywords": [
+      "fine-tuning",
+      "fine-tuning & custom models",
+      "checklist"
+    ],
+    "slug": "fine-tuning-checklist-fine-tuning-custom-models-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical roadmap for moving fine-tuned models from experimental notebooks to production-ready inference environments, focusing on data integrity, training efficiency, and deployment stability.",
+    "sections": [
+      {
+        "heading": "Data Preparation and Validation",
+        "items": [
+          {
+            "title": "Schema Validation",
+            "description": "Verify that every training example strictly follows the target model's prompt format (e.g., ChatML, Alpaca, or Llama-3-Instruct) to prevent formatting-induced performance degradation.",
+            "priority": "critical"
+          },
+          {
+            "title": "Deduplication and Cleaning",
+            "description": "Run a fuzzy matching script to remove near-duplicate entries in the training set that can cause overfitting on specific phrases.",
+            "priority": "critical"
+          },
+          {
+            "title": "Token Length Audit",
+            "description": "Calculate the token count for every example using the target tokenizer to ensure no samples exceed the model's maximum context length during training.",
+            "priority": "critical"
+          },
+          {
+            "title": "PII Scrubbing",
+            "description": "Execute a regex or NLP-based scanner to identify and remove Personally Identifiable Information (PII) from the training corpus to meet compliance standards.",
+            "priority": "critical"
+          },
+          {
+            "title": "Distribution Balancing",
+            "description": "Verify that the dataset contains a representative ratio of edge cases and common queries to prevent the model from becoming biased toward high-frequency patterns.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Training Configuration and PEFT",
+        "items": [
+          {
+            "title": "LoRA Rank and Alpha Selection",
+            "description": "Document the choice of LoRA rank (r) and alpha; ensure alpha is typically set to 2x the rank to maintain scaling stability.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Gradient Accumulation Tuning",
+            "description": "Set gradient accumulation steps to achieve an effective batch size that balances training stability with available VRAM limits.",
+            "priority": "critical"
+          },
+          {
+            "title": "Checkpointing Strategy",
+            "description": "Configure the training pipeline to save checkpoints based on validation loss rather than step count to capture the best performing weights.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Quantization Verification (QLoRA)",
+            "description": "If using QLoRA, verify that the 4-bit NormalFloat (NF4) data type is utilized to maximize memory efficiency without significant precision loss.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Loss Curve Monitoring",
+            "description": "Integrate Weights & Biases or MLflow to track training vs. validation loss in real-time to detect early-stage divergence or overfitting.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Evaluation and Benchmarking",
+        "items": [
+          {
+            "title": "Hold-out Set Performance",
+            "description": "Test the final adapter against a 10-20% hold-out set that the model never saw during training or hyperparameter tuning.",
+            "priority": "critical"
+          },
+          {
+            "title": "Base Model Regression Testing",
+            "description": "Run the fine-tuned model against a set of general-purpose prompts to ensure that domain-specific tuning hasn't caused 'catastrophic forgetting' of basic reasoning.",
+            "priority": "critical"
+          },
+          {
+            "title": "Deterministic Output Check",
+            "description": "Run the same prompt through the model multiple times at temperature 0 to ensure output consistency for structured data tasks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Human-in-the-Loop Review",
+            "description": "Conduct a blind A/B test where domain experts rank outputs from the fine-tuned model against the base model or previous versions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Latency Benchmarking",
+            "description": "Measure Time To First Token (TTFT) and tokens per second (TPS) across different batch sizes to define production hardware requirements.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and Serving",
+        "items": [
+          {
+            "title": "Adapter Merging",
+            "description": "Decide between merging LoRA weights into the base model for faster inference or keeping them separate for multi-tenant adapter swapping.",
+            "priority": "critical"
+          },
+          {
+            "title": "Inference Engine Optimization",
+            "description": "Validate the model's compatibility with optimized engines like vLLM, TGI, or TensorRT-LLM to maximize throughput.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Quantization for Production",
+            "description": "Evaluate the performance impact of converting the final model to AWQ or GGUF formats to reduce VRAM footprint in production.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Health Check Implementation",
+            "description": "Configure a liveness and readiness probe that verifies the model is loaded in VRAM and responding to a simple 'ping' prompt.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cold Start Mitigation",
+            "description": "Implement a warm-up strategy for new pods to prevent initial request timeouts while weights are being loaded from storage to GPU memory.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Governance and Monitoring",
+        "items": [
+          {
+            "title": "Model Lineage Tracking",
+            "description": "Store a manifest file with the model binary linking it to the specific dataset version, commit hash of training code, and hyperparameter log.",
+            "priority": "critical"
+          },
+          {
+            "title": "Inference Cost Tracking",
+            "description": "Set up monitoring for token usage per API key or user to calculate the unit economics of the custom model deployment.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Drift Detection Pipeline",
+            "description": "Establish a process to collect production logs for periodic comparison against the training distribution to identify when retraining is necessary.",
+            "priority": "optional"
+          },
+          {
+            "title": "License Compliance Audit",
+            "description": "Verify that the base model's license (e.g., Llama 3 Community License) allows for the intended commercial use and distribution of the fine-tuned weights.",
+            "priority": "critical"
+          },
+          {
+            "title": "Fallback Logic",
+            "description": "Implement an automated fallback to a larger foundation model or a previous stable version if the fine-tuned model returns an error or low-confidence score.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

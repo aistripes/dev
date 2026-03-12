@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "agents",
+    "generated_at": "2026-03-12T22:37:56.795Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building AI Agents & Tool Use with open-source tools",
+    "description": "A step-by-step implementation guide for AI Agents & Tool Use with open-source tools.",
+    "keywords": [
+      "agents",
+      "ai agents & tool use",
+      "guide"
+    ],
+    "slug": "agents-guide-building-ai-agents-tool-use-with-open-source-tools"
+  },
+  "content": {
+    "intro": "Developing production-grade AI agents requires transitioning from basic prompt-response cycles to robust state machines. This guide focuses on implementing a resilient agent loop that handles tool execution, state persistence, and human-in-the-loop validation using a structured orchestration pattern.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "API access to a model supporting tool calling (OpenAI GPT-4o or Anthropic Claude 3.5 Sonnet)",
+      "Familiarity with TypeScript or Python and async programming",
+      "Basic knowledge of JSON Schema for function definitions",
+      "An observability tool account (e.g., LangSmith or Phoenix)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define Standardized Tool Schemas",
+        "explanation": "Create strict JSON schemas for every tool the agent can access. Ensure parameter descriptions are descriptive but concise, as these serve as the primary instructions for the LLM to decide when and how to call the tool.",
+        "code": {
+          "language": "typescript",
+          "content": "const getInventoryTool = {\n  name: \"get_inventory_levels\",\n  description: \"Check stock levels for a specific SKU. Use this when users ask about product availability.\",\n  parameters: {\n    type: \"object\",\n    properties: {\n      sku: { type: \"string\", description: \"The product SKU, e.g., 'PROD-123'\" },\n      warehouse_id: { type: \"string\", enum: [\"east\", \"west\"], description: \"Optional warehouse location filter\" }\n    },\n    required: [\"sku\"]\n  }\n};",
+          "filename": "tools/inventory.ts"
+        },
+        "pitfalls": [
+          "Using ambiguous parameter names like 'data' or 'value' which lead to hallucinated inputs.",
+          "Overloading a single tool with too many responsibilities instead of creating specialized atomic tools."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement the Agent State Machine",
+        "explanation": "Instead of a simple while-loop, implement a state machine that defines transitions between 'Thinking', 'Acting', and 'Responding'. This allows for better control over the agent's lifecycle and makes the workflow resumable.",
+        "code": {
+          "language": "typescript",
+          "content": "import { StateGraph, END } from \"@langchain/langgraph\";\n\nconst workflow = new StateGraph({ channels: agentStateChannels })\n  .addNode(\"agent\", callModel)\n  .addNode(\"action\", executeTools)\n  .addEdge(\"agent\", \"action\")\n  .addEdge(\"action\", \"agent\")\n  .setEntryPoint(\"agent\");\n\nconst app = workflow.compile({ checkpointer: new MemorySaver() });",
+          "filename": "workflow/graph.ts"
+        },
+        "pitfalls": [
+          "Failing to implement a 'recursion_limit', which can lead to infinite loops and massive API bills if the agent fails to converge on a solution."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Execute Tools with Error Handling",
+        "explanation": "Create a dedicated executor that maps tool calls to local functions. The executor must catch exceptions and format them as tool output so the LLM can attempt to correct its own errors (e.g., 'Invalid SKU format').",
+        "code": {
+          "language": "typescript",
+          "content": "async function executeTools(state) {\n  const lastMessage = state.messages[state.messages.length - 1];\n  const toolOutputs = await Promise.all(lastMessage.tool_calls.map(async (call) => {\n    try {\n      const result = await registry[call.name](call.args);\n      return { role: \"tool\", tool_call_id: call.id, content: JSON.stringify(result) };\n    } catch (e) {\n      return { role: \"tool\", tool_call_id: call.id, content: `Error: ${e.message}. Please correct the arguments.` };\n    }\n  }));\n  return { messages: toolOutputs };\n}",
+          "filename": "workflow/executor.ts"
+        },
+        "pitfalls": [
+          "Returning raw stack traces to the LLM, which consumes unnecessary tokens and may confuse the model.",
+          "Executing tools without timeout limits, causing the entire agent loop to hang."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate Human-in-the-Loop Approval",
+        "explanation": "For sensitive tools (e.g., payments, data deletion), implement an interrupt. The agent state is persisted to a database, the execution pauses, and waits for a manual 'approve' or 'reject' signal from an external UI.",
+        "code": {
+          "language": "typescript",
+          "content": "// Define a node that requires manual intervention\nconst workflow = new StateGraph(StateSchema)\n  .addNode(\"agent\", callModel)\n  .addNode(\"sensitive_tool\", executeTransaction)\n  .addConditionalEdges(\"agent\", shouldContinue, {\n    continue: \"sensitive_tool\",\n    end: END\n  });\n\n// Compile with an interrupt before the sensitive node\nconst app = workflow.compile({ \n  checkpointer: dbSaver,\n  interruptBefore: [\"sensitive_tool\"]\n});",
+          "filename": "workflow/hitl.ts"
+        },
+        "pitfalls": [
+          "Hard-coding approval logic inside the agent prompt rather than enforcing it at the infrastructure/orchestration level."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Configure Observability and Trace IDs",
+        "explanation": "Wrap the agent execution in a trace context. Every tool call and LLM interaction must be logged with a unique session ID to allow for post-hoc debugging of complex multi-step failures.",
+        "code": {
+          "language": "typescript",
+          "content": "import { Traceable } from \"langsmith/traceable\";\n\nconst agent = new Traceable({\n  name: \"OrderProcessingAgent\",\n  metadata: { userId: \"user_123\", environment: \"production\" }\n});\n\nconst result = await app.invoke(\n  { messages: [new HumanMessage(\"Refund order 55\")] },\n  { configurable: { thread_id: \"session_abc\" } }\n);",
+          "filename": "observability/tracing.ts"
+        },
+        "pitfalls": [
+          "Deploying agents without tracing, making it impossible to determine why an agent entered a specific tool-calling loop in production."
+        ]
+      }
+    ],
+    "conclusion": "By moving tool execution into a structured state machine with explicit error handling and human-in-the-loop gates, you create agents that are predictable and safe for production use. Always prioritize observability and strict schema validation to minimize the risks of autonomous LLM behavior."
+  }
+}

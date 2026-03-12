@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "monitoring",
+    "generated_at": "2026-03-12T22:38:29.845Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Monitoring & Observability resources for developers",
+    "description": "A curated set of practical Monitoring & Observability resources for engineers.",
+    "keywords": [
+      "monitoring",
+      "monitoring & observability",
+      "resource-article"
+    ],
+    "slug": "monitoring-resource-article-100-monitoring-observability-resources-for-developers"
+  },
+  "content": {
+    "intro": "Effective monitoring in modern infrastructure requires moving beyond simple uptime checks to a unified observability strategy that handles high-cardinality data, distributed tracing for AI microservices, and precise LLM cost tracking. This guide provides a curated selection of tools and patterns to build a production-ready stack using OpenTelemetry, specialized LLM proxies, and open-source metric engines.",
+    "sections": [
+      {
+        "heading": "Core Infrastructure and Error Tracking",
+        "items": [
+          {
+            "title": "Sentry Error Tracking",
+            "description": "Implement the Sentry SDK to capture unhandled exceptions and performance bottlenecks. Use the 'breadcrumbs' feature to reconstruct the state leading to a crash.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Prometheus Time-Series Database",
+            "description": "Deploy Prometheus for scraping metrics from exporters. Use it to store system-level data like CPU/RAM and custom application business metrics.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Grafana Visualization",
+            "description": "Connect Prometheus and Loki data sources to build real-time dashboards. Use community templates for Node Exporter and PostgreSQL monitoring.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Better Stack Uptime",
+            "description": "Configure external heartbeat monitoring and status pages. Integrate with Slack to receive immediate notification if the public endpoint fails.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "VictoriaMetrics",
+            "description": "A high-performance, cost-effective drop-in replacement for Prometheus. Use it for long-term storage of metrics with better compression ratios.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Vector.dev Log Routing",
+            "description": "Deploy Vector as a sidecar or aggregator to collect, transform, and route logs from various sources to Loki, S3, or Datadog.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Grafana Loki",
+            "description": "A horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus. It indexes metadata rather than the full log content.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Checkly Synthetic Monitoring",
+            "description": "Write Playwright scripts to simulate user flows in production. Checkly runs these on a schedule to ensure critical paths (like checkout) work.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Netdata Real-time Monitoring",
+            "description": "Install on individual nodes for per-second granularity monitoring. Ideal for troubleshooting immediate performance spikes on specific servers.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Highlight.io Session Replay",
+            "description": "Open-source full-stack monitoring that includes session replay, allowing you to see exactly what the user did before an error occurred.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "LLM Observability and Cost Management",
+        "items": [
+          {
+            "title": "Helicone Proxy",
+            "description": "Route OpenAI or Anthropic requests through Helicone to get an instant dashboard of costs, latency, and request/response logs.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "LangSmith Tracing",
+            "description": "Use LangChain's observability tool to debug complex chains. It visualizes the inputs and outputs of every step in your LLM pipeline.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "LiteLLM Proxy",
+            "description": "A unified interface to call 100+ LLMs. Use its logging feature to export data to S3, Langfuse, or Mixpanel for centralized analysis.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Langfuse Open-Source Tracing",
+            "description": "Self-hostable alternative for LLM application tracing. It provides specific metrics for token usage and latency across different model providers.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Arize Phoenix",
+            "description": "An open-source library for ML observability that helps in evaluating LLM responses and detecting embedding drift in vector databases.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Portkey AI Gateway",
+            "description": "Control your LLM traffic with features like fallback, retries, and load balancing while collecting detailed observability data.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Promptfoo Evaluation",
+            "description": "Run test cases against your prompts to measure output quality and regression before deploying new prompt versions to production.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Weights & Biases (W&B) Prompts",
+            "description": "Visualize the execution flow of your LLM programs and track model performance over time with their specialized prompt logging.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Lunary LLM Stack",
+            "description": "Open-source observability for LLMs including cost tracking, user analytics, and prompt versioning in a single dashboard.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Parea AI",
+            "description": "A developer platform to debug, test, and monitor LLM apps. It allows you to run evaluations on production data to find edge case failures.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Distributed Tracing and OpenTelemetry",
+        "items": [
+          {
+            "title": "OpenTelemetry Collector",
+            "description": "Set up a central collector to receive OTLP data and export it to multiple backends simultaneously (e.g., Jaeger and Datadog).",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Jaeger Distributed Tracing",
+            "description": "Deploy Jaeger to visualize the path of a request across microservices. Essential for finding latency bottlenecks in complex AI pipelines.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "SigNoz Observability Suite",
+            "description": "An open-source alternative to Datadog that combines metrics, traces, and logs in one UI, built on top of OpenTelemetry and ClickHouse.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Honeycomb.io High-Cardinality Analysis",
+            "description": "Use Honeycomb for debugging complex systems where you need to group by user ID, request ID, or other high-cardinality fields.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Grafana Tempo",
+            "description": "A high-scale distributed tracing backend that is deeply integrated with Grafana and Loki, allowing you to jump from logs to traces.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Uptrace",
+            "description": "An open-source distributed tracing tool that uses ClickHouse to store data and provides an easy-to-use UI for OTel data analysis.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "HyperDX Unified Platform",
+            "description": "An open-source tool that correlates logs and traces automatically, making it easier to find the root cause of an error in a microservice.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "ClickHouse for Observability",
+            "description": "Utilize ClickHouse as the storage engine for logs and traces due to its superior columnar compression and query performance for analytical data.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "OpenTelemetry SDK Auto-Instrumentation",
+            "description": "Use OTel zero-code instrumentation for Java, Python, or Node.js to start collecting traces without modifying your application code.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Pyroscope Continuous Profiling",
+            "description": "Integrate Pyroscope to continuously monitor CPU and memory usage at the function level, identifying lines of code causing performance regressions.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Prioritize 'Golden Signals'—latency, traffic, errors, and saturation—over hundreds of low-level metrics to avoid dashboard clutter.",
+      "Implement sampling in your tracing strategy (e.g., 10% of successful traces, 100% of errors) to reduce storage costs without losing critical data.",
+      "Use Prometheus Recording Rules to pre-calculate complex queries, significantly improving dashboard load times for high-volume data.",
+      "Tag LLM requests with 'metadata-user-id' and 'metadata-feature-name' in your proxy to enable granular cost attribution by customer or feature.",
+      "Set up 'Inhibition Rules' in Alertmanager to prevent a flood of alerts; for example, if a data center is down, suppress individual service alerts."
+    ]
+  }
+}

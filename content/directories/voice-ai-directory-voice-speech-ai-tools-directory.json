@@ -1,0 +1,261 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "voice-ai",
+    "generated_at": "2026-03-12T22:38:01.425Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Voice & Speech AI tools directory",
+    "description": "A developer-first directory of Voice & Speech AI tools and references.",
+    "keywords": [
+      "voice-ai",
+      "voice & speech ai",
+      "directory"
+    ],
+    "slug": "voice-ai-directory-voice-speech-ai-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure, APIs, and open-source models for implementing speech-to-text, text-to-speech, and real-time conversational voice interfaces.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Speech-to-Text",
+          "Text-to-Speech",
+          "Conversational Infrastructure",
+          "Audio Processing",
+          "Voice Activity Detection"
+        ]
+      },
+      {
+        "name": "Latency",
+        "values": [
+          "Real-time",
+          "Batch",
+          "Near-real-time"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Deepgram",
+        "description": "High-speed speech-to-text API optimized for real-time streaming and high-concurrency workloads.",
+        "url": "https://deepgram.com/",
+        "category": "Speech-to-Text",
+        "pricing_model": "freemium",
+        "pros": [
+          "Sub-300ms latency for streaming audio",
+          "Extensive support for niche industry terminology",
+          "Competitive pricing for high-volume batch processing"
+        ],
+        "cons": [
+          "Self-hosting requires enterprise agreements",
+          "Model fine-tuning process is complex for beginners"
+        ],
+        "tags": [
+          "real-time",
+          "stt",
+          "api",
+          "streaming"
+        ]
+      },
+      {
+        "name": "Whisper (OpenAI)",
+        "description": "General-purpose speech recognition model capable of multilingual transcription and translation.",
+        "url": "https://github.com/openai/whisper",
+        "category": "Speech-to-Text",
+        "pricing_model": "open-source",
+        "pros": [
+          "State-of-the-art accuracy across multiple languages",
+          "Robust performance in noisy environments",
+          "No licensing fees for self-hosted deployments"
+        ],
+        "cons": [
+          "High GPU memory requirements for 'large' models",
+          "Native implementation is not optimized for real-time streaming"
+        ],
+        "tags": [
+          "stt",
+          "multilingual",
+          "python",
+          "transformer"
+        ]
+      },
+      {
+        "name": "ElevenLabs",
+        "description": "AI audio platform specializing in high-fidelity, emotionally expressive text-to-speech and voice cloning.",
+        "url": "https://elevenlabs.io/",
+        "category": "Text-to-Speech",
+        "pricing_model": "freemium",
+        "pros": [
+          "Highest quality natural-sounding prosody",
+          "Instant voice cloning from short audio samples",
+          "Low-latency Turbo v2.5 model for conversational use"
+        ],
+        "cons": [
+          "Higher cost per character compared to cloud providers",
+          "Strict rate limits on lower-tier plans"
+        ],
+        "tags": [
+          "tts",
+          "voice-cloning",
+          "generative-audio"
+        ]
+      },
+      {
+        "name": "Vapi",
+        "description": "Managed orchestration layer for building low-latency voice AI agents that combine STT, LLM, and TTS.",
+        "url": "https://vapi.ai/",
+        "category": "Conversational Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "Handles the complexity of interruption handling and turn-taking",
+          "Pre-integrated with major providers like Deepgram and ElevenLabs",
+          "Provides a unified SDK for web and mobile"
+        ],
+        "cons": [
+          "Adds an abstraction layer that limits granular protocol control",
+          "Pricing includes a markup on underlying provider costs"
+        ],
+        "tags": [
+          "voice-agents",
+          "orchestration",
+          "real-time",
+          "sdk"
+        ]
+      },
+      {
+        "name": "AssemblyAI",
+        "description": "Speech-to-text API focused on 'Audio Intelligence' features like PII redaction, sentiment analysis, and summarization.",
+        "url": "https://www.assemblyai.com/",
+        "category": "Speech-to-Text",
+        "pricing_model": "freemium",
+        "pros": [
+          "Excellent documentation and developer experience",
+          "Built-in models for speaker diarization and entity detection",
+          "Le Mans model offers high accuracy with low latency"
+        ],
+        "cons": [
+          "Real-time streaming is less mature than batch processing",
+          "Limited support for very rare languages"
+        ],
+        "tags": [
+          "stt",
+          "batch-processing",
+          "audio-intelligence",
+          "api"
+        ]
+      },
+      {
+        "name": "LiveKit",
+        "description": "Open-source WebRTC stack designed for building real-time audio and video applications with AI integration.",
+        "url": "https://livekit.io/",
+        "category": "Conversational Infrastructure",
+        "pricing_model": "open-source",
+        "pros": [
+          "Optimized for low-latency multi-user audio transmission",
+          "Built-in support for AI agents via Agents SDK",
+          "Scalable SFU architecture"
+        ],
+        "cons": [
+          "Requires significant DevOps knowledge to self-host at scale",
+          "WebRTC debugging can be difficult"
+        ],
+        "tags": [
+          "webrtc",
+          "real-time",
+          "infrastructure",
+          "open-source"
+        ]
+      },
+      {
+        "name": "Faster-Whisper",
+        "description": "A reimplementation of OpenAI's Whisper model using CTranslate2 for up to 4x faster inference.",
+        "url": "https://github.com/SYSTRAN/faster-whisper",
+        "category": "Speech-to-Text",
+        "pricing_model": "open-source",
+        "pros": [
+          "Significantly reduced CPU and GPU memory footprint",
+          "Drop-in replacement for standard Whisper in many pipelines",
+          "Supports quantization (int8) for edge deployment"
+        ],
+        "cons": [
+          "Requires specific C++ dependencies for compilation",
+          "Does not support all newer Whisper features immediately"
+        ],
+        "tags": [
+          "stt",
+          "optimization",
+          "inference",
+          "python"
+        ]
+      },
+      {
+        "name": "Piper",
+        "description": "A fast, local neural text-to-speech system that runs on low-power devices like Raspberry Pi.",
+        "url": "https://github.com/rhasspy/piper",
+        "category": "Text-to-Speech",
+        "pricing_model": "open-source",
+        "pros": [
+          "Fully offline operation with no external API calls",
+          "Extremely low latency on consumer hardware",
+          "Exportable to ONNX format"
+        ],
+        "cons": [
+          "Voice quality is lower than cloud-based generative models",
+          "Limited selection of expressive emotional voices"
+        ],
+        "tags": [
+          "tts",
+          "edge-ai",
+          "onnx",
+          "local-first"
+        ]
+      },
+      {
+        "name": "Silero VAD",
+        "description": "Pre-trained enterprise-grade Voice Activity Detector (VAD) for detecting speech in audio streams.",
+        "url": "https://github.com/snakers4/silero-vad",
+        "category": "Voice Activity Detection",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely lightweight and fast inference",
+          "Works across multiple languages without retraining",
+          "Critical for reducing API costs by filtering silence"
+        ],
+        "cons": [
+          "Sensitivity requires tuning for specific background noise levels",
+          "Integration requires manual audio buffer management"
+        ],
+        "tags": [
+          "vad",
+          "audio-processing",
+          "optimization",
+          "python"
+        ]
+      },
+      {
+        "name": "Play.ht",
+        "description": "AI voice generator with a large library of cloned and synthetic voices for enterprise applications.",
+        "url": "https://play.ht/",
+        "category": "Text-to-Speech",
+        "pricing_model": "paid",
+        "pros": [
+          "Large variety of accents and styles",
+          "High-fidelity clones with emotional control",
+          "Supports long-form content generation"
+        ],
+        "cons": [
+          "API documentation can be inconsistent between versions",
+          "Latency is higher than specialized real-time TTS providers"
+        ],
+        "tags": [
+          "tts",
+          "voice-generation",
+          "api"
+        ]
+      }
+    ]
+  }
+}

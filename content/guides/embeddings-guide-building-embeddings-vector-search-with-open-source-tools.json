@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "embeddings",
+    "generated_at": "2026-03-12T22:37:53.934Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Embeddings & Vector Search with open-source tools",
+    "description": "A step-by-step implementation guide for Embeddings & Vector Search with open-source tools.",
+    "keywords": [
+      "embeddings",
+      "embeddings & vector search",
+      "guide"
+    ],
+    "slug": "embeddings-guide-building-embeddings-vector-search-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide covers the implementation of a production-ready semantic search system, focusing on the transition from traditional keyword search to a hybrid vector-based approach using pgvector and OpenAI's embedding models.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "PostgreSQL instance with the pgvector extension installed",
+      "OpenAI API key or access to a local embedding model via Ollama",
+      "Python 3.10+ or Node.js environment",
+      "Basic understanding of SQL and REST APIs"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Select and Benchmark Embedding Model",
+        "explanation": "Choose a model based on dimensionality and cost. Higher dimensions (e.g., text-embedding-3-large at 3072) offer better semantic density but increase storage costs and latency. For most use cases, text-embedding-3-small (1536 dimensions) provides an optimal balance.",
+        "code": {
+          "language": "python",
+          "content": "import openai\n\ndef get_embedding(text, model=\"text-embedding-3-small\"):\n    text = text.replace(\"\\n\", \" \")\n    return openai.embeddings.create(input=[text], model=model).data[0].embedding",
+          "filename": "embeddings_util.py"
+        },
+        "pitfalls": [
+          "Ignoring token limits (8191 tokens for OpenAI models).",
+          "Mixing different models in the same vector space, which yields zero-similarity results."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure Database Schema with Vector Indices",
+        "explanation": "Define a table to store both the original content and its vector representation. Use the HNSW (Hierarchical Navigable Small World) index for faster approximate nearest neighbor (ANN) searches compared to IVFFlat, especially for datasets exceeding 100k rows.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE EXTENSION IF NOT EXISTS vector;\n\nCREATE TABLE documents (\n    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),\n    content text NOT NULL,\n    metadata jsonb,\n    embedding vector(1536) -- Matches text-embedding-3-small dimensions\n);\n\nCREATE INDEX ON documents USING hnsw (embedding vector_cosine_ops);",
+          "filename": "schema.sql"
+        },
+        "pitfalls": [
+          "Indexing before initial data load (slower bulk inserts).",
+          "Choosing the wrong distance function; cosine similarity is standard for normalized text embeddings."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Semantic Chunking Strategy",
+        "explanation": "Large documents must be split into chunks to maintain context and stay within model limits. Use a recursive character splitter with a defined overlap (e.g., 500 characters with 50 character overlap) to ensure semantic boundaries aren't cut mid-sentence.",
+        "code": {
+          "language": "python",
+          "content": "from langchain.text_splitter import RecursiveCharacterTextSplitter\n\ntext_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=500,\n    chunk_overlap=50,\n    separators=[\"\\n\\n\", \"\\n\", \". \", \" \", \"\"]\n)\n\nchunks = text_splitter.split_text(source_document)",
+          "filename": "processor.py"
+        },
+        "pitfalls": [
+          "Chunk sizes that are too small (losing context) or too large (averaging out the vector's meaning)."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Execute Batch Upsert Pipeline",
+        "explanation": "To minimize network overhead and API latency, batch your embedding requests and database inserts. Process documents in batches of 50-100 to avoid hitting rate limits or database transaction timeouts.",
+        "code": {
+          "language": "python",
+          "content": "def batch_upsert(texts, metadatas, batch_size=50):\n    for i in range(0, len(texts), batch_size):\n        batch_texts = texts[i:i+batch_size]\n        embeddings = [get_embedding(t) for t in batch_texts]\n        # Perform batch SQL insert: INSERT INTO documents (content, embedding) VALUES %s",
+          "filename": "ingest.py"
+        },
+        "pitfalls": [
+          "Failing to handle 429 Rate Limit errors from embedding providers.",
+          "Not storing the original text alongside the vector, requiring a second lookup during retrieval."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement Hybrid Search with RRF",
+        "explanation": "Pure vector search can fail on specific keywords or acronyms. Implement Hybrid Search by combining full-text search (BM25/TSVector) with vector similarity using Reciprocal Rank Fusion (RRF) to improve relevance.",
+        "code": {
+          "language": "sql",
+          "content": "WITH semantic_search AS (\n    SELECT id, rank() OVER (ORDER BY embedding <=> :query_vector) as rank\n    FROM documents\n    ORDER BY embedding <=> :query_vector\n    LIMIT 20\n),\nkeyword_search AS (\n    SELECT id, rank() OVER (ORDER BY ts_rank_cd(to_tsvector('english', content), query) DESC) as rank\n    FROM documents, plainto_tsquery('english', :query_text) query\n    WHERE to_tsvector('english', content) @@ query\n    LIMIT 20\n)\nSELECT \n    COALESCE(s.id, k.id) as id,\n    (1.0 / (60 + COALESCE(s.rank, 100))) + (1.0 / (60 + COALESCE(k.rank, 100))) as score\nFROM semantic_search s\nFULL OUTER JOIN keyword_search k ON s.id = k.id\nORDER BY score DESC;",
+          "filename": "search.sql"
+        },
+        "pitfalls": [
+          "Over-relying on vector search for exact matches like product SKUs or serial numbers.",
+          "Ignoring the '60' constant in RRF, which balances the influence of top results."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Setup Data Sync and Re-indexing Triggers",
+        "explanation": "Ensure the vector store stays in sync with the primary data source. Use database triggers or an application-level middleware to queue an embedding update whenever the 'content' column of your source table is modified.",
+        "pitfalls": [
+          "Updating embeddings on every small metadata change, wasting API credits.",
+          "Out-of-sync indices leading to 'hallucinated' search results where the vector matches but the text has changed."
+        ]
+      }
+    ],
+    "conclusion": "Successful embedding implementation requires balancing model precision with retrieval latency. By using a hybrid search approach and HNSW indexing in pgvector, you can achieve sub-100ms response times while maintaining high relevance across both semantic and keyword-based queries."
+  }
+}

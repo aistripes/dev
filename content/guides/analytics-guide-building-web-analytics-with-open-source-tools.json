@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "analytics",
+    "generated_at": "2026-03-12T22:38:10.753Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Web Analytics with open-source tools",
+    "description": "A step-by-step implementation guide for Web Analytics with open-source tools.",
+    "keywords": [
+      "analytics",
+      "web analytics",
+      "guide"
+    ],
+    "slug": "analytics-guide-building-web-analytics-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a privacy-first, cookie-less web analytics strategy. It focuses on bypassing ad-blockers via reverse proxying and instrumenting custom event tracking for product-led growth metrics without requiring user consent banners.",
+    "estimated_time": "60 minutes",
+    "prerequisites": [
+      "A web application (React, Next.js, or Vue preferred)",
+      "A privacy-first analytics provider account (Plausible, Umami, or Fathom)",
+      "Access to DNS settings or a reverse proxy like Nginx/Vercel Rewrites"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure a Reverse Proxy for the Tracking Script",
+        "explanation": "To prevent ad-blockers from stripping your analytics script, proxy the tracking script through your own domain. This ensures the request originates from your first-party domain rather than a known tracking CDN.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"rewrites\": [\n    {\n      \"source\": \"/stats/js/script.js\",\n      \"destination\": \"https://plausible.io/js/script.js\"\n    },\n    {\n      \"source\": \"/stats/api/event\",\n      \"destination\": \"https://plausible.io/api/event\"\n    }\n  ]\n}",
+          "filename": "vercel.json"
+        },
+        "pitfalls": [
+          "Failure to proxy the API endpoint (/api/event) will result in script loading but data failing to send.",
+          "Ensure your analytics provider supports custom domains or proxying before implementation."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Initialize the Tracking Snippet",
+        "explanation": "Inject the script into your application's head. Use data-attributes to define the domain and ensure the script points to your proxied path rather than the provider's default URL.",
+        "code": {
+          "language": "html",
+          "content": "<script defer data-domain=\"yourdomain.com\" data-api=\"/stats/api/event\" src=\"/stats/js/script.js\"></script>"
+        },
+        "pitfalls": [
+          "Setting data-domain incorrectly will lead to a 403 Forbidden error from the analytics collector.",
+          "Loading the script synchronously will negatively impact Core Web Vitals (LCP)."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Custom Event Tracking for UI Interactions",
+        "explanation": "Standard pageview tracking is insufficient for modern apps. Use a global helper to trigger custom events for specific user actions like 'Signup Clicked' or 'AI Prompt Submitted'.",
+        "code": {
+          "language": "typescript",
+          "content": "export const trackEvent = (eventName: string, props?: Record<string, string | number | boolean>) => {\n  if (typeof window !== 'undefined' && (window as any).plausible) {\n    (window as any).plausible(eventName, { props });\n  }\n};",
+          "filename": "lib/analytics.ts"
+        },
+        "pitfalls": [
+          "Do not include Personally Identifiable Information (PII) like email addresses in props to maintain GDPR compliance.",
+          "Ensure the script has finished loading before calling the tracking function, or use a queueing pattern."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Track Server-Side Events for AI Features",
+        "explanation": "Client-side tracking can miss events if a user closes the tab before an AI response finishes. Trigger a server-side POST request to the analytics API when an AI generation completes.",
+        "code": {
+          "language": "typescript",
+          "content": "await fetch('https://yourdomain.com/stats/api/event', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json', 'User-Agent': userAgent },\n  body: JSON.stringify({\n    name: 'ai_generation_complete',\n    url: 'https://yourdomain.com/dashboard',\n    domain: 'yourdomain.com',\n    props: { model: 'gpt-4', tokens: 450 }\n  })\n});",
+          "filename": "api/generate.ts"
+        },
+        "pitfalls": [
+          "Server-side calls require manual User-Agent and X-Forwarded-For headers to accurately record geographic data.",
+          "Rate limits on the analytics provider's API can drop server-side events if not handled with a retry logic."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Verify Data Accuracy and Payload Structure",
+        "explanation": "Open the browser's Network tab and filter by the proxied path. Trigger an event and verify the payload is a valid JSON object with the expected properties. Check that no cookies are being set in the Response Headers.",
+        "pitfalls": [
+          "Testing with an active ad-blocker that uses CNAME cloaking detection might still block the proxy; test in a clean environment.",
+          "Verify that the 'domain' field in the payload matches exactly what is configured in your analytics dashboard."
+        ]
+      }
+    ],
+    "conclusion": "You now have a robust, privacy-compliant analytics setup that avoids common ad-blocking pitfalls. By using a reverse proxy and custom event helpers, you can track deep product engagement metrics while maintaining a zero-cookie footprint."
+  }
+}

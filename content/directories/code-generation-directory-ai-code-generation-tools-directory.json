@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "code-generation",
+    "generated_at": "2026-03-12T22:37:57.740Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI Code Generation tools directory",
+    "description": "A developer-first directory of AI Code Generation tools and references.",
+    "keywords": [
+      "code-generation",
+      "ai code generation",
+      "directory"
+    ],
+    "slug": "code-generation-directory-ai-code-generation-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, frameworks, and evaluation benchmarks for integrating AI code generation into professional software development workflows. This list focuses on tools that provide high-quality code output, context-aware suggestions, and security-focused analysis.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "IDE Extension",
+          "CLI Agent",
+          "Evaluation Framework",
+          "Security & Compliance",
+          "Infrastructure"
+        ]
+      },
+      {
+        "name": "Interface",
+        "values": [
+          "VS Code",
+          "JetBrains",
+          "Terminal",
+          "Web API"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Cursor",
+        "description": "An AI-native fork of VS Code that integrates LLMs directly into the editor for codebase-wide indexing and multi-file edits.",
+        "url": "https://cursor.com",
+        "category": "IDE Extension",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native codebase indexing for deep context awareness",
+          "Supports 'Composer' mode for multi-file code generation",
+          "Seamless migration for VS Code users"
+        ],
+        "cons": [
+          "Requires switching from standard VS Code binary",
+          "Subscription required for advanced models"
+        ],
+        "tags": [
+          "IDE",
+          "Context-Aware",
+          "VS Code"
+        ]
+      },
+      {
+        "name": "GitHub Copilot",
+        "description": "The industry-standard AI pair programmer providing autocomplete and chat features across major IDEs.",
+        "url": "https://github.com/features/copilot",
+        "category": "IDE Extension",
+        "pricing_model": "paid",
+        "pros": [
+          "Deep integration with GitHub ecosystem and CI/CD",
+          "Broad language and IDE support",
+          "Enterprise-grade security and IP indemnity"
+        ],
+        "cons": [
+          "Context window often feels more limited than competitors",
+          "Limited control over underlying model selection"
+        ],
+        "tags": [
+          "Autocomplete",
+          "GitHub",
+          "Standard"
+        ]
+      },
+      {
+        "name": "Aider",
+        "description": "A command-line chat tool that lets you edit code in your local git repository using LLMs.",
+        "url": "https://aider.chat",
+        "category": "CLI Agent",
+        "pricing_model": "open-source",
+        "pros": [
+          "Directly commits changes to git with descriptive messages",
+          "Works with existing local editors and workflows",
+          "Supports multiple LLM providers via API keys"
+        ],
+        "cons": [
+          "Requires manual setup of API keys",
+          "Terminal-based UI may be less intuitive for some"
+        ],
+        "tags": [
+          "CLI",
+          "Git",
+          "Agentic"
+        ]
+      },
+      {
+        "name": "Claude Code",
+        "description": "An agentic CLI tool from Anthropic that can execute commands, read files, and edit code locally.",
+        "url": "https://www.anthropic.com/claude",
+        "category": "CLI Agent",
+        "pricing_model": "paid",
+        "pros": [
+          "Exceptional reasoning capabilities for complex refactoring",
+          "Built-in tool execution for running tests and builds",
+          "High token limits for large context handling"
+        ],
+        "cons": [
+          "Currently in beta with restricted access",
+          "Usage costs can scale quickly with large projects"
+        ],
+        "tags": [
+          "CLI",
+          "Anthropic",
+          "Refactoring"
+        ]
+      },
+      {
+        "name": "Continue",
+        "description": "An open-source autopilot for VS Code and JetBrains that allows users to plug in any LLM.",
+        "url": "https://continue.dev",
+        "category": "IDE Extension",
+        "pricing_model": "open-source",
+        "pros": [
+          "Complete control over model selection (Ollama, Anthropic, OpenAI)",
+          "Extensible via custom slash commands",
+          "Supports local LLM execution for privacy"
+        ],
+        "cons": [
+          "Configuration requires editing JSON files",
+          "Context indexing is less polished than paid alternatives"
+        ],
+        "tags": [
+          "Open-Source",
+          "Customizable",
+          "Local-LLM"
+        ]
+      },
+      {
+        "name": "Sourcegraph Cody",
+        "description": "An AI coding assistant that uses Sourcegraph's code search to provide context from large repositories.",
+        "url": "https://sourcegraph.com/cody",
+        "category": "IDE Extension",
+        "pricing_model": "freemium",
+        "pros": [
+          "Superior context retrieval for enterprise-scale codebases",
+          "Supports multiple backend models",
+          "Strong focus on security and codebase privacy"
+        ],
+        "cons": [
+          "Context retrieval can be slow on very large repos",
+          "UI can feel cluttered compared to Cursor"
+        ],
+        "tags": [
+          "Code-Search",
+          "Enterprise",
+          "Context"
+        ]
+      },
+      {
+        "name": "BigCode Bench",
+        "description": "A benchmark for evaluating the instruction-following capabilities of code generation models.",
+        "url": "https://github.com/bigcode-project/bigcodebench",
+        "category": "Evaluation Framework",
+        "pricing_model": "open-source",
+        "pros": [
+          "More rigorous than standard HumanEval benchmarks",
+          "Tests models on complex, library-heavy tasks",
+          "Regularly updated with new model results"
+        ],
+        "cons": [
+          "Resource intensive to run locally",
+          "Primarily focused on Python"
+        ],
+        "tags": [
+          "Benchmark",
+          "Research",
+          "Quality-Control"
+        ]
+      },
+      {
+        "name": "Snyk AI",
+        "description": "AI-powered security scanning that identifies and suggests fixes for vulnerabilities in generated code.",
+        "url": "https://snyk.io/product/snyk-code/",
+        "category": "Security & Compliance",
+        "pricing_model": "freemium",
+        "pros": [
+          "Automated fix suggestions for security vulnerabilities",
+          "Integrates directly into CI/CD pipelines",
+          "Low false-positive rate compared to traditional SAST"
+        ],
+        "cons": [
+          "Advanced features require enterprise pricing",
+          "Fix suggestions may need manual verification"
+        ],
+        "tags": [
+          "Security",
+          "SAST",
+          "Compliance"
+        ]
+      },
+      {
+        "name": "Supermaven",
+        "description": "A high-speed AI code completion tool with a 1-million-token context window.",
+        "url": "https://supermaven.com",
+        "category": "IDE Extension",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extremely low latency completions",
+          "Massive context window for whole-repo understanding",
+          "Efficient resource usage"
+        ],
+        "cons": [
+          "Smaller feature set than Copilot or Cursor",
+          "Proprietary model lacks some reasoning depth of Claude 3.5"
+        ],
+        "tags": [
+          "Latency",
+          "Context-Window",
+          "Performance"
+        ]
+      },
+      {
+        "name": "Tabnine",
+        "description": "An AI code assistant focused on privacy and local deployments for enterprise teams.",
+        "url": "https://tabnine.com",
+        "category": "IDE Extension",
+        "pricing_model": "enterprise",
+        "pros": [
+          "Can be deployed entirely on-premises or in VPC",
+          "Zero-retention data policies",
+          "Trained on permissive open-source code"
+        ],
+        "cons": [
+          "Model quality sometimes lags behind OpenAI/Anthropic",
+          "Free tier is very limited"
+        ],
+        "tags": [
+          "Privacy",
+          "On-Prem",
+          "Enterprise"
+        ]
+      }
+    ]
+  }
+}

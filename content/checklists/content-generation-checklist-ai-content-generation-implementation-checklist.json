@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "content-generation",
+    "generated_at": "2026-03-12T22:37:58.261Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI Content Generation implementation checklist",
+    "description": "A practical checklist for shipping AI Content Generation projects safely.",
+    "keywords": [
+      "content-generation",
+      "ai content generation",
+      "checklist"
+    ],
+    "slug": "content-generation-checklist-ai-content-generation-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for deploying AI content generation pipelines that maintain brand integrity, technical accuracy, and search engine performance while minimizing operational risks.",
+    "sections": [
+      {
+        "heading": "Prompt Engineering and Brand Alignment",
+        "items": [
+          {
+            "title": "System Prompt Brand Guardrails",
+            "description": "Define a system prompt that includes explicit 'do not use' word lists, tone descriptors (e.g., 'technical but accessible'), and persona constraints to prevent generic AI phrasing.",
+            "priority": "critical"
+          },
+          {
+            "title": "Few-Shot Example Implementation",
+            "description": "Include at least 3-5 high-quality, human-written content examples in the prompt context to guide the model on structural and stylistic expectations.",
+            "priority": "critical"
+          },
+          {
+            "title": "Temperature and Top-P Tuning",
+            "description": "Set temperature between 0.7 and 0.8 for creative writing or 0.2 for factual reporting to ensure consistent output quality across multiple runs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Markdown Structure Enforcement",
+            "description": "Specify exact header hierarchies (H1, H2, H3) and list formats in the prompt to ensure the output integrates directly with the frontend components.",
+            "priority": "critical"
+          },
+          {
+            "title": "Negative Constraint Testing",
+            "description": "Verify the model adheres to negative constraints, such as 'do not mention competitors' or 'do not use passive voice', through 20+ test iterations.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Data Integrity and Fact-Checking",
+        "items": [
+          {
+            "title": "Zod Schema Validation",
+            "description": "Validate the JSON output from the LLM against a strict Zod schema to ensure required fields like 'title', 'meta_description', and 'body' are present and correctly typed.",
+            "priority": "critical"
+          },
+          {
+            "title": "RAG Grounding Verification",
+            "description": "If using Retrieval-Augmented Generation, verify that every factual claim in the output is mapped to a source chunk in the vector database.",
+            "priority": "critical"
+          },
+          {
+            "title": "Hallucination Check for Citations",
+            "description": "Implement a regex or LLM-based scanner to verify that all generated URLs, statistics, and citations are valid and reachable.",
+            "priority": "critical"
+          },
+          {
+            "title": "Placeholder Detection",
+            "description": "Scan generated content for common AI placeholders like '[Insert Name Here]' or '[Link to Source]' before it reaches the publishing queue.",
+            "priority": "critical"
+          },
+          {
+            "title": "Automated Plagiarism Scanning",
+            "description": "Integrate an API like Copyscape or Turnitin to check generated drafts against existing web content to avoid duplicate content penalties.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Pipeline Infrastructure and Scalability",
+        "items": [
+          {
+            "title": "Rate Limit and Backoff Logic",
+            "description": "Implement exponential backoff and retry logic in the generation service to handle 429 errors from LLM providers during peak loads.",
+            "priority": "critical"
+          },
+          {
+            "title": "Async Task Queue Management",
+            "description": "Offload content generation to an asynchronous worker (e.g., BullMQ, Celery) to prevent timeout issues during long-form text generation.",
+            "priority": "critical"
+          },
+          {
+            "title": "Model Fallback Strategy",
+            "description": "Configure a secondary model (e.g., falling back from GPT-4 to Claude 3) to maintain service availability if the primary provider experiences downtime.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Token Usage Monitoring",
+            "description": "Implement per-user or per-request token tracking to monitor costs and alert when generation exceeds predefined budget thresholds.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Generation Versioning",
+            "description": "Store the prompt ID, model version, and temperature alongside each generated piece of content to allow for A/B testing and regression tracking.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "SEO and Performance Optimization",
+        "items": [
+          {
+            "title": "Automated Meta-Tag Generation",
+            "description": "Generate unique meta titles and descriptions constrained to 60 and 160 characters respectively, including the primary keyword.",
+            "priority": "critical"
+          },
+          {
+            "title": "Internal Link Suggestion Logic",
+            "description": "Integrate a script that scans the generated text for keywords and automatically suggests or inserts links to existing high-authority pages on the site.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Readability Score Validation",
+            "description": "Calculate the Flesch-Kincaid grade level of the output to ensure it matches the target audience's reading level (e.g., grade 8-10 for general blogs).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Image Alt Text Automation",
+            "description": "If images are generated or attached, use a vision model or prompt to create descriptive, SEO-friendly alt text for every asset.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Keyword Density Analysis",
+            "description": "Verify that the generated content naturally incorporates target keywords without exceeding a 2% density threshold to avoid keyword stuffing flags.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Human-in-the-loop and Compliance",
+        "items": [
+          {
+            "title": "Draft Approval Workflow",
+            "description": "Implement a 'Pending Review' state in the CMS that requires a human editor to sign off on AI-generated content before it goes live.",
+            "priority": "critical"
+          },
+          {
+            "title": "AI Disclosure Compliance",
+            "description": "Ensure the UI includes a disclaimer or metadata tag identifying the content as AI-assisted where legally or ethically required by the platform.",
+            "priority": "recommended"
+          },
+          {
+            "title": "PII Scrubbing",
+            "description": "Run a pre-processing script to strip any Personally Identifiable Information (PII) from user inputs before sending them to third-party LLM APIs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Feedback Loop Integration",
+            "description": "Build a UI mechanism for editors to 'thumbs up/down' or edit content, feeding those corrections back into the prompt context for future runs.",
+            "priority": "optional"
+          },
+          {
+            "title": "Content Expiry and Refresh Schedule",
+            "description": "Set a flag for AI-generated content to be re-validated every 6 months to ensure facts and links remain current.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

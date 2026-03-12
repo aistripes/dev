@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "react",
+    "generated_at": "2026-03-12T22:38:32.786Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "React (general) implementation checklist",
+    "description": "A practical checklist for shipping React (general) projects safely.",
+    "keywords": [
+      "react",
+      "react (general)",
+      "checklist"
+    ],
+    "slug": "react-checklist-react-general-implementation-checklist"
+  },
+  "content": {
+    "intro": "This production-readiness checklist provides a technical verification framework for React applications to ensure performance, accessibility, and reliability standards are met before deployment.",
+    "sections": [
+      {
+        "heading": "Performance and Resource Management",
+        "items": [
+          {
+            "title": "Implement Route-Based Code Splitting",
+            "description": "Utilize React.lazy and Suspense to split the main bundle into route-specific chunks, reducing the initial JavaScript payload size.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit Component Re-renders",
+            "description": "Use the React DevTools Profiler to identify and eliminate redundant renders in expensive components using React.memo or the React Compiler.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Optimize Image Assets",
+            "description": "Verify all images use modern formats (WebP/AVIF), include explicit width/height to prevent Layout Shift, and implement lazy loading for off-screen content.",
+            "priority": "critical"
+          },
+          {
+            "title": "Analyze Bundle Composition",
+            "description": "Run source-map-explorer or a similar bundle analyzer to identify and replace oversized or duplicate third-party dependencies.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Stabilize Hook Dependencies",
+            "description": "Ensure all useEffect, useMemo, and useCallback hooks have complete dependency arrays to prevent stale closures or infinite loops.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "State Management and Data Fetching",
+        "items": [
+          {
+            "title": "Configure Cache Stale Times",
+            "description": "Set explicit staleTime and gcTime in React Query or SWR to prevent excessive background refetches and unnecessary network traffic.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement Global Error Boundaries",
+            "description": "Wrap the application root and high-risk feature modules in Error Boundaries to prevent a single component crash from unmounting the entire tree.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Form States",
+            "description": "Verify that all forms manage 'isSubmitting' and 'isValid' states to prevent double-submissions and provide immediate user feedback.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Sanitize Context Providers",
+            "description": "Verify that Context providers only pass memoized values to avoid triggering re-renders in all consumer components when the provider's parent renders.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Handle Empty and Loading States",
+            "description": "Ensure every data-driven component has defined skeleton screens or empty-state UI to prevent layout jumping during fetch operations.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Accessibility (a11y) and UX",
+        "items": [
+          {
+            "title": "Verify Keyboard Focus Management",
+            "description": "Ensure all interactive elements are reachable via Tab and that focus is programmatically moved when opening or closing modals and drawers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit ARIA Attributes",
+            "description": "Verify that custom UI components (tabs, accordions, dropdowns) use correct aria-expanded, aria-controls, and role attributes for screen readers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Check Color Contrast",
+            "description": "Validate that all text-to-background combinations meet WCAG AA standards (minimum 4.5:1 ratio) using automated linting or browser tools.",
+            "priority": "critical"
+          },
+          {
+            "title": "Use Semantic HTML Elements",
+            "description": "Replace non-semantic div/span click handlers with actual button or anchor tags to ensure native keyboard support and accessibility tree mapping.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Skip Links",
+            "description": "Add a hidden 'Skip to Main Content' link at the start of the DOM to allow keyboard users to bypass navigation menus.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Testing and Code Quality",
+        "items": [
+          {
+            "title": "Enforce Strict TypeScript",
+            "description": "Enable strict mode in tsconfig.json and eliminate 'any' types to ensure type safety across component props and API responses.",
+            "priority": "critical"
+          },
+          {
+            "title": "Test Critical User Paths",
+            "description": "Execute integration tests using React Testing Library for 'Happy Path' scenarios like user authentication and core transaction flows.",
+            "priority": "critical"
+          },
+          {
+            "title": "Mock API Responses for Edge Cases",
+            "description": "Use Mock Service Worker (MSW) to simulate 404, 500, and timeout errors to verify UI resilience under failure conditions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Configure Pre-commit Hooks",
+            "description": "Utilize Husky to run ESLint and Prettier before every commit to ensure code consistency and prevent syntax errors in the repository.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Verify Environment Variable Isolation",
+            "description": "Check that no sensitive server-side keys are prefixed with VITE_ or NEXT_PUBLIC_, which would expose them to the client-side bundle.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Monitoring",
+        "items": [
+          {
+            "title": "Sanitize Rendered HTML",
+            "description": "Use DOMPurify when rendering strings through dangerouslySetInnerHTML to prevent Cross-Site Scripting (XSS) vulnerabilities.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Content Security Policy (CSP)",
+            "description": "Configure CSP headers to restrict script execution to trusted domains and block unauthorized inline scripts.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Audit Dependency Vulnerabilities",
+            "description": "Run 'npm audit' or 'yarn audit' and resolve high-risk vulnerabilities in the node_modules tree.",
+            "priority": "critical"
+          },
+          {
+            "title": "Integrate Error Tracking",
+            "description": "Connect a service like Sentry to capture unhandled exceptions and stack traces from production users for proactive debugging.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Remove Console Logs",
+            "description": "Configure the build pipeline to strip console.log and console.debug statements from production builds to prevent information leakage.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

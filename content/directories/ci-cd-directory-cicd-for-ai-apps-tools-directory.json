@@ -1,0 +1,359 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "ci-cd",
+    "generated_at": "2026-03-12T22:38:26.158Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "CI/CD for AI Apps tools directory",
+    "description": "A developer-first directory of CI/CD for AI Apps tools and references.",
+    "keywords": [
+      "ci-cd",
+      "ci/cd for ai apps",
+      "directory"
+    ],
+    "slug": "ci-cd-directory-cicd-for-ai-apps-tools-directory"
+  },
+  "content": {
+    "intro": "A specialized directory of tools and frameworks designed to automate the testing, versioning, and deployment of LLM-powered applications and AI infrastructure.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Evaluation & Testing",
+          "Prompt Management",
+          "Deployment & Orchestration",
+          "Infrastructure",
+          "Observability"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Promptfoo",
+        "description": "CLI tool for evaluating LLM output quality through test cases and matrix comparisons of prompts and models.",
+        "url": "https://www.promptfoo.dev/",
+        "category": "Evaluation & Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native CI integration for GitHub Actions and GitLab",
+          "Supports side-by-side model comparisons",
+          "Extensible with custom Javascript/Python providers"
+        ],
+        "cons": [
+          "Configuring complex assertions requires high initial effort"
+        ],
+        "tags": [
+          "testing",
+          "llmops",
+          "benchmarking"
+        ]
+      },
+      {
+        "name": "DeepEval",
+        "description": "Unit testing framework for LLMs that uses LLM-based metrics to evaluate outputs within Pytest suites.",
+        "url": "https://github.com/confident-ai/deepeval",
+        "category": "Evaluation & Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Integrates directly with existing Python test runners",
+          "Provides metrics for hallucination and relevancy",
+          "Automated report generation for CI pipelines"
+        ],
+        "cons": [
+          "High token cost for LLM-as-a-judge metrics",
+          "Requires OpenAI or similar API keys for default metrics"
+        ],
+        "tags": [
+          "pytest",
+          "python",
+          "validation"
+        ]
+      },
+      {
+        "name": "Pezzo",
+        "description": "Open-source prompt management platform that provides version control and type-safe clients for prompts.",
+        "url": "https://www.pezzo.ai/",
+        "category": "Prompt Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Decouples prompt changes from application code deployments",
+          "Provides instant rollbacks for prompt versions",
+          "Type-safe SDKs for TypeScript"
+        ],
+        "cons": [
+          "Adds network latency for prompt fetching",
+          "Requires self-hosting or managed cloud account"
+        ],
+        "tags": [
+          "prompt-engineering",
+          "version-control",
+          "management"
+        ]
+      },
+      {
+        "name": "Kamal",
+        "description": "Deployment tool for containerized applications that enables zero-downtime deploys to any bare metal or VPS.",
+        "url": "https://kamal-deploy.org/",
+        "category": "Deployment & Orchestration",
+        "pricing_model": "open-source",
+        "pros": [
+          "No vendor lock-in for AI hosting",
+          "Simplifies Docker-based deployments",
+          "Built-in support for health checks and rollbacks"
+        ],
+        "cons": [
+          "Requires manual server provisioning",
+          "Less automated than PaaS solutions like Vercel"
+        ],
+        "tags": [
+          "docker",
+          "deployment",
+          "self-hosting"
+        ]
+      },
+      {
+        "name": "Ollama",
+        "description": "Local runner for large language models that can be used in CI environments for cost-effective integration testing.",
+        "url": "https://ollama.com/",
+        "category": "Infrastructure",
+        "pricing_model": "open-source",
+        "pros": [
+          "Eliminates API costs during CI/CD test runs",
+          "Ensures data privacy by keeping tests local",
+          "Easy to containerize for Docker-based runners"
+        ],
+        "cons": [
+          "Requires high-resource CI runners (GPU/RAM)",
+          "Model performance may differ from production cloud APIs"
+        ],
+        "tags": [
+          "local-llm",
+          "testing",
+          "cost-optimization"
+        ]
+      },
+      {
+        "name": "LangSmith",
+        "description": "Platform for debugging, testing, and monitoring LLM applications with integrated versioning for datasets and prompts.",
+        "url": "https://www.langchain.com/langsmith",
+        "category": "Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Deep integration with LangChain ecosystem",
+          "Visual tracing of complex agent chains",
+          "Dataset management for regression testing"
+        ],
+        "cons": [
+          "Proprietary platform with potential for lock-in",
+          "Can become expensive at high trace volumes"
+        ],
+        "tags": [
+          "tracing",
+          "monitoring",
+          "debugging"
+        ]
+      },
+      {
+        "name": "ArgoCD",
+        "description": "Declarative GitOps continuous delivery tool for Kubernetes, ideal for managing GPU-based inference clusters.",
+        "url": "https://argoproj.github.io/cd/",
+        "category": "Deployment & Orchestration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automated synchronization of cluster state with Git",
+          "Supports complex rollouts (Blue/Green, Canary)",
+          "Strong visual interface for deployment status"
+        ],
+        "cons": [
+          "Requires existing Kubernetes infrastructure",
+          "High management overhead for small teams"
+        ],
+        "tags": [
+          "k8s",
+          "gitops",
+          "automation"
+        ]
+      },
+      {
+        "name": "Giskard",
+        "description": "Testing framework specifically designed to detect biases, hallucinations, and vulnerabilities in LLM applications.",
+        "url": "https://www.giskard.ai/",
+        "category": "Evaluation & Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automated scan for common AI failure modes",
+          "Generates adversarial test cases automatically",
+          "CI/CD integration for quality gates"
+        ],
+        "cons": [
+          "Focuses more on tabular/ML, LLM features are newer",
+          "Can produce false positives in scan results"
+        ],
+        "tags": [
+          "security",
+          "bias-detection",
+          "qa"
+        ]
+      },
+      {
+        "name": "LocalStack",
+        "description": "A fully functional local AWS cloud stack for testing serverless AI workflows (Lambda, Bedrock, S3) locally.",
+        "url": "https://localstack.cloud/",
+        "category": "Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Speeds up CI cycles for AWS-native AI apps",
+          "Enables offline development and testing",
+          "Supports many AWS AI services locally"
+        ],
+        "cons": [
+          "Advanced AI services require Pro subscription",
+          "Not a 100% perfect match for AWS production behavior"
+        ],
+        "tags": [
+          "aws",
+          "local-development",
+          "serverless"
+        ]
+      },
+      {
+        "name": "Fly.io",
+        "description": "Public cloud platform that simplifies deploying Docker containers close to users with GPU support.",
+        "url": "https://fly.io/",
+        "category": "Deployment & Orchestration",
+        "pricing_model": "paid",
+        "pros": [
+          "Easy deployment of Python/Docker AI backends",
+          "On-demand GPU instances for inference",
+          "Global distribution via Anycast"
+        ],
+        "cons": [
+          "Pricing can be unpredictable with scaling",
+          "Limited managed services compared to AWS/GCP"
+        ],
+        "tags": [
+          "edge",
+          "gpu",
+          "paas"
+        ]
+      },
+      {
+        "name": "W&B Prompts",
+        "description": "Tools for visualizing and inspecting the execution flow of LLMs, including prompt inputs and outputs.",
+        "url": "https://wandb.ai/site/prompts",
+        "category": "Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Excellent experiment tracking and versioning",
+          "Collaborative tools for team-based prompt tuning",
+          "Integration with most major ML frameworks"
+        ],
+        "cons": [
+          "UI can be overwhelming for simple prompt tasks",
+          "Primarily focused on traditional ML workflows"
+        ],
+        "tags": [
+          "experiment-tracking",
+          "llmops",
+          "collaboration"
+        ]
+      },
+      {
+        "name": "BentoML",
+        "description": "Framework for building, shipping, and scaling AI applications with high-performance model serving.",
+        "url": "https://www.bentoml.com/",
+        "category": "Deployment & Orchestration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standardized format for model packaging (Bentos)",
+          "Optimized for high-throughput inference",
+          "Easy deployment to Kubernetes or cloud providers"
+        ],
+        "cons": [
+          "Learning curve for the Bento serialization format",
+          "Overkill for simple wrapper APIs"
+        ],
+        "tags": [
+          "model-serving",
+          "packaging",
+          "scaling"
+        ]
+      },
+      {
+        "name": "Terraform",
+        "description": "Infrastructure as Code tool used to provision GPU instances, VPCs, and managed AI services across cloud providers.",
+        "url": "https://www.terraform.io/",
+        "category": "Infrastructure",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standard tool for multi-cloud AI infrastructure",
+          "Large provider ecosystem (AWS, GCP, Azure, CoreWeave)",
+          "State management for complex environments"
+        ],
+        "cons": [
+          "HCL syntax can be verbose",
+          "State drift can occur if manual changes are made"
+        ],
+        "tags": [
+          "iac",
+          "provisioning",
+          "multi-cloud"
+        ]
+      },
+      {
+        "name": "Vercel AI SDK",
+        "description": "A library for building AI-powered streaming interfaces with native support for major LLM providers and frameworks.",
+        "url": "https://sdk.vercel.ai/",
+        "category": "Deployment & Orchestration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Simplifies streaming LLM responses to the frontend",
+          "Built-in support for React, Next.js, and Svelte",
+          "Seamless integration with Vercel's edge functions"
+        ],
+        "cons": [
+          "Highly opinionated toward the Vercel ecosystem",
+          "Limited to JavaScript/TypeScript environments"
+        ],
+        "tags": [
+          "frontend",
+          "streaming",
+          "nextjs"
+        ]
+      },
+      {
+        "name": "TruLens",
+        "description": "Software for evaluating and tracking LLM applications, focusing on the 'RAG Triad' of metrics.",
+        "url": "https://www.trulens.org/",
+        "category": "Evaluation & Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Specific metrics for Retrieval Augmented Generation (RAG)",
+          "Provides feedback loops for model improvement",
+          "Open-source dashboard for visualizing results"
+        ],
+        "cons": [
+          "Integration requires code changes within the app",
+          "Documentation can be sparse for advanced use cases"
+        ],
+        "tags": [
+          "rag",
+          "metrics",
+          "llm-evaluation"
+        ]
+      }
+    ]
+  }
+}

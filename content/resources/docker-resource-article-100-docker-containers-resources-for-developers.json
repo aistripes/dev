@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "docker",
+    "generated_at": "2026-03-12T22:38:28.123Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Docker & Containers resources for developers",
+    "description": "A curated set of practical Docker & Containers resources for engineers.",
+    "keywords": [
+      "docker",
+      "docker & containers",
+      "resource-article"
+    ],
+    "slug": "docker-resource-article-100-docker-containers-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource guide provides actionable patterns and tools for optimizing Docker workflows, focusing on building slim, secure images and managing complex local development environments with Docker Compose.",
+    "sections": [
+      {
+        "heading": "Dockerfile Optimization and Build Patterns",
+        "items": [
+          {
+            "title": "Implement Multi-Stage Builds",
+            "description": "Separate build-time dependencies from the final runtime image using 'FROM ... AS build' and 'COPY --from=build' to reduce image size by up to 90%.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "BuildKit Cache Mounts",
+            "description": "Use 'RUN --mount=type=cache,target=/root/.npm' to persist package manager caches between builds, significantly reducing CI/CD build times.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Distroless Runtime Images",
+            "description": "Use GoogleContainerTools/distroless as the final stage base to remove shells and package managers, minimizing the attack surface.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Layer Ordering for Caching",
+            "description": "Copy dependency files (package.json, go.mod) and run install commands before copying the rest of the source code to maximize layer reuse.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Hadolint for Linting",
+            "description": "Integrate Hadolint into your CI pipeline to enforce Dockerfile best practices and catch inefficient instructions like 'RUN apt-get upgrade'.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Non-Root User Configuration",
+            "description": "Explicitly create a system user and use the 'USER' instruction to avoid running container processes as root, preventing container breakout exploits.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Tini Init Process",
+            "description": "Use 'tini' as your entrypoint to correctly handle signal forwarding and reap zombie processes in containers running complex applications.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": ".dockerignore Optimization",
+            "description": "Exclude .git, node_modules, and local build artifacts to prevent sending unnecessary context to the Docker daemon and bloating layers.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Specific Tag Versioning",
+            "description": "Avoid the ':latest' tag; use specific semantic versions or SHA256 hashes for base images to ensure build reproducibility across environments.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Dive Layer Inspection",
+            "description": "Use the 'dive' CLI tool to analyze image layers and identify wasted space or files that should have been excluded from the final image.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Docker Compose and Local Development",
+        "items": [
+          {
+            "title": "Healthcheck-based Dependencies",
+            "description": "Use 'depends_on' with 'condition: service_healthy' to ensure the application only starts after the database is ready to accept connections.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Docker Compose Profiles",
+            "description": "Define 'profiles' in your YAML to selectively start services, such as 'debug' or 'testing' tools, without cluttering the default stack.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Bind Mounts for Hot Reload",
+            "description": "Map local source directories to container paths using volumes to enable live-reloading frameworks (like Vite or Nodemon) without rebuilding.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Environment Variable Files",
+            "description": "Utilize '.env' files alongside 'env_file' directives to manage secrets and configurations locally without hardcoding values in the YAML.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "External Network Isolation",
+            "description": "Define external networks to allow communication between separate Compose projects while keeping database traffic isolated from the public bridge.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Resource Constraints",
+            "description": "Apply 'deploy.resources.limits' in Compose files to simulate production constraints (CPU/Memory) and prevent local resource exhaustion.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Traefik Reverse Proxy Integration",
+            "description": "Run Traefik in a container to provide automatic SSL and local domain routing (e.g., app.localhost) for multiple Compose services.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Docker Compose Overrides",
+            "description": "Use 'docker-compose.override.yml' for local-only settings like debug ports, keeping the base YAML clean for production-like environments.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Named Volumes for Persistence",
+            "description": "Use named volumes instead of host paths for database data to improve I/O performance on macOS and Windows via VirtioFS.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Lazydocker TUI",
+            "description": "Manage containers, logs, and resource usage from the terminal using 'lazydocker' for faster troubleshooting than the standard CLI.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Container Security and Operations",
+        "items": [
+          {
+            "title": "Trivy Vulnerability Scanning",
+            "description": "Run 'trivy image <name>' in your CI pipeline to detect CVEs in OS packages and application dependencies before deployment.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Read-Only Root Filesystem",
+            "description": "Set 'read_only: true' in Compose or '--read-only' in CLI to prevent attackers from writing malicious scripts to the container's disk.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Log Rotation Configuration",
+            "description": "Configure the 'json-file' logging driver with 'max-size' and 'max-file' limits to prevent container logs from consuming all host disk space.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Seccomp Profile Hardening",
+            "description": "Apply custom Seccomp profiles to restrict the system calls a container can make, mitigating kernel-level exploits.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Docker Scout SBOM",
+            "description": "Generate a Software Bill of Materials (SBOM) using Docker Scout to track exactly which software versions are running in production.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Automated Image Pruning",
+            "description": "Schedule 'docker system prune -af --volumes' via cron to remove dangling images and unused networks that accumulate on build nodes.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "GHCR Authenticated Pulls",
+            "description": "Configure GitHub Actions to use 'docker/login-action' with temporary GITHUB_TOKEN for secure image pushes to GitHub Container Registry.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Portainer Environment Management",
+            "description": "Deploy Portainer as a lightweight management UI to visualize container health and manage remote Docker engines via an agent.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Watchtower Auto-Updates",
+            "description": "Use the Watchtower container to automatically pull the latest images and restart containers when a new version is pushed to the registry.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Container Resource Monitoring",
+            "description": "Deploy cAdvisor to collect real-time resource usage and performance characteristics of running containers for Prometheus scraping.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Use 'docker buildx' to create multi-platform images (amd64/arm64) with a single command for M1/M2 Mac and Linux server compatibility.",
+      "Never store secrets in Dockerfile 'ENV' instructions; use Docker Secrets or mount sensitive files at runtime to prevent leakages in image history.",
+      "Combine 'apt-get update' and 'apt-get install' in a single 'RUN' instruction followed by 'rm -rf /var/lib/apt/lists/*' to keep layers small.",
+      "Use the '--init' flag when running containers via CLI if you haven't included an init system like Tini in your Dockerfile.",
+      "Leverage 'docker-compose config' to validate your YAML syntax and view the merged configuration of multiple override files before deployment."
+    ]
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "marketplaces",
+    "generated_at": "2026-03-12T22:39:51.490Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Marketplaces implementation checklist",
+    "description": "A practical checklist for shipping Marketplaces projects safely.",
+    "keywords": [
+      "marketplaces",
+      "checklist"
+    ],
+    "slug": "marketplaces-checklist-marketplaces-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for a production-ready marketplace, focusing on payment integrity, trust systems, and the operational reliability required for two-sided platforms.",
+    "sections": [
+      {
+        "heading": "Payment Infrastructure and Fund Routing",
+        "items": [
+          {
+            "title": "Implement Idempotency Keys",
+            "description": "Ensure all transaction and payout API calls use unique idempotency keys to prevent duplicate charges or double-payouts during network retries.",
+            "priority": "critical"
+          },
+          {
+            "title": "Verify Platform Fee Logic",
+            "description": "Unit test the split-payment logic across different transaction sizes to ensure platform commissions and processing fees are calculated correctly before funds reach the seller.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Webhook Handlers",
+            "description": "Implement robust listeners for payment provider webhooks (e.g., payment_intent.succeeded, account.updated) with signature verification and 200-level response handling.",
+            "priority": "critical"
+          },
+          {
+            "title": "Test Refund and Reversal Flows",
+            "description": "Verify that refunding a buyer correctly triggers a reversal of the seller's balance and, if applicable, the platform fee.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Automate KYC/KYB Onboarding",
+            "description": "Integrate automated checks for seller identity verification and bank account validation to comply with AML regulations before enabling payouts.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Trust and Safety Systems",
+        "items": [
+          {
+            "title": "Sanitize and Moderate Reviews",
+            "description": "Implement server-side validation to prevent XSS in reviews and integrate a profanity/spam filter for user-generated content.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement Verified Seller Badges",
+            "description": "Create a logic gate that programmatically applies 'Verified' status only after specific criteria (ID check, first successful sale) are met.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Deploy User Reporting Workflows",
+            "description": "Build a reporting mechanism on listing and profile pages that flags content for admin review and triggers an automated notification to moderators.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Secure In-Platform Messaging",
+            "description": "Filter PII (emails, phone numbers) in pre-transaction messages if the business model requires preventing platform circumvention.",
+            "priority": "optional"
+          },
+          {
+            "title": "Audit Trail for Sensitive Actions",
+            "description": "Log all administrative actions, including manual payout overrides, account bans, and listing deletions, with a timestamp and user ID.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Search and Matching Optimization",
+        "items": [
+          {
+            "title": "Configure Search Index Syncing",
+            "description": "Set up database triggers or webhooks to update the search index (e.g., Algolia) immediately when a listing's price, availability, or status changes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Inventory Locking",
+            "description": "Apply a temporary lock on inventory items when a user begins the checkout process to prevent overbooking or double-selling.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Geo-Spatial Queries",
+            "description": "Test location-based filtering to ensure results are accurately sorted by distance and respect defined radius boundaries.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Handle Empty Search States",
+            "description": "Implement fallback logic for zero-result queries, such as suggesting similar categories or expanding the search radius.",
+            "priority": "optional"
+          },
+          {
+            "title": "Optimize Image Delivery",
+            "description": "Use a CDN with auto-formatting (WebP) and resizing to ensure listing galleries do not degrade page performance or SEO.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "User Roles and Access Control",
+        "items": [
+          {
+            "title": "Enforce RBAC Boundaries",
+            "description": "Verify that buyers cannot access seller-specific API endpoints (e.g., payout settings) and sellers cannot modify other sellers' listings.",
+            "priority": "critical"
+          },
+          {
+            "title": "Secure Admin Masquerading",
+            "description": "If support staff can 'log in as' a user, ensure this is restricted to specific roles and requires multi-factor authentication.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Onboarding Completion",
+            "description": "Implement middleware to redirect sellers to the onboarding flow if required profile fields or payment details are missing.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Test Session Expiry",
+            "description": "Configure shorter session durations for seller dashboards and sensitive financial pages compared to buyer browsing sessions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement OAuth Scoping",
+            "description": "If using third-party auth (Clerk/Supabase), ensure the JWT claims correctly reflect the user's marketplace role.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Transactional Communications",
+        "items": [
+          {
+            "title": "Trigger Order Confirmation Emails",
+            "description": "Automate immediate email delivery to both buyer and seller upon successful payment using a reliable provider like Resend.",
+            "priority": "critical"
+          },
+          {
+            "title": "Setup Payout Notifications",
+            "description": "Notify sellers via email or push notification when funds have been initiated for transfer to their bank account.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Verify SMS for Time-Sensitive Events",
+            "description": "Implement SMS alerts for high-urgency actions like booking requests or last-minute cancellations.",
+            "priority": "optional"
+          },
+          {
+            "title": "Configure Unsubscribe Logic",
+            "description": "Ensure marketing communications can be disabled while keeping critical transactional alerts (receipts, safety notices) active.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Test Email Template Rendering",
+            "description": "Verify that dynamic listing data and pricing tables render correctly across mobile and desktop email clients.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "content-platforms",
+    "generated_at": "2026-03-12T22:38:47.448Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Content Platforms & CMS implementation checklist",
+    "description": "A practical checklist for shipping Content Platforms & CMS projects safely.",
+    "keywords": [
+      "content-platforms",
+      "content platforms & cms",
+      "checklist"
+    ],
+    "slug": "content-platforms-checklist-content-platforms-cms-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for deploying a headless CMS to production, focusing on schema integrity, API performance, security, and editorial efficiency.",
+    "sections": [
+      {
+        "heading": "Content Modeling and Schema Integrity",
+        "items": [
+          {
+            "title": "Define Field-Level Validations",
+            "description": "Configure regex patterns, character limits, and range constraints for all text and numeric fields to prevent database corruption and UI breakage.",
+            "priority": "critical"
+          },
+          {
+            "title": "Establish Reference Depth Limits",
+            "description": "Audit nested relationships to ensure circular references are blocked and depth limits are set to prevent payload bloat in API responses.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Slug Uniqueness Constraints",
+            "description": "Verify that URL slug fields are unique across the content type and include automated transformation logic to handle special characters.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Localization Strategy",
+            "description": "Define field-level vs. entry-level localization and verify that fallback locales are correctly configured for multi-regional deployments.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Required Field Enforcement",
+            "description": "Flag all fields necessary for frontend rendering as 'Required' within the CMS UI to prevent null-pointer errors in the application layer.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "API Performance and Scalability",
+        "items": [
+          {
+            "title": "Configure CDN and Cache Purging",
+            "description": "Set up stale-while-revalidate (SWR) headers and verify that the CMS triggers webhook-based cache purges on content publication.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement GraphQL Query Complexity Analysis",
+            "description": "Restrict query depth and complexity scores for public endpoints to prevent Denial of Service (DoS) via deep content nesting.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Batch API Requests",
+            "description": "Verify that the frontend implementation uses batched requests or fragments to minimize the number of round-trips to the CMS API.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set Rate Limits",
+            "description": "Apply rate limiting on API keys used by client-side applications to prevent exhaustion of monthly CMS usage quotas.",
+            "priority": "critical"
+          },
+          {
+            "title": "Monitor Response Payloads",
+            "description": "Audit JSON responses to ensure unused fields are excluded from the output via field selection or projections.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Access Control",
+        "items": [
+          {
+            "title": "Rotate Production API Keys",
+            "description": "Ensure production environments use distinct read-only keys and that management tokens are stored in secure environment variables.",
+            "priority": "critical"
+          },
+          {
+            "title": "Verify Role-Based Access Control (RBAC)",
+            "description": "Test that editor roles cannot access schema settings and that content-specific permissions restrict users to their assigned sections.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure CORS Policies",
+            "description": "Restrict the CMS API access to specific production domains and authorized preview environments.",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Webhook Signatures",
+            "description": "Implement signature verification in the application receiver to ensure incoming CMS webhooks are authentic and not spoofed.",
+            "priority": "critical"
+          },
+          {
+            "title": "Environment Isolation",
+            "description": "Ensure development and staging data are stored in separate CMS spaces or environments to prevent accidental production data overwrites.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Editorial Workflow and Preview",
+        "items": [
+          {
+            "title": "Deploy Live Preview Environment",
+            "description": "Configure a dedicated preview URL that renders draft content using the CMS's preview API tokens for real-time editorial feedback.",
+            "priority": "critical"
+          },
+          {
+            "title": "Standardize Content States",
+            "description": "Define clear workflow stages (e.g., Draft, In Review, Ready) and ensure the frontend logic only fetches 'Published' items by default.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement AI Guardrails",
+            "description": "If using AI generation, create system prompts that enforce brand voice and length constraints within the CMS UI extension.",
+            "priority": "optional"
+          },
+          {
+            "title": "Configure SEO Metadata Fields",
+            "description": "Mandate meta-titles, descriptions, and Open Graph image fields across all page-level content types.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Enable Content Versioning",
+            "description": "Verify that history tracking is active to allow editors to revert to previous versions of content entries.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Media and Asset Management",
+        "items": [
+          {
+            "title": "Enforce Alt-Text Requirements",
+            "description": "Set the alt-text field as a mandatory attribute for all image assets within the media library.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Image Transformation Parameters",
+            "description": "Standardize the use of URL-based transformations (e.g., auto-format, quality settings) to ensure optimal image delivery.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Sanitize SVG Uploads",
+            "description": "Ensure that the CMS or the upload pipeline strips scripts and harmful attributes from SVG files to prevent XSS attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Set Asset Upload Limits",
+            "description": "Define maximum file size limits for assets to prevent editors from uploading unoptimized high-resolution media.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement Folder Structure",
+            "description": "Organize the media library into logical directories (e.g., /blog, /marketing, /products) to facilitate asset discovery.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and Maintenance",
+        "items": [
+          {
+            "title": "Automate Schema Backups",
+            "description": "Schedule daily exports of the CMS schema and content entries to an external storage bucket (e.g., S3 or GCS).",
+            "priority": "critical"
+          },
+          {
+            "title": "Setup Migration Scripts",
+            "description": "Use version-controlled migration scripts (e.g., Contentful Migrations or Sanity Schema) rather than manual UI changes for schema updates.",
+            "priority": "critical"
+          },
+          {
+            "title": "Check for Broken Links",
+            "description": "Run a crawler against the preview environment to detect internal links pointing to 404s or unpublished content.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Configure Redirect Management",
+            "description": "Ensure a mechanism exists (either in-CMS or via edge middleware) to handle 301 redirects for modified slugs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Audit Third-Party Plugins",
+            "description": "Review and update all CMS plugins or UI extensions to ensure compatibility with the current CMS core version.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

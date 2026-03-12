@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "monitoring",
+    "generated_at": "2026-03-12T22:38:28.691Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Monitoring & Observability implementation checklist",
+    "description": "A practical checklist for shipping Monitoring & Observability projects safely.",
+    "keywords": [
+      "monitoring",
+      "monitoring & observability",
+      "checklist"
+    ],
+    "slug": "monitoring-checklist-monitoring-observability-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for establishing a robust observability stack, covering error tracking, LLM performance monitoring, infrastructure metrics, and alerting workflows to ensure production reliability and cost control.",
+    "sections": [
+      {
+        "heading": "Error Tracking & Exception Management",
+        "items": [
+          {
+            "title": "Global Exception Handler Integration",
+            "description": "Configure a global error handler (e.g., Sentry, Highlight.io) at the application entry point to capture unhandled exceptions and promise rejections.",
+            "priority": "critical"
+          },
+          {
+            "title": "Source Map Upload Pipeline",
+            "description": "Integrate source map uploads into the CI/CD pipeline to ensure stack traces map back to original source code rather than minified bundles.",
+            "priority": "critical"
+          },
+          {
+            "title": "User Context Enrichment",
+            "description": "Attach non-PII user identifiers and session IDs to error reports to facilitate reproduction and impact assessment of user-specific bugs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Release Tracking Configuration",
+            "description": "Tag every error with a specific commit SHA or version number to identify regressions introduced in specific deployments.",
+            "priority": "critical"
+          },
+          {
+            "title": "Breadcrumb Logging Implementation",
+            "description": "Configure automatic capture of network requests, console logs, and state changes leading up to a crash for debugging context.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "LLM Observability & Cost Control",
+        "items": [
+          {
+            "title": "Token Usage Instrumentation",
+            "description": "Implement middleware (e.g., Helicone, LangSmith) to log prompt and completion tokens for every LLM provider call to track unit costs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Provider Latency Measurement",
+            "description": "Measure Time-To-First-Token (TTFT) and total request duration for all LLM API calls to identify provider-side performance degradation.",
+            "priority": "critical"
+          },
+          {
+            "title": "Model Version Tagging",
+            "description": "Explicitly tag metrics with specific model versions (e.g., gpt-4-0613 vs gpt-4-turbo) to evaluate performance and cost deltas.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Request/Response Payload Logging",
+            "description": "Securely log prompt inputs and model outputs for a sampled percentage of requests to monitor for hallucinations or drift.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Semantic Search Latency Tracking",
+            "description": "Monitor the latency of vector database queries and embedding generation steps in RAG pipelines.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Infrastructure & System Metrics",
+        "items": [
+          {
+            "title": "Node/Instance Resource Alerts",
+            "description": "Set up Prometheus or Datadog alerts for CPU utilization >85% and Memory utilization >90% sustained for over 5 minutes.",
+            "priority": "critical"
+          },
+          {
+            "title": "HTTP 5xx Error Rate Thresholds",
+            "description": "Configure alerts for server-side error rates exceeding 1% of total traffic over a 60-second window.",
+            "priority": "critical"
+          },
+          {
+            "title": "Database Connection Pool Monitoring",
+            "description": "Monitor active vs. maximum available database connections to prevent application hangs during traffic spikes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Disk I/O and Space Monitoring",
+            "description": "Establish alerts for disk space usage exceeding 80% and high I/O wait times on database volumes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Queue Depth and Lag Tracking",
+            "description": "For worker-based systems, monitor the number of pending messages and the time-to-process for background jobs.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Distributed Tracing & OpenTelemetry",
+        "items": [
+          {
+            "title": "Trace ID Propagation",
+            "description": "Ensure trace headers (e.g., W3C Trace Context) are passed across all service boundaries, including internal microservices and external proxies.",
+            "priority": "critical"
+          },
+          {
+            "title": "Database Query Instrumentation",
+            "description": "Enable auto-instrumentation for database drivers to capture slow queries as spans within a distributed trace.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Sampling Rate Calibration",
+            "description": "Configure trace sampling rates (e.g., 10% for high-volume, 100% for errors) to balance visibility with storage costs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "External API Dependency Mapping",
+            "description": "Instrument all outgoing HTTP calls to third-party services to identify which external dependency is causing latency.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Async Task Trace Linking",
+            "description": "Ensure that background jobs inherit the trace context from the triggering HTTP request for end-to-end visibility.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Alerting & Incident Workflow",
+        "items": [
+          {
+            "title": "External Uptime Heartbeats",
+            "description": "Configure external probes (e.g., BetterStack) to check the /health endpoint from multiple geographic regions every 60 seconds.",
+            "priority": "critical"
+          },
+          {
+            "title": "On-Call Escalation Policy",
+            "description": "Define a clear escalation path in an incident management tool to ensure critical alerts page a human responder within 5 minutes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Alert Severity Categorization",
+            "description": "Distinguish between 'Critical' (page responder) and 'Warning' (Slack notification only) to prevent alert fatigue.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Synthetic Transaction Monitoring",
+            "description": "Script a critical user path (e.g., login or checkout) to run every 5-15 minutes to verify functional correctness.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Post-Mortem Documentation Template",
+            "description": "Establish a standardized template for documenting root causes and action items after every high-severity incident.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

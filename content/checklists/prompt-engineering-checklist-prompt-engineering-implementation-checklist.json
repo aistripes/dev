@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "prompt-engineering",
+    "generated_at": "2026-03-12T22:38:01.747Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Prompt Engineering implementation checklist",
+    "description": "A practical checklist for shipping Prompt Engineering projects safely.",
+    "keywords": [
+      "prompt-engineering",
+      "prompt engineering",
+      "checklist"
+    ],
+    "slug": "prompt-engineering-checklist-prompt-engineering-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides actionable verification steps for developers to ensure LLM prompts are robust, secure, and cost-effective before deployment to production environments.",
+    "sections": [
+      {
+        "heading": "Output Reliability and Formatting",
+        "items": [
+          {
+            "title": "Schema Validation Enforcement",
+            "description": "Verify that the model output consistently adheres to a strict JSON or XML schema using tools like Zod, Pydantic, or model-native structured output modes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Few-Shot Example Diversity",
+            "description": "Include at least 3-5 diverse input/output pairs in the prompt to demonstrate handling of edge cases and specific formatting requirements.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Negative Constraint Definition",
+            "description": "Explicitly list forbidden elements (e.g., 'Do not include conversational filler', 'Do not mention your training data') to prevent unwanted verbosity.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Delimiter Implementation",
+            "description": "Use clear delimiters like triple backticks (```) or XML tags to separate system instructions, context, and user-provided input.",
+            "priority": "critical"
+          },
+          {
+            "title": "Fallback Logic for Parsing Errors",
+            "description": "Implement a retry mechanism or a secondary prompt to fix malformed JSON strings when the initial generation fails validation.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Reasoning and Logic Accuracy",
+        "items": [
+          {
+            "title": "Chain-of-Thought (CoT) Verification",
+            "description": "For complex tasks, instruct the model to 'think step-by-step' and verify that the reasoning path leads to the correct conclusion.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Multi-Step Task Decomposition",
+            "description": "Break prompts requiring more than three logical steps into a chain of separate, smaller LLM calls to reduce reasoning errors.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Context Window Optimization",
+            "description": "Ensure the most critical information is placed at the very beginning or end of the prompt to mitigate 'lost in the middle' retrieval issues.",
+            "priority": "critical"
+          },
+          {
+            "title": "Self-Correction Loop",
+            "description": "Include a step where the model reviews its own output for logical inconsistencies before returning the final response.",
+            "priority": "optional"
+          },
+          {
+            "title": "Reference Material Grounding",
+            "description": "Provide a 'ground truth' document and instruct the model to only use provided facts, citing specific sections to reduce hallucinations.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Safety Guardrails",
+        "items": [
+          {
+            "title": "Prompt Injection Testing",
+            "description": "Test the prompt against common injection attacks like 'Ignore previous instructions' or 'System override' to ensure instruction persistence.",
+            "priority": "critical"
+          },
+          {
+            "title": "PII and Sensitive Data Masking",
+            "description": "Implement regex or NLP-based pre-processing to scrub personally identifiable information from user inputs before they reach the LLM.",
+            "priority": "critical"
+          },
+          {
+            "title": "Output Content Filtering",
+            "description": "Enable and configure provider-specific safety settings (e.g., OpenAI Moderation API) to block harmful or inappropriate content generation.",
+            "priority": "critical"
+          },
+          {
+            "title": "System Prompt Hardening",
+            "description": "Treat the system prompt as code; ensure it is stored in version control and not directly exposed to end-users via client-side code.",
+            "priority": "critical"
+          },
+          {
+            "title": "Input Length Sanitization",
+            "description": "Set hard limits on user input character counts to prevent denial-of-service style attacks via massive token consumption.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and Cost Management",
+        "items": [
+          {
+            "title": "Token Usage Benchmarking",
+            "description": "Calculate the average token count for system instructions and few-shot examples to estimate cost per 1,000 requests.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Instruction Compression",
+            "description": "Remove redundant adjectives and filler words from the prompt to reduce input token costs without impacting output quality.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Model Tier Selection",
+            "description": "Verify if the task can be performed by a lower-cost model (e.g., GPT-4o-mini vs GPT-4o) and document any performance degradation.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Latency Measurement (TTFT)",
+            "description": "Measure the Time to First Token and total generation time across 100 samples to ensure it meets application SLA requirements.",
+            "priority": "critical"
+          },
+          {
+            "title": "Response Caching Strategy",
+            "description": "Implement semantic or exact-match caching for frequent queries to reduce API costs and improve response times.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Evaluation and Regression Testing",
+        "items": [
+          {
+            "title": "Golden Dataset Creation",
+            "description": "Maintain a versioned set of 50+ diverse inputs and their expected 'perfect' outputs for automated testing.",
+            "priority": "critical"
+          },
+          {
+            "title": "LLM-as-a-Judge Implementation",
+            "description": "Use a more capable model (e.g., Claude 3.5 Sonnet) to grade the performance of the production model based on a rubric.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Prompt Versioning",
+            "description": "Assign semantic versions to prompt templates and track which version was used for every production inference call.",
+            "priority": "critical"
+          },
+          {
+            "title": "A/B Testing Deployment",
+            "description": "Run the new prompt version alongside the current baseline for 5% of traffic to compare success metrics (e.g., conversion, error rate).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Provider Parity Check",
+            "description": "Test the prompt across at least two different model providers (e.g., OpenAI and Anthropic) to ensure portability and identify provider-specific biases.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "ecommerce",
+    "generated_at": "2026-03-12T22:38:45.828Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building E-Commerce with open-source tools",
+    "description": "A step-by-step implementation guide for E-Commerce with open-source tools.",
+    "keywords": [
+      "ecommerce",
+      "e-commerce",
+      "guide"
+    ],
+    "slug": "ecommerce-guide-building-e-commerce-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide details the implementation of a headless e-commerce architecture using Medusa as the backend commerce engine and Next.js for the storefront. It focuses on solving common pain points such as cart state synchronization, regional payment handling with Stripe, and performance optimization for high-traffic product listing pages.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Node.js v18 or higher",
+      "PostgreSQL 14+ instance",
+      "Redis 6+ instance",
+      "Stripe account for API keys",
+      "Basic proficiency with Next.js App Router"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize Medusa Backend and PostgreSQL Schema",
+        "explanation": "Create the core commerce engine. This setup configures the database schema for products, variants, and orders. Use the --seed flag to populate initial data for testing relationships.",
+        "code": {
+          "language": "bash",
+          "content": "npx create-medusa-app@latest --seed",
+          "filename": "setup-backend.sh"
+        },
+        "pitfalls": [
+          "Ensure the PostgreSQL database exists before running the command.",
+          "Verify that the DATABASE_URL in the .env file includes the correct credentials and port."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure Stripe for Regional Payment Processing",
+        "explanation": "Install and configure the Medusa Stripe plugin. You must map Stripe account keys and configure the webhook secret to handle asynchronous payment events like 'payment_intent.succeeded'.",
+        "code": {
+          "language": "javascript",
+          "content": "const plugins = [\n  {\n    resolve: `medusa-payment-stripe`,\n    options: {\n      api_key: process.env.STRIPE_API_KEY,\n      webhook_secret: process.env.STRIPE_WEBHOOK_SECRET,\n      capture: true,\n    },\n  },\n];",
+          "filename": "medusa-config.js"
+        },
+        "pitfalls": [
+          "Forgetting to add the Stripe provider to the 'Regions' settings in the Medusa Admin panel.",
+          "Using the secret key instead of the webhook signing secret for the webhook_secret field."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Headless Cart Management in Next.js",
+        "explanation": "Create a custom hook to manage cart creation and persistence. Store the cart_id in local storage or a cookie to ensure the user's session survives page reloads.",
+        "code": {
+          "language": "typescript",
+          "content": "export const useCart = () => {\n  const createCart = async () => {\n    const { cart } = await medusaClient.carts.create();\n    localStorage.setItem('cart_id', cart.id);\n    return cart;\n  };\n\n  const fetchCart = async (id: string) => {\n    const { cart } = await medusaClient.carts.retrieve(id);\n    return cart;\n  };\n\n  return { createCart, fetchCart };\n};",
+          "filename": "hooks/use-cart.ts"
+        },
+        "pitfalls": [
+          "Failing to validate the cart_id on the server side, leading to 404 errors if the cart has expired in the database.",
+          "Not handling regional currency changes when a user updates their shipping address."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Optimize Product Listing Pages with ISR and Cloudinary",
+        "explanation": "Use Next.js Incremental Static Regeneration (ISR) to pre-render product pages. Integrate Cloudinary for dynamic image resizing and WebP conversion to maintain high Core Web Vitals scores.",
+        "code": {
+          "language": "typescript",
+          "content": "import Image from 'next/image';\n\nconst ProductCard = ({ product }) => (\n  <Image\n    src={product.thumbnail}\n    alt={product.title}\n    width={400}\n    height={400}\n    loader={({ src, width }) => `https://res.cloudinary.com/demo/image/fetch/w_${width},f_auto/${src}`}\n    placeholder=\"blur\"\n    blurDataURL={product.placeholder}\n  />\n);",
+          "filename": "components/product-card.tsx"
+        },
+        "pitfalls": [
+          "Over-fetching product data in getStaticProps; only select the fields required for the initial render.",
+          "Neglecting to set a 'revalidate' timer, causing inventory levels to remain stale on the storefront."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Integrate Meilisearch for Real-time Filtering",
+        "explanation": "Sync your Medusa product catalog with Meilisearch. This allows for sub-100ms faceted search and filtering on the frontend without hitting the primary PostgreSQL database.",
+        "code": {
+          "language": "javascript",
+          "content": "const plugins = [\n  {\n    resolve: `medusa-plugin-meilisearch`,\n    options: {\n      config: {\n        host: process.env.MEILISEARCH_HOST,\n        apiKey: process.env.MEILISEARCH_API_KEY,\n      },\n      settings: {\n        products: {\n          indexSettings: {\n            searchableAttributes: ['title', 'description', 'variant_sku'],\n            filterableAttributes: ['categories', 'handle'],\n          },\n        },\n      },\n    },\n  },\n];",
+          "filename": "medusa-config.js"
+        },
+        "pitfalls": [
+          "Not configuring 'filterableAttributes' in Meilisearch, which prevents faceted navigation from working.",
+          "Mismatch between the Medusa product schema and the Meilisearch index structure."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Handle Post-Purchase Webhooks for Order Fulfillment",
+        "explanation": "Set up a secure endpoint to listen for Stripe events. Once a payment is confirmed, update the Medusa order status to 'awaiting_fulfillment' to trigger downstream shipping workflows.",
+        "code": {
+          "language": "typescript",
+          "content": "export async function POST(req: Request) {\n  const body = await req.json();\n  const signature = req.headers.get('stripe-signature');\n\n  try {\n    const event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET);\n    if (event.type === 'payment_intent.succeeded') {\n      // Logic to capture Medusa payment\n    }\n    return new Response('Success', { status: 200 });\n  } catch (err) {\n    return new Response(`Webhook Error: ${err.message}`, { status: 400 });\n  }\n}",
+          "filename": "app/api/webhooks/stripe/route.ts"
+        },
+        "pitfalls": [
+          "Testing webhooks without the Stripe CLI, which leads to difficulty debugging payload issues.",
+          "Missing idempotency keys in the webhook handler, which can cause duplicate order processing."
+        ]
+      }
+    ],
+    "conclusion": "By decoupling the frontend from the commerce engine, you have created a high-performance storefront capable of regional scaling. Next steps include implementing AI-generated product descriptions via a Medusa subscriber and setting up automated SEO metadata generation for product variants."
+  }
+}

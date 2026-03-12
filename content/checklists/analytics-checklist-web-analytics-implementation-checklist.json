@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "analytics",
+    "generated_at": "2026-03-12T22:38:28.574Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Web Analytics implementation checklist",
+    "description": "A practical checklist for shipping Web Analytics projects safely.",
+    "keywords": [
+      "analytics",
+      "web analytics",
+      "checklist"
+    ],
+    "slug": "analytics-checklist-web-analytics-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical roadmap for deploying privacy-first web analytics. It focuses on ensuring data integrity, regulatory compliance, and infrastructure stability while avoiding common implementation pitfalls like ad-blocker interference and PII leakage.",
+    "sections": [
+      {
+        "heading": "Privacy and Regulatory Compliance",
+        "items": [
+          {
+            "title": "IP Anonymization Verification",
+            "description": "Confirm that IP addresses are hashed with a rotating salt or truncated before database insertion to ensure GDPR compliance.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cookie-less Configuration Audit",
+            "description": "Verify the analytics script does not write to 'document.cookie' or 'localStorage' to bypass the requirement for a cookie consent banner.",
+            "priority": "critical"
+          },
+          {
+            "title": "DNT Header Respect",
+            "description": "Check that the tracking script honors the browser's 'Do Not Track' (DNT) signal by disabling data collection when active.",
+            "priority": "recommended"
+          },
+          {
+            "title": "PII Leakage Scan",
+            "description": "Inspect outgoing network requests to ensure that email addresses, names, or auth tokens are not included in URL parameters or event properties.",
+            "priority": "critical"
+          },
+          {
+            "title": "Data Processing Agreement (DPA)",
+            "description": "Ensure a signed DPA is in place with the analytics vendor if using a hosted service like Plausible or Fathom.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Script Implementation and Performance",
+        "items": [
+          {
+            "title": "Asynchronous Script Loading",
+            "description": "Use 'async' or 'defer' attributes on the script tag to prevent the analytics library from blocking the critical rendering path.",
+            "priority": "critical"
+          },
+          {
+            "title": "Custom Domain/Proxy Setup",
+            "description": "Configure a reverse proxy (e.g., via Nginx or Vercel Rewrites) to serve the script from your own domain to minimize ad-blocker interference.",
+            "priority": "recommended"
+          },
+          {
+            "title": "SPA Route Change Tracking",
+            "description": "For React/Next.js/Vue apps, verify that page views trigger on router events rather than just initial page load.",
+            "priority": "critical"
+          },
+          {
+            "title": "Bundle Size Audit",
+            "description": "Measure the impact of the analytics library on the total JS bundle size; ensure it stays under 5KB for privacy-focused tools.",
+            "priority": "recommended"
+          },
+          {
+            "title": "SSR Compatibility Check",
+            "description": "Ensure the tracking script is only executed in the browser context to prevent 'window is not defined' errors during server-side rendering.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Event Tracking and Data Integrity",
+        "items": [
+          {
+            "title": "Naming Convention Standardization",
+            "description": "Enforce an 'object_action' naming convention (e.g., 'button_click') across all custom events to ensure report consistency.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Environment Separation",
+            "description": "Use different Site IDs or API keys for 'development', 'staging', and 'production' to prevent test data from polluting production metrics.",
+            "priority": "critical"
+          },
+          {
+            "title": "Internal Traffic Filtering",
+            "description": "Exclude traffic from internal IP addresses or specific local storage flags to prevent team activity from skewing data.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Bot and Crawler Exclusion",
+            "description": "Verify that the tool automatically filters out common search engine bots and headless browsers from the dashboard.",
+            "priority": "critical"
+          },
+          {
+            "title": "Outbound Link Tracking",
+            "description": "Test that clicks on external links are correctly captured before the browser navigates away from the page.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Self-Hosted Infrastructure (If Applicable)",
+        "items": [
+          {
+            "title": "Database Retention Policies",
+            "description": "Configure automated data pruning or TTL (Time To Live) settings to prevent the database from exceeding disk capacity.",
+            "priority": "critical"
+          },
+          {
+            "title": "SSL/TLS Enforcement",
+            "description": "Ensure the analytics endpoint is served exclusively over HTTPS to protect data in transit.",
+            "priority": "critical"
+          },
+          {
+            "title": "Automated Backups",
+            "description": "Establish a daily backup schedule for the analytics database (PostgreSQL/ClickHouse) to an off-site S3-compatible bucket.",
+            "priority": "critical"
+          },
+          {
+            "title": "Resource Monitoring",
+            "description": "Set up alerts for high CPU or memory usage on the analytics container to prevent tracking downtime during traffic spikes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Health Check Endpoint",
+            "description": "Implement and monitor a '/health' or '/ping' endpoint to verify the availability of the tracking server.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Reporting and Integration",
+        "items": [
+          {
+            "title": "Dashboard Access Control",
+            "description": "Verify that dashboard access is restricted to authorized team members via SSO or 2FA.",
+            "priority": "critical"
+          },
+          {
+            "title": "Conversion Goal Verification",
+            "description": "Manually trigger a conversion (e.g., signup or purchase) and verify it appears in the dashboard within the expected latency window.",
+            "priority": "critical"
+          },
+          {
+            "title": "API Export Functionality",
+            "description": "Test the API endpoint for data retrieval to ensure automated reports or internal BI tools can ingest the analytics data.",
+            "priority": "optional"
+          },
+          {
+            "title": "Cross-Domain Linker Configuration",
+            "description": "If tracking across multiple subdomains, verify that the user session is preserved across transitions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Alerting for Traffic Drops",
+            "description": "Set up notifications for significant, unexpected drops in traffic which might indicate a broken tracking script.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

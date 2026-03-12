@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "agents",
+    "generated_at": "2026-03-12T22:37:59.200Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI Agents & Tool Use implementation checklist",
+    "description": "A practical checklist for shipping AI Agents & Tool Use projects safely.",
+    "keywords": [
+      "agents",
+      "ai agents & tool use",
+      "checklist"
+    ],
+    "slug": "agents-checklist-ai-agents-tool-use-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for transitioning AI agents from prototype to production. It focuses on reliability, cost control, and security within agentic workflows.",
+    "sections": [
+      {
+        "heading": "Tool Definition and Schema Integrity",
+        "items": [
+          {
+            "title": "JSON Schema Validation",
+            "description": "Verify that all tool definitions include strict JSON schemas with required fields and type constraints to prevent LLM hallucination of arguments.",
+            "priority": "critical"
+          },
+          {
+            "title": "Standardized Error Payloads",
+            "description": "Implement a standard format for tool error messages that provide the LLM with actionable feedback on how to fix incorrect parameters.",
+            "priority": "critical"
+          },
+          {
+            "title": "Description Uniqueness Check",
+            "description": "Ensure no two tools have overlapping semantic descriptions to prevent the model from selecting the wrong tool for a given task.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Tool Versioning",
+            "description": "Implement a versioning system for tool schemas to allow for rolling updates without breaking active long-running agent sessions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Dry-Run Mode",
+            "description": "Create a flag for each tool to simulate execution, returning a mock response to test agent planning without side effects.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Agent Loop and Recursion Control",
+        "items": [
+          {
+            "title": "Hard Iteration Limits",
+            "description": "Set a maximum number of steps (e.g., 10-15) for the agent loop to prevent infinite loops and runaway costs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Duplicate Call Detection",
+            "description": "Implement logic to detect and stop the agent if it calls the same tool with the same arguments multiple times in a single session.",
+            "priority": "critical"
+          },
+          {
+            "title": "Stuck-Loop Detection",
+            "description": "Monitor for repetitive thought patterns in the LLM output and trigger a forced context reset or human intervention if detected.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Context Window Management",
+            "description": "Implement a strategy for pruning or summarizing history when the agent's scratchpad approaches the model's token limit.",
+            "priority": "critical"
+          },
+          {
+            "title": "Graceful Exit Handlers",
+            "description": "Define explicit exit conditions for the agent, including when a goal is unreachable or requires unavailable tools.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Observability and Debugging",
+        "items": [
+          {
+            "title": "Trace ID Propagation",
+            "description": "Pass a unique trace ID through every step of the agent loop to link LLM prompts, tool calls, and final outputs in logs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Token Usage Tracking",
+            "description": "Log the cumulative token count and cost for every agent run to identify high-cost workflows and optimize prompt length.",
+            "priority": "critical"
+          },
+          {
+            "title": "Tool Latency Monitoring",
+            "description": "Record the execution time of each tool call to identify bottlenecks in the agent's external integrations.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Raw Prompt Persistence",
+            "description": "Store the exact prompt sent to the LLM at each step (including few-shot examples) for post-incident debugging.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Step-by-Step UI Visualization",
+            "description": "Provide a real-time log or graph view for developers to see the agent's current 'thought' process and tool outputs.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Safety",
+        "items": [
+          {
+            "title": "Human-in-the-Loop (HITL) Triggers",
+            "description": "Configure specific tools (e.g., payments, deletions) to require manual approval before the agent can execute them.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sandboxed Tool Execution",
+            "description": "Run tools that execute code or shell commands in isolated containers with restricted network and filesystem access.",
+            "priority": "critical"
+          },
+          {
+            "title": "Least-Privilege API Keys",
+            "description": "Ensure the API keys used by the agent have the minimum necessary scopes required for the tools provided.",
+            "priority": "critical"
+          },
+          {
+            "title": "Input Sanitization",
+            "description": "Validate and sanitize LLM-generated tool arguments to prevent SQL injection or prompt injection via tool inputs.",
+            "priority": "critical"
+          },
+          {
+            "title": "PII Scrubbing",
+            "description": "Implement a middleware layer to detect and mask Personally Identifiable Information in agent logs and tool payloads.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Multi-Agent Orchestration",
+        "items": [
+          {
+            "title": "Shared State Schema",
+            "description": "Define a strict schema for the shared memory or state object used when handing off tasks between different specialized agents.",
+            "priority": "critical"
+          },
+          {
+            "title": "Handoff Logic Validation",
+            "description": "Verify that the 'Router' agent has clear criteria for when to delegate a task to a sub-agent vs. handling it directly.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Conflict Resolution Rules",
+            "description": "Establish priority levels for agents that may attempt to access or modify the same resource simultaneously.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Deadlock Monitoring",
+            "description": "Implement checks to detect if two agents are waiting for each other's output before proceeding.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Agent-to-Agent Auth",
+            "description": "Verify that handoffs between agents are authenticated and cannot be triggered by external spoofed requests.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Cost and Performance Optimization",
+        "items": [
+          {
+            "title": "Tool Result Caching",
+            "description": "Implement a TTL-based cache for deterministic tool outputs to reduce redundant LLM processing and external API calls.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Parallel Tool Execution",
+            "description": "Configure the agent to execute multiple independent tool calls in parallel when the LLM identifies several needed actions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Tiered Model Routing",
+            "description": "Use a smaller, cheaper model for simple tool selection and reserve larger models for complex planning and synthesis.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Streaming Tool Outputs",
+            "description": "Ensure tool outputs are streamed to the agent's context as they finish to improve perceived user responsiveness.",
+            "priority": "optional"
+          },
+          {
+            "title": "Cost Quotas",
+            "description": "Set hard daily or per-user budget limits that automatically disable agent execution when exceeded.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

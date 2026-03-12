@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "fine-tuning",
+    "generated_at": "2026-03-12T22:38:03.663Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Fine-Tuning & Custom Models resources for developers",
+    "description": "A curated set of practical Fine-Tuning & Custom Models resources for engineers.",
+    "keywords": [
+      "fine-tuning",
+      "fine-tuning & custom models",
+      "resource-article"
+    ],
+    "slug": "fine-tuning-resource-article-100-fine-tuning-custom-models-resources-for-developers"
+  },
+  "content": {
+    "intro": "Fine-tuning shifts model behavior from general-purpose reasoning to domain-specific expertise. This guide focuses on the technical stack required to move beyond prompt engineering, covering dataset synthesis, parameter-efficient training (PEFT) workflows, and the infrastructure needed to serve custom weights in production environments.",
+    "sections": [
+      {
+        "heading": "Dataset Engineering and Curation",
+        "items": [
+          {
+            "title": "OpenAI JSONL Formatting",
+            "description": "Structure training data into the messages-array format required by the OpenAI Fine-Tuning API to ensure compatibility with gpt-4o-mini and gpt-3.5-turbo fine-tuning endpoints.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Hugging Face Datasets 'map' function",
+            "description": "Utilize the .map() function with batched=True to apply tokenization and formatting scripts across large-scale datasets efficiently in memory.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Argilla Feedback Loops",
+            "description": "Implement a human-in-the-loop interface to label and curate high-quality preference data for RLHF or DPO workflows.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Evol-Instruct Method",
+            "description": "Use a teacher model (e.g., GPT-4) to rewrite existing instruction sets into more complex versions, increasing the depth of the training signal.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Cleanlab for Label Noise",
+            "description": "Run Cleanlab's Datalab to automatically identify and remove outlier or mislabeled examples that can degrade fine-tuning performance.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Synthetic Data Generation with Llama-3-70B",
+            "description": "Leverage larger open models to generate synthetic reasoning chains (Chain of Thought) for training smaller 7B or 8B models.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "MinHash Deduplication",
+            "description": "Apply MinHash and Locality Sensitive Hashing (LSH) to remove near-duplicate examples from your corpus to prevent overfitting on repetitive data.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Lilac Data Exploration",
+            "description": "Use Lilac to visualize embeddings and clusters within your training set to identify gaps in domain coverage before starting a training run.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Nomic Atlas for Latent Space Analysis",
+            "description": "Map your dataset in latent space to verify that the fine-tuning data is sufficiently distinct from the base model's pre-training distribution.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Text-to-SQL Schema Augmentation",
+            "description": "Inject DDL statements directly into the prompt field of your training data to teach the model specific database schemas.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Training Frameworks and PEFT Techniques",
+        "items": [
+          {
+            "title": "Unsloth for Accelerated Training",
+            "description": "Use the Unsloth library to achieve 2x faster fine-tuning and 70% less VRAM usage for Llama-3, Mistral, and Gemma models.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "QLoRA (4-bit Quantization)",
+            "description": "Implement 4-bit NormalFloat quantization to fine-tune 70B parameter models on a single 48GB GPU (like an A6000).",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Axolotl YAML Configs",
+            "description": "Standardize experiments using Axolotl's declarative YAML configuration files to manage hyperparameters, dataset paths, and LoRA settings.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "LoRA Rank (r) and Alpha Selection",
+            "description": "Set r=16 or r=32 for most tasks; ensure lora_alpha is set to 2x the rank to maintain consistent scaling of the weights.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "DeepSpeed ZeRO-3",
+            "description": "Enable DeepSpeed ZeRO-3 for full-parameter fine-tuning to shard model states across multiple GPUs when PEFT is insufficient.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Target Modules Specification",
+            "description": "Target all linear layers (q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj) in LoRA to achieve maximum performance.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "DPO (Direct Preference Optimization)",
+            "description": "Use the TRL library to align models with preference pairs (chosen vs. rejected) without the complexity of PPO.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "NEFTune Noise Injection",
+            "description": "Add random noise to the embedding layer during training to improve the model's robustness and generalization to unseen prompts.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Weights & Biases (W&B) Integration",
+            "description": "Log loss curves, GPU utilization, and gradient norms to identify training instability or vanishing gradients in real-time.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Flash Attention 2 Integration",
+            "description": "Enable Flash Attention 2 in your training scripts to reduce memory overhead and speed up the attention mechanism by up to 3x.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Evaluation and Production Deployment",
+        "items": [
+          {
+            "title": "LM Evaluation Harness",
+            "description": "Run the EleutherAI Evaluation Harness across standard benchmarks (MMLU, GSM8K) to detect regressions in general reasoning.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "vLLM Inference Engine",
+            "description": "Deploy fine-tuned weights using vLLM for high-throughput serving with PagedAttention and continuous batching.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "LoRAX (LoRA Exchange)",
+            "description": "Use LoRAX to serve hundreds of different fine-tuned adapters on a single base model instance to minimize infrastructure costs.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "LLM-as-a-Judge (MT-Bench)",
+            "description": "Use GPT-4 as an automated evaluator to score your fine-tuned model's responses against a reference set of high-quality answers.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "GGUF Quantization for Local Serving",
+            "description": "Convert fine-tuned weights to GGUF format using llama.cpp to run custom models on consumer hardware or edge devices.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "PromptFoo Matrix Testing",
+            "description": "Run systematic tests comparing the base model vs. the fine-tuned model across hundreds of test cases to quantify improvement.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "SafeTensors Format Conversion",
+            "description": "Always save and distribute model weights in .safetensors format to prevent arbitrary code execution vulnerabilities associated with pickles.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Text Generation Inference (TGI)",
+            "description": "Deploy via Hugging Face TGI for production features like dynamic batching, stop sequences, and optimized CUDA kernels.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Model Merging (Mergekit)",
+            "description": "Use Mergekit to combine your fine-tuned LoRA weights with other domain-specific models using SLERP or TIES merging techniques.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Ollama Modelfile Deployment",
+            "description": "Create a custom Modelfile to package your fine-tuned weights, system prompt, and parameters for easy distribution within a team.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always perform a 'dry run' with 10% of your data to check if the loss is decreasing before committing to a full multi-day training run.",
+      "If fine-tuning for structured output (JSON), include the schema in the system prompt of every training example to reinforce structural constraints.",
+      "Avoid over-training; once the validation loss starts to plateau or tick upward, stop training to prevent the model from losing its general reasoning capabilities.",
+      "Use a constant learning rate scheduler with a short warmup period for LoRA; 2e-4 is a reliable starting point for most 7B-8B parameter models.",
+      "Prioritize data quality over quantity; 500 extremely high-quality, manually verified examples often outperform 50,000 noisy, machine-generated ones."
+    ]
+  }
+}

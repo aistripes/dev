@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "content-generation",
+    "generated_at": "2026-03-12T22:37:57.261Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building AI Content Generation with open-source tools",
+    "description": "A step-by-step implementation guide for AI Content Generation with open-source tools.",
+    "keywords": [
+      "content-generation",
+      "ai content generation",
+      "guide"
+    ],
+    "slug": "content-generation-guide-building-ai-content-generation-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical implementation of a programmatic AI content pipeline. It focuses on maintaining brand voice, ensuring factual accuracy through structured validation, and automating the deployment to a headless CMS. The architecture uses a multi-stage approach to overcome the context window limitations and quality degradation common in single-prompt generation.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Node.js and TypeScript environment",
+      "API access to GPT-4 or Claude 3.5 Sonnet",
+      "Experience with Zod for schema validation",
+      "Basic knowledge of Headless CMS APIs (e.g., Contentful or Sanity)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define Structured Output Schemas with Zod",
+        "explanation": "To ensure the AI output is parseable by your application, define a strict schema. This prevents the LLM from adding conversational filler and ensures all required SEO fields (meta description, slug, H1) are present.",
+        "code": {
+          "language": "typescript",
+          "content": "import { z } from 'zod';\n\nconst ArticleSchema = z.object({\n  title: z.string().max(60),\n  slug: z.string().regex(/^[a-z0-9-]+$/),\n  metaDescription: z.string().max(160),\n  sections: z.array(z.object({\n    heading: z.string(),\n    body: z.string(),\n    keywords: z.array(z.string())\n  })),\n  tags: z.array(z.string())\n});\n\ntype Article = z.infer<typeof ArticleSchema>;",
+          "filename": "schemas/article.ts"
+        },
+        "pitfalls": [
+          "LLMs may occasionally return markdown blocks inside JSON strings; use a regex to strip ```json wrappers before parsing.",
+          "Schema complexity increases token usage and latency."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Inject Brand Voice and Style Constraints",
+        "explanation": "Create a reusable system prompt that defines the persona, tone, and formatting rules. Instead of generic 'write a blog post' prompts, provide specific 'never-use' word lists and reading level targets.",
+        "code": {
+          "language": "markdown",
+          "content": "SYSTEM_PROMPT = `\nPersona: Technical Architect for SaaS platforms.\nTone: Direct, authoritative, low-burstiness.\nConstraints:\n- Avoid superlatives like 'revolutionary' or 'game-changing'.\n- Use active voice only.\n- Target Flesch-Kincaid Grade 8.\n- Format all technical terms in backticks.\n- Use Oxford commas.\n`;",
+          "filename": "prompts/config.ts"
+        },
+        "pitfalls": [
+          "Over-constraining the model can lead to repetitive sentence structures.",
+          "Brand voice instructions are often ignored if the user prompt contradicts the system prompt."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement a Multi-Stage Generation Pipeline",
+        "explanation": "Single-shot generation for long-form content often leads to hallucinations or loss of detail. Break the process into: 1. Research/Outline, 2. Section Drafting, and 3. Final Assembly.",
+        "code": {
+          "language": "typescript",
+          "content": "async function generateArticle(topic: string) {\n  const outline = await callLLM(OUTLINE_PROMPT, topic);\n  const sections = [];\n  \n  for (const section of outline.steps) {\n    const content = await callLLM(SECTION_PROMPT, { section, context: outline });\n    sections.push(content);\n  }\n  \n  return assemble(sections);\n}",
+          "filename": "lib/pipeline.ts"
+        },
+        "pitfalls": [
+          "Sequential API calls increase the risk of timeout; implement a retry strategy with exponential backoff.",
+          "Context drift between sections can cause contradictory statements within the same article."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Factual Verification via RAG or Search",
+        "explanation": "Integrate a verification step where the generated claims are checked against a trusted knowledge base or a real-time search API (like Perplexity or Tavily) to ensure accuracy.",
+        "code": {
+          "language": "typescript",
+          "content": "async function verifyClaims(content: string) {\n  const claims = await extractClaims(content);\n  const results = await Promise.all(claims.map(c => searchAPI.search(c)));\n  \n  if (results.some(r => r.confidence < 0.8)) {\n    throw new Error('Factual inconsistency detected');\n  }\n}",
+          "filename": "lib/verify.ts"
+        },
+        "pitfalls": [
+          "Automated verification can return false positives if the search query is poorly constructed.",
+          "API costs for search can scale rapidly in high-volume pipelines."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Automated Deployment to Headless CMS",
+        "explanation": "Programmatically push the validated and formatted content to your CMS. Use the CMS's management SDK to handle assets, environment tagging, and initial draft status for human review.",
+        "code": {
+          "language": "typescript",
+          "content": "import { createClient } from '@contentful/management';\n\nasync function publishToCMS(article: Article) {\n  const client = createClient({ accessToken: process.env.CMS_TOKEN });\n  const space = await client.getSpace(process.env.SPACE_ID);\n  const env = await space.getEnvironment('master');\n\n  await env.createEntry('blogPost', {\n    fields: {\n      title: { 'en-US': article.title },\n      content: { 'en-US': article.sections.map(s => s.body).join('\\n\\n') },\n      slug: { 'en-US': article.slug }\n    }\n  });\n}",
+          "filename": "lib/cms.ts"
+        },
+        "pitfalls": [
+          "Rate limits on CMS Management APIs are often much tighter than Delivery APIs.",
+          "Failure to map AI-generated categories to existing CMS taxonomy will break site navigation."
+        ]
+      }
+    ],
+    "conclusion": "By moving from single-shot prompts to a structured, multi-stage pipeline with Zod validation and factual checking, you create a production-ready content engine. This approach minimizes hallucinations and ensures that the output is ready for a human editor to perform a final review rather than a complete rewrite."
+  }
+}

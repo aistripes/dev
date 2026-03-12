@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "self-hosting",
+    "generated_at": "2026-03-12T22:38:31.871Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Self-Hosting tools directory",
+    "description": "A developer-first directory of Self-Hosting tools and references.",
+    "keywords": [
+      "self-hosting",
+      "directory"
+    ],
+    "slug": "self-hosting-directory-self-hosting-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure tools and services for developers looking to maintain full control over their deployment stack, optimize hosting costs, and ensure data sovereignty.",
+    "filter_dimensions": [
+      {
+        "name": "category",
+        "values": [
+          "PaaS Alternatives",
+          "Reverse Proxy",
+          "Monitoring & Alerting",
+          "Infrastructure & VPS",
+          "Backup & Disaster Recovery",
+          "Container Management",
+          "Security & Networking"
+        ]
+      },
+      {
+        "name": "pricing_model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Coolify",
+        "description": "An open-source, self-hosted alternative to Heroku and Netlify that manages applications, databases, and services via a web UI.",
+        "url": "https://coolify.io",
+        "category": "PaaS Alternatives",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports Docker, Nixpacks, and static sites",
+          "Automated SSL through Let's Encrypt",
+          "Built-in backup management for databases"
+        ],
+        "cons": [
+          "Still in active development with occasional breaking changes",
+          "Resource intensive for very small VPS instances"
+        ],
+        "tags": [
+          "paas",
+          "docker",
+          "deployment"
+        ]
+      },
+      {
+        "name": "Traefik",
+        "description": "A modern HTTP reverse proxy and load balancer designed to deploy microservices with automatic configuration discovery.",
+        "url": "https://traefik.io",
+        "category": "Reverse Proxy",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native Docker integration and auto-discovery",
+          "Automatic ACME (Let's Encrypt) certificate resolution",
+          "Rich middleware ecosystem for auth and headers"
+        ],
+        "cons": [
+          "YAML configuration syntax can be verbose",
+          "Steeper learning curve compared to Caddy"
+        ],
+        "tags": [
+          "proxy",
+          "networking",
+          "docker"
+        ]
+      },
+      {
+        "name": "Caddy",
+        "description": "A powerful, enterprise-ready open-source web server with automatic HTTPS written in Go.",
+        "url": "https://caddyserver.com",
+        "category": "Reverse Proxy",
+        "pricing_model": "open-source",
+        "pros": [
+          "Simplest configuration syntax (Caddyfile)",
+          "Automatic HTTPS by default",
+          "Extensible via Go plugins"
+        ],
+        "cons": [
+          "Plugin management requires custom builds",
+          "Documentation for advanced JSON config is complex"
+        ],
+        "tags": [
+          "web-server",
+          "https",
+          "proxy"
+        ]
+      },
+      {
+        "name": "Uptime Kuma",
+        "description": "A self-hosted monitoring tool that tracks website uptime and service health with a clean dashboard.",
+        "url": "https://github.com/louislam/uptime-kuma",
+        "category": "Monitoring & Alerting",
+        "pricing_model": "open-source",
+        "pros": [
+          "Supports multi-protocol monitoring (HTTP, TCP, Ping, DNS)",
+          "Extensive notification integrations (Telegram, Discord, Slack)",
+          "Zero-configuration status pages"
+        ],
+        "cons": [
+          "No long-term metrics storage like Prometheus",
+          "Single-user focus lacks advanced RBAC"
+        ],
+        "tags": [
+          "monitoring",
+          "uptime",
+          "status-page"
+        ]
+      },
+      {
+        "name": "Portainer",
+        "description": "A lightweight management UI that allows you to easily manage your different Docker environments.",
+        "url": "https://www.portainer.io",
+        "category": "Container Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Visualizes containers, images, and volumes",
+          "Simplifies Docker Compose stack deployment",
+          "Templates for common self-hosted apps"
+        ],
+        "cons": [
+          "Business features locked behind paid tier",
+          "Can become a single point of failure for container management"
+        ],
+        "tags": [
+          "docker",
+          "gui",
+          "orchestration"
+        ]
+      },
+      {
+        "name": "Hetzner Cloud",
+        "description": "European-based cloud provider offering high-performance VPS instances with strict GDPR compliance.",
+        "url": "https://www.hetzner.com/cloud",
+        "category": "Infrastructure & VPS",
+        "pricing_model": "paid",
+        "pros": [
+          "Exceptional price-to-performance ratio",
+          "ISO 27001 certified data centers in Germany and Finland",
+          "Clean API and Terraform provider support"
+        ],
+        "cons": [
+          "Strict account verification process",
+          "Limited global regions compared to AWS/GCP"
+        ],
+        "tags": [
+          "vps",
+          "gdpr",
+          "hosting"
+        ]
+      },
+      {
+        "name": "Restic",
+        "description": "A fast, secure, and efficient backup program that supports multiple storage backends.",
+        "url": "https://restic.net",
+        "category": "Backup & Disaster Recovery",
+        "pricing_model": "open-source",
+        "pros": [
+          "Deduplication saves significant storage space",
+          "Native support for S3, SFTP, and local storage",
+          "Backups are encrypted by default"
+        ],
+        "cons": [
+          "CLI-only interface may be difficult for beginners",
+          "Pruning old backups can be resource-intensive"
+        ],
+        "tags": [
+          "backup",
+          "security",
+          "storage"
+        ]
+      },
+      {
+        "name": "Watchtower",
+        "description": "A process for automating Docker container base image updates.",
+        "url": "https://containrrr.dev/watchtower/",
+        "category": "Container Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Completely automated image polling and restarts",
+          "Can notify via multiple channels when updates occur",
+          "Supports private registries"
+        ],
+        "cons": [
+          "Automatic updates can break apps if semver is not followed",
+          "Requires access to the Docker socket"
+        ],
+        "tags": [
+          "automation",
+          "docker",
+          "updates"
+        ]
+      },
+      {
+        "name": "Dokku",
+        "description": "A Docker-powered mini-Heroku that helps you build and manage the lifecycle of applications.",
+        "url": "https://dokku.com",
+        "category": "PaaS Alternatives",
+        "pricing_model": "open-source",
+        "pros": [
+          "Git-push-to-deploy workflow",
+          "Extremely low resource overhead",
+          "Large plugin ecosystem for databases and SSL"
+        ],
+        "cons": [
+          "CLI-centric management (no official web UI)",
+          "Limited to single-node deployments"
+        ],
+        "tags": [
+          "paas",
+          "git",
+          "docker"
+        ]
+      },
+      {
+        "name": "Tailscale",
+        "description": "A zero-config VPN that creates a secure mesh network between your self-hosted servers and devices.",
+        "url": "https://tailscale.com",
+        "category": "Security & Networking",
+        "pricing_model": "freemium",
+        "pros": [
+          "Bypasses CGNAT and complex firewall rules",
+          "Based on the secure WireGuard protocol",
+          "MagicDNS for easy internal service discovery"
+        ],
+        "cons": [
+          "Control plane is closed source (unless using Headscale)",
+          "Adds minor latency compared to direct connections"
+        ],
+        "tags": [
+          "vpn",
+          "security",
+          "wireguard"
+        ]
+      }
+    ]
+  }
+}

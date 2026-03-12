@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "auth",
+    "generated_at": "2026-03-12T22:38:31.386Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Authentication & Authorization implementation checklist",
+    "description": "A practical checklist for shipping Authentication & Authorization projects safely.",
+    "keywords": [
+      "auth",
+      "authentication & authorization",
+      "checklist"
+    ],
+    "slug": "auth-checklist-authentication-authorization-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical framework for validating authentication and authorization systems before moving to a production environment. It focuses on session security, data isolation in multi-tenant architectures, and the hardening of identity provider integrations.",
+    "sections": [
+      {
+        "heading": "Environment and Provider Configuration",
+        "items": [
+          {
+            "title": "Credential Isolation",
+            "description": "Verify that production API keys, client secrets, and database URIs are stored in environment variables and are not present in the codebase or version control.",
+            "priority": "critical"
+          },
+          {
+            "title": "Redirect URI Allowlist",
+            "description": "Ensure that only production-specific callback URLs are configured in the auth provider dashboard (e.g., Clerk, Auth0, or Supabase) and that wildcards are disabled.",
+            "priority": "critical"
+          },
+          {
+            "title": "HTTPS Enforcement",
+            "description": "Confirm that all authentication endpoints and callback routes are served strictly over HTTPS and that the HSTS header is active.",
+            "priority": "critical"
+          },
+          {
+            "title": "Provider Webhook Signature Validation",
+            "description": "Implement signature verification for incoming webhooks from auth providers to prevent spoofed user-creation or deletion events.",
+            "priority": "critical"
+          },
+          {
+            "title": "Environment Parity Check",
+            "description": "Confirm that the production environment uses a separate project/tenant in the auth provider dashboard from the staging or development environments.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Session and Token Security",
+        "items": [
+          {
+            "title": "Cookie Flag Configuration",
+            "description": "Set session cookies with HttpOnly, Secure, and SameSite=Lax (or Strict) flags to mitigate XSS and CSRF risks.",
+            "priority": "critical"
+          },
+          {
+            "title": "JWT Claim Validation",
+            "description": "Verify that the backend validates 'exp' (expiration), 'iss' (issuer), and 'aud' (audience) claims for every incoming JWT.",
+            "priority": "critical"
+          },
+          {
+            "title": "Refresh Token Rotation",
+            "description": "Enable refresh token rotation in the auth provider settings to invalidate old refresh tokens whenever a new access token is issued.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Short-lived Access Tokens",
+            "description": "Configure access token TTL (Time-To-Live) to 1 hour or less to minimize the window of opportunity for intercepted tokens.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Logout Invalidation",
+            "description": "Ensure the logout function clears the client-side cookie and triggers a server-side revocation of the session or refresh token.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Multi-tenancy and RBAC",
+        "items": [
+          {
+            "title": "Tenant ID Filtering",
+            "description": "Verify that every database query for user data includes a 'tenant_id' filter derived from the authenticated session context, not from client-side parameters.",
+            "priority": "critical"
+          },
+          {
+            "title": "Middleware Role Checks",
+            "description": "Implement server-side middleware that checks user roles (e.g., 'admin', 'editor') before executing business logic or returning sensitive data.",
+            "priority": "critical"
+          },
+          {
+            "title": "Horizontal Escalation Test",
+            "description": "Manually test that a valid user from Tenant A cannot access resources belonging to Tenant B by modifying resource IDs in API requests.",
+            "priority": "critical"
+          },
+          {
+            "title": "Role-Signed Tokens",
+            "description": "Include user roles or permissions within the signed JWT payload to avoid frequent database lookups for every permission check.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Default Deny Policy",
+            "description": "Configure the authorization layer to deny access by default if no explicit matching role or permission is found for the requested route.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "OAuth and Social Identity",
+        "items": [
+          {
+            "title": "State Parameter Validation",
+            "description": "Confirm the use of a unique, non-guessable 'state' parameter in OAuth requests to prevent Cross-Site Request Forgery during the callback flow.",
+            "priority": "critical"
+          },
+          {
+            "title": "Scope Minimization",
+            "description": "Audit requested OAuth scopes (e.g., 'email', 'profile') and remove any that are not strictly required for application functionality.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Account Linking Logic",
+            "description": "Verify that the system securely handles cases where a user signs in with different providers (e.g., Google and GitHub) using the same email address.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Callback Error Handling",
+            "description": "Implement error boundaries for 'access_denied' or user-cancelled OAuth flows to prevent application crashes or infinite redirect loops.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Provider Branding Compliance",
+            "description": "Ensure social login buttons meet the brand guidelines of the providers (e.g., Apple, Google) to prevent rejection during app store reviews.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Endpoint Hardening",
+        "items": [
+          {
+            "title": "Auth Rate Limiting",
+            "description": "Apply strict rate limits to /login, /signup, and /forgot-password endpoints based on both IP address and user identifier.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sensitive Data Masking",
+            "description": "Audit application logs to ensure passwords, tokens, and PII (Personally Identifiable Information) are masked or excluded from log outputs.",
+            "priority": "critical"
+          },
+          {
+            "title": "MFA Enforcement",
+            "description": "Require Multi-Factor Authentication for any user account with administrative or billing-related permissions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Audit Logging",
+            "description": "Implement a tamper-evident audit log that records login timestamps, IP addresses, and any changes to user permissions.",
+            "priority": "recommended"
+          },
+          {
+            "title": "AI Quota Management",
+            "description": "Verify that AI/LLM endpoints are protected by per-user rate limits and usage quotas to prevent billing exhaustion from compromised accounts.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

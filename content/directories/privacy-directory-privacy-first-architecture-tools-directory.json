@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "privacy",
+    "generated_at": "2026-03-12T22:38:29.329Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Privacy-First Architecture tools directory",
+    "description": "A developer-first directory of Privacy-First Architecture tools and references.",
+    "keywords": [
+      "privacy",
+      "privacy-first architecture",
+      "directory"
+    ],
+    "slug": "privacy-directory-privacy-first-architecture-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of privacy-respecting tools and infrastructure providers designed for developers who prioritize data sovereignty, user trust, and GDPR compliance.",
+    "filter_dimensions": [
+      {
+        "name": "category",
+        "values": [
+          "Analytics",
+          "Infrastructure",
+          "Communication",
+          "AI & Machine Learning",
+          "Data Management"
+        ]
+      },
+      {
+        "name": "pricing_model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Plausible Analytics",
+        "description": "Lightweight and open-source website analytics that doesn't use cookies and is fully compliant with GDPR, CCPA, and PECR.",
+        "url": "https://plausible.io",
+        "category": "Analytics",
+        "pricing_model": "paid",
+        "pros": [
+          "No cookie banners required",
+          "Under 1KB script size",
+          "European owned and hosted"
+        ],
+        "cons": [
+          "No free tier for hosted version",
+          "Limited depth for complex event tracking"
+        ],
+        "tags": [
+          "analytics",
+          "gdpr",
+          "cookieless"
+        ]
+      },
+      {
+        "name": "Umami",
+        "description": "A simple, fast, privacy-focused alternative to Google Analytics that can be self-hosted with a single database.",
+        "url": "https://umami.is",
+        "category": "Analytics",
+        "pricing_model": "open-source",
+        "pros": [
+          "Self-hostable on minimal hardware",
+          "Bypasses most ad-blockers when proxied",
+          "Clean, single-page dashboard"
+        ],
+        "cons": [
+          "Requires manual database maintenance",
+          "Fewer third-party integrations than Plausible"
+        ],
+        "tags": [
+          "self-hosted",
+          "analytics",
+          "sql"
+        ]
+      },
+      {
+        "name": "Hetzner Cloud",
+        "description": "German-based cloud hosting provider offering high-performance VPS and dedicated servers within EU data centers.",
+        "url": "https://www.hetzner.com",
+        "category": "Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "Strict adherence to German privacy laws",
+          "Predictable hourly billing",
+          "Excellent price-to-performance ratio"
+        ],
+        "cons": [
+          "Fewer managed services than AWS/GCP",
+          "Identity verification process can be strict"
+        ],
+        "tags": [
+          "hosting",
+          "eu-sovereignty",
+          "vps"
+        ]
+      },
+      {
+        "name": "Listmonk",
+        "description": "Self-hosted newsletter and mailing list manager with a focus on performance and data privacy.",
+        "url": "https://listmonk.app",
+        "category": "Communication",
+        "pricing_model": "open-source",
+        "pros": [
+          "Full control over subscriber data",
+          "Handles millions of emails efficiently",
+          "Supports custom S3 providers for media"
+        ],
+        "cons": [
+          "Requires managing your own SMTP relay",
+          "No built-in drag-and-drop template editor"
+        ],
+        "tags": [
+          "email",
+          "marketing",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "LocalAI",
+        "description": "A drop-in replacement REST API that is compatible with OpenAI API specifications for local AI inference.",
+        "url": "https://localai.io",
+        "category": "AI & Machine Learning",
+        "pricing_model": "open-source",
+        "pros": [
+          "Keep sensitive data on your own hardware",
+          "No API keys or internet connection required",
+          "Supports LLMs, image generation, and audio"
+        ],
+        "cons": [
+          "Requires significant GPU or CPU resources",
+          "Complex initial model configuration"
+        ],
+        "tags": [
+          "ai",
+          "llm",
+          "local-first"
+        ]
+      },
+      {
+        "name": "PostHog (Self-Hosted)",
+        "description": "Product OS that includes analytics, heatmaps, and feature flags, deployable on your own infrastructure.",
+        "url": "https://posthog.com",
+        "category": "Analytics",
+        "pricing_model": "open-source",
+        "pros": [
+          "Complete data ownership",
+          "Extensive session recording features",
+          "Unified tool for product and engineering"
+        ],
+        "cons": [
+          "High infrastructure overhead for large scale",
+          "Complex deployment via Kubernetes"
+        ],
+        "tags": [
+          "product-analytics",
+          "feature-flags",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "Scaleway",
+        "description": "European cloud provider offering a wide range of services including S3-compatible storage and managed Kubernetes.",
+        "url": "https://www.scaleway.com",
+        "category": "Infrastructure",
+        "pricing_model": "paid",
+        "pros": [
+          "Multi-region availability in Europe",
+          "GDPR-compliant data processing agreements",
+          "Modern developer experience and CLI"
+        ],
+        "cons": [
+          "Documentation can be sparse for niche features",
+          "Support response times vary by tier"
+        ],
+        "tags": [
+          "cloud",
+          "s3",
+          "kubernetes"
+        ]
+      },
+      {
+        "name": "Buttondown",
+        "description": "A minimalist, privacy-first newsletter tool designed for developers, with strong support for Markdown.",
+        "url": "https://buttondown.email",
+        "category": "Communication",
+        "pricing_model": "freemium",
+        "pros": [
+          "No trackers by default",
+          "Excellent API for automation",
+          "Minimalist, distraction-free interface"
+        ],
+        "cons": [
+          "Limited visual design customization",
+          "Paid tier required for multiple newsletters"
+        ],
+        "tags": [
+          "newsletter",
+          "api",
+          "markdown"
+        ]
+      },
+      {
+        "name": "HashiCorp Vault",
+        "description": "Manage secrets and protect sensitive data by providing a central place to store and control access to tokens and passwords.",
+        "url": "https://www.vaultproject.io",
+        "category": "Data Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Dynamic secret generation",
+          "Encryption as a service",
+          "Robust audit logging for compliance"
+        ],
+        "cons": [
+          "Steep learning curve for configuration",
+          "Operational overhead for high availability"
+        ],
+        "tags": [
+          "security",
+          "secrets",
+          "encryption"
+        ]
+      },
+      {
+        "name": "Ollama",
+        "description": "Get up and running with large language models locally, providing a simple CLI and API for private AI integration.",
+        "url": "https://ollama.com",
+        "category": "AI & Machine Learning",
+        "pricing_model": "free",
+        "pros": [
+          "Extremely easy setup on macOS and Linux",
+          "Large library of pre-configured models",
+          "Zero data leakage to third-party providers"
+        ],
+        "cons": [
+          "Limited to local machine or private network",
+          "No built-in user authentication"
+        ],
+        "tags": [
+          "ai",
+          "local-first",
+          "llm"
+        ]
+      }
+    ]
+  }
+}

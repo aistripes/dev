@@ -1,0 +1,362 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "devtools",
+    "generated_at": "2026-03-12T22:39:00.770Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Developer Tools tools directory",
+    "description": "A developer-first directory of Developer Tools tools and references.",
+    "keywords": [
+      "devtools",
+      "developer tools",
+      "directory"
+    ],
+    "slug": "devtools-directory-developer-tools-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of frameworks, libraries, and platforms specifically designed to help developers build, distribute, and monetize developer-facing tools, CLIs, and SDKs.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "CLI Development",
+          "SDK Generation",
+          "Documentation",
+          "Monetization",
+          "Distribution",
+          "IDE Extensions",
+          "AI Integration"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Commander.js",
+        "description": "The standard library for building command-line interfaces in Node.js, providing argument parsing and subcommand routing.",
+        "url": "https://github.com/tj/commander.js",
+        "category": "CLI Development",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extensive ecosystem of plugins",
+          "Predictable subcommand routing",
+          "Automatic help documentation generation"
+        ],
+        "cons": [
+          "Lacks built-in interactive UI components",
+          "Synchronous parsing can block heavy event loops"
+        ],
+        "tags": [
+          "Node.js",
+          "CLI",
+          "JavaScript"
+        ]
+      },
+      {
+        "name": "Ink",
+        "description": "React-based framework for building interactive command-line tools with component-based UI layouts.",
+        "url": "https://github.com/vadimdemedes/ink",
+        "category": "CLI Development",
+        "pricing_model": "open-source",
+        "pros": [
+          "Declarative UI state management",
+          "Flexbox support for terminal layouts",
+          "Simplifies complex multi-step CLI wizards"
+        ],
+        "cons": [
+          "Significant overhead for simple one-off commands",
+          "Requires React knowledge"
+        ],
+        "tags": [
+          "React",
+          "CLI",
+          "UX"
+        ]
+      },
+      {
+        "name": "Speakeasy",
+        "description": "Managed platform that generates type-safe SDKs, Terraform providers, and documentation from OpenAPI specifications.",
+        "url": "https://www.speakeasy.com/",
+        "category": "SDK Generation",
+        "pricing_model": "paid",
+        "pros": [
+          "Generates idiomatic code across 8+ languages",
+          "Automated SDK publishing pipelines",
+          "Includes built-in validation for API specs"
+        ],
+        "cons": [
+          "High cost for early-stage indie hackers",
+          "Requires a strict and valid OpenAPI schema"
+        ],
+        "tags": [
+          "SDK",
+          "API",
+          "Automation"
+        ]
+      },
+      {
+        "name": "GoReleaser",
+        "description": "Release automation tool for Go projects that builds binaries, creates Docker images, and publishes to GitHub/GitLab.",
+        "url": "https://goreleaser.com/",
+        "category": "Distribution",
+        "pricing_model": "open-source",
+        "pros": [
+          "Cross-compiles for multiple architectures automatically",
+          "Generates Homebrew formulas and Scoop manifests",
+          "Integrates with major CI/CD providers"
+        ],
+        "cons": [
+          "Limited to Go-based applications",
+          "Complex YAML configuration for advanced use cases"
+        ],
+        "tags": [
+          "Go",
+          "DevOps",
+          "Distribution"
+        ]
+      },
+      {
+        "name": "Polar.sh",
+        "description": "Monetization platform built for open-source developers to sell subscriptions, digital products, and accept sponsorships.",
+        "url": "https://polar.sh/",
+        "category": "Monetization",
+        "pricing_model": "freemium",
+        "pros": [
+          "Handles global VAT and sales tax compliance",
+          "Direct integration with GitHub issues and repositories",
+          "Lower fees than generic SaaS billing platforms"
+        ],
+        "cons": [
+          "Newer platform with fewer third-party integrations",
+          "Limited to specific open-source funding models"
+        ],
+        "tags": [
+          "Monetization",
+          "OSS",
+          "Funding"
+        ]
+      },
+      {
+        "name": "Mintlify",
+        "description": "Documentation platform that syncs with your codebase to generate high-performance, developer-friendly docs.",
+        "url": "https://mintlify.com/",
+        "category": "Documentation",
+        "pricing_model": "freemium",
+        "pros": [
+          "Built-in interactive API playground",
+          "Git-based workflow for documentation updates",
+          "Optimized for SEO and load speed"
+        ],
+        "cons": [
+          "Customization is restricted on the free tier",
+          "Proprietary hosting model"
+        ],
+        "tags": [
+          "Docs",
+          "DX",
+          "API"
+        ]
+      },
+      {
+        "name": "Clap",
+        "description": "A full-featured, fast command-line argument parser for Rust applications.",
+        "url": "https://clap.rs/",
+        "category": "CLI Development",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely high performance",
+          "Type-safe argument handling via derive macros",
+          "Zero-cost abstractions"
+        ],
+        "cons": [
+          "Steep learning curve for complex configurations",
+          "Can increase binary size significantly"
+        ],
+        "tags": [
+          "Rust",
+          "CLI",
+          "Performance"
+        ]
+      },
+      {
+        "name": "Vercel AI SDK",
+        "description": "Library for building AI-powered streaming text and chat UIs into web-based developer tools.",
+        "url": "https://sdk.vercel.ai/docs",
+        "category": "AI Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Unified API for OpenAI, Anthropic, and Hugging Face",
+          "Built-in hooks for React, Svelte, and Vue",
+          "Supports server-sent events and edge functions"
+        ],
+        "cons": [
+          "Optimized primarily for the Vercel ecosystem",
+          "Frequent API changes due to rapid development"
+        ],
+        "tags": [
+          "AI",
+          "LLM",
+          "TypeScript"
+        ]
+      },
+      {
+        "name": "Oclif",
+        "description": "The Heroku-developed framework for building extensible CLIs in Node.js and TypeScript.",
+        "url": "https://oclif.io/",
+        "category": "CLI Development",
+        "pricing_model": "open-source",
+        "pros": [
+          "Powerful plugin architecture for modular tools",
+          "Automatic generation of README and help files",
+          "Strong TypeScript support out of the box"
+        ],
+        "cons": [
+          "Opinionated project structure is rigid",
+          "Heavier footprint than minimalist parsers"
+        ],
+        "tags": [
+          "Node.js",
+          "TypeScript",
+          "CLI"
+        ]
+      },
+      {
+        "name": "Stripe Usage-Based Billing",
+        "description": "Infrastructure for implementing metered billing models for API products and developer tools.",
+        "url": "https://stripe.com/billing",
+        "category": "Monetization",
+        "pricing_model": "paid",
+        "pros": [
+          "Industry-standard reliability and security",
+          "Supports complex tiered and volume pricing",
+          "Robust API for reporting usage events"
+        ],
+        "cons": [
+          "Complex implementation for real-time metered billing",
+          "Higher transaction fees than niche competitors"
+        ],
+        "tags": [
+          "Payments",
+          "Billing",
+          "SaaS"
+        ]
+      },
+      {
+        "name": "VS Code Extension API",
+        "description": "The official SDK for building extensions and custom tooling directly inside Visual Studio Code.",
+        "url": "https://code.visualstudio.com/api",
+        "category": "IDE Extensions",
+        "pricing_model": "free",
+        "pros": [
+          "Direct access to millions of developers",
+          "Rich UI contribution points (Sidebars, Editors)",
+          "Comprehensive documentation and samples"
+        ],
+        "cons": [
+          "Limited to JavaScript/TypeScript development",
+          "Strict sandbox limits UI customization"
+        ],
+        "tags": [
+          "VS Code",
+          "IDE",
+          "TypeScript"
+        ]
+      },
+      {
+        "name": "Fern",
+        "description": "An open-source toolkit for defining APIs and generating SDKs, documentation, and Postman collections.",
+        "url": "https://buildwithfern.com/",
+        "category": "SDK Generation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Uses a simplified YAML definition for APIs",
+          "Produces clean, readable code for SDKs",
+          "Syncs documentation with code changes automatically"
+        ],
+        "cons": [
+          "Smaller community compared to OpenAPI",
+          "Requires learning a custom DSL"
+        ],
+        "tags": [
+          "SDK",
+          "API",
+          "DX"
+        ]
+      },
+      {
+        "name": "Typer",
+        "description": "Python library for building CLI applications based on Python type hints, built on top of Click.",
+        "url": "https://typer.tiangolo.com/",
+        "category": "CLI Development",
+        "pricing_model": "open-source",
+        "pros": [
+          "Excellent IDE autocompletion support",
+          "Minimal boilerplate code required",
+          "Automatic help generation based on docstrings"
+        ],
+        "cons": [
+          "Dependent on the Click library",
+          "Python runtime requirement for end-users"
+        ],
+        "tags": [
+          "Python",
+          "CLI",
+          "DX"
+        ]
+      },
+      {
+        "name": "JSR (JavaScript Registry)",
+        "description": "A modern package registry for TypeScript and JavaScript that simplifies publishing and distribution.",
+        "url": "https://jsr.io/",
+        "category": "Distribution",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native TypeScript support without build steps",
+          "Auto-generates documentation from source code",
+          "Compatible with npm, yarn, pnpm, and Deno"
+        ],
+        "cons": [
+          "Newer ecosystem with less total package volume",
+          "Requires specific module standards"
+        ],
+        "tags": [
+          "TypeScript",
+          "Deno",
+          "Distribution"
+        ]
+      },
+      {
+        "name": "Upstash",
+        "description": "Serverless data platform providing Redis, Kafka, and Vector databases for tool state and AI features.",
+        "url": "https://upstash.com/",
+        "category": "AI Integration",
+        "pricing_model": "freemium",
+        "pros": [
+          "True pay-as-you-go pricing for low-volume tools",
+          "HTTP-based API ideal for serverless environments",
+          "Built-in vector search for AI-powered DevTools"
+        ],
+        "cons": [
+          "Latency can be higher than dedicated instances",
+          "Limited to specific database types"
+        ],
+        "tags": [
+          "Database",
+          "Serverless",
+          "AI"
+        ]
+      }
+    ]
+  }
+}

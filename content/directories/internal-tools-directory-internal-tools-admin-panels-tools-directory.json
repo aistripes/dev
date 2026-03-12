@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "internal-tools",
+    "generated_at": "2026-03-12T22:38:50.394Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Internal Tools & Admin Panels tools directory",
+    "description": "A developer-first directory of Internal Tools & Admin Panels tools and references.",
+    "keywords": [
+      "internal-tools",
+      "internal tools & admin panels",
+      "directory"
+    ],
+    "slug": "internal-tools-directory-internal-tools-admin-panels-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of frameworks, low-code platforms, and component libraries specifically designed for building internal dashboards, admin panels, and back-office tools.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Low-Code Platforms",
+          "Code-First Frameworks",
+          "Data Tables & UI",
+          "Access Control & Logic"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Retool",
+        "description": "A drag-and-drop platform for building internal tools that connects to any database or API using SQL and JavaScript.",
+        "url": "https://retool.com",
+        "category": "Low-Code Platforms",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extensive library of 100+ pre-built components",
+          "Native support for writing custom JavaScript logic",
+          "Robust set of connectors for SQL, NoSQL, and REST APIs"
+        ],
+        "cons": [
+          "Per-user pricing model can become expensive for large teams",
+          "Proprietary format makes version control and diffing difficult"
+        ],
+        "tags": [
+          "drag-and-drop",
+          "enterprise",
+          "gui-builder"
+        ]
+      },
+      {
+        "name": "Appsmith",
+        "description": "An open-source low-code platform for building internal applications with a focus on self-hosting and extensibility.",
+        "url": "https://www.appsmith.com",
+        "category": "Low-Code Platforms",
+        "pricing_model": "open-source",
+        "pros": [
+          "Self-hostable via Docker or Kubernetes",
+          "No limit on the number of end-users in the open-source version",
+          "Supports Git-based version control"
+        ],
+        "cons": [
+          "Component styling options are more limited than custom CSS",
+          "Learning curve for complex multi-step workflows"
+        ],
+        "tags": [
+          "self-hosted",
+          "javascript",
+          "open-source"
+        ]
+      },
+      {
+        "name": "Refine",
+        "description": "A headless React framework for building internal tools, providing hooks and providers for data fetching, auth, and routing.",
+        "url": "https://refine.dev",
+        "category": "Code-First Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "UI-agnostic; works with Ant Design, Material UI, Mantine, or Tailwind",
+          "Automated data provider generation for REST and GraphQL",
+          "Built-in support for SSR and Next.js"
+        ],
+        "cons": [
+          "Requires significant boilerplate compared to low-code tools",
+          "Steep learning curve for the headless architecture pattern"
+        ],
+        "tags": [
+          "react",
+          "headless",
+          "typescript"
+        ]
+      },
+      {
+        "name": "React Admin",
+        "description": "A frontend framework for building B2B applications on top of REST/GraphQL APIs, based on Material UI.",
+        "url": "https://marmelab.com/react-admin/",
+        "category": "Code-First Frameworks",
+        "pricing_model": "freemium",
+        "pros": [
+          "Highly stable with over 10 years of development",
+          "Excellent documentation and community recipes",
+          "Declarative syntax for defining resources and relationships"
+        ],
+        "cons": [
+          "Material UI dependency makes custom branding difficult",
+          "Advanced features like many-to-many relationships require a paid license"
+        ],
+        "tags": [
+          "react",
+          "material-ui",
+          "crud"
+        ]
+      },
+      {
+        "name": "Filament",
+        "description": "A collection of full-stack components for Laravel developers to build admin panels and TALL stack applications.",
+        "url": "https://filamentphp.com",
+        "category": "Code-First Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Deep integration with Laravel Eloquent models",
+          "Zero-config generation of CRUD interfaces from database schemas",
+          "Built-in support for multi-tenancy and RBAC"
+        ],
+        "cons": [
+          "Strictly limited to the PHP/Laravel ecosystem",
+          "Performance can lag with extremely large, complex datasets in Livewire"
+        ],
+        "tags": [
+          "laravel",
+          "php",
+          "tall-stack"
+        ]
+      },
+      {
+        "name": "TanStack Table",
+        "description": "A headless UI library for building powerful tables and datagrids with sorting, filtering, and grouping.",
+        "url": "https://tanstack.com/table",
+        "category": "Data Tables & UI",
+        "pricing_model": "open-source",
+        "pros": [
+          "Framework agnostic (React, Vue, Svelte, Solid, TS/JS)",
+          "Extremely lightweight with zero dependencies",
+          "Complete control over markup and styling"
+        ],
+        "cons": [
+          "No built-in UI; requires manual implementation of all visual elements",
+          "Complex API for advanced features like column pinning or virtualization"
+        ],
+        "tags": [
+          "datagrid",
+          "headless-ui",
+          "performance"
+        ]
+      },
+      {
+        "name": "Budibase",
+        "description": "An open-source low-code platform that includes a built-in database and automation engine for internal workflows.",
+        "url": "https://budibase.com",
+        "category": "Low-Code Platforms",
+        "pricing_model": "freemium",
+        "pros": [
+          "Includes an internal database for rapid prototyping without external infra",
+          "Visual automation builder for multi-step backend tasks",
+          "Generates responsive applications out of the box"
+        ],
+        "cons": [
+          "Less flexible for complex frontend logic than Retool",
+          "Smaller ecosystem of third-party plugins"
+        ],
+        "tags": [
+          "automation",
+          "no-code",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "CASL",
+        "description": "An isomorphic JavaScript library which restricts what resources a given user is allowed to access.",
+        "url": "https://casl.js.org",
+        "category": "Access Control & Logic",
+        "pricing_model": "open-source",
+        "pros": [
+          "Declarative syntax for defining permissions (Ability/Cannot)",
+          "Works on both frontend (UI visibility) and backend (API protection)",
+          "Integrates with major frameworks like NestJS, Vue, and React"
+        ],
+        "cons": [
+          "Requires manual synchronization of permissions between DB and client",
+          "Can lead to complex logic files if roles are not strictly defined"
+        ],
+        "tags": [
+          "rbac",
+          "abac",
+          "security"
+        ]
+      },
+      {
+        "name": "Permit.io",
+        "description": "A full-stack permissions-as-a-service platform that provides a UI for managing RBAC and ABAC for internal tools.",
+        "url": "https://www.permit.io",
+        "category": "Access Control & Logic",
+        "pricing_model": "freemium",
+        "pros": [
+          "Decouples authorization logic from application code",
+          "Provides a 'No-Code' UI for non-technical stakeholders to manage roles",
+          "Built on top of Open Policy Agent (OPA)"
+        ],
+        "cons": [
+          "Introduces an external dependency for critical authorization paths",
+          "Latency overhead for remote permission checks if not using local sidecars"
+        ],
+        "tags": [
+          "authorization",
+          "opa",
+          "compliance"
+        ]
+      },
+      {
+        "name": "ToolJet",
+        "description": "An open-source low-code framework for building internal tools with a focus on custom plugin development.",
+        "url": "https://www.tooljet.com",
+        "category": "Low-Code Platforms",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extensible architecture using a plugin-based system",
+          "Supports custom React components within the low-code environment",
+          "Good support for mobile-responsive layouts"
+        ],
+        "cons": [
+          "Documentation for custom plugin development is sparse",
+          "Smaller community compared to Retool or Appsmith"
+        ],
+        "tags": [
+          "low-code",
+          "plugins",
+          "react"
+        ]
+      }
+    ]
+  }
+}

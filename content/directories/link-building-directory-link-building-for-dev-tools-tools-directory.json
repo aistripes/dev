@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "link-building",
+    "generated_at": "2026-03-12T22:38:37.934Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Link Building for Dev Tools tools directory",
+    "description": "A developer-first directory of Link Building for Dev Tools tools and references.",
+    "keywords": [
+      "link-building",
+      "link building for dev tools",
+      "directory"
+    ],
+    "slug": "link-building-directory-link-building-for-dev-tools-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, platforms, and data sources designed to help developers and technical marketers build high-quality backlinks, create link-worthy technical assets, and monitor domain authority growth.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Analysis & Research",
+          "Outreach & PR",
+          "Asset Creation",
+          "Monitoring & Tracking",
+          "Community Distribution"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Ahrefs Backlink Checker",
+        "description": "Industry-standard tool for analyzing competitor backlink profiles and identifying broken link building opportunities in technical documentation.",
+        "url": "https://ahrefs.com/backlink-checker",
+        "category": "Analysis & Research",
+        "pricing_model": "paid",
+        "pros": [
+          "Largest index of live backlinks",
+          "Granular filtering by DR and traffic",
+          "Detailed historical growth charts"
+        ],
+        "cons": [
+          "High monthly subscription cost",
+          "Steep learning curve for advanced filters"
+        ],
+        "tags": [
+          "competitor-analysis",
+          "seo",
+          "backlinks"
+        ]
+      },
+      {
+        "name": "Hunter.io",
+        "description": "Finds professional email addresses for technical editors and site owners to facilitate personalized outreach for guest posts and tool reviews.",
+        "url": "https://hunter.io",
+        "category": "Outreach & PR",
+        "pricing_model": "freemium",
+        "pros": [
+          "Chrome extension for on-page email finding",
+          "High accuracy verification engine",
+          "Bulk task processing via API"
+        ],
+        "cons": [
+          "Limited free tier credits",
+          "Occasionally misses data for smaller niche blogs"
+        ],
+        "tags": [
+          "outreach",
+          "email-finding",
+          "prospecting"
+        ]
+      },
+      {
+        "name": "F5Bot",
+        "description": "Free service that monitors Reddit, Hacker News, and Lobsters for specific keywords, allowing for real-time participation in link-relevant discussions.",
+        "url": "https://f5bot.com",
+        "category": "Monitoring & Tracking",
+        "pricing_model": "free",
+        "pros": [
+          "Instant email notifications",
+          "Covers developer-centric forums",
+          "Zero configuration required"
+        ],
+        "cons": [
+          "No historical data search",
+          "Plain text alerts only"
+        ],
+        "tags": [
+          "social-listening",
+          "reddit",
+          "hacker-news"
+        ]
+      },
+      {
+        "name": "GitHub Archive",
+        "description": "A dataset of all public events on GitHub, useful for creating data-driven blog posts and reports that naturally attract technical backlinks.",
+        "url": "https://www.gharchive.org",
+        "category": "Asset Creation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Massive dataset for original research",
+          "Accessible via Google BigQuery",
+          "Updated hourly"
+        ],
+        "cons": [
+          "Requires SQL knowledge to extract value",
+          "BigQuery storage costs can apply"
+        ],
+        "tags": [
+          "data-assets",
+          "research",
+          "github"
+        ]
+      },
+      {
+        "name": "Pitchbox",
+        "description": "An influencer outreach and content marketing platform that automates the workflow of finding and contacting site owners at scale.",
+        "url": "https://pitchbox.com",
+        "category": "Outreach & PR",
+        "pricing_model": "enterprise",
+        "pros": [
+          "Automated follow-up sequences",
+          "Integration with Ahrefs and SEMrush",
+          "Advanced team collaboration features"
+        ],
+        "cons": [
+          "Prohibitive cost for solo developers",
+          "Requires significant setup time"
+        ],
+        "tags": [
+          "outreach-automation",
+          "pr",
+          "link-building"
+        ]
+      },
+      {
+        "name": "Chart.js",
+        "description": "Simple yet flexible JavaScript charting library used to build interactive data visualizations that serve as high-value linkable assets.",
+        "url": "https://www.chartjs.org",
+        "category": "Asset Creation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Canvas-based rendering for performance",
+          "Responsive and touch-friendly",
+          "Extensive documentation for custom builds"
+        ],
+        "cons": [
+          "Limited to standard chart types",
+          "Requires frontend development skills"
+        ],
+        "tags": [
+          "data-viz",
+          "infographics",
+          "javascript"
+        ]
+      },
+      {
+        "name": "Connectively",
+        "description": "The successor to HARO, connecting developers and technical experts with journalists looking for quotes and expert insights for articles.",
+        "url": "https://www.connectively.us",
+        "category": "Outreach & PR",
+        "pricing_model": "freemium",
+        "pros": [
+          "Direct access to high-authority media outlets",
+          "Structured query categories",
+          "High success rate for technical expertise"
+        ],
+        "cons": [
+          "Extremely competitive response environment",
+          "New credit-based system limits free usage"
+        ],
+        "tags": [
+          "pr",
+          "media-links",
+          "authority-building"
+        ]
+      },
+      {
+        "name": "Screaming Frog SEO Spider",
+        "description": "Desktop-based website crawler used to find broken outbound links on target sites to facilitate 'broken link building' campaigns.",
+        "url": "https://www.screamingfrog.co.uk/seo-spider/",
+        "category": "Analysis & Research",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extremely detailed technical audit data",
+          "Can crawl thousands of URLs quickly",
+          "Supports custom regex extraction"
+        ],
+        "cons": [
+          "Local software requires RAM resources",
+          "Interface is dated and complex"
+        ],
+        "tags": [
+          "technical-seo",
+          "broken-links",
+          "auditing"
+        ]
+      },
+      {
+        "name": "SparkToro",
+        "description": "Audience intelligence tool that reveals which podcasts, social accounts, and websites a specific developer audience follows.",
+        "url": "https://sparktoro.com",
+        "category": "Analysis & Research",
+        "pricing_model": "freemium",
+        "pros": [
+          "Identifies 'hidden gem' outreach targets",
+          "Analyzes social media behavioral data",
+          "Saves weeks of manual market research"
+        ],
+        "cons": [
+          "Free tier is very limited",
+          "Does not provide direct contact info"
+        ],
+        "tags": [
+          "audience-intelligence",
+          "marketing-research",
+          "outreach"
+        ]
+      },
+      {
+        "name": "BuzzSumo",
+        "description": "Content analyzer that identifies the most shared and linked-to technical content for any given topic or domain.",
+        "url": "https://buzzsumo.com",
+        "category": "Analysis & Research",
+        "pricing_model": "paid",
+        "pros": [
+          "Excellent for identifying trending dev topics",
+          "Shows who shared specific technical articles",
+          "Backlink counts per social share"
+        ],
+        "cons": [
+          "Expensive for small teams",
+          "Data can be noisy for very niche topics"
+        ],
+        "tags": [
+          "content-strategy",
+          "trending-topics",
+          "social-proof"
+        ]
+      },
+      {
+        "name": "Google Search Console",
+        "description": "The definitive source for seeing which sites are currently linking to your dev tool and which pages are attracting the most links.",
+        "url": "https://search.google.com/search-console/",
+        "category": "Monitoring & Tracking",
+        "pricing_model": "free",
+        "pros": [
+          "First-party data from Google",
+          "Shows exact anchor text used",
+          "Completely free with no limits"
+        ],
+        "cons": [
+          "Data is often delayed by 2-3 days",
+          "Limited historical export capabilities"
+        ],
+        "tags": [
+          "seo",
+          "analytics",
+          "performance"
+        ]
+      },
+      {
+        "name": "Postman Public API Network",
+        "description": "A directory where developers can publish API collections, creating a high-authority profile and backlink to their documentation.",
+        "url": "https://www.postman.com/explore",
+        "category": "Community Distribution",
+        "pricing_model": "freemium",
+        "pros": [
+          "High domain authority (DR 90+)",
+          "Direct utility for potential users",
+          "Increases API discoverability"
+        ],
+        "cons": [
+          "Requires a functional API and Postman collection",
+          "Link is often no-follow depending on profile status"
+        ],
+        "tags": [
+          "api-marketing",
+          "directories",
+          "developer-tools"
+        ]
+      }
+    ]
+  }
+}

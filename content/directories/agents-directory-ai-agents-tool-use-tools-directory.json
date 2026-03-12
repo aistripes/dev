@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "agents",
+    "generated_at": "2026-03-12T22:37:57.583Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "AI Agents & Tool Use tools directory",
+    "description": "A developer-first directory of AI Agents & Tool Use tools and references.",
+    "keywords": [
+      "agents",
+      "ai agents & tool use",
+      "directory"
+    ],
+    "slug": "agents-directory-ai-agents-tool-use-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of frameworks, observability platforms, and infrastructure tools specifically designed for building, debugging, and scaling autonomous AI agents and tool-calling workflows.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Orchestration Frameworks",
+          "Observability & Debugging",
+          "Tool Infrastructure",
+          "Testing & Evaluation",
+          "Workflow Management"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "LangGraph",
+        "description": "A library for building stateful, multi-actor applications with LLMs, specifically designed for creating cyclic agent graphs.",
+        "url": "https://langchain-ai.github.io/langgraph/",
+        "category": "Orchestration Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Fine-grained control over agent state and transitions",
+          "Supports cyclic graphs which are difficult in standard LangChain",
+          "Built-in persistence for human-in-the-loop 'checkpoints'"
+        ],
+        "cons": [
+          "Steeper learning curve than linear chains",
+          "Requires manual state schema definition"
+        ],
+        "tags": [
+          "python",
+          "javascript",
+          "state-machines",
+          "multi-agent"
+        ]
+      },
+      {
+        "name": "LangSmith",
+        "description": "A platform for debugging, testing, and monitoring LLM applications and agentic workflows.",
+        "url": "https://www.langchain.com/langsmith",
+        "category": "Observability & Debugging",
+        "pricing_model": "freemium",
+        "pros": [
+          "Visualizes nested tool calls and agent loops",
+          "Simplifies dataset creation from production logs",
+          "Direct integration with LangChain and LangGraph"
+        ],
+        "cons": [
+          "Can become expensive with high trace volumes",
+          "Proprietary cloud hosted"
+        ],
+        "tags": [
+          "tracing",
+          "debugging",
+          "evaluation"
+        ]
+      },
+      {
+        "name": "CrewAI",
+        "description": "Framework for orchestrating role-based autonomous agents to perform collaborative tasks.",
+        "url": "https://www.crewai.com/",
+        "category": "Orchestration Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Simplifies multi-agent delegation and handoffs",
+          "Strong focus on process-driven agent execution",
+          "Compatible with various local and cloud LLMs"
+        ],
+        "cons": [
+          "Abstracts away lower-level tool calling details",
+          "Less flexible for non-hierarchical workflows"
+        ],
+        "tags": [
+          "multi-agent",
+          "automation",
+          "python"
+        ]
+      },
+      {
+        "name": "Model Context Protocol (MCP)",
+        "description": "An open standard that enables developers to provide data and tools to LLMs in a consistent format.",
+        "url": "https://modelcontextprotocol.io/",
+        "category": "Tool Infrastructure",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standardizes how agents interface with external data sources",
+          "Reduces boilerplate for building tool-enabled clients",
+          "Supported by major AI providers like Anthropic"
+        ],
+        "cons": [
+          "Relatively new ecosystem with evolving specs",
+          "Requires implementing specific server-side handlers"
+        ],
+        "tags": [
+          "standards",
+          "tool-use",
+          "interoperability"
+        ]
+      },
+      {
+        "name": "Inngest",
+        "description": "Durable execution platform for building reliable agentic workflows without managing queues.",
+        "url": "https://www.inngest.com/",
+        "category": "Workflow Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Handles long-running agent steps with automatic retries",
+          "Enables easy human-in-the-loop 'wait for event' patterns",
+          "Serverless-friendly with no infrastructure to manage"
+        ],
+        "cons": [
+          "Requires specific event-driven architecture mindset",
+          "Dependency on a third-party orchestration layer"
+        ],
+        "tags": [
+          "reliability",
+          "serverless",
+          "queues"
+        ]
+      },
+      {
+        "name": "AutoGen",
+        "description": "Microsoft's framework for building multi-agent systems that converse with each other to solve tasks.",
+        "url": "https://microsoft.github.io/autogen/",
+        "category": "Orchestration Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "High degree of customization for agent interactions",
+          "Native support for code execution within agent loops",
+          "Strong community support and research backing"
+        ],
+        "cons": [
+          "Can lead to high token costs due to agent chatter",
+          "Complex configuration for production deployments"
+        ],
+        "tags": [
+          "multi-agent",
+          "python",
+          "code-generation"
+        ]
+      },
+      {
+        "name": "Promptfoo",
+        "description": "CLI tool and library for evaluating LLM output quality and agent tool-calling accuracy.",
+        "url": "https://www.promptfoo.dev/",
+        "category": "Testing & Evaluation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Enables deterministic testing of agent tool selections",
+          "Supports side-by-side comparison of different prompts/models",
+          "Integrates easily into CI/CD pipelines"
+        ],
+        "cons": [
+          "Requires manual definition of test cases and assertions",
+          "CLI-first approach may not suit all teams"
+        ],
+        "tags": [
+          "testing",
+          "ci-cd",
+          "benchmarking"
+        ]
+      },
+      {
+        "name": "Helicone",
+        "description": "An LLM observability platform that provides cost tracking and request logging for agentic workloads.",
+        "url": "https://www.helicone.ai/",
+        "category": "Observability & Debugging",
+        "pricing_model": "freemium",
+        "pros": [
+          "Simple integration via a single line of code (proxy)",
+          "Detailed cost breakdown per agent or user",
+          "Caching layer to reduce costs during agent development"
+        ],
+        "cons": [
+          "Adds a small amount of latency due to proxying",
+          "Limited deep-trace visualization compared to LangSmith"
+        ],
+        "tags": [
+          "analytics",
+          "cost-tracking",
+          "proxy"
+        ]
+      },
+      {
+        "name": "PydanticAI",
+        "description": "A Python agent framework that uses Pydantic for strict type validation of tool calls and agent responses.",
+        "url": "https://ai.pydantic.dev/",
+        "category": "Orchestration Frameworks",
+        "pricing_model": "open-source",
+        "pros": [
+          "Type-safe tool definitions and structured outputs",
+          "Built-in support for model-agnostic tool calling",
+          "Leverages existing Pydantic knowledge for most developers"
+        ],
+        "cons": [
+          "Newer framework with a smaller ecosystem than LangChain",
+          "Python only"
+        ],
+        "tags": [
+          "pydantic",
+          "typing",
+          "structured-output"
+        ]
+      },
+      {
+        "name": "Toolhouse",
+        "description": "A marketplace and SDK for ready-to-use tools that can be plugged directly into agents.",
+        "url": "https://toolhouse.ai/",
+        "category": "Tool Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Eliminates the need to write boilerplate code for common tools",
+          "Provides managed authentication for third-party APIs",
+          "Standardizes tool schemas across different LLM providers"
+        ],
+        "cons": [
+          "Introduces a third-party dependency for core functionality",
+          "Usage-based pricing for tool execution"
+        ],
+        "tags": [
+          "api",
+          "integration",
+          "tool-calling"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "rails",
+    "generated_at": "2026-03-12T22:38:43.451Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Ruby on Rails implementation checklist",
+    "description": "A practical checklist for shipping Ruby on Rails projects safely.",
+    "keywords": [
+      "rails",
+      "ruby on rails",
+      "checklist"
+    ],
+    "slug": "rails-checklist-ruby-on-rails-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for deploying a Rails 8 application to production, specifically focusing on Kamal deployment, Hotwire patterns, and the Solid suite for background processing.",
+    "sections": [
+      {
+        "heading": "Environment & Configuration",
+        "items": [
+          {
+            "title": "Master Key Management",
+            "description": "Verify RAILS_MASTER_KEY is present in the production environment and not committed to version control.",
+            "priority": "critical"
+          },
+          {
+            "title": "Force SSL",
+            "description": "Set config.force_ssl = true in production.rb to ensure all traffic is encrypted and HSTS is enabled.",
+            "priority": "critical"
+          },
+          {
+            "title": "Canonical Host Redirection",
+            "description": "Configure middleware or load balancer to redirect non-www to www (or vice versa) to prevent session fragmentation.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Logger Configuration",
+            "description": "Set config.log_level to :info and use ActiveSupport::TaggedLogging to include request IDs in logs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Secret Key Base",
+            "description": "Ensure SECRET_KEY_BASE is generated uniquely for production to secure cookie-based sessions.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Database & Background Jobs",
+        "items": [
+          {
+            "title": "Connection Pool Sizing",
+            "description": "Match the database pool size in database.yml to the sum of RAILS_MAX_THREADS and the concurrency level of background workers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Solid Queue Configuration",
+            "description": "Verify that config.active_job.queue_adapter is set to :solid_queue and the database has the required schema migrations.",
+            "priority": "critical"
+          },
+          {
+            "title": "Database Backups",
+            "description": "Confirm automated daily snapshots and WAL-G or similar point-in-time recovery is active for the production database.",
+            "priority": "critical"
+          },
+          {
+            "title": "Prepared Statements",
+            "description": "Disable prepared statements in database.yml if using a connection pooler like PgBouncer in transaction mode.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Solid Cache Setup",
+            "description": "Verify config.cache_store is set to :solid_cache_store and the dedicated cache table is indexed.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment with Kamal",
+        "items": [
+          {
+            "title": "Health Check Endpoint",
+            "description": "Ensure the /up endpoint returns a 200 OK and is correctly referenced in the deploy.yml healthcheck section.",
+            "priority": "critical"
+          },
+          {
+            "title": "Registry Authentication",
+            "description": "Verify KAMAL_REGISTRY_PASSWORD is set in the local .env file and the deployer has push access to the Docker registry.",
+            "priority": "critical"
+          },
+          {
+            "title": "Asset Precompilation",
+            "description": "Confirm the Dockerfile includes 'RUN bundle exec rails assets:precompile' and all build arguments for CSS/JS are passed.",
+            "priority": "critical"
+          },
+          {
+            "title": "Multi-arch Builds",
+            "description": "Configure buildx in deploy.yml if the deployment target architecture (e.g., ARM64) differs from the CI/CD runner.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Remote Environment Variables",
+            "description": "Use the 'env: clear' and 'env: secret' blocks in deploy.yml to separate public config from sensitive credentials.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security & Rate Limiting",
+        "items": [
+          {
+            "title": "Rack Attack Implementation",
+            "description": "Configure the rack-attack gem to throttle login attempts by IP and prevent brute-force attacks on /users/sign_in.",
+            "priority": "critical"
+          },
+          {
+            "title": "Content Security Policy (CSP)",
+            "description": "Define a strict CSP in initializers/content_security_policy.rb to prevent XSS, specifically allowing Stimulus and Turbo origins.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Dependency Audit",
+            "description": "Run 'bundle audit' and 'npm audit' to identify and patch known vulnerabilities in gems and node modules.",
+            "priority": "critical"
+          },
+          {
+            "title": "Permission Policy",
+            "description": "Configure the Permissions-Policy header to disable unused browser features like camera, microphone, and geolocation.",
+            "priority": "optional"
+          },
+          {
+            "title": "Secure Cookies",
+            "description": "Ensure config.ssl_options = { hsts: true, subdomains: true } is active to prevent session hijacking.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring & Resilience",
+        "items": [
+          {
+            "title": "Error Tracking Integration",
+            "description": "Install and verify an error reporting client (Sentry, Honeybadger, or AppSignal) for the production environment.",
+            "priority": "critical"
+          },
+          {
+            "title": "Log Aggregation",
+            "description": "Verify that Docker logs are being forwarded to a centralized logging service for post-deployment analysis.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Uptime Monitoring",
+            "description": "Configure an external service to ping the /up endpoint every 60 seconds and alert on failure.",
+            "priority": "critical"
+          },
+          {
+            "title": "Memory Usage Profiling",
+            "description": "Set up jemalloc in the Dockerfile to reduce memory fragmentation and prevent OOM kills on small VPS instances.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Disk Space Alerts",
+            "description": "Ensure monitoring is in place for the host machine's disk space, specifically for Docker image pruning and database growth.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

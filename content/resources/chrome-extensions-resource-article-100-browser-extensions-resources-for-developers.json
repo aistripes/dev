@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "chrome-extensions",
+    "generated_at": "2026-03-12T22:38:47.047Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Browser Extensions resources for developers",
+    "description": "A curated set of practical Browser Extensions resources for engineers.",
+    "keywords": [
+      "chrome-extensions",
+      "browser extensions",
+      "resource-article"
+    ],
+    "slug": "chrome-extensions-resource-article-100-browser-extensions-resources-for-developers"
+  },
+  "content": {
+    "intro": "Building browser extensions in the Manifest V3 era requires a shift from persistent background pages to ephemeral service workers and strict security policies. This resource guide provides the specific frameworks, API patterns, and monetization tools needed to build, deploy, and scale extensions across Chrome, Firefox, and Safari while navigating the complexities of the modern extension ecosystem.",
+    "sections": [
+      {
+        "heading": "Frameworks and Build Tooling",
+        "items": [
+          {
+            "title": "Plasmo Framework",
+            "description": "A battery-included framework that handles boilerplate for Manifest V3, including automatic HMR, React/Vue support, and simplified asset management.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "WXT (Web Extension Toolbox)",
+            "description": "A Vite-based framework designed for cross-browser compatibility, offering a unified API for Chrome, Firefox, and Safari builds.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "CRXJS Vite Plugin",
+            "description": "Integrates extension development directly into Vite, enabling fast HMR for content scripts and service workers by updating the manifest dynamically.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "web-ext by Mozilla",
+            "description": "A command-line tool for running, linting, and packaging extensions; essential for testing in Firefox and validating manifest structures.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Chrome Extension CLI",
+            "description": "A zero-config CLI for generating extension templates with Webpack, ideal for developers who prefer standard JavaScript/CSS without heavy frameworks.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Tsup for Extensions",
+            "description": "A fast bundler based on esbuild; use it to bundle background service workers into a single file to avoid import issues in MV3.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Extension UI Kits",
+            "description": "A collection of Tailwind CSS components specifically sized for extension popups (300px-600px width) and side panels.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Polyfill for WebExtension API",
+            "description": "The 'browser' namespace polyfill by Mozilla that allows you to use Promise-based syntax in Chrome instead of callback-heavy 'chrome' APIs.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Zod for Manifest Validation",
+            "description": "Use Zod schemas to validate your manifest.json and options storage at runtime to prevent crashes from unexpected user input.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Fast-Check for Property Testing",
+            "description": "Useful for testing content scripts against a wide variety of DOM structures to ensure your extension doesn't break host websites.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Manifest V3 & Core API Implementation",
+        "items": [
+          {
+            "title": "chrome.offscreen API",
+            "description": "The mandatory way to handle DOM-dependent tasks (like audio playback or clipboard writing) that are no longer possible in service workers.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "chrome.storage.session",
+            "description": "A new storage area in MV3 that keeps data in memory for the duration of the browser session; faster than storage.local.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Declarative Net Request (DNR)",
+            "description": "The privacy-first replacement for webRequest; requires pre-defining rules in JSON for blocking or redirecting network requests.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "chrome.sidePanel API",
+            "description": "Enables the persistent side panel UI introduced in Chrome 114, providing more screen real estate than traditional popups.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Service Worker Keep-Alive Patterns",
+            "description": "Techniques using chrome.alarms or dummy ports to prevent the service worker from terminating during long-running background tasks.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "chrome.scripting.executeScript",
+            "description": "The MV3 method for injecting code into tabs; requires the 'scripting' permission and replaces the deprecated tabs.executeScript.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Dynamic Content Script Registration",
+            "description": "Use scripting.registerContentScripts to inject scripts based on user settings rather than hardcoding them in manifest.json.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Action API (Badges & Icons)",
+            "description": "Programmatically update the extension icon or badge text to show real-time status updates without the user opening the popup.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Native Messaging Host",
+            "description": "Communicating with a local desktop application via JSON-based stdin/stdout, bypassing sandbox limitations for heavy processing.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Manifest Content Security Policy (CSP)",
+            "description": "Configuring the 'content_security_policy' field to allow connections to specific API endpoints while complying with Web Store safety audits.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Monetization, AI, and Distribution",
+        "items": [
+          {
+            "title": "ExtensionPay",
+            "description": "A low-code payment service designed specifically for extensions, handling subscriptions and one-time payments without a backend.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Chrome Built-in AI (Prompt API)",
+            "description": "Accessing local Gemini Nano models directly through the browser (Chrome 127+) for on-device summarization and text generation.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Stripe + Firebase Auth",
+            "description": "A robust stack for multi-platform extensions; use Firebase to sync user license status across different browsers and devices.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "PostHog Extension Analytics",
+            "description": "Privacy-compliant event tracking to see which features users interact with most within the popup and content scripts.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Sentry for Extensions",
+            "description": "Error tracking specifically configured for the extension environment to catch background service worker crashes before users report them.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Extension Update Testing Tool",
+            "description": "A workflow for testing how your extension handles data migrations when upgrading from an old version to a new version locally.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "GitHub Actions for Web Store",
+            "description": "Automate the upload and submission process to the Chrome Web Store and Firefox Add-ons using the 'chrome-webstore-upload' action.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Lemon Squeezy Overlay",
+            "description": "Using Lemon Squeezy's hosted checkout to sell digital licenses for extensions, providing an alternative to Stripe for global tax handling.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "OpenAI API Proxying",
+            "description": "Implementing a small Vercel/Cloudflare worker to proxy LLM requests, keeping your API keys out of the extension's client-side code.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "I18n-next for Extensions",
+            "description": "A framework-agnostic way to handle localization beyond the basic chrome.i18n API, facilitating easier entry into international markets.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Never store raw API keys in your extension source code; always use a backend proxy or the chrome.identity API for OAuth2 flows.",
+      "Use chrome.storage.local for persistent data, but always implement a versioning migration script for when your data schema changes.",
+      "Debug service workers by navigating to chrome://extensions and clicking the 'service worker' link; console logs from content scripts only appear in the page devtools.",
+      "Keep your manifest permissions to the absolute minimum; requesting 'all_urls' will trigger a manual review and significantly delay your store approval.",
+      "Wrap your content scripts in an IIFE or use a bundler to avoid polluting the global window namespace of the host website."
+    ]
+  }
+}

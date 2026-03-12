@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "analytics",
+    "generated_at": "2026-03-12T22:38:17.523Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Web Analytics resources for developers",
+    "description": "A curated set of practical Web Analytics resources for engineers.",
+    "keywords": [
+      "analytics",
+      "web analytics",
+      "resource-article"
+    ],
+    "slug": "analytics-resource-article-100-web-analytics-resources-for-developers"
+  },
+  "content": {
+    "intro": "Modern web analytics for developers has shifted from generic pageview tracking to privacy-first, event-driven architectures. This resource provides a curated list of tools and implementation strategies for developers looking to balance data utility with user privacy and regulatory compliance.",
+    "sections": [
+      {
+        "heading": "Privacy-First and Lightweight Analytics Tools",
+        "items": [
+          {
+            "title": "Plausible Analytics",
+            "description": "Open-source, lightweight (<1KB) alternative to Google Analytics. It avoids cookies and is fully GDPR, CCPA, and PECR compliant by default.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Fathom Analytics",
+            "description": "Privacy-centric tool focusing on high-traffic performance. It uses a custom domain feature to bypass ad-blockers effectively.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Simple Analytics",
+            "description": "A clean, no-cookie analytics tool that provides a 'bypass ad-blockers' script and a simple JSON API for data export.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Pirsch Analytics",
+            "description": "A powerful, server-side focused analytics tool that integrates directly via SDKs for Go, PHP, and Python, or a standard JS snippet.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Cloudflare Web Analytics",
+            "description": "Privacy-first analytics that doesn't use any client-side state like cookies or localStorage. Free for all Cloudflare users.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Microanalytics.io",
+            "description": "A minimalist analytics tool built in the EU. Focuses on speed and zero tracking of personal data.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Panelbear",
+            "description": "Real-time analytics with a focus on performance monitoring and automated alerts for traffic spikes or drops.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Tinybird",
+            "description": "An analytics platform for developers to build real-time data products at scale using SQL on top of event streams.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Wide Angle Analytics",
+            "description": "Strictly GDPR-compliant B2B analytics with support for custom event tracking and complex domain filtering.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "GoatCounter",
+            "description": "Open-source web analytics platform available as a hosted service or self-hosted binary. No tracking of personal data.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Self-Hosted and Infrastructure Solutions",
+        "items": [
+          {
+            "title": "Umami",
+            "description": "A simple, fast, privacy-focused alternative to Google Analytics. Written in Node.js and uses Prisma for database flexibility (PostgreSQL/MySQL).",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Matomo (On-Premise)",
+            "description": "The most feature-complete open-source analytics platform. Provides full data ownership and extensive plugin ecosystem.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Ackee",
+            "description": "Node.js based analytics tool that provides a GraphQL API to interact with your data. Ideal for headless CMS setups.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "PostHog (Self-Hosted)",
+            "description": "An all-in-one product suite including event tracking, session recording, and feature flags. Best deployed via Docker or Kubernetes.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Shynet",
+            "description": "A modern, privacy-friendly, and detailed web analytics tool that doesn't use cookies or JS tracking pixels (it uses a 1x1 GIF).",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Offen Fair Web Analytics",
+            "description": "An open-source analytics tool that treats users as equal partners by giving them access to their own data.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "ClickHouse",
+            "description": "The column-oriented DBMS used by Plausible and PostHog. Essential for developers building custom high-scale analytics engines.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Snowplow Open Source",
+            "description": "Enterprise-grade event data collection platform. Allows for complex pipeline customization and data lake integration.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "RudderStack",
+            "description": "Open-source Customer Data Platform (CDP). Use it to route event data from your app to multiple analytics destinations.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Metabase",
+            "description": "Connect Metabase to your self-hosted analytics database (PostgreSQL/ClickHouse) to create custom dashboards and BI reports.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Product Analytics and Implementation Patterns",
+        "items": [
+          {
+            "title": "Mixpanel JQL",
+            "description": "Use Javascript Query Language (JQL) within Mixpanel to perform complex analysis on raw event data that standard UIs cannot handle.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Amplitude Browser SDK",
+            "description": "Implement robust product analytics with built-in support for identity management and cross-device tracking.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Vercel Web Analytics",
+            "description": "Zero-config analytics for Next.js applications. It tracks core web vitals and basic traffic metrics automatically.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Segment Analytics.js",
+            "description": "The industry standard for decoupling your application code from specific analytics vendors. Write once, route everywhere.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "GA4 Measurement Protocol",
+            "description": "Bypass client-side limitations by sending event data directly from your server to Google Analytics 4 via REST API.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "PostHog Feature Flags",
+            "description": "Integrate analytics with deployment. Track how specific features impact user behavior using built-in flags and cohorts.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Supabase pg_analytics",
+            "description": "Leverage Postgres-native analytics extensions to track user interactions directly within your application database.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Proxying Scripts with Next.js Rewrites",
+            "description": "Configure 'next.config.js' to proxy analytics scripts through your own domain to improve data accuracy and bypass blockers.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "A/B Testing with Middleware",
+            "description": "Use Edge Middleware (Vercel/Cloudflare) to bucket users and send variant IDs to your analytics provider without layout shift.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Custom Event Schema Validation",
+            "description": "Use JSON Schema or TypeScript interfaces to validate event payloads before sending them to your analytics pipeline.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Serve analytics scripts from a sub-path of your main domain (e.g., /stats/script.js) using a reverse proxy to minimize the impact of ad-blockers.",
+      "Always use server-side event tracking for critical business logic, such as successful payments or API credit usage, to ensure 100% data accuracy.",
+      "Anonymize IP addresses by masking the last octet before storage to comply with GDPR 'Privacy by Design' principles without losing geographic trends.",
+      "Implement 'Heartbeat' events for long-running sessions or AI-chat interfaces to accurately measure engagement time beyond simple page exit events.",
+      "Audit your analytics payload regularly using browser developer tools to ensure no PII (Personally Identifiable Information) is accidentally leaked in URLs or properties."
+    ]
+  }
+}

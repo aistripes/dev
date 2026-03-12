@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "content-platforms",
+    "generated_at": "2026-03-12T22:38:46.060Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Content Platforms & CMS tools directory",
+    "description": "A developer-first directory of Content Platforms & CMS tools and references.",
+    "keywords": [
+      "content-platforms",
+      "content platforms & cms",
+      "directory"
+    ],
+    "slug": "content-platforms-directory-content-platforms-cms-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of headless CMS platforms, Git-based content tools, and migration utilities designed for developers building modern, content-heavy web applications.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Headless CMS",
+          "Git-based CMS",
+          "Database-first CMS",
+          "Migration & Tooling",
+          "Framework Integration"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Sanity",
+        "description": "A platform for structured content with a highly customizable React-based editing environment and GROQ/GraphQL query support.",
+        "url": "https://www.sanity.io",
+        "category": "Headless CMS",
+        "pricing_model": "freemium",
+        "pros": [
+          "Real-time collaboration and live preview built-in",
+          "Deeply customizable Studio UI using React",
+          "Powerful GROQ query language for complex content relationships"
+        ],
+        "cons": [
+          "Learning curve for GROQ if not using GraphQL",
+          "Studio configuration can become verbose"
+        ],
+        "tags": [
+          "structured-content",
+          "react",
+          "groq"
+        ]
+      },
+      {
+        "name": "Payload CMS",
+        "description": "A TypeScript-first headless CMS that provides a code-based approach to defining schemas and local development workflows.",
+        "url": "https://payloadcms.com",
+        "category": "Headless CMS",
+        "pricing_model": "open-source",
+        "pros": [
+          "No-compromise TypeScript definitions for content types",
+          "Self-hostable with full control over the Express server",
+          "Extensible via standard Node.js middleware"
+        ],
+        "cons": [
+          "Requires MongoDB or Postgres setup for self-hosting",
+          "Smaller ecosystem of third-party plugins compared to Strapi"
+        ],
+        "tags": [
+          "typescript",
+          "node.js",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "Strapi",
+        "description": "An open-source Node.js headless CMS that allows developers to define APIs through a GUI or code configuration.",
+        "url": "https://strapi.io",
+        "category": "Headless CMS",
+        "pricing_model": "open-source",
+        "pros": [
+          "Large community and extensive plugin marketplace",
+          "Automatic REST and GraphQL API generation",
+          "Role-based access control (RBAC) included in community edition"
+        ],
+        "cons": [
+          "Database migrations can be complex in production",
+          "Heavy memory usage on smaller server instances"
+        ],
+        "tags": [
+          "node.js",
+          "api-first",
+          "customizable"
+        ]
+      },
+      {
+        "name": "Contentful",
+        "description": "An enterprise-grade headless CMS focusing on content delivery via robust APIs and global CDN integration.",
+        "url": "https://www.contentful.com",
+        "category": "Headless CMS",
+        "pricing_model": "enterprise",
+        "pros": [
+          "Highly reliable infrastructure with global edge delivery",
+          "Robust App Framework for custom sidebar extensions",
+          "Excellent documentation and SDK support for multiple languages"
+        ],
+        "cons": [
+          "Pricing scales aggressively with technical limits",
+          "Rigid content modeling compared to code-first alternatives"
+        ],
+        "tags": [
+          "enterprise",
+          "api-first",
+          "saas"
+        ]
+      },
+      {
+        "name": "Keystatic",
+        "description": "A Git-based CMS that allows editing of local Markdown, MDX, and JSON files with a structured UI.",
+        "url": "https://keystatic.com",
+        "category": "Git-based CMS",
+        "pricing_model": "open-source",
+        "pros": [
+          "No database required; content lives in your repository",
+          "Seamless integration with Next.js and Astro",
+          "Native support for complex YAML/Frontmatter structures"
+        ],
+        "cons": [
+          "Not suitable for content teams without Git access",
+          "Limited built-in asset management features"
+        ],
+        "tags": [
+          "git-based",
+          "markdown",
+          "nextjs"
+        ]
+      },
+      {
+        "name": "TinaCMS",
+        "description": "A Git-backed CMS that provides visual editing for Markdown and MDX files directly on your site.",
+        "url": "https://tina.io",
+        "category": "Git-based CMS",
+        "pricing_model": "freemium",
+        "pros": [
+          "Contextual visual editing experience for authors",
+          "GraphQL API overlay for Git-based content",
+          "Works with static site generators like Hugo and Jekyll"
+        ],
+        "cons": [
+          "Initial configuration of visual blocks can be time-consuming",
+          "Cloud sync required for team collaboration"
+        ],
+        "tags": [
+          "visual-editing",
+          "git",
+          "mdx"
+        ]
+      },
+      {
+        "name": "Directus",
+        "description": "An open-source data platform that wraps existing SQL databases with a real-time API and admin UI.",
+        "url": "https://directus.io",
+        "category": "Database-first CMS",
+        "pricing_model": "open-source",
+        "pros": [
+          "No vendor lock-in; works with existing SQL schemas",
+          "Includes a powerful automation engine (Flows)",
+          "Instant REST and GraphQL APIs for any table"
+        ],
+        "cons": [
+          "Can be overkill for simple blogging needs",
+          "Requires database management expertise for scaling"
+        ],
+        "tags": [
+          "sql",
+          "baas",
+          "automation"
+        ]
+      },
+      {
+        "name": "Contentful Migration CLI",
+        "description": "A command-line tool for managing Contentful content model changes through scriptable migration files.",
+        "url": "https://github.com/contentful/contentful-migration",
+        "category": "Migration & Tooling",
+        "pricing_model": "free",
+        "pros": [
+          "Enables version-controlled content model updates",
+          "Automates complex field transformations",
+          "Supports dry-runs to validate changes before execution"
+        ],
+        "cons": [
+          "Requires deep knowledge of Contentful's internal model",
+          "No GUI for visualizing migration steps"
+        ],
+        "tags": [
+          "cli",
+          "devops",
+          "migration"
+        ]
+      },
+      {
+        "name": "Astro Content Collections",
+        "description": "A built-in feature of Astro for managing and validating local Markdown/MDX content with Zod schemas.",
+        "url": "https://docs.astro.build/en/guides/content-collections/",
+        "category": "Framework Integration",
+        "pricing_model": "free",
+        "pros": [
+          "Automatic TypeScript type generation for frontmatter",
+          "Build-time validation prevents broken content references",
+          "Extremely fast performance with zero runtime overhead"
+        ],
+        "cons": [
+          "Limited to the Astro ecosystem",
+          "No built-in admin UI for non-technical users"
+        ],
+        "tags": [
+          "astro",
+          "markdown",
+          "validation"
+        ]
+      },
+      {
+        "name": "Hygraph",
+        "description": "A federated content platform built natively on GraphQL, specializing in complex data relationships.",
+        "url": "https://hygraph.com",
+        "category": "Headless CMS",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native GraphQL mutations and queries",
+          "Content Federation allows pulling data from external APIs",
+          "Advanced localized content workflows"
+        ],
+        "cons": [
+          "Strict schema requirements can slow down prototyping",
+          "Higher tiers are expensive for small projects"
+        ],
+        "tags": [
+          "graphql",
+          "federation",
+          "headless"
+        ]
+      }
+    ]
+  }
+}

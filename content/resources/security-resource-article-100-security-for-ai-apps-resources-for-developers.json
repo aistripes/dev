@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "security",
+    "generated_at": "2026-03-12T22:38:30.813Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Security for AI Apps resources for developers",
+    "description": "A curated set of practical Security for AI Apps resources for engineers.",
+    "keywords": [
+      "security",
+      "security for ai apps",
+      "resource-article"
+    ],
+    "slug": "security-resource-article-100-security-for-ai-apps-resources-for-developers"
+  },
+  "content": {
+    "intro": "Securing AI applications requires a shift from traditional perimeter defense to mitigating probabilistic risks such as prompt injection, data leakage through model outputs, and unauthorized API usage. This resource guide provides a curated list of tools and frameworks specifically designed to address the OWASP LLM Top 10 vulnerabilities and secure the infrastructure surrounding large language models.",
+    "sections": [
+      {
+        "heading": "Prompt Injection & Input Validation",
+        "items": [
+          {
+            "title": "Rebuff",
+            "description": "An open-source multi-layered self-hosted prompt injection detector that uses heuristics, vector lookups, and LLM-based analysis.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "NeMo Guardrails",
+            "description": "NVIDIA's toolkit for defining programmable guardrails using Colang to ensure LLM interactions stay within predefined safety boundaries.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Guardrails AI",
+            "description": "A framework for adding structural, type, and quality validation to LLM outputs using Pydantic-style schemas.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Lakera Guard",
+            "description": "An enterprise-grade API for real-time protection against prompt injection, jailbreaking, and PII leakage.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Promptfoo",
+            "description": "A CLI tool and library for testing prompt quality and security by running test cases against multiple models simultaneously.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Garak",
+            "description": "An LLM vulnerability scanner that probes models for known weaknesses including hallucination, jailbreaks, and data extraction.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "PyRIT",
+            "description": "Microsoft's Python Risk Identification Tool for red teaming generative AI systems to identify security and fairness risks.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "LLM-Security-Scanner",
+            "description": "A lightweight tool for scanning prompt templates for common injection patterns before deployment.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Prompt Armor",
+            "description": "A security proxy layer that sits between your application and the LLM provider to filter malicious payloads.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Vigil",
+            "description": "A security scanner for LLM prompts that detects prompt injection and jailbreak attempts using a signature-based approach.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Data Privacy & PII Protection",
+        "items": [
+          {
+            "title": "Microsoft Presidio",
+            "description": "An open-source data protection SDK that provides PII identification and anonymization for text and images.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "LLM Guard",
+            "description": "A comprehensive tool for both input and output sanitization, including PII detection, toxicity filtering, and secret detection.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Private AI",
+            "description": "A high-accuracy PII redaction API that supports over 50 languages and can be deployed on-premise to maintain data residency.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Skyflow",
+            "description": "A data privacy vault that allows developers to isolate, protect, and govern sensitive customer data used in LLM workflows.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "LangChain Privacy Filters",
+            "description": "Built-in document transformers for LangChain to scrub sensitive data from documents before they are indexed in vector stores.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Cape Privacy",
+            "description": "An API for encrypted LLM processing that ensures the model provider never sees the raw underlying data.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "IronCore Labs Cloak",
+            "description": "Transparent application-layer encryption for data stored in vector databases like Pinecone or Weaviate.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "AWS Bedrock Guardrails",
+            "description": "Managed service to filter toxic content and PII from inputs and outputs specifically for models hosted on AWS Bedrock.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Hugging Face SafeTensors",
+            "description": "A simple, fast, and safe file format for storing tensors that prevents arbitrary code execution during model loading.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Anonymized RAG",
+            "description": "Implementation pattern using hashing or tokenization for document metadata to prevent LLM reconstruction of user identities.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Infrastructure & Secret Management",
+        "items": [
+          {
+            "title": "HashiCorp Vault LLM Engine",
+            "description": "Manage and rotate LLM API keys dynamically to prevent long-lived credential exposure in environment variables.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "AWS KMS Envelope Encryption",
+            "description": "Encrypting high-dimensional vectors in databases using unique keys to ensure data at rest is unreadable without specific IAM roles.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Cloudflare Gateway for AI",
+            "description": "An egress proxy that provides visibility, rate limiting, and security filtering for all outbound LLM API requests.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Pinecone RBAC",
+            "description": "Role-Based Access Control for vector namespaces to ensure users only query segments of the vector database they are authorized to access.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "LangSmith Audit Logs",
+            "description": "Detailed tracing and logging of all LLM inputs and outputs to provide an audit trail for compliance and security forensics.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Snyk Code for AI",
+            "description": "Static analysis tool configured to detect insecure patterns in LLM orchestration code, such as unsanitized prompt templates.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Tailscale for GPU Clusters",
+            "description": "Zero-trust networking to secure communications between application servers and private self-hosted GPU inference nodes.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Istio Egress Gateways",
+            "description": "Restricting LLM application pods to only communicate with verified model provider endpoints (e.g., api.openai.com).",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "GitHub Secret Scanning",
+            "description": "Automated detection of leaked OpenAI, Anthropic, and Hugging Face tokens within private and public repositories.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Docker Scout",
+            "description": "Vulnerability scanning for container images containing AI runtimes and libraries like PyTorch or TensorFlow.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Use XML or Markdown delimiters in your system prompt to clearly separate 'System Instructions' from 'User Input' to reduce injection success.",
+      "Implement 'Human-in-the-loop' approvals for any LLM-generated action that involves destructive operations or external data modification.",
+      "Set strict max_token limits on user inputs to prevent 'denial of wallet' attacks or model timeouts through massive payload injections.",
+      "Never store raw API keys in your code; use OIDC-based authentication (like GitHub Actions to AWS) to fetch short-lived credentials for LLM access.",
+      "Perform periodic 'Red Teaming' using automated tools like Garak to ensure that new model versions or prompt changes haven't introduced regressions."
+    ]
+  }
+}

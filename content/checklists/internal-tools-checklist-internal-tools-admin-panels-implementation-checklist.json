@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "internal-tools",
+    "generated_at": "2026-03-12T22:38:47.760Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Internal Tools & Admin Panels implementation checklist",
+    "description": "A practical checklist for shipping Internal Tools & Admin Panels projects safely.",
+    "keywords": [
+      "internal-tools",
+      "internal tools & admin panels",
+      "checklist"
+    ],
+    "slug": "internal-tools-checklist-internal-tools-admin-panels-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for moving internal dashboards and admin panels from local development or low-code staging to a production environment, focusing on security, data integrity, and operational reliability.",
+    "sections": [
+      {
+        "heading": "Access Control and Authentication",
+        "items": [
+          {
+            "title": "SSO Integration",
+            "description": "Verify that authentication is tied to the corporate Identity Provider (SAML/OIDC) and that public registration is disabled.",
+            "priority": "critical"
+          },
+          {
+            "title": "Role-Based Access Control (RBAC) Mapping",
+            "description": "Map internal user roles (e.g., support, finance, admin) to specific UI permissions and API scopes to ensure least-privilege access.",
+            "priority": "critical"
+          },
+          {
+            "title": "Session Expiration Policy",
+            "description": "Configure session timeouts to expire after a maximum of 12 hours of inactivity to mitigate risks on shared workstations.",
+            "priority": "recommended"
+          },
+          {
+            "title": "MFA Enforcement",
+            "description": "Ensure Multi-Factor Authentication is required for all users accessing production data environments.",
+            "priority": "critical"
+          },
+          {
+            "title": "Service Account Isolation",
+            "description": "Verify that the admin panel uses a dedicated database user with restricted permissions rather than a superuser account.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Data Integrity and Validation",
+        "items": [
+          {
+            "title": "Destructive Action Confirmations",
+            "description": "Implement double-confirmation modals for any 'Delete' or 'Bulk Update' actions to prevent accidental data loss.",
+            "priority": "critical"
+          },
+          {
+            "title": "Server-side Validation",
+            "description": "Confirm that all write operations validate data types, lengths, and constraints on the server, not just in the UI components.",
+            "priority": "critical"
+          },
+          {
+            "title": "Optimistic UI Rollbacks",
+            "description": "Ensure that if an optimistic UI update fails, the application state reverts correctly and displays a clear error message.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Input Sanitization",
+            "description": "Check that all custom SQL or API queries use parameterized inputs to prevent injection attacks within the admin tool.",
+            "priority": "critical"
+          },
+          {
+            "title": "Draft State for Complex Forms",
+            "description": "Implement local storage or database-backed draft saving for forms with more than 10 inputs to prevent data loss on disconnect.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and Resource Management",
+        "items": [
+          {
+            "title": "Server-side Pagination",
+            "description": "Configure all tables to use limit/offset or cursor-based pagination at the database level rather than fetching full datasets.",
+            "priority": "critical"
+          },
+          {
+            "title": "Query Debouncing",
+            "description": "Apply a minimum 300ms debounce to all search bars and filter inputs to reduce unnecessary load on backend APIs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Query Timeouts",
+            "description": "Set explicit execution timeouts (e.g., 30 seconds) for all database queries to prevent long-running processes from hanging.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Response Payload Compression",
+            "description": "Verify that Gzip or Brotli compression is enabled for JSON payloads exceeding 10KB.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Asset Caching",
+            "description": "Configure Cache-Control headers for static assets and infrequently changed reference data like category lists or status codes.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Observability and Auditing",
+        "items": [
+          {
+            "title": "Audit Log Implementation",
+            "description": "Ensure every write operation records the User ID, timestamp, IP address, and the 'before' and 'after' state of the record.",
+            "priority": "critical"
+          },
+          {
+            "title": "Error Boundary Coverage",
+            "description": "Wrap major UI sections in error boundaries to prevent a single failed component from crashing the entire dashboard.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Centralized Logging",
+            "description": "Verify that frontend and backend errors are piped to a centralized tool like Sentry, Datadog, or LogRocket.",
+            "priority": "recommended"
+          },
+          {
+            "title": "API Latency Monitoring",
+            "description": "Set up alerts for P95 latency spikes on critical admin endpoints used for customer support or order management.",
+            "priority": "optional"
+          },
+          {
+            "title": "Usage Analytics",
+            "description": "Track which features or internal tools are being used to identify and deprecate unused dashboards.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and Environment Safety",
+        "items": [
+          {
+            "title": "Environment Variable Separation",
+            "description": "Strictly separate production database credentials and API keys from staging and development environments.",
+            "priority": "critical"
+          },
+          {
+            "title": "Read-Only Mode for Staging",
+            "description": "Ensure the staging version of the admin panel is connected to a sanitized database or a read-only replica.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Versioned Releases",
+            "description": "Export tool definitions (JSON/YAML) to a Git repository and use a CI/CD pipeline for deployment instead of manual 'Publish' buttons.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Dependency Scanning",
+            "description": "Run automated vulnerability scans on all NPM packages or library dependencies used in the custom admin build.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Health Check Endpoints",
+            "description": "Implement a /health endpoint that verifies connectivity to the primary database and upstream APIs.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}
