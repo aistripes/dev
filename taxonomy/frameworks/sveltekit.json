@@ -1,0 +1,39 @@
+{
+  "slug": "sveltekit",
+  "name": "SvelteKit",
+  "category": "frameworks",
+  "context": {
+    "audience": "Frontend developers who prefer minimal abstractions, performance-obsessed builders, indie hackers tired of React overhead",
+    "pain_points": [
+      "Adapting SvelteKit apps for different deployment targets (Vercel, Cloudflare, Node.js)",
+      "Form actions vs client-side data fetching trade-offs",
+      "TypeScript integration complexity with Svelte 5 runes",
+      "SEO and pre-rendering strategies for dynamic routes",
+      "Integrating AI streaming responses in server load functions"
+    ],
+    "monetization": [
+      "SaaS subscriptions",
+      "Freelance development",
+      "Open source with paid features",
+      "Performance consulting"
+    ],
+    "tools_and_stack": [
+      "Vercel", "Cloudflare Pages", "PocketBase", "Drizzle",
+      "Tailwind CSS", "DaisyUI", "Lucia Auth", "Stripe"
+    ],
+    "content_that_works": [
+      "Performance comparisons with React/Vue equivalents",
+      "Real-world SvelteKit app walkthroughs",
+      "Svelte 5 runes migration guides",
+      "Deployment and adapter configuration guides"
+    ],
+    "subtopics": [
+      "SvelteKit form actions and progressive enhancement",
+      "SvelteKit + AI streaming",
+      "SvelteKit on Cloudflare Workers",
+      "Svelte 5 runes patterns",
+      "SvelteKit authentication patterns"
+    ],
+    "adjacent_niches": ["astro", "edge-deployment", "gdpr-compliance"]
+  }
+}

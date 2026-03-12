@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  keywords?: string[];
+  ogTitle?: string;
+  ogDescription?: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'AI Stripes — the go-to resource for web developers building AI-powered applications.',
+  keywords = [],
+  ogTitle,
+  ogDescription,
+  canonicalUrl,
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = 'https://aistripes.dev';
+const resolvedCanonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
+const resolvedOgTitle = ogTitle ?? title;
+const resolvedOgDescription = ogDescription ?? description;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — AI Stripes</title>
+  <meta name="description" content={description} />
+  {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+  <link rel="canonical" href={resolvedCanonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AI Stripes" />
+  <meta property="og:title" content={resolvedOgTitle} />
+  <meta property="og:description" content={resolvedOgDescription} />
+  <meta property="og:url" content={resolvedCanonical} />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={resolvedOgTitle} />
+  <meta name="twitter:description" content={resolvedOgDescription} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>

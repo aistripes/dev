@@ -1,0 +1,39 @@
+{
+  "slug": "saas",
+  "name": "SaaS Applications",
+  "category": "verticals",
+  "context": {
+    "audience": "Indie hackers shipping their first SaaS, startup CTOs scaling their product, developers adding subscription billing to existing apps",
+    "pain_points": [
+      "Choosing a billing provider and integrating subscription logic without over-engineering",
+      "Authentication, multi-tenancy, and permission models at scale",
+      "Reducing AI API costs while maintaining product quality",
+      "Churn prediction and retention tooling without a dedicated data team",
+      "GDPR and data privacy compliance for European customers"
+    ],
+    "monetization": [
+      "Monthly/annual subscription revenue",
+      "Usage-based billing",
+      "Freemium to paid conversion",
+      "Lifetime deals as early revenue"
+    ],
+    "tools_and_stack": [
+      "Stripe", "LemonSqueezy", "Clerk", "Auth.js", "Supabase",
+      "Prisma", "Drizzle", "Resend", "PostHog", "Sentry"
+    ],
+    "content_that_works": [
+      "SaaS boilerplate and starter kit comparisons",
+      "Billing and subscription implementation guides",
+      "Multi-tenancy architecture patterns",
+      "AI feature integration case studies"
+    ],
+    "subtopics": [
+      "SaaS billing and payment integration",
+      "Multi-tenancy architecture",
+      "SaaS onboarding and activation flows",
+      "AI cost management for SaaS",
+      "SaaS metrics and analytics"
+    ],
+    "adjacent_niches": ["nextjs", "gdpr-compliance", "analytics", "devtools"]
+  }
+}
