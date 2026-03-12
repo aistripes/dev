@@ -1,0 +1,39 @@
+{
+  "slug": "nextjs",
+  "name": "Next.js",
+  "category": "frameworks",
+  "context": {
+    "audience": "Full-stack developers building React applications, indie hackers shipping SaaS, frontend teams at startups and agencies",
+    "pain_points": [
+      "App Router vs Pages Router migration decisions",
+      "Server Components mental model and data fetching patterns",
+      "Deployment costs scaling with SSR and serverless functions",
+      "SEO for dynamic and client-rendered content",
+      "Integrating AI APIs without exposing keys or hitting rate limits"
+    ],
+    "monetization": [
+      "SaaS subscriptions",
+      "Freelance and agency work",
+      "Template and starter kit sales",
+      "Course and tutorial content"
+    ],
+    "tools_and_stack": [
+      "Vercel", "Cloudflare Pages", "Prisma", "Drizzle",
+      "Tailwind CSS", "shadcn/ui", "Stripe", "Clerk", "Auth.js"
+    ],
+    "content_that_works": [
+      "Step-by-step implementation guides",
+      "Architecture decision comparisons",
+      "Starter template breakdowns",
+      "Performance optimization checklists"
+    ],
+    "subtopics": [
+      "Next.js App Router patterns",
+      "Next.js + AI SDK integration",
+      "Next.js self-hosting on VPS",
+      "Next.js ISR and caching strategies",
+      "Next.js middleware and edge functions"
+    ],
+    "adjacent_niches": ["remix", "react", "vercel", "edge-deployment"]
+  }
+}
