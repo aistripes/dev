@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "nuxt",
+    "generated_at": "2026-03-12T21:27:16.949Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Nuxt with open-source tools",
+    "description": "A step-by-step implementation guide for Nuxt with open-source tools.",
+    "keywords": [
+      "nuxt",
+      "guide"
+    ],
+    "slug": "nuxt-guide-building-nuxt-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical implementation of a Nuxt 3 application optimized for edge runtimes, focusing on streaming AI responses and minimizing cold-start latency through efficient server-side configuration and bundle management.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "Nuxt 3.8+ installed",
+      "OpenAI API Key for AI SDK integration",
+      "Vercel or Netlify account for edge deployment testing",
+      "Basic familiarity with Nitro server engine"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure Nitro for Edge Runtimes",
+        "explanation": "To leverage global low-latency, you must explicitly configure Nitro to use edge presets. This ensures that the generated build uses the correct environment variables and runtime APIs (like Web Streams) available on providers like Vercel Edge or Cloudflare Workers.",
+        "code": {
+          "language": "typescript",
+          "content": "export default defineNuxtConfig({\n  nitro: {\n    preset: 'vercel-edge',\n  },\n  runtimeConfig: {\n    openaiApiKey: process.env.OPENAI_API_KEY\n  }\n})",
+          "filename": "nuxt.config.ts"
+        },
+        "pitfalls": [
+          "Using Node.js specific modules (e.g., 'fs' or 'path') will cause build failures on edge runtimes.",
+          "Ensure all environment variables are prefixed correctly in your deployment dashboard."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Streaming AI Server Routes",
+        "explanation": "Create a server-side route using the Vercel AI SDK to handle streaming responses. This prevents the request from timing out on long-running AI generations and provides a better user experience through partial data delivery.",
+        "code": {
+          "language": "typescript",
+          "content": "import { OpenAIStream, StreamingTextResponse } from 'ai'\nimport OpenAI from 'openai'\n\nconst openai = new OpenAI({ apiKey: useRuntimeConfig().openaiApiKey })\n\nexport default defineEventHandler(async (event) => {\n  const { messages } = await readBody(event)\n  const response = await openai.chat.completions.create({\n    model: 'gpt-3.5-turbo',\n    stream: true,\n    messages,\n  })\n  const stream = OpenAIStream(response)\n  return new StreamingTextResponse(stream)\n})",
+          "filename": "server/api/chat.ts"
+        },
+        "pitfalls": [
+          "Forgetting to return a StreamingTextResponse will result in the client waiting for the full payload, negating streaming benefits.",
+          "Edge functions often have a 10-30 second execution limit; ensure your prompt logic fits within these bounds."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Integrate useChat for Client-Side Consumption",
+        "explanation": "Use the Vercel AI SDK's Vue hooks to manage the chat state. This avoids manual handling of readable streams and automatically updates the UI as chunks arrive from the server.",
+        "code": {
+          "language": "vue",
+          "content": "<script setup>\nimport { useChat } from 'ai/vue'\nconst { messages, input, handleSubmit } = useChat()\n</script>\n\n<template>\n  <div v-for=\"m in messages\" :key=\"m.id\">{{ m.content }}</div>\n  <form @submit=\"handleSubmit\">\n    <input v-model=\"input\" placeholder=\"Ask something...\" />\n  </form>\n</template>",
+          "filename": "pages/index.vue"
+        },
+        "pitfalls": [
+          "Ensure you are using the '/vue' export from the 'ai' package, not the React default.",
+          "Hydration mismatches can occur if server-rendered messages don't match client-side initial state."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Optimize Shared State with Pinia",
+        "explanation": "When handling AI responses, you may need to persist data across routes or components. Use Pinia for state management, but ensure it is properly initialized to prevent cross-request state pollution on the server.",
+        "code": {
+          "language": "typescript",
+          "content": "import { defineStore } from 'pinia'\n\nexport const useChatStore = defineStore('chat', {\n  state: () => ({ history: [] }),\n  actions: {\n    addMessage(msg) {\n      this.history.push(msg)\n    }\n  }\n})",
+          "filename": "stores/chat.ts"
+        },
+        "pitfalls": [
+          "Do not define state outside the state function, as it will be shared across all users on a warm server instance.",
+          "Avoid storing large binary blobs in Pinia as it increases the hydration payload sent to the client."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Bundle Analysis and Tree Shaking",
+        "explanation": "Edge runtimes have strict bundle size limits (e.g., 1MB - 4MB). Use the Nuxt build analyzer to identify and remove heavy dependencies that are not required for the edge execution path.",
+        "code": {
+          "language": "bash",
+          "content": "npx nuxi analyze",
+          "filename": "terminal"
+        },
+        "pitfalls": [
+          "Heavy ORMs or legacy libraries can easily push the bundle over the edge limit.",
+          "Check that 'Prisma' or 'Drizzle' are using the edge-compatible drivers (e.g., @neondatabase/serverless)."
+        ]
+      }
+    ],
+    "conclusion": "By configuring Nitro for edge presets, implementing streaming server routes, and monitoring bundle sizes, you ensure a highly responsive Nuxt 3 application. This architecture minimizes TBT (Total Blocking Time) and leverages the global distribution of modern cloud providers."
+  }
+}

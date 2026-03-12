@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-03-12T21:27:23.400Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "GDPR Compliance tools directory",
+    "description": "A developer-first directory of GDPR Compliance tools and references.",
+    "keywords": [
+      "gdpr-compliance",
+      "gdpr compliance",
+      "directory"
+    ],
+    "slug": "gdpr-compliance-directory-gdpr-compliance-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure tools, analytics platforms, and legal resources specifically selected for developers and SaaS founders implementing GDPR-compliant systems in the EU.",
+    "filter_dimensions": [
+      {
+        "name": "category",
+        "values": [
+          "Analytics",
+          "Consent Management",
+          "Infrastructure",
+          "Documentation",
+          "Email"
+        ]
+      },
+      {
+        "name": "pricing_model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Plausible Analytics",
+        "description": "Lightweight and open-source website analytics that does not use cookies and is fully compliant with GDPR, CCPA, and PECR.",
+        "url": "https://plausible.io",
+        "category": "Analytics",
+        "pricing_model": "paid",
+        "pros": [
+          "No cookie banner required",
+          "Hosted in the EU on European-owned infrastructure",
+          "Script size is under 1KB"
+        ],
+        "cons": [
+          "No free tier available",
+          "Limited ecommerce conversion tracking"
+        ],
+        "tags": [
+          "privacy",
+          "analytics",
+          "no-cookie"
+        ]
+      },
+      {
+        "name": "Umami",
+        "description": "Self-hosted, privacy-focused alternative to Google Analytics that provides a simple API and dashboard.",
+        "url": "https://umami.is",
+        "category": "Analytics",
+        "pricing_model": "open-source",
+        "pros": [
+          "Complete data ownership via self-hosting",
+          "Bypasses most ad-blockers",
+          "Supports PostgreSQL and MySQL"
+        ],
+        "cons": [
+          "Requires manual server maintenance",
+          "Lacks advanced behavioral heatmaps"
+        ],
+        "tags": [
+          "self-hosted",
+          "analytics",
+          "open-source"
+        ]
+      },
+      {
+        "name": "Cookiebot",
+        "description": "Automated cookie consent solution that scans websites to categorize cookies and generate a compliant banner.",
+        "url": "https://www.cookiebot.com",
+        "category": "Consent Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Automatic script blocking until consent is given",
+          "Monthly compliance reports",
+          "Multi-language support"
+        ],
+        "cons": [
+          "Free tier limited to 50 subpages",
+          "Banner UI customization is limited on lower tiers"
+        ],
+        "tags": [
+          "consent",
+          "cookies",
+          "legal"
+        ]
+      },
+      {
+        "name": "Supabase (EU Regions)",
+        "description": "Open-source Firebase alternative allowing developers to host PostgreSQL databases in specific EU regions like Frankfurt or Ireland.",
+        "url": "https://supabase.com",
+        "category": "Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Data residency control via region selection",
+          "Built-in Row Level Security (RLS)",
+          "Automated backups and point-in-time recovery"
+        ],
+        "cons": [
+          "Edge functions may route through US if not configured",
+          "Database migrations require external tooling"
+        ],
+        "tags": [
+          "database",
+          "backend",
+          "eu-hosting"
+        ]
+      },
+      {
+        "name": "Clerk",
+        "description": "Authentication and user management provider with built-in features for GDPR compliance, including data deletion workflows.",
+        "url": "https://clerk.com",
+        "category": "Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "Pre-built GDPR-compliant user profile components",
+          "Automated user data export and deletion APIs",
+          "SOC2 and GDPR compliant documentation"
+        ],
+        "cons": [
+          "US-based company requires specific DPA signing",
+          "Customizing hosted UI components can be restrictive"
+        ],
+        "tags": [
+          "auth",
+          "user-management",
+          "security"
+        ]
+      },
+      {
+        "name": "Postmark",
+        "description": "Transactional email service with strict data retention settings and clear Data Processing Agreements for EU customers.",
+        "url": "https://postmarkapp.com",
+        "category": "Email",
+        "pricing_model": "paid",
+        "pros": [
+          "Configurable data retention periods",
+          "High deliverability for transactional mail",
+          "Transparent security and privacy documentation"
+        ],
+        "cons": [
+          "No permanent free tier",
+          "Strict manual approval process for new accounts"
+        ],
+        "tags": [
+          "email",
+          "transactional",
+          "dpa"
+        ]
+      },
+      {
+        "name": "Iubenda",
+        "description": "Attorney-level privacy policy and terms and conditions generator that updates automatically when laws change.",
+        "url": "https://www.iubenda.com",
+        "category": "Documentation",
+        "pricing_model": "freemium",
+        "pros": [
+          "Remote-synced policies update automatically",
+          "Covers GDPR, CCPA, and LGPD",
+          "Extensive API for custom integrations"
+        ],
+        "cons": [
+          "Interface can be overwhelming for simple sites",
+          "Pricing is per-policy and can escalate quickly"
+        ],
+        "tags": [
+          "legal",
+          "privacy-policy",
+          "compliance"
+        ]
+      },
+      {
+        "name": "Fathom Analytics",
+        "description": "Privacy-first analytics that invented the 'privacy-focused' niche, offering EU isolation for data processing.",
+        "url": "https://usefathom.com",
+        "category": "Analytics",
+        "pricing_model": "paid",
+        "pros": [
+          "EU Isolation feature routes EU traffic to EU servers",
+          "Simple, single-page dashboard",
+          "Handles high traffic spikes without latency"
+        ],
+        "cons": [
+          "No free trial (only 7-day refund policy)",
+          "Limited custom event properties"
+        ],
+        "tags": [
+          "analytics",
+          "privacy",
+          "eu-isolation"
+        ]
+      },
+      {
+        "name": "GDPR.eu Checklist",
+        "description": "A practical guide and checklist for small to medium-sized businesses to ensure technical compliance.",
+        "url": "https://gdpr.eu/checklist/",
+        "category": "Documentation",
+        "pricing_model": "free",
+        "pros": [
+          "Official resource co-funded by the EU",
+          "Step-by-step actionable items",
+          "Clear definitions of legal terminology"
+        ],
+        "cons": [
+          "High-level overview only",
+          "Does not provide code snippets"
+        ],
+        "tags": [
+          "checklist",
+          "guide",
+          "official"
+        ]
+      },
+      {
+        "name": "Termly",
+        "description": "Compliance suite providing a cookie consent manager, privacy policy generator, and DSAR request forms.",
+        "url": "https://termly.io",
+        "category": "Consent Management",
+        "pricing_model": "freemium",
+        "pros": [
+          "Integrated Data Subject Access Request (DSAR) forms",
+          "Easy-to-install WordPress and Shopify plugins",
+          "Automatic cookie policy updates"
+        ],
+        "cons": [
+          "Free tier includes Termly branding",
+          "Limited CSS customization for the banner"
+        ],
+        "tags": [
+          "dsar",
+          "consent",
+          "policies"
+        ]
+      }
+    ]
+  }
+}

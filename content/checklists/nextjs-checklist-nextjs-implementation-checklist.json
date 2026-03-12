@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "nextjs",
+    "generated_at": "2026-03-12T21:27:23.316Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Next.js implementation checklist",
+    "description": "A practical checklist for shipping Next.js projects safely.",
+    "keywords": [
+      "nextjs",
+      "next.js",
+      "checklist"
+    ],
+    "slug": "nextjs-checklist-nextjs-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical verification framework for Next.js applications, ensuring stability, security, and performance before deploying to production environments like Vercel or self-hosted VPS.",
+    "sections": [
+      {
+        "heading": "Data Fetching and Caching",
+        "items": [
+          {
+            "title": "Validate ISR Revalidation",
+            "description": "Verify that revalidatePath or revalidateTag is called within Server Actions following any data mutation to clear stale cache.",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit Parallel Data Fetching",
+            "description": "Identify sequential 'await' calls in Server Components and replace them with Promise.all() or individual Suspense boundaries to prevent waterfalls.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Configure unstable_cache",
+            "description": "Wrap database queries (Prisma/Drizzle) in unstable_cache to ensure results are cached across requests rather than refetched on every render.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set Default Fetch Cache Policies",
+            "description": "Explicitly set fetch('url', { cache: 'no-store' }) for real-time data or 'force-cache' for static assets to avoid default behavior ambiguity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement Loading States",
+            "description": "Ensure every route segment has a loading.tsx file or manual Suspense boundary to prevent blank screens during async operations.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Authentication",
+        "items": [
+          {
+            "title": "Server Action Input Validation",
+            "description": "Use a schema library like Zod to parse and validate all arguments passed to 'use server' functions before processing.",
+            "priority": "critical"
+          },
+          {
+            "title": "Environment Variable Scoping",
+            "description": "Audit .env files to ensure sensitive keys (OpenAI, Stripe secret) are NOT prefixed with NEXT_PUBLIC_ to prevent browser exposure.",
+            "priority": "critical"
+          },
+          {
+            "title": "Middleware Session Verification",
+            "description": "Implement route protection in middleware.ts to redirect unauthenticated users before they hit Server Component rendering logic.",
+            "priority": "critical"
+          },
+          {
+            "title": "CSRF Protection for Actions",
+            "description": "Verify that Server Actions check the Origin header against the host domain to prevent cross-site request forgery.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Auth.js/Clerk Server Checks",
+            "description": "Verify that session checks (auth() or getAuth()) are performed in the Server Component body, not just the client-side UI.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Performance and Core Web Vitals",
+        "items": [
+          {
+            "title": "Image Optimization Audit",
+            "description": "Ensure next/image components have 'priority' set for LCP elements and utilize 'placeholder=\"blur\"' for large hero images.",
+            "priority": "critical"
+          },
+          {
+            "title": "Font Subsetting",
+            "description": "Configure next/font to use specific subsets (e.g., 'latin') and swap display properties to minimize Layout Shift (CLS).",
+            "priority": "recommended"
+          },
+          {
+            "title": "Bundle Analysis",
+            "description": "Run @next/bundle-analyzer and move heavy client-side libraries (e.g., Lucide, Lodash) to Server Components or dynamic imports.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Script Loading Strategy",
+            "description": "Review third-party scripts in layout.tsx and assign 'strategy=\"lazyOnload\"' or 'strategy=\"afterInteractive\"' appropriately.",
+            "priority": "optional"
+          },
+          {
+            "title": "Route Segment Config",
+            "description": "Explicitly define 'export const dynamic = \"force-static\"' for pages that do not require per-request data to optimize build-time generation.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "SEO and Metadata",
+        "items": [
+          {
+            "title": "Dynamic Metadata Implementation",
+            "description": "Implement generateMetadata() in dynamic routes ([id]) to populate unique titles and descriptions for search engine crawlers.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sitemap and Robots Generation",
+            "description": "Verify that sitemap.ts and robots.ts files are present in the app directory and returning valid XML/text content.",
+            "priority": "critical"
+          },
+          {
+            "title": "Canonical URL Configuration",
+            "description": "Set a base metadata URL in the root layout to ensure all generated canonical tags use the correct production domain.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Open Graph Image Validation",
+            "description": "Test dynamic OG images using the Vercel OG library to ensure social shares display correct preview content.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Semantic HTML Audit",
+            "description": "Ensure only one H1 exists per page and that the document structure follows a logical heading hierarchy (H2-H6).",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "AI and API Integration",
+        "items": [
+          {
+            "title": "Stream Response Handling",
+            "description": "Verify that AI SDK responses use 'StreamingTextResponse' and the frontend utilizes 'useChat' or 'useCompletion' for real-time UI updates.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Action Execution Timeout",
+            "description": "Increase the 'maxDuration' config in route.ts or page.tsx for AI routes to prevent functions from timing out during long LLM generations.",
+            "priority": "critical"
+          },
+          {
+            "title": "Rate Limit Implementation",
+            "description": "Apply middleware-based rate limiting using Upstash Redis to prevent AI API credit exhaustion from automated bots.",
+            "priority": "critical"
+          },
+          {
+            "title": "Edge Runtime Compatibility",
+            "description": "Verify that AI routes use 'export const runtime = \"edge\"' if they require minimal latency and support the Edge runtime environment.",
+            "priority": "optional"
+          },
+          {
+            "title": "Fallback UI for API Failures",
+            "description": "Implement try/catch blocks in Server Actions that return user-friendly error messages when AI providers hit rate limits.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Error Handling and Monitoring",
+        "items": [
+          {
+            "title": "Global Error Boundary",
+            "description": "Create a root error.tsx file to catch unhandled exceptions and provide a 'reset' functionality to the user.",
+            "priority": "critical"
+          },
+          {
+            "title": "404 Not Found Handling",
+            "description": "Use the notFound() function in dynamic segments and ensure a custom not-found.tsx is styled and functional.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Production Logging Integration",
+            "description": "Connect a service like Sentry or Axiom to capture server-side console errors that are otherwise invisible in production.",
+            "priority": "critical"
+          },
+          {
+            "title": "Health Check Endpoint",
+            "description": "Create an /api/health route that checks database connectivity to allow external monitors to verify service uptime.",
+            "priority": "optional"
+          },
+          {
+            "title": "Source Map Verification",
+            "description": "Ensure production builds generate source maps for error tracking but keep them restricted from public access.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

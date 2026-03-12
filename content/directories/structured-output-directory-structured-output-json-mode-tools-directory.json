@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "structured-output",
+    "generated_at": "2026-03-12T21:27:24.381Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Structured Output / JSON Mode tools directory",
+    "description": "A developer-first directory of Structured Output / JSON Mode tools and references.",
+    "keywords": [
+      "structured-output",
+      "structured output / json mode",
+      "directory"
+    ],
+    "slug": "structured-output-directory-structured-output-json-mode-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of libraries, model features, and validation tools designed to ensure LLMs produce reliable, schema-conformant JSON output for production data pipelines.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Libraries",
+          "Model Features",
+          "Validation",
+          "Benchmarks"
+        ]
+      },
+      {
+        "name": "Language",
+        "values": [
+          "Python",
+          "TypeScript",
+          "Agnostic"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Instructor (Python)",
+        "description": "A library for structured LLM outputs using Pydantic models to handle validation, retries, and streaming.",
+        "url": "https://github.com/jxnl/instructor",
+        "category": "Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Built-in retry logic on validation failure",
+          "Supports OpenAI, Anthropic, and Gemini providers",
+          "Uses standard Pydantic v2 models"
+        ],
+        "cons": [
+          "Requires Pydantic knowledge for complex nested schemas"
+        ],
+        "tags": [
+          "python",
+          "pydantic",
+          "validation"
+        ]
+      },
+      {
+        "name": "Vercel AI SDK Core",
+        "description": "TypeScript toolkit for generating structured data using Zod schemas with support for partial streaming.",
+        "url": "https://sdk.vercel.ai/docs/ai-sdk-core/generating-structured-data",
+        "category": "Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native Zod integration",
+          "Excellent support for streaming partial JSON objects",
+          "Provider-agnostic middleware layer"
+        ],
+        "cons": [
+          "Primarily focused on Next.js/React ecosystems"
+        ],
+        "tags": [
+          "typescript",
+          "zod",
+          "streaming"
+        ]
+      },
+      {
+        "name": "Outlines",
+        "description": "A library that provides guided generation using finite-state machines to guarantee regex or JSON schema compliance.",
+        "url": "https://github.com/outlines-dev/outlines",
+        "category": "Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Guarantees 100% valid output via logit masking",
+          "Works with local models via Transformers or vLLM",
+          "Extremely fast constrained decoding"
+        ],
+        "cons": [
+          "Limited support for proprietary APIs like Claude"
+        ],
+        "tags": [
+          "python",
+          "logit-masking",
+          "local-llms"
+        ]
+      },
+      {
+        "name": "OpenAI Structured Outputs",
+        "description": "Native API feature that ensures model outputs match a developer-provided JSON Schema via constrained decoding.",
+        "url": "https://platform.openai.com/docs/guides/structured-outputs",
+        "category": "Model Features",
+        "pricing_model": "paid",
+        "pros": [
+          "100% reliability on schema adherence",
+          "Zero-latency overhead compared to standard generation",
+          "No external validation library required"
+        ],
+        "cons": [
+          "Restricted to gpt-4o and gpt-4o-mini models",
+          "Strict subset of JSON Schema supported"
+        ],
+        "tags": [
+          "openai",
+          "api-native",
+          "json-schema"
+        ]
+      },
+      {
+        "name": "Zod",
+        "description": "TypeScript-first schema declaration and validation library widely used for LLM output parsing.",
+        "url": "https://zod.dev",
+        "category": "Validation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Static type inference from schemas",
+          "Large ecosystem of LLM integrations",
+          "Detailed error reporting for debugging"
+        ],
+        "cons": [
+          "Runtime overhead for very large JSON payloads"
+        ],
+        "tags": [
+          "typescript",
+          "schema",
+          "validation"
+        ]
+      },
+      {
+        "name": "Guidance",
+        "description": "A programming paradigm for controlling LLMs, allowing interleaved generation and structured control flow.",
+        "url": "https://github.com/guidance-ai/guidance",
+        "category": "Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Precise control over token generation",
+          "Reduces latency by pre-filling fixed JSON keys",
+          "Supports local and remote models"
+        ],
+        "cons": [
+          "Steep learning curve for custom syntax"
+        ],
+        "tags": [
+          "python",
+          "control-flow",
+          "optimization"
+        ]
+      },
+      {
+        "name": "Berkeley Function Calling Leaderboard",
+        "description": "A benchmark evaluating the ability of LLMs to call functions and produce structured data accurately.",
+        "url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
+        "category": "Benchmarks",
+        "pricing_model": "free",
+        "pros": [
+          "Objective comparison of model reliability",
+          "Tests complex scenarios like nested functions",
+          "Regularly updated with new model releases"
+        ],
+        "cons": [
+          "Focuses on function calling rather than raw JSON mode"
+        ],
+        "tags": [
+          "benchmarking",
+          "model-comparison",
+          "research"
+        ]
+      },
+      {
+        "name": "BAML",
+        "description": "A domain-specific language for writing LLM prompts that guarantees type-safe structured outputs.",
+        "url": "https://github.com/Boundary-ML/baml",
+        "category": "Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "IDE support with syntax highlighting and linting",
+          "Generates client code for Python and TypeScript",
+          "Faster than traditional prompt engineering"
+        ],
+        "cons": [
+          "Requires learning a new DSL",
+          "Adds a compilation step to the workflow"
+        ],
+        "tags": [
+          "dsl",
+          "type-safety",
+          "codegen"
+        ]
+      },
+      {
+        "name": "TypeChat",
+        "description": "Microsoft's library for using TypeScript types to direct LLM response structure.",
+        "url": "https://github.com/microsoft/TypeChat",
+        "category": "Libraries",
+        "pricing_model": "open-source",
+        "pros": [
+          "Uses standard TS interfaces as the source of truth",
+          "Automatic schema-based repair prompts",
+          "Strong integration with VS Code"
+        ],
+        "cons": [
+          "Higher token usage due to schema-in-prompt approach"
+        ],
+        "tags": [
+          "typescript",
+          "microsoft",
+          "schema"
+        ]
+      },
+      {
+        "name": "Gemini JSON Mode",
+        "description": "Native support in Google Gemini models for generating validated JSON responses.",
+        "url": "https://ai.google.dev/gemini-api/docs/structured-output",
+        "category": "Model Features",
+        "pricing_model": "freemium",
+        "pros": [
+          "High performance on Gemini 1.5 Flash",
+          "Simple configuration via response_mime_type",
+          "Generous free tier for developers"
+        ],
+        "cons": [
+          "Less granular control compared to OpenAI Structured Outputs"
+        ],
+        "tags": [
+          "google-gemini",
+          "api-native",
+          "json"
+        ]
+      }
+    ]
+  }
+}

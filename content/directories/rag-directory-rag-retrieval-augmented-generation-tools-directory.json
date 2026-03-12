@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "rag",
+    "generated_at": "2026-03-12T21:27:19.434Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "RAG (Retrieval-Augmented Generation) tools directory",
+    "description": "A developer-first directory of RAG (Retrieval-Augmented Generation) tools and references.",
+    "keywords": [
+      "rag",
+      "rag (retrieval-augmented generation)",
+      "directory"
+    ],
+    "slug": "rag-directory-rag-retrieval-augmented-generation-tools-directory"
+  },
+  "content": {
+    "intro": "A curated collection of production-grade tools and libraries for building, optimizing, and evaluating Retrieval-Augmented Generation (RAG) pipelines. This directory focuses on high-performance vector stores, orchestration frameworks, and evaluation suites required for enterprise AI applications.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Vector Database",
+          "Orchestration Framework",
+          "Evaluation & Observability",
+          "Data Ingestion & ETL",
+          "Embedding & Reranking"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Pinecone",
+        "description": "Managed, cloud-native vector database designed for high-performance similarity search with serverless scaling.",
+        "url": "https://www.pinecone.io/",
+        "category": "Vector Database",
+        "pricing_model": "freemium",
+        "pros": [
+          "Zero-ops serverless architecture",
+          "Low latency retrieval for large-scale datasets",
+          "Built-in support for metadata filtering"
+        ],
+        "cons": [
+          "Proprietary cloud-only solution",
+          "Can become expensive with high throughput"
+        ],
+        "tags": [
+          "managed",
+          "vector-search",
+          "serverless"
+        ]
+      },
+      {
+        "name": "Qdrant",
+        "description": "Open-source vector similarity search engine and database written in Rust, offering a high-performance API.",
+        "url": "https://qdrant.tech/",
+        "category": "Vector Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Highly efficient memory usage",
+          "Flexible payload filtering",
+          "Supports distributed deployment"
+        ],
+        "cons": [
+          "Requires manual infrastructure management for self-hosting"
+        ],
+        "tags": [
+          "rust",
+          "on-premise",
+          "fastapi"
+        ]
+      },
+      {
+        "name": "pgvector",
+        "description": "Open-source vector similarity search extension for PostgreSQL, enabling RAG directly within existing relational databases.",
+        "url": "https://github.com/pgvector/pgvector",
+        "category": "Vector Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Leverages existing PostgreSQL infrastructure",
+          "Supports ACID compliance",
+          "Minimal learning curve for SQL developers"
+        ],
+        "cons": [
+          "Limited specialized vector features compared to dedicated DBs",
+          "Performance may lag on ultra-large datasets"
+        ],
+        "tags": [
+          "postgres",
+          "sql",
+          "self-hosted"
+        ]
+      },
+      {
+        "name": "LlamaIndex",
+        "description": "Data-centric framework for connecting custom data sources to large language models with advanced indexing strategies.",
+        "url": "https://www.llamaindex.ai/",
+        "category": "Orchestration Framework",
+        "pricing_model": "open-source",
+        "pros": [
+          "Deep focus on complex data retrieval and indexing",
+          "Extensive library of data connectors (LlamaHub)",
+          "Built-in support for query engines and routers"
+        ],
+        "cons": [
+          "Steeper learning curve for advanced index types",
+          "Frequent API changes due to rapid development"
+        ],
+        "tags": [
+          "python",
+          "indexing",
+          "data-connectors"
+        ]
+      },
+      {
+        "name": "LangChain",
+        "description": "Comprehensive framework for building LLM applications using composable chains and pre-built components for RAG.",
+        "url": "https://www.langchain.com/",
+        "category": "Orchestration Framework",
+        "pricing_model": "open-source",
+        "pros": [
+          "Massive ecosystem and community support",
+          "Highly modular and flexible architecture",
+          "Integrates with nearly every major AI tool"
+        ],
+        "cons": [
+          "Heavy abstractions can make debugging difficult",
+          "Documentation can lag behind library updates"
+        ],
+        "tags": [
+          "orchestration",
+          "chains",
+          "python",
+          "javascript"
+        ]
+      },
+      {
+        "name": "Ragas",
+        "description": "Framework that provides metrics for evaluating RAG pipelines, focusing on faithfulness, relevance, and answer correctness.",
+        "url": "https://docs.ragas.io/",
+        "category": "Evaluation & Observability",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automated evaluation without ground-truth labels",
+          "Specific metrics for retrieval and generation components",
+          "Integrates easily with CI/CD pipelines"
+        ],
+        "cons": [
+          "Requires LLM calls for evaluation, incurring costs",
+          "Evaluation quality depends on the judge model"
+        ],
+        "tags": [
+          "testing",
+          "benchmarking",
+          "llm-as-a-judge"
+        ]
+      },
+      {
+        "name": "Cohere Rerank",
+        "description": "A powerful reranking model that re-orders search results to improve the precision of the top-k retrieved documents.",
+        "url": "https://cohere.com/rerank",
+        "category": "Embedding & Reranking",
+        "pricing_model": "paid",
+        "pros": [
+          "Significantly improves retrieval accuracy",
+          "Easy integration with existing vector search workflows",
+          "Handles cross-lingual reranking"
+        ],
+        "cons": [
+          "Adds additional latency to the RAG pipeline",
+          "Usage-based pricing can scale quickly"
+        ],
+        "tags": [
+          "reranking",
+          "precision",
+          "api"
+        ]
+      },
+      {
+        "name": "Unstructured.io",
+        "description": "Open-source libraries and APIs to ingest and preprocess unstructured data (PDFs, HTML, etc.) for RAG applications.",
+        "url": "https://unstructured.io/",
+        "category": "Data Ingestion & ETL",
+        "pricing_model": "freemium",
+        "pros": [
+          "Excellent at parsing complex document layouts",
+          "Pre-built connectors for various data sources",
+          "Removes boilerplate code for document cleaning"
+        ],
+        "cons": [
+          "Hosted API has usage limits",
+          "Resource intensive for self-hosting local models"
+        ],
+        "tags": [
+          "etl",
+          "preprocessing",
+          "pdf-parsing"
+        ]
+      },
+      {
+        "name": "DeepEval",
+        "description": "Testing framework for LLM applications that allows developers to write unit tests for RAG outputs.",
+        "url": "https://github.com/confident-ai/deepeval",
+        "category": "Evaluation & Observability",
+        "pricing_model": "open-source",
+        "pros": [
+          "Pytest-like syntax for AI testing",
+          "Real-time monitoring and regression testing",
+          "Comprehensive set of evaluation metrics"
+        ],
+        "cons": [
+          "Requires setup for local testing environments"
+        ],
+        "tags": [
+          "unit-testing",
+          "monitoring",
+          "devops"
+        ]
+      },
+      {
+        "name": "Voyage AI",
+        "description": "High-performance embedding models optimized for retrieval accuracy and specific domains like finance and law.",
+        "url": "https://www.voyageai.com/",
+        "category": "Embedding & Reranking",
+        "pricing_model": "paid",
+        "pros": [
+          "Superior performance on retrieval benchmarks",
+          "Large context window support",
+          "Domain-specific fine-tuned models"
+        ],
+        "cons": [
+          "Less known compared to OpenAI embeddings",
+          "Limited free tier availability"
+        ],
+        "tags": [
+          "embeddings",
+          "semantic-search",
+          "nlp"
+        ]
+      }
+    ]
+  }
+}

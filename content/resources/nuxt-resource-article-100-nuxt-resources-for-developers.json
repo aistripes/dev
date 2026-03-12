@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "nuxt",
+    "generated_at": "2026-03-12T21:27:28.389Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 Nuxt resources for developers",
+    "description": "A curated set of practical Nuxt resources for engineers.",
+    "keywords": [
+      "nuxt",
+      "resource-article"
+    ],
+    "slug": "nuxt-resource-article-100-nuxt-resources-for-developers"
+  },
+  "content": {
+    "intro": "Nuxt 3 introduces the Nitro server engine and a complete shift to the Composition API, requiring a new approach to full-stack development. This guide focuses on technical implementation for SSR optimization, type-safe data fetching with Drizzle and Prisma, and deploying AI-integrated applications to edge runtimes like Vercel and Netlify.",
+    "sections": [
+      {
+        "heading": "Core Framework and Migration Strategies",
+        "items": [
+          {
+            "title": "Nuxt Bridge Implementation",
+            "description": "Utilize @nuxt/bridge to access Nuxt 3 features in Nuxt 2 projects, including the Composition API and Nitro server engine, without a full rewrite.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Nitro Server Plugins",
+            "description": "Create custom runtime logic by adding scripts to the /server/plugins directory to hook into Nitro's lifecycle events like 'render:html'.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Hybrid Rendering via routeRules",
+            "description": "Configure the 'routeRules' key in nuxt.config.ts to define per-route caching strategies, including ISR, SWR, and SPA-only rendering.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Typed Runtime Config",
+            "description": "Define 'runtimeConfig' in your configuration and use 'useRuntimeConfig()' to access environment variables safely on both server and client.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Nuxt Layers for Multi-App Architecture",
+            "description": "Extract shared components, composables, and server logic into a base layer that can be extended by multiple Nuxt applications using the 'extends' property.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "App Config vs Runtime Config",
+            "description": "Use 'app.config.ts' for public, reactive UI configuration and 'runtimeConfig' for sensitive, environment-specific variables like API keys.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Middleware Route Guards",
+            "description": "Implement 'defineNuxtRouteMiddleware' in the /middleware directory to handle authentication and redirection logic before a page renders.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Custom Nuxt Modules",
+            "description": "Develop local modules in the /modules directory to automate repetitive tasks like injecting global CSS or registering third-party plugins.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Nuxt DevTools Integration",
+            "description": "Enable Nuxt DevTools in development to inspect component hierarchies, check state hydration, and analyze bundle sizes in real-time.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Server-Side Error Boundaries",
+            "description": "Use 'clearError' and 'showError' composables to manage application-level errors and prevent full-page crashes during SSR failures.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Data Persistence and State Management",
+        "items": [
+          {
+            "title": "Drizzle ORM with Nitro",
+            "description": "Integrate Drizzle ORM within /server/api routes for type-safe SQL queries against PostgreSQL or MySQL databases using drivers like 'postgres' or 'mysql2'.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Pinia Server-Side Hydration",
+            "description": "Synchronize Pinia state between server and client by utilizing the Nuxt-specific Pinia plugin to prevent hydration mismatch errors.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Prisma Client Management",
+            "description": "Instantiate the Prisma client in a server utility file (/server/utils) to ensure a single connection pool across Nitro server routes.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Supabase Auth with Nuxt",
+            "description": "Leverage the @nuxtjs/supabase module to manage user sessions and protect server routes using the 'serverSupabaseUser' helper.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Zod Validation in Nitro",
+            "description": "Use Zod to schema-validate 'readBody(event)' data in server routes to ensure incoming POST requests meet strict type requirements.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Nuxt Content for CMS",
+            "description": "Implement @nuxt/content to manage Markdown, YAML, or CSV files as a Git-based CMS with built-in search and query capabilities.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Unstorage for Server Caching",
+            "description": "Utilize the built-in 'unstorage' layer in Nitro to implement multi-driver caching (Redis, FS, memory) for expensive API calls.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "SWR Data Fetching",
+            "description": "Use 'useFetch' with the 'key' parameter to implement stale-while-revalidate patterns, reducing perceived latency for dynamic data.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Stripe Webhook Handling",
+            "description": "Create a raw server route in /server/api/webhooks to process Stripe events using 'readRawBody' for signature verification.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Optimistic UI with Pinia",
+            "description": "Implement manual state updates in Pinia stores before server confirmation to create instantaneous feedback for user actions.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "AI Integration and UI Optimization",
+        "items": [
+          {
+            "title": "Vercel AI SDK Integration",
+            "description": "Implement streaming responses from OpenAI or Anthropic in Nuxt server routes using the 'StreamingTextResponse' utility for real-time AI chat.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "NuxtUI Component Library",
+            "description": "Utilize @nuxt/ui for accessible, Tailwind-based components that are specifically optimized for Nuxt 3's auto-import system.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Nuxt Image Provider Setup",
+            "description": "Configure @nuxt/image with providers like Cloudinary or Vercel to automatically resize and serve WebP/AVIF formats based on client headers.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Tailwind Typography for AI Content",
+            "description": "Apply the '@tailwindcss/typography' plugin to style raw Markdown output generated by LLMs within Nuxt pages.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Server-Side PDF Generation",
+            "description": "Use 'puppeteer-core' within a Nitro server route to generate dynamic PDFs from Nuxt components for invoices or reports.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Nuxt SEO Module",
+            "description": "Automate sitemap generation, robots.txt, and JSON-LD schema using the 'nuxt-seo' module collection to improve search rankings.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Edge Function Deployment",
+            "description": "Optimize Nuxt for Vercel Edge Functions by ensuring server routes do not use Node.js-specific APIs like 'fs' or 'path'.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "VueUse for Nuxt",
+            "description": "Integrate @vueuse/nuxt to access 200+ composition utilities like 'useIntersectionObserver' or 'useDark' without manual configuration.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Nuxt Icon with Iconify",
+            "description": "Use the 'nuxt-icon' module to load any icon from the Iconify set on-demand, preventing large SVG bundles in the client build.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Bundle Analysis with Nuxi",
+            "description": "Run 'nuxi analyze' to visualize the client and server bundles, identifying large dependencies like 'moment' or 'lodash' for removal.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use 'useFetch' or 'useAsyncData' for data fetching in components to ensure data is serialized and hydrated correctly without double-invoking on the client.",
+      "Place shared server logic in the 'server/utils' directory; Nitro automatically imports these files, making them available across all API routes.",
+      "Use the 'shallowRef' instead of 'ref' for large data objects (like AI responses) to avoid unnecessary deep reactivity overhead.",
+      "Leverage 'defineRouteRules' to set 'cors: true' for specific API endpoints to allow cross-origin requests without a global middleware.",
+      "When using Tailwind CSS, enable the 'viewer' option in 'nuxt.config' to access a local dashboard of your design tokens at /_tailwind/."
+    ]
+  }
+}

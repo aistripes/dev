@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "saas",
+    "generated_at": "2026-03-12T21:27:22.364Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "SaaS Applications tools directory",
+    "description": "A developer-first directory of SaaS Applications tools and references.",
+    "keywords": [
+      "saas",
+      "saas applications",
+      "directory"
+    ],
+    "slug": "saas-directory-saas-applications-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of infrastructure, billing, and developer tools specifically selected for building and scaling multi-tenant SaaS applications. This list focuses on tools that minimize boilerplate and solve common SaaS pain points like global tax compliance, tenant isolation, and subscription management.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Billing & Payments",
+          "Authentication & Identity",
+          "Database & Multi-tenancy",
+          "Analytics & Observability",
+          "Communication & Email",
+          "AI Infrastructure"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Stripe",
+        "description": "The industry standard for SaaS billing, providing APIs for subscriptions, usage-based billing, and customer portals.",
+        "url": "https://stripe.com",
+        "category": "Billing & Payments",
+        "pricing_model": "freemium",
+        "pros": [
+          "Extensive documentation and SDK support",
+          "Built-in customer billing portal reduces frontend work",
+          "Robust testing environment and CLI tools"
+        ],
+        "cons": [
+          "Requires manual tax configuration or paid Stripe Tax add-on",
+          "High complexity for advanced multi-party marketplaces"
+        ],
+        "tags": [
+          "subscriptions",
+          "payments",
+          "usage-based"
+        ]
+      },
+      {
+        "name": "LemonSqueezy",
+        "description": "A Merchant of Record (MoR) that handles global sales tax, VAT, and compliance for SaaS founders.",
+        "url": "https://lemonsqueezy.com",
+        "category": "Billing & Payments",
+        "pricing_model": "paid",
+        "pros": [
+          "Handles all global tax liabilities automatically",
+          "Simple API for subscription management",
+          "Built-in affiliate marketing platform"
+        ],
+        "cons": [
+          "Higher transaction fees compared to direct Stripe integration",
+          "Less granular control over the checkout experience"
+        ],
+        "tags": [
+          "merchant-of-record",
+          "tax-compliance",
+          "vat"
+        ]
+      },
+      {
+        "name": "Clerk",
+        "description": "Complete user management and authentication purpose-built for React and Next.js applications.",
+        "url": "https://clerk.com",
+        "category": "Authentication & Identity",
+        "pricing_model": "freemium",
+        "pros": [
+          "Pre-built UI components for sign-in and user profiles",
+          "Native support for multi-tenant organizations",
+          "Seamless integration with Next.js middleware"
+        ],
+        "cons": [
+          "Can become expensive as Monthly Active Users (MAU) scale",
+          "Vendor lock-in for critical authentication UI"
+        ],
+        "tags": [
+          "auth",
+          "b2b-saas",
+          "multi-tenancy"
+        ]
+      },
+      {
+        "name": "Auth.js",
+        "description": "An open-source authentication library for Next.js, providing full control over data and hosting.",
+        "url": "https://authjs.dev",
+        "category": "Authentication & Identity",
+        "pricing_model": "open-source",
+        "pros": [
+          "No per-user licensing costs",
+          "Supports a wide range of OAuth providers",
+          "Complete ownership of user data"
+        ],
+        "cons": [
+          "Requires manual setup of database adapters and sessions",
+          "Lacks built-in UI components compared to managed services"
+        ],
+        "tags": [
+          "nextjs",
+          "auth",
+          "open-source"
+        ]
+      },
+      {
+        "name": "Nile",
+        "description": "Serverless Postgres database designed for multi-tenant SaaS with native tenant isolation features.",
+        "url": "https://thenile.dev",
+        "category": "Database & Multi-tenancy",
+        "pricing_model": "freemium",
+        "pros": [
+          "Virtual tenant isolation at the database level",
+          "Built-in user management and tenant routing",
+          "Eliminates complex 'where tenant_id = x' queries"
+        ],
+        "cons": [
+          "Relatively new platform with limited ecosystem compared to RDS",
+          "Specific to Postgres workflows"
+        ],
+        "tags": [
+          "postgres",
+          "multi-tenancy",
+          "serverless"
+        ]
+      },
+      {
+        "name": "PostHog",
+        "description": "All-in-one product analytics, session recording, and feature flagging platform for SaaS teams.",
+        "url": "https://posthog.com",
+        "category": "Analytics & Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Combines analytics with session replays and heatmaps",
+          "Powerful feature flag and A/B testing suite",
+          "Generous free tier for early-stage startups"
+        ],
+        "cons": [
+          "Interface can be overwhelming due to feature density",
+          "Self-hosting requires significant infrastructure maintenance"
+        ],
+        "tags": [
+          "analytics",
+          "feature-flags",
+          "product-led-growth"
+        ]
+      },
+      {
+        "name": "Resend",
+        "description": "Email API for developers focused on high deliverability and modern developer experience.",
+        "url": "https://resend.com",
+        "category": "Communication & Email",
+        "pricing_model": "freemium",
+        "pros": [
+          "Native React support via React Email integration",
+          "Clean, modern API and dashboard",
+          "Fast setup for transactional emails"
+        ],
+        "cons": [
+          "Focused primarily on transactional rather than marketing automation",
+          "Newer player in a space dominated by legacy providers"
+        ],
+        "tags": [
+          "email",
+          "transactional",
+          "react-email"
+        ]
+      },
+      {
+        "name": "Helicone",
+        "description": "Observability platform for LLM applications to track costs, latency, and usage in SaaS products.",
+        "url": "https://helicone.ai",
+        "category": "AI Infrastructure",
+        "pricing_model": "freemium",
+        "pros": [
+          "One-line integration via proxy",
+          "Detailed cost tracking per user or tenant",
+          "Built-in caching to reduce AI API expenses"
+        ],
+        "cons": [
+          "Adds a minor proxy latency to LLM requests",
+          "Requires routing traffic through a third-party service"
+        ],
+        "tags": [
+          "ai",
+          "llmops",
+          "cost-management"
+        ]
+      },
+      {
+        "name": "Polar",
+        "description": "Open-source payment platform and MoR specifically designed for developers and open-source SaaS.",
+        "url": "https://polar.sh",
+        "category": "Billing & Payments",
+        "pricing_model": "open-source",
+        "pros": [
+          "Built for the GitHub ecosystem",
+          "Handles VAT and sales tax as a Merchant of Record",
+          "Developer-first API and CLI"
+        ],
+        "cons": [
+          "Smaller feature set compared to Stripe or Paddle",
+          "Lower brand recognition for end-customers"
+        ],
+        "tags": [
+          "open-source",
+          "payments",
+          "tax"
+        ]
+      },
+      {
+        "name": "Sentry",
+        "description": "Error tracking and performance monitoring that helps SaaS developers identify and fix production issues.",
+        "url": "https://sentry.io",
+        "category": "Analytics & Observability",
+        "pricing_model": "freemium",
+        "pros": [
+          "Deep stack trace analysis and source map support",
+          "Session replay integration to see what users did before a crash",
+          "Excellent support for Next.js and serverless environments"
+        ],
+        "cons": [
+          "Configuration can be noisy without proper filtering",
+          "Pricing scales quickly with high event volumes"
+        ],
+        "tags": [
+          "monitoring",
+          "error-tracking",
+          "devops"
+        ]
+      }
+    ]
+  }
+}

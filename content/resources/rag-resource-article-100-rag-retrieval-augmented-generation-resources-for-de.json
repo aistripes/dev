@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "rag",
+    "generated_at": "2026-03-12T21:27:24.790Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 RAG (Retrieval-Augmented Generation) resources for de...",
+    "description": "A curated set of practical RAG (Retrieval-Augmented Generation) resources for engineers.",
+    "keywords": [
+      "rag",
+      "rag (retrieval-augmented generation)",
+      "resource-article"
+    ],
+    "slug": "rag-resource-article-100-rag-retrieval-augmented-generation-resources-for-de"
+  },
+  "content": {
+    "intro": "Building a production-ready RAG pipeline requires moving beyond basic vector search to address retrieval quality, context window optimization, and hallucination prevention. This resource guide focuses on the specific tools and strategies needed to implement high-performance retrieval systems using modern vector databases and orchestration frameworks.",
+    "sections": [
+      {
+        "heading": "Data Pre-processing and Indexing Strategies",
+        "items": [
+          {
+            "title": "RecursiveCharacterTextSplitter (LangChain)",
+            "description": "Standardize chunking by splitting on logical separators (paragraphs, sentences) rather than fixed characters to maintain semantic coherence.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "LlamaParse",
+            "description": "Use this proprietary parser for complex PDFs containing tables and multi-column layouts to ensure structural data is preserved in the vector store.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Semantic Chunking",
+            "description": "Implement chunking based on embedding similarity thresholds rather than fixed lengths to ensure each chunk contains a complete concept.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Cohere Embed v3",
+            "description": "Utilize the 'compression_retrieval' parameter to handle noisy, real-world data and improve retrieval performance on short queries.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Unstructured.io",
+            "description": "An open-source library for partitioning and cleaning diverse file types (HTML, DOCX, PPTX) before embedding.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "OpenAI text-embedding-3-small",
+            "description": "The current cost-performance leader for high-volume embedding tasks, offering reduced dimensions without significant loss in recall.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "pgvector HNSW Indexing",
+            "description": "Configure Hierarchical Navigable Small World (HNSW) indexes in PostgreSQL to enable fast approximate nearest neighbor search at scale.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Metadata Filtering (Pinecone/Qdrant)",
+            "description": "Implement hard filters on metadata (e.g., user_id, document_type) to drastically reduce the search space and prevent cross-tenant data leakage.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Voyage AI Embeddings",
+            "description": "Specialized embeddings optimized for specific domains like finance or legal, providing better retrieval precision than general-purpose models.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "ChromaDB for Local Prototyping",
+            "description": "An ephemeral, in-memory vector store ideal for local development and CI/CD testing before deploying to managed solutions.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Advanced Retrieval and Reranking",
+        "items": [
+          {
+            "title": "Hybrid Search (BM25 + Vector)",
+            "description": "Combine keyword-based BM25 search with semantic vector search to improve recall for specific terminology and acronyms.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Cohere Rerank 3",
+            "description": "A cross-encoder model that re-evaluates the top-k results from a vector search to improve the precision of the context provided to the LLM.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Hypothetical Document Embeddings (HyDE)",
+            "description": "Generate a synthetic answer to the user query first, then use that answer to search the vector database for similar real documents.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Multi-Query Retriever",
+            "description": "Use an LLM to generate multiple variations of a user query to capture different semantic perspectives and improve document recall.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Parent Document Retrieval",
+            "description": "Store small chunks for retrieval but return the larger parent document context to the LLM to provide better situational awareness.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Contextual Compression",
+            "description": "Filter and summarize retrieved documents before passing them to the LLM to reduce token costs and noise.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Reciprocal Rank Fusion (RRF)",
+            "description": "An algorithm used to combine rankings from multiple retrieval systems (like keyword and vector) into a single, optimized list.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          },
+          {
+            "title": "Self-Querying Retriever",
+            "description": "Enable the LLM to convert natural language queries into structured metadata filters (e.g., 'Find docs from 2023 about...').",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Maximal Marginal Relevance (MMR)",
+            "description": "A retrieval technique that balances relevance and diversity to avoid providing the LLM with redundant information.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "BGE-Reranker-v2",
+            "description": "A powerful open-source cross-encoder that can be self-hosted to avoid external API costs during the reranking stage.",
+            "difficulty": "advanced",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Evaluation and Observability",
+        "items": [
+          {
+            "title": "RAGAS Framework",
+            "description": "Automated evaluation of RAG pipelines using metrics like faithfulness, answer relevance, and context precision.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "LangSmith Tracing",
+            "description": "Visualize the full execution trace of a RAG chain to identify exactly where retrieval or generation failed.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "TruLens-Eval",
+            "description": "Uses the 'RAG Triad' (Context Relevance, Groundedness, Answer Relevance) to detect hallucinations in production.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "DeepEval",
+            "description": "A unit testing framework for LLMs that allows you to set guardrails and performance benchmarks within your CI/CD pipeline.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Arize Phoenix",
+            "description": "Open-source observability for visualizing embedding clusters and identifying 'blind spots' in your vector data.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Promptfoo",
+            "description": "A CLI tool for test-driven prompt engineering that helps compare the output quality of different RAG configurations.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Giskard",
+            "description": "An open-source QA tool specifically designed to find vulnerabilities like bias or misinformation in RAG responses.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Langfuse",
+            "description": "Open-source alternative for tracking LLM costs, latency, and user feedback on RAG-generated answers.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "HoneyHive",
+            "description": "Platform for versioning prompts and evaluating the impact of chunk size changes on end-user satisfaction.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "UpTrain",
+            "description": "A framework to provide real-time feedback on LLM responses and identify data drift in your knowledge base.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always use a 10-15% overlap between chunks to ensure semantic context is not lost at the split points.",
+      "Implement a 'small-to-big' retrieval strategy where you search small chunks for accuracy but feed the LLM the surrounding context for better synthesis.",
+      "Standardize your metadata schema early; changing metadata fields in a vector DB often requires a full re-index of millions of vectors.",
+      "Use a dedicated reranking step (like Cohere Rerank) if your top-k retrieval exceeds 5 documents; LLMs suffer from 'lost in the middle' syndrome.",
+      "Before scaling, benchmark your embedding model latency; switching from a cloud API to a local model (e.g., BGE) can reduce RAG latency by 200ms+."
+    ]
+  }
+}

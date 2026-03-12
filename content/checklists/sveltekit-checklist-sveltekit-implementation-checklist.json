@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "sveltekit",
+    "generated_at": "2026-03-12T21:27:26.956Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "SvelteKit implementation checklist",
+    "description": "A practical checklist for shipping SvelteKit projects safely.",
+    "keywords": [
+      "sveltekit",
+      "checklist"
+    ],
+    "slug": "sveltekit-checklist-sveltekit-implementation-checklist"
+  },
+  "content": {
+    "intro": "A technical checklist for deploying SvelteKit applications to production, ensuring performance, security, and type safety across edge and serverless environments.",
+    "sections": [
+      {
+        "heading": "Deployment & Adapter Configuration",
+        "items": [
+          {
+            "title": "Adapter Validation",
+            "description": "Verify svelte.config.js uses the correct adapter for the target environment (e.g., @sveltejs/adapter-cloudflare for Workers or @sveltejs/adapter-node for Docker).",
+            "priority": "critical"
+          },
+          {
+            "title": "Environment Variable Isolation",
+            "description": "Ensure all sensitive keys (Stripe secrets, DB strings) are imported from $env/static/private or $env/dynamic/private and never exposed in client-side code.",
+            "priority": "critical"
+          },
+          {
+            "title": "CSRF Origin Check",
+            "description": "Set the ORIGIN environment variable on Node-based adapters to match the production domain to prevent cross-site request forgery.",
+            "priority": "critical"
+          },
+          {
+            "title": "Node Engine Specification",
+            "description": "Define the engine version in package.json to match the deployment runtime (e.g., node: '>=20.0.0') to avoid runtime syntax errors.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Edge Runtime Compatibility",
+            "description": "If using Cloudflare or Vercel Edge, verify that no Node-specific built-ins (fs, path, crypto) are used in server load functions.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Data Handling & Form Actions",
+        "items": [
+          {
+            "title": "Progressive Enhancement",
+            "description": "Apply use:enhance to all <form> elements to ensure functionality when JavaScript is disabled or failing to load.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Server-side Validation",
+            "description": "Validate request.formData() using a schema library like Zod inside server actions before processing data.",
+            "priority": "critical"
+          },
+          {
+            "title": "Action Failure Handling",
+            "description": "Use the fail() helper to return 4xx status codes and validation errors instead of throwing generic 500 errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Database Connection Pooling",
+            "description": "Configure Drizzle or your ORM to use a connection pooler (like PgBouncer) to prevent connection exhaustion in serverless environments.",
+            "priority": "critical"
+          },
+          {
+            "title": "Streaming Slow Data",
+            "description": "Return nested promises in load functions to stream non-critical data, preventing slow API calls from blocking the initial page paint.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Svelte 5 & State Management",
+        "items": [
+          {
+            "title": "Rune Migration",
+            "description": "Replace component-level writable stores with $state() runes to utilize the more efficient fine-grained reactivity system.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Strict Prop Typing",
+            "description": "Define all component inputs using the $props() rune with TypeScript interfaces for compile-time safety.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Effect Cleanup Logic",
+            "description": "Verify that all $effect() runes that initialize external listeners or timers return a cleanup function to prevent memory leaks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Derived Logic Optimization",
+            "description": "Use $derived() or $derived.by() for computed values to ensure they are only recalculated when their dependencies change.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Snippet Refactoring",
+            "description": "Convert repeated HTML patterns into @render snippets to reduce component overhead and improve maintainability.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Security & Authentication",
+        "items": [
+          {
+            "title": "Lucia Session Lifecycle",
+            "description": "Implement session validation in the handle hook to ensure user state is globally accessible via event.locals.",
+            "priority": "critical"
+          },
+          {
+            "title": "Cookie Security Flags",
+            "description": "Ensure session cookies are configured with secure: true, httpOnly: true, and sameSite: 'lax' in production.",
+            "priority": "critical"
+          },
+          {
+            "title": "Content Security Policy",
+            "description": "Enable and configure the csp object in svelte.config.js to restrict script sources and prevent XSS attacks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Rate Limiting",
+            "description": "Apply rate-limiting logic to sensitive routes like /login or AI-generation endpoints using a Redis-based middleware.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Input Sanitization",
+            "description": "Manually sanitize any user-provided string that is rendered using the {@html} tag to prevent script injection.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Performance & Optimization",
+        "items": [
+          {
+            "title": "Static Pre-rendering",
+            "description": "Export const prerender = true for all routes that do not contain user-specific data to serve them via CDN.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Image Optimization",
+            "description": "Use a specialized image component or Vite plugin to serve WebP/AVIF formats and prevent layout shifts with fixed aspect ratios.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Font Preloading",
+            "description": "Add <link rel=\"preload\"> tags in app.html for critical brand fonts to minimize Flash of Unstyled Text (FOUT).",
+            "priority": "optional"
+          },
+          {
+            "title": "Cache-Control Headers",
+            "description": "Set appropriate setHeaders() in server load functions for public assets to leverage browser and edge caching.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Bundle Analysis",
+            "description": "Run vite-bundle-visualizer and remove any large libraries that can be replaced with native browser APIs or smaller alternatives.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "SEO & Monitoring",
+        "items": [
+          {
+            "title": "Dynamic Meta Tags",
+            "description": "Implement a <svelte:head> block in +layout.svelte or +page.svelte that pulls title and description from the load function data.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Canonical URL Implementation",
+            "description": "Ensure every page renders a <link rel=\"canonical\"> tag based on the current page URL to avoid duplicate content penalties.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Sitemap Generation",
+            "description": "Configure an endpoint at /sitemap.xml that dynamically lists all crawlable routes using a library like super-sitemap.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Error Tracking Integration",
+            "description": "Initialize Sentry or a similar service in hooks.server.ts and hooks.client.ts to capture runtime exceptions.",
+            "priority": "critical"
+          },
+          {
+            "title": "Robots.txt Presence",
+            "description": "Verify that static/robots.txt exists and correctly points to the sitemap URL.",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

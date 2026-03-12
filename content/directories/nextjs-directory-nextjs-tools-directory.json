@@ -1,0 +1,258 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "nextjs",
+    "generated_at": "2026-03-12T21:27:22.221Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Next.js tools directory",
+    "description": "A developer-first directory of Next.js tools and references.",
+    "keywords": [
+      "nextjs",
+      "next.js",
+      "directory"
+    ],
+    "slug": "nextjs-directory-nextjs-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, libraries, and platforms specifically optimized for the Next.js ecosystem, with a focus on App Router compatibility, server-side performance, and production scalability.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Hosting",
+          "Authentication",
+          "Database",
+          "UI Components",
+          "AI Integration",
+          "Analytics",
+          "Email",
+          "Validation"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Vercel",
+        "description": "The native deployment platform for Next.js providing zero-config deployments, edge functions, and global CDN caching.",
+        "url": "https://vercel.com",
+        "category": "Hosting",
+        "pricing_model": "freemium",
+        "pros": [
+          "First-class support for Next.js features like ISR and Middleware",
+          "Automated CI/CD with preview deployments",
+          "Built-in analytics and speed insights"
+        ],
+        "cons": [
+          "Bandwidth costs can scale rapidly for high-traffic sites",
+          "Locked into specific serverless execution limits"
+        ],
+        "tags": [
+          "deployment",
+          "serverless",
+          "edge"
+        ]
+      },
+      {
+        "name": "Clerk",
+        "description": "User management and authentication purpose-built for React and Next.js, featuring pre-built components for App Router.",
+        "url": "https://clerk.com",
+        "category": "Authentication",
+        "pricing_model": "freemium",
+        "pros": [
+          "Middleware integration for easy route protection",
+          "Ready-to-use UI components for sign-in and user profiles",
+          "Native support for Server Components"
+        ],
+        "cons": [
+          "Dependency on a third-party hosted service",
+          "Limited customizability of low-level auth flows"
+        ],
+        "tags": [
+          "auth",
+          "saas",
+          "security"
+        ]
+      },
+      {
+        "name": "Drizzle ORM",
+        "description": "Headless TypeScript ORM that provides type safety with a focus on performance and minimal runtime overhead.",
+        "url": "https://orm.drizzle.team",
+        "category": "Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "No heavy engine binaries, ideal for serverless environments",
+          "SQL-like syntax with full TypeScript autocomplete",
+          "Fast schema migrations"
+        ],
+        "cons": [
+          "Smaller community compared to Prisma",
+          "Requires deeper knowledge of SQL"
+        ],
+        "tags": [
+          "orm",
+          "typescript",
+          "sql"
+        ]
+      },
+      {
+        "name": "shadcn/ui",
+        "description": "A collection of re-usable components built with Radix UI and Tailwind CSS that you copy and paste into your apps.",
+        "url": "https://ui.shadcn.com",
+        "category": "UI Components",
+        "pricing_model": "open-source",
+        "pros": [
+          "Complete ownership of the component code",
+          "Highly accessible and accessible-ready components",
+          "Theming via Tailwind CSS variables"
+        ],
+        "cons": [
+          "No library versioning since code is copied manually",
+          "Requires manual updates for bug fixes"
+        ],
+        "tags": [
+          "tailwind",
+          "radix-ui",
+          "components"
+        ]
+      },
+      {
+        "name": "Vercel AI SDK",
+        "description": "A library for building AI-powered streaming text and chat interfaces with Next.js and React hooks.",
+        "url": "https://sdk.vercel.ai",
+        "category": "AI Integration",
+        "pricing_model": "open-source",
+        "pros": [
+          "Standardized streaming protocols for LLMs",
+          "Built-in hooks for managing chat state and UI",
+          "Seamless integration with OpenAI, Anthropic, and Hugging Face"
+        ],
+        "cons": [
+          "Opinionated towards Vercel's deployment patterns",
+          "Rapidly changing API surface"
+        ],
+        "tags": [
+          "ai",
+          "llm",
+          "streaming"
+        ]
+      },
+      {
+        "name": "Auth.js",
+        "description": "Open-source authentication for Next.js (formerly NextAuth.js) that supports multiple providers and database adapters.",
+        "url": "https://authjs.dev",
+        "category": "Authentication",
+        "pricing_model": "open-source",
+        "pros": [
+          "Complete control over user data and hosting",
+          "Support for OAuth, Email, and Credentials providers",
+          "Broad ecosystem of database adapters"
+        ],
+        "cons": [
+          "Complex configuration for edge runtimes",
+          "Session management can be difficult to debug in App Router"
+        ],
+        "tags": [
+          "auth",
+          "open-source",
+          "next-auth"
+        ]
+      },
+      {
+        "name": "Coolify",
+        "description": "An open-source, self-hostable alternative to Vercel for managing Next.js apps on your own VPS.",
+        "url": "https://coolify.io",
+        "category": "Hosting",
+        "pricing_model": "open-source",
+        "pros": [
+          "Eliminates serverless execution and bandwidth costs",
+          "Full control over the underlying infrastructure",
+          "Supports Docker-based deployments"
+        ],
+        "cons": [
+          "Requires manual server maintenance and patching",
+          "No native global edge network like Vercel"
+        ],
+        "tags": [
+          "self-hosting",
+          "vps",
+          "docker"
+        ]
+      },
+      {
+        "name": "Resend",
+        "description": "Email API for developers that provides React-based email templates and high deliverability.",
+        "url": "https://resend.com",
+        "category": "Email",
+        "pricing_model": "freemium",
+        "pros": [
+          "Integrates with React Email for component-based emails",
+          "Simple API for sending emails from Server Actions",
+          "Clean dashboard and debugging tools"
+        ],
+        "cons": [
+          "Newer service with fewer legacy enterprise features",
+          "Free tier has strict daily sending limits"
+        ],
+        "tags": [
+          "email",
+          "react-email",
+          "api"
+        ]
+      },
+      {
+        "name": "Zod",
+        "description": "TypeScript-first schema validation library used for validating environment variables, API responses, and form data.",
+        "url": "https://zod.dev",
+        "category": "Validation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Infer TypeScript types directly from schemas",
+          "Excellent integration with React Hook Form",
+          "Works in both Client and Server Components"
+        ],
+        "cons": [
+          "Can increase bundle size if many large schemas are used",
+          "Error messages require custom formatting for end-users"
+        ],
+        "tags": [
+          "validation",
+          "typescript",
+          "schema"
+        ]
+      },
+      {
+        "name": "PostHog",
+        "description": "All-in-one product analytics, session recording, and feature flagging platform with a dedicated Next.js SDK.",
+        "url": "https://posthog.com",
+        "category": "Analytics",
+        "pricing_model": "freemium",
+        "pros": [
+          "Includes heatmaps and session replays for UX debugging",
+          "Server-side feature flagging for A/B testing",
+          "Generous free tier for startups"
+        ],
+        "cons": [
+          "SDK can impact initial page load if not optimized",
+          "Complex UI with a steep learning curve"
+        ],
+        "tags": [
+          "analytics",
+          "product",
+          "feature-flags"
+        ]
+      }
+    ]
+  }
+}

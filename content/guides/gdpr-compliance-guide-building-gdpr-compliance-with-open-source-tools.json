@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-03-12T21:27:19.433Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building GDPR Compliance with open-source tools",
+    "description": "A step-by-step implementation guide for GDPR Compliance with open-source tools.",
+    "keywords": [
+      "gdpr-compliance",
+      "gdpr compliance",
+      "guide"
+    ],
+    "slug": "gdpr-compliance-guide-building-gdpr-compliance-with-open-source-tools"
+  },
+  "content": {
+    "intro": "This guide outlines the technical implementation steps required to align a SaaS application with GDPR requirements, focusing on data mapping, privacy-first analytics, and automated data subject request workflows. It moves beyond legal theory into specific database and infrastructure configurations.",
+    "estimated_time": "6-8 hours",
+    "prerequisites": [
+      "Administrative access to production PostgreSQL or Supabase instances",
+      "Control over DNS and frontend script injection",
+      "Defined list of third-party subprocessors (Stripe, Postmark, etc.)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Audit and Map PII in the Database",
+        "explanation": "Identify every column containing Personally Identifiable Information (PII). In a typical SaaS schema, this includes 'email', 'billing_address', and 'last_sign_in_ip'. Create a data dictionary to track where this data resides to facilitate future erasure requests.",
+        "code": {
+          "language": "sql",
+          "content": "SELECT table_name, column_name \nFROM information_schema.columns \nWHERE column_name ILIKE ANY (ARRAY['%email%', '%address%', '%phone%', '%ip_address%'])\nAND table_schema = 'public';",
+          "filename": "audit_pii.sql"
+        },
+        "pitfalls": [
+          "Forgetting PII stored in JSONB blobs",
+          "Overlooking backup files and staging database clones"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Transition to Privacy-First Analytics",
+        "explanation": "Replace tracking-heavy tools like Google Analytics with privacy-focused alternatives like Plausible or Fathom. These tools use hash-based counting that does not require a cookie consent banner under GDPR because they do not track individuals across sessions or sites.",
+        "code": {
+          "language": "html",
+          "content": "<!-- Replace GA script with Plausible -->\n<script defer data-domain=\"yourdomain.com\" src=\"https://plausible.io/js/script.js\"></script>",
+          "filename": "index.html"
+        },
+        "pitfalls": [
+          "Accidentally leaving old GTM (Google Tag Manager) snippets active",
+          "Failing to disable IP logging in application-level error trackers like Sentry"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement a 'Hard Delete' Workflow for Right-to-Erasure",
+        "explanation": "GDPR requires that data be deleted upon request. Many SaaS apps use 'soft deletes' (deleted_at columns). You must implement a routine that identifies soft-deleted records and permanently purges them, including associated records in related tables using ON DELETE CASCADE.",
+        "code": {
+          "language": "sql",
+          "content": "ALTER TABLE user_profiles \nADD CONSTRAINT fk_user \nFOREIGN KEY (user_id) \nREFERENCES users(id) \nON DELETE CASCADE;\n\n-- To execute erasure:\nDELETE FROM users WHERE id = 'target_user_uuid';",
+          "filename": "erasure_policy.sql"
+        },
+        "pitfalls": [
+          "Orphaned records in logging tables or audit trails",
+          "Data persisting in database WAL logs or periodic backups for longer than the 30-day compliance window"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure Conditional Script Loading for Consent",
+        "explanation": "If using non-essential cookies (e.g., Hubspot, Intercom), you must block these scripts until the user provides explicit affirmative consent. Use a wrapper function to initialize these services only after the consent state is saved in local storage.",
+        "code": {
+          "language": "javascript",
+          "content": "function loadMarketingTools() {\n  if (localStorage.getItem('cookie_consent') === 'accepted') {\n    // Initialize Intercom or other trackers\n    window.Intercom('boot', { app_id: 'your_id' });\n  }\n}\n\n// Call on page load and after user clicks 'Accept'\nloadMarketingTools();",
+          "filename": "consent_manager.js"
+        },
+        "pitfalls": [
+          "Loading scripts via 'async' or 'defer' before the consent check executes",
+          "Pre-ticking 'Accept' checkboxes in the UI"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Anonymize Application Logs",
+        "explanation": "Server logs (Nginx/Apache) often capture IP addresses by default, which are considered PII. Configure your web server to mask the last octet of the IP address or disable IP logging entirely if not required for security forensics.",
+        "code": {
+          "language": "nginx",
+          "content": "log_format privacy_aware '$remote_addr_mask - $remote_user [$time_local] \"$request\" ' \n                         '$status $body_bytes_sent \"$http_referer\" ' \n                         '\"$http_user_agent\"';\n\nmap $remote_addr $remote_addr_mask {\n    ~(?P<ip>\\d+\\.\\d+\\.\\d+)\\.\\d+ $ip.0;\n    default 0.0.0.0;\n}",
+          "filename": "nginx.conf"
+        },
+        "pitfalls": [
+          "Storing raw IP addresses in application-level logs (e.g., Winston, Morgan, or Logrocket)",
+          "Sending unmasked logs to third-party aggregators like Datadog or Papertrail"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Automate Data Portability Exports",
+        "explanation": "Users have the right to receive their data in a machine-readable format (JSON/CSV). Create a background job that aggregates a user's data from all tables and generates a signed URL for download.",
+        "code": {
+          "language": "javascript",
+          "content": "async function exportUserData(userId) {\n  const data = await db.users.findUnique({\n    where: { id: userId },\n    include: { posts: true, settings: true, billing: true }\n  });\n  const buffer = Buffer.from(JSON.stringify(data));\n  return await storage.upload(`exports/${userId}.json`, buffer);\n}",
+          "filename": "portability_service.ts"
+        },
+        "pitfalls": [
+          "Exporting internal metadata (like password hashes or internal notes) that shouldn't be exposed",
+          "Timeouts when generating exports for high-volume users"
+        ]
+      }
+    ],
+    "conclusion": "GDPR compliance is a continuous technical requirement rather than a one-time checklist. By automating data erasure, anonymizing logs, and switching to privacy-first analytics, you reduce the surface area of PII and minimize the administrative burden of manual compliance requests."
+  }
+}
