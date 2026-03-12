@@ -19,12 +19,13 @@ const props = Astro.props;
 <html lang="en">
   <SEOHead {...props} />
   <body class="min-h-screen flex flex-col">
-    <!-- Eurolytics noscript fallback -->
-    <noscript><img src="https://pixel.eurolytics.io/noscript?id=e3e32f8a-efdd-41d8-b13e-9682c03bcbc6" style="display:none" width="1" height="1" alt="" /></noscript>
     <Navigation />
     <main class="flex-1">
       <slot />
     </main>
     <Footer />
+    <!-- Eurolytics: AI & Bot Crawler Detection -->
+    <noscript><img src="https://events.eurolytics.app/p.gif?s=e3e32f8a-efdd-41d8-b13e-9682c03bcbc6" alt="" width="1" height="1" style="position:absolute;left:-9999px"></noscript>
+    <a href="https://events.eurolytics.app/hp?s=e3e32f8a-efdd-41d8-b13e-9682c03bcbc6" rel="nofollow" style="position:absolute;left:-9999px" aria-hidden="true" tabindex="-1">.</a>
   </body>
 </html>
