@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "nuxt",
+    "generated_at": "2026-03-12T21:27:21.905Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Nuxt tools directory",
+    "description": "A developer-first directory of Nuxt tools and references.",
+    "keywords": [
+      "nuxt",
+      "directory"
+    ],
+    "slug": "nuxt-directory-nuxt-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of tools, libraries, and platforms specifically optimized for Nuxt 3 development, focusing on full-stack capabilities, server-side performance, and modern deployment workflows.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Framework Core",
+          "UI Components",
+          "State Management",
+          "Backend & Database",
+          "Deployment",
+          "Utilities",
+          "Testing"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Nuxt Framework",
+        "description": "The core Vue.js framework for building server-side rendered and static web applications with automatic routing and code-splitting.",
+        "url": "https://nuxt.com",
+        "category": "Framework Core",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatic code splitting and optimized hydration",
+          "Built-in Nitro server engine for cross-platform deployment",
+          "Native TypeScript support without manual configuration"
+        ],
+        "cons": [
+          "Learning curve for Nuxt 2 developers migrating to Composition API",
+          "Hydration mismatch errors can be difficult to debug"
+        ],
+        "tags": [
+          "framework",
+          "ssr",
+          "vue",
+          "nitro"
+        ]
+      },
+      {
+        "name": "Nuxt UI",
+        "description": "A fully styled component library built with Tailwind CSS and Headless UI, specifically designed for Nuxt applications.",
+        "url": "https://ui.nuxt.com",
+        "category": "UI Components",
+        "pricing_model": "open-source",
+        "pros": [
+          "Native integration with Nuxt color modes",
+          "Built-in accessibility via Headless UI",
+          "Highly customizable through Tailwind classes"
+        ],
+        "cons": [
+          "Strict dependency on Tailwind CSS",
+          "Bundle size can grow if not using tree-shaking effectively"
+        ],
+        "tags": [
+          "ui",
+          "components",
+          "tailwind",
+          "design-system"
+        ]
+      },
+      {
+        "name": "Pinia",
+        "description": "The official state management library for Vue and Nuxt, replacing Vuex with a modular, functional approach.",
+        "url": "https://pinia.vuejs.org",
+        "category": "State Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "Full TypeScript inference for state and actions",
+          "Modular architecture with no mutations required",
+          "Excellent DevTools integration"
+        ],
+        "cons": [
+          "Requires manual handling for SSR state hydration in complex setups"
+        ],
+        "tags": [
+          "state",
+          "store",
+          "typescript"
+        ]
+      },
+      {
+        "name": "Nuxt Content",
+        "description": "A file-based CMS for Nuxt that reads Markdown, YAML, CSV, and JSON files to create a data layer for your site.",
+        "url": "https://content.nuxt.com",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Enables Git-based CMS workflows",
+          "Query content using a MongoDB-like API",
+          "Built-in syntax highlighting and Markdown components"
+        ],
+        "cons": [
+          "Not suitable for high-frequency dynamic data updates",
+          "Search indexing requires additional configuration for large datasets"
+        ],
+        "tags": [
+          "cms",
+          "markdown",
+          "static-site"
+        ]
+      },
+      {
+        "name": "Drizzle ORM",
+        "description": "A TypeScript ORM designed for edge runtimes, offering type-safe SQL queries and migrations for Nuxt server routes.",
+        "url": "https://orm.drizzle.team",
+        "category": "Backend & Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Zero-overhead runtime for edge functions",
+          "Automatic schema migration generation",
+          "Strict TypeScript type safety for SQL results"
+        ],
+        "cons": [
+          "Smaller ecosystem compared to Prisma",
+          "Requires familiarity with SQL syntax"
+        ],
+        "tags": [
+          "database",
+          "orm",
+          "sql",
+          "edge"
+        ]
+      },
+      {
+        "name": "Vercel",
+        "description": "Cloud platform for static sites and Serverless Functions, providing native support for Nuxt Nitro deployments.",
+        "url": "https://vercel.com",
+        "category": "Deployment",
+        "pricing_model": "freemium",
+        "pros": [
+          "Zero-config deployment for Nuxt 3 applications",
+          "Global Edge Network for low-latency SSR",
+          "Built-in analytics and speed insights"
+        ],
+        "cons": [
+          "Serverless function execution limits on free tier",
+          "Bandwidth costs can scale rapidly for high-traffic sites"
+        ],
+        "tags": [
+          "hosting",
+          "serverless",
+          "edge",
+          "ci-cd"
+        ]
+      },
+      {
+        "name": "Nuxt DevTools",
+        "description": "Visual debugging and introspection tool integrated directly into the Nuxt browser interface.",
+        "url": "https://devtools.nuxt.com",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Inspect server routes, middleware, and components",
+          "Analyze bundle size and performance bottlenecks",
+          "Directly manage Nuxt modules from the UI"
+        ],
+        "cons": [
+          "Can impact browser performance if left open during development"
+        ],
+        "tags": [
+          "debugging",
+          "development",
+          "dx"
+        ]
+      },
+      {
+        "name": "Nuxt Security",
+        "description": "Module that provides security headers, CSRF protection, and rate limiting for Nuxt and Nitro.",
+        "url": "https://nuxt-security.vercel.app",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automated configuration of OWASP-recommended headers",
+          "Built-in request rate limiting for Nitro server routes",
+          "XSS and CSRF protection out of the box"
+        ],
+        "cons": [
+          "Strict CSP headers can break third-party scripts if not configured"
+        ],
+        "tags": [
+          "security",
+          "middleware",
+          "owasp"
+        ]
+      },
+      {
+        "name": "Vitest",
+        "description": "A Vite-native unit test framework that shares the same configuration as the Nuxt build system.",
+        "url": "https://vitest.dev",
+        "category": "Testing",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely fast execution using Vite's transformation pipeline",
+          "Jest-compatible API for easy migration",
+          "Native support for Vue components and Nuxt composables"
+        ],
+        "cons": [
+          "Requires @nuxt/test-utils for full Nuxt environment simulation"
+        ],
+        "tags": [
+          "testing",
+          "unit-test",
+          "vite"
+        ]
+      },
+      {
+        "name": "Nuxt Image",
+        "description": "A module for optimized image processing, resizing, and lazy loading using local or remote providers.",
+        "url": "https://image.nuxt.com",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatic WebP/AVIF format conversion",
+          "Integration with IPX, Cloudinary, and Vercel Image Optimization",
+          "Reduces Cumulative Layout Shift (CLS) automatically"
+        ],
+        "cons": [
+          "Local processing can be slow during large static site builds"
+        ],
+        "tags": [
+          "images",
+          "performance",
+          "optimization"
+        ]
+      }
+    ]
+  }
+}

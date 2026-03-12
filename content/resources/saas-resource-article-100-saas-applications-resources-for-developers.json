@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "saas",
+    "generated_at": "2026-03-12T21:27:26.776Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 SaaS Applications resources for developers",
+    "description": "A curated set of practical SaaS Applications resources for engineers.",
+    "keywords": [
+      "saas",
+      "saas applications",
+      "resource-article"
+    ],
+    "slug": "saas-resource-article-100-saas-applications-resources-for-developers"
+  },
+  "content": {
+    "intro": "Building a modern SaaS requires balancing rapid feature delivery with robust infrastructure for billing, multi-tenancy, and operational observability. This resource article provides a curated list of tools and implementation patterns focused on the Next.js, Supabase, and Stripe ecosystem to help developers ship and scale efficiently.",
+    "sections": [
+      {
+        "heading": "Billing and Monetization Infrastructure",
+        "items": [
+          {
+            "title": "Stripe Billing and Subscriptions",
+            "description": "The industry standard for recurring revenue. Use Stripe Checkout for pre-built UI and the 'Customer Portal' for self-service subscription management.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Lemon Squeezy",
+            "description": "A Merchant of Record (MoR) that handles global sales tax and VAT compliance automatically, simplifying international SaaS sales.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Stripe Webhook Handler Pattern",
+            "description": "Implement a robust webhook listener using the 'stripe-node' library to handle events like 'invoice.paid' and 'customer.subscription.deleted' with idempotency checks.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Lago Open-Source Metering",
+            "description": "An open-source alternative to Stripe Billing for complex usage-based pricing models that require high-volume event ingestion.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Polar.sh",
+            "description": "A monetization platform specifically for open-source developers to sell subscriptions or access to private GitHub repositories.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Paddle Billing",
+            "description": "Another Merchant of Record that provides unified checkout, subscription management, and tax handling globally.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Stripe Tax API",
+            "description": "Programmatic tax calculation for custom checkout flows, ensuring you collect the correct sales tax based on the user's jurisdiction.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Tier.run",
+            "description": "A pricing-as-code solution that allows you to define pricing plans in a JSON/YAML file and sync them to Stripe automatically.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "RevenueCat",
+            "description": "Essential for SaaS apps with mobile components to manage cross-platform subscriptions and sync Apple/Google IAP state to the web.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Orb Usage-Based Billing",
+            "description": "High-scale billing infrastructure designed specifically for companies moving to complex, hybrid usage-based pricing models.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Authentication and Multi-tenancy",
+        "items": [
+          {
+            "title": "Clerk Organizations",
+            "description": "Pre-built components and API for team management, allowing users to create, join, and switch between multiple SaaS accounts seamlessly.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Supabase Row Level Security (RLS)",
+            "description": "Implement multi-tenancy at the database layer by ensuring users can only access data where 'tenant_id' matches their session context.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "WorkOS Enterprise SSO",
+            "description": "The fastest way to add SAML and SCIM support for B2B SaaS customers who require integration with Okta or Azure AD.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Auth.js (NextAuth) Credentials Provider",
+            "description": "A flexible framework for self-hosting authentication logic with support for various database adapters like Prisma and Drizzle.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Kinde Auth & Feature Flags",
+            "description": "Combines user authentication with built-in feature flagging to control access to specific SaaS tiers based on user roles.",
+            "difficulty": "beginner",
+            "potential": "medium"
+          },
+          {
+            "title": "Zitadel Identity Management",
+            "description": "An open-source alternative to Auth0 that focuses on multi-tenancy and high security standards for enterprise-ready SaaS.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "PropelAuth",
+            "description": "B2B-specific authentication that handles organization management and invites out of the box, reducing custom code for team logic.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Casl.js Authorization",
+            "description": "Define permissions in a central location (e.g., 'can edit post') and share them between your frontend and backend logic.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Iron Session",
+            "description": "A lightweight, stateless session utility for Next.js that uses encrypted cookies to store user data without a server-side session store.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Database Schema-per-Tenant Pattern",
+            "description": "Advanced isolation technique using separate Postgres schemas for each customer, suitable for high-security or regulated industries.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          }
+        ]
+      },
+      {
+        "heading": "Operations, Analytics, and AI Management",
+        "items": [
+          {
+            "title": "PostHog Product Analytics",
+            "description": "An all-in-one suite for session recording, heatmaps, and feature flags to understand how users interact with your SaaS.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Helicone LLM Observability",
+            "description": "An LLM proxy that provides caching, rate limiting, and cost tracking for OpenAI and Anthropic API calls to prevent budget overruns.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Resend Transactional Email",
+            "description": "A developer-first email API for sending welcome emails, password resets, and notifications with a clean React-based template engine.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Sentry Error Monitoring",
+            "description": "Real-time error tracking that includes stack traces and breadcrumbs, essential for maintaining SaaS uptime and reliability.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Upstash Redis for Rate Limiting",
+            "description": "Use serverless Redis to implement API rate limiting per user or per tenant to protect your infrastructure from abuse.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Inngest Background Jobs",
+            "description": "A serverless queue and workflow engine that allows you to handle long-running tasks like CSV exports or AI processing without timeouts.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Loops.so SaaS Email Marketing",
+            "description": "An email platform built for SaaS that triggers automated onboarding sequences based on user events from your app.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Svix Webhook Proxy",
+            "description": "A service that helps you send webhooks to your own customers, handling retries and security signatures automatically.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "LiteLLM Proxy",
+            "description": "A unified interface to call 100+ LLMs using the OpenAI format, allowing you to swap providers easily to reduce costs.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Axiom Logging",
+            "description": "High-performance log management for Vercel and serverless environments, providing instant insights into system behavior.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Always implement idempotency keys for Stripe webhook handlers to prevent processing the same payment event multiple times during network retries.",
+      "Use Supabase Row Level Security (RLS) as a secondary defense layer for multi-tenancy, even if you have application-level checks.",
+      "Set hard monthly spending limits on your OpenAI/Anthropic API keys to prevent 'infinite loop' bugs from draining your bank account.",
+      "Decouple feature access from your code using feature flags (e.g., PostHog or LaunchDarkly) so you can toggle premium features without a re-deploy.",
+      "Use a Merchant of Record like Lemon Squeezy or Paddle if you are an indie developer to avoid the massive complexity of global VAT/GST compliance."
+    ]
+  }
+}

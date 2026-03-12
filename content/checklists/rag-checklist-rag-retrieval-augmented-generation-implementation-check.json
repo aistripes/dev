@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "rag",
+    "generated_at": "2026-03-12T21:27:51.070Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "RAG (Retrieval-Augmented Generation) implementation check...",
+    "description": "A practical checklist for shipping RAG (Retrieval-Augmented Generation) projects safely.",
+    "keywords": [
+      "rag",
+      "rag (retrieval-augmented generation)",
+      "checklist"
+    ],
+    "slug": "rag-checklist-rag-retrieval-augmented-generation-implementation-check"
+  },
+  "content": {
+    "intro": "This checklist outlines the technical requirements for deploying a robust Retrieval-Augmented Generation (RAG) system to production, focusing on retrieval quality, latency optimization, and cost management.",
+    "sections": [
+      {
+        "heading": "Data Ingestion and Chunking Strategy",
+        "items": [
+          {
+            "title": "Define Semantic Chunk Boundaries",
+            "description": "Implement recursive character splitting or markdown-aware chunking to ensure paragraphs and code blocks stay intact rather than using fixed-size character limits.",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Chunk Overlap",
+            "description": "Set a 10-15% overlap between consecutive chunks to maintain semantic context and ensure entities split across boundaries are still retrievable.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Metadata Enrichment",
+            "description": "Attach source URLs, document IDs, and page numbers to every chunk to enable downstream source attribution and filtering.",
+            "priority": "critical"
+          },
+          {
+            "title": "Document Versioning and Deletion",
+            "description": "Implement a mechanism to track document hashes and delete or update stale embeddings in the vector database when source files change.",
+            "priority": "critical"
+          },
+          {
+            "title": "Character Sanitization",
+            "description": "Strip HTML tags, excessive whitespace, and non-printable characters from raw text before embedding to reduce noise and token usage.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Vector Database and Indexing",
+        "items": [
+          {
+            "title": "Distance Metric Alignment",
+            "description": "Verify that the vector database distance metric (Cosine, Dot Product, or Euclidean) matches the specific metric used to train the embedding model.",
+            "priority": "critical"
+          },
+          {
+            "title": "HNSW Parameter Tuning",
+            "description": "Adjust ef_construction and M parameters in HNSW indexes to balance indexing speed against search recall based on your dataset size.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Batch Embedding Implementation",
+            "description": "Implement batching for embedding API calls to maximize throughput and reduce network overhead during the initial data load.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Index Backup and Persistence",
+            "description": "Configure automated snapshots or persistence for the vector store to prevent data loss during container restarts or service failures.",
+            "priority": "critical"
+          },
+          {
+            "title": "Multi-tenancy Isolation",
+            "description": "Implement metadata filtering or separate collections to ensure users can only retrieve data they have explicit permissions to access.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Retrieval Optimization",
+        "items": [
+          {
+            "title": "Hybrid Search Implementation",
+            "description": "Combine vector search with keyword-based BM25 search to improve retrieval for specific terminology, acronyms, or product IDs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Reranking Integration",
+            "description": "Apply a Cross-Encoder reranker to the top-k (e.g., top 20) results to re-order the most relevant context to the top for the LLM.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Similarity Thresholding",
+            "description": "Establish a minimum similarity score cut-off to prevent the LLM from receiving irrelevant noise when no high-quality matches exist.",
+            "priority": "optional"
+          },
+          {
+            "title": "Query Rewriting",
+            "description": "Use an LLM step to transform conversational user queries into standalone search terms, removing pronouns and context-dependent references.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Latency Budget Enforcement",
+            "description": "Set a hard timeout for retrieval and reranking steps to ensure the total response time stays within acceptable P99 limits.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "LLM Generation and Safety",
+        "items": [
+          {
+            "title": "Context Window Management",
+            "description": "Calculate and enforce a maximum token limit for retrieved context to avoid exceeding the LLM's context window or incurring excessive costs.",
+            "priority": "critical"
+          },
+          {
+            "title": "Groundedness Instructions",
+            "description": "Explicitly instruct the model in the system prompt to only use the provided context and to state 'I do not know' if the answer is missing.",
+            "priority": "critical"
+          },
+          {
+            "title": "Citation Requirements",
+            "description": "Prompt the LLM to provide inline citations (e.g., [Source 1]) matching the metadata attached to the retrieved chunks.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Response Streaming",
+            "description": "Implement Server-Sent Events (SSE) or WebSockets to stream the LLM response to the client, reducing perceived latency for the user.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Hallucination Check",
+            "description": "Integrate a secondary check or NLI (Natural Language Inference) model to verify that the generated answer is logically supported by the context.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Monitoring and Evaluation",
+        "items": [
+          {
+            "title": "Retrieval Hit Rate Benchmarking",
+            "description": "Measure how often the correct document appears in the top-k results using a golden dataset of query-document pairs.",
+            "priority": "critical"
+          },
+          {
+            "title": "User Feedback Loop",
+            "description": "Capture 'thumbs up/down' feedback in the UI and log it alongside the query, retrieved context, and generated response for future fine-tuning.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Token Usage Tracking",
+            "description": "Log input and output tokens per request to monitor costs and identify anomalous usage patterns or prompt injection attempts.",
+            "priority": "critical"
+          },
+          {
+            "title": "Automated RAG Evaluation",
+            "description": "Deploy tools like RAGAS or TruLens to automatically score faithfulness, relevance, and answer correctness in a staging environment.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Alerting on LLM Failures",
+            "description": "Set up alerts for high error rates from embedding or LLM providers (429, 500, or 503 status codes).",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-03-12T21:27:18.330Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "GDPR Compliance implementation checklist",
+    "description": "A practical checklist for shipping GDPR Compliance projects safely.",
+    "keywords": [
+      "gdpr-compliance",
+      "gdpr compliance",
+      "checklist"
+    ],
+    "slug": "gdpr-compliance-checklist-gdpr-compliance-implementation-checklist"
+  },
+  "content": {
+    "intro": "This production-readiness checklist covers the technical and operational requirements for SaaS applications handling EU citizen data under GDPR. It focuses on engineering implementation, data lifecycle management, and infrastructure configuration to ensure compliance before going live.",
+    "sections": [
+      {
+        "heading": "Consent and Tracking Implementation",
+        "items": [
+          {
+            "title": "Enforce Opt-In for Non-Essential Cookies",
+            "description": "Block all non-essential scripts (marketing, tracking, non-anonymized analytics) from loading until the user explicitly clicks 'Accept' on the consent banner.",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement 'Reject All' Parity",
+            "description": "Ensure the 'Reject All' button is visually identical in prominence, size, and color to the 'Accept All' button to avoid dark patterns.",
+            "priority": "critical"
+          },
+          {
+            "title": "Log Consent State and Version",
+            "description": "Store a timestamped record of the user's consent choice and the specific version of the privacy policy they agreed to in a tamper-evident log.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Verify Privacy-First Analytics Configuration",
+            "description": "If using Plausible or Fathom, verify that IP hashing is enabled and that no persistent cookies are being dropped on the client side.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Granular Consent Controls",
+            "description": "Provide users with a toggle menu to enable or disable specific categories of data processing (e.g., functional vs. marketing) independently.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Data Subject Rights (DSAR) & Erasure",
+        "items": [
+          {
+            "title": "Automated Deletion Workflow",
+            "description": "Create a script or background job that identifies and deletes all database records associated with a user_id across all tables, including metadata.",
+            "priority": "critical"
+          },
+          {
+            "title": "Data Portability Export Tool",
+            "description": "Provide a machine-readable export (JSON or CSV) of all personal data stored about a user, accessible via their account settings.",
+            "priority": "critical"
+          },
+          {
+            "title": "Backup Retention Alignment",
+            "description": "Ensure that data deleted from production is also purged from database backups within 30 days, or implement a process to skip restoring deleted IDs.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Third-Party Deletion Propagation",
+            "description": "Configure webhooks to trigger data deletion in integrated third-party tools (e.g., Intercom, Stripe, Postmark) when a user deletes their account.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Manual Verification Procedure",
+            "description": "Document a standard operating procedure for verifying the identity of a user making a manual data request via email before releasing data.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Infrastructure and Data Residency",
+        "items": [
+          {
+            "title": "Set EU Data Residency",
+            "description": "Configure cloud provider regions to store primary databases and object storage (S3) within the European Economic Area (e.g., eu-central-1).",
+            "priority": "critical"
+          },
+          {
+            "title": "Enable Encryption at Rest",
+            "description": "Verify that AES-256 encryption is enabled for all database volumes, backups, and cloud storage buckets.",
+            "priority": "critical"
+          },
+          {
+            "title": "TLS 1.3 Enforcement",
+            "description": "Disable legacy SSL/TLS versions; configure load balancers to only accept TLS 1.2 or 1.3 for data in transit.",
+            "priority": "critical"
+          },
+          {
+            "title": "Staging Data Anonymization",
+            "description": "Implement a pipeline to scrub or mask PII (emails, names, IPs) when syncing production data to staging or development environments.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Network Isolation",
+            "description": "Deploy databases in private subnets with no public IP addresses, accessible only via a VPN or an internal application gateway.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Logging and Monitoring",
+        "items": [
+          {
+            "title": "PII Scrubbing in Logs",
+            "description": "Configure application loggers to redact email addresses, passwords, and authorization headers before they are sent to external logging services.",
+            "priority": "critical"
+          },
+          {
+            "title": "Log Retention Policy",
+            "description": "Set a TTL (Time To Live) on application and access logs to automatically delete data older than 30-90 days.",
+            "priority": "recommended"
+          },
+          {
+            "title": "IP Address Anonymization",
+            "description": "Truncate or hash the last octet of user IP addresses in server access logs unless specifically required for security forensics.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Admin Access Audit Logs",
+            "description": "Maintain a non-mutable log of every instance where an internal employee accesses a user's personal data via an admin panel.",
+            "priority": "critical"
+          },
+          {
+            "title": "Breach Notification Alerting",
+            "description": "Configure automated alerts for unusual spikes in data egress or multiple failed login attempts to detect potential breaches early.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Vendor and Sub-processor Management",
+        "items": [
+          {
+            "title": "Inventory of Sub-processors",
+            "description": "Maintain a public-facing list of all third-party services that process user data, including their location and purpose.",
+            "priority": "critical"
+          },
+          {
+            "title": "DPA Execution",
+            "description": "Verify that a Data Processing Agreement (DPA) is signed and on file for every third-party service in the stack (e.g., AWS, Supabase, Postmark).",
+            "priority": "critical"
+          },
+          {
+            "title": "SCC Verification for US Vendors",
+            "description": "For US-based vendors, ensure Standard Contractual Clauses (SCCs) are included in the DPA to address Schrems II requirements.",
+            "priority": "critical"
+          },
+          {
+            "title": "SDK Privacy Audit",
+            "description": "Audit all client-side SDKs to ensure they do not automatically collect device identifiers or location data without explicit user consent.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Email Marketing Opt-out Sync",
+            "description": "Ensure that 'Unsubscribe' actions in marketing emails immediately sync to the user's status in the primary application database.",
+            "priority": "critical"
+          }
+        ]
+      }
+    ]
+  }
+}

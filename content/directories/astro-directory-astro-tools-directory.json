@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "astro",
+    "generated_at": "2026-03-12T21:27:24.751Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Astro tools directory",
+    "description": "A developer-first directory of Astro tools and references.",
+    "keywords": [
+      "astro",
+      "directory"
+    ],
+    "slug": "astro-directory-astro-tools-directory"
+  },
+  "content": {
+    "intro": "A curated technical directory of tools, libraries, and deployment platforms specifically optimized for the Astro framework. These resources focus on improving developer experience with content collections, islands architecture, and high-performance static site generation.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Deployment",
+          "Content Management",
+          "Search",
+          "UI & Styling",
+          "Utilities",
+          "Data & Validation"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "Pagefind",
+        "description": "Static search library that indexes Astro's build output to provide instant search results without a backend server.",
+        "url": "https://pagefind.app/",
+        "category": "Search",
+        "pricing_model": "open-source",
+        "pros": [
+          "Zero server runtime costs",
+          "Minimal client-side bundle size",
+          "Automatic indexing of HTML content"
+        ],
+        "cons": [
+          "Requires a post-build step to generate index files"
+        ],
+        "tags": [
+          "search",
+          "static",
+          "indexing"
+        ]
+      },
+      {
+        "name": "Zod",
+        "description": "TypeScript-first schema declaration and validation library used in Astro Content Collections for type-safe frontmatter.",
+        "url": "https://zod.dev/",
+        "category": "Data & Validation",
+        "pricing_model": "open-source",
+        "pros": [
+          "Enforces strict data types for Markdown files",
+          "Provides autocomplete for frontmatter in IDEs",
+          "Eliminates runtime errors from missing content fields"
+        ],
+        "cons": [
+          "Learning curve for complex schema transformations"
+        ],
+        "tags": [
+          "validation",
+          "typescript",
+          "schema"
+        ]
+      },
+      {
+        "name": "Cloudflare Pages",
+        "description": "Hosting platform that integrates with Astro for edge deployment and SSR via the @astrojs/cloudflare adapter.",
+        "url": "https://pages.cloudflare.com/",
+        "category": "Deployment",
+        "pricing_model": "freemium",
+        "pros": [
+          "Global CDN distribution by default",
+          "Fast build times with Git integration",
+          "Support for Cloudflare Workers via Astro SSR"
+        ],
+        "cons": [
+          "Worker size limits on the free tier"
+        ],
+        "tags": [
+          "hosting",
+          "edge",
+          "ssr"
+        ]
+      },
+      {
+        "name": "Starlight",
+        "description": "Official Astro documentation framework for building high-performance, accessible documentation sites with MDX support.",
+        "url": "https://starlight.astro.build/",
+        "category": "UI & Styling",
+        "pricing_model": "open-source",
+        "pros": [
+          "Built-in navigation and search",
+          "Highly customizable via Astro components",
+          "Optimized for SEO and performance out of the box"
+        ],
+        "cons": [
+          "Heavily opinionated layout structure"
+        ],
+        "tags": [
+          "documentation",
+          "mdx",
+          "framework"
+        ]
+      },
+      {
+        "name": "Astro Icon",
+        "description": "A component for Astro that optimizes SVG icons and integrates with Iconify for access to thousands of icon sets.",
+        "url": "https://github.com/natemoo-re/astro-icon",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Automatic SVG optimization",
+          "Reduces HTML bloat compared to inline SVGs",
+          "Supports dynamic icon loading"
+        ],
+        "cons": [
+          "Requires configuration for custom local SVG directories"
+        ],
+        "tags": [
+          "icons",
+          "svg",
+          "optimization"
+        ]
+      },
+      {
+        "name": "Astro DB",
+        "description": "Managed SQL database designed specifically for Astro, allowing for local development and edge deployment.",
+        "url": "https://astro.build/db/",
+        "category": "Data & Validation",
+        "pricing_model": "freemium",
+        "pros": [
+          "Seamless integration with Astro CLI",
+          "Type-safe queries via LibSQL",
+          "Automatic schema migrations"
+        ],
+        "cons": [
+          "Currently limited to the Astro ecosystem"
+        ],
+        "tags": [
+          "database",
+          "sql",
+          "edge-data"
+        ]
+      },
+      {
+        "name": "Sharp",
+        "description": "High-performance Node.js image processing module used by Astro for resizing and converting images during build.",
+        "url": "https://sharp.pixelplumbing.com/",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Extremely fast image transformations",
+          "Supports WebP and Avif conversion",
+          "Low memory footprint"
+        ],
+        "cons": [
+          "Requires native binary compilation on some OS environments"
+        ],
+        "tags": [
+          "images",
+          "optimization",
+          "performance"
+        ]
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework that integrates with Astro via a dedicated integration for rapid UI development.",
+        "url": "https://tailwindcss.com/",
+        "category": "UI & Styling",
+        "pricing_model": "open-source",
+        "pros": [
+          "Eliminates unused CSS automatically",
+          "Consistent design tokens across components",
+          "Fast integration via 'npx astro add tailwind'"
+        ],
+        "cons": [
+          "Can lead to cluttered HTML templates with many classes"
+        ],
+        "tags": [
+          "css",
+          "ui",
+          "styling"
+        ]
+      },
+      {
+        "name": "Decap CMS",
+        "description": "Git-based content management system that allows editors to update Markdown content directly in the repository.",
+        "url": "https://decapcms.org/",
+        "category": "Content Management",
+        "pricing_model": "open-source",
+        "pros": [
+          "No separate database required",
+          "Version control for all content changes",
+          "Customizable preview templates"
+        ],
+        "cons": [
+          "UI can feel dated compared to SaaS CMS options",
+          "Requires Git workflow knowledge for initial setup"
+        ],
+        "tags": [
+          "cms",
+          "markdown",
+          "git"
+        ]
+      },
+      {
+        "name": "Astro Sitemap",
+        "description": "Official integration that automatically generates a sitemap.xml for your Astro project after every build.",
+        "url": "https://docs.astro.build/en/guides/integrations-guide/sitemap/",
+        "category": "Utilities",
+        "pricing_model": "open-source",
+        "pros": [
+          "Ensures search engines index all pages",
+          "Supports filtering specific routes",
+          "Minimal configuration required"
+        ],
+        "cons": [
+          "Only runs during production builds"
+        ],
+        "tags": [
+          "seo",
+          "sitemap",
+          "automation"
+        ]
+      }
+    ]
+  }
+}

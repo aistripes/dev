@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "astro",
+    "generated_at": "2026-03-12T21:23:22.620Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Astro with open-source tools",
+    "description": "A step-by-step implementation guide for Astro with open-source tools.",
+    "keywords": [
+      "astro",
+      "guide"
+    ],
+    "slug": "astro-guide-building-astro-with-open-source-tools"
+  },
+  "content": {
+    "intro": "Astro's Content Collections provide a robust mechanism for managing Markdown and MDX files with full TypeScript safety. By leveraging Zod for schema validation, you can ensure that frontmatter data is consistent across hundreds of files, preventing runtime errors during build time. This guide covers the end-to-end setup of a validated content pipeline suitable for documentation sites or programmatic SEO projects.",
+    "estimated_time": "45 minutes",
+    "prerequisites": [
+      "Existing Astro project (v2.0 or higher)",
+      "Basic understanding of TypeScript",
+      "Node.js environment configured"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize Content Directory Structure",
+        "explanation": "Astro reserves the 'src/content' directory for managed collections. Create a sub-directory for your specific content type (e.g., 'blog' or 'docs'). This organization allows Astro to generate a localized data store for your files.",
+        "code": {
+          "language": "bash",
+          "content": "mkdir -p src/content/blog"
+        },
+        "pitfalls": [
+          "Do not place content collections outside of 'src/content', as Astro will not detect them for type generation.",
+          "Avoid using nested folders within a collection unless you plan to handle complex slug resolution manually."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Define Collection Schema with Zod",
+        "explanation": "Create a 'config.ts' file within 'src/content/'. This file acts as the single source of truth for your content's structure. Use Zod to define required fields, default values, and data transformations.",
+        "code": {
+          "language": "typescript",
+          "content": "import { defineCollection, z } from 'astro:content';\n\nconst blog = defineCollection({\n  type: 'content',\n  schema: z.object({\n    title: z.string(),\n    pubDate: z.date(),\n    description: z.string().max(160),\n    author: z.string().default('Admin'),\n    tags: z.array(z.string()),\n    draft: z.boolean().optional()\n  }),\n});\n\nexport const collections = { blog };",
+          "filename": "src/content/config.ts"
+        },
+        "pitfalls": [
+          "YAML dates in frontmatter are often parsed as strings; Zod's 'z.date()' coercion requires the date to be in a valid ISO format in the Markdown file.",
+          "Forgetting to export the 'collections' object will result in type-generation failures."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Install and Configure MDX Integration",
+        "explanation": "To use interactive components within your content, install the @astrojs/mdx package and add it to your configuration. This allows you to import React or Svelte components directly into your Markdown files.",
+        "code": {
+          "language": "javascript",
+          "content": "import { defineConfig } from 'astro/config';\nimport mdx from '@astrojs/mdx';\n\nexport default defineConfig({\n  integrations: [mdx()]\n});",
+          "filename": "astro.config.mjs"
+        },
+        "pitfalls": [
+          "MDX files must use the .mdx extension to be processed by the integration.",
+          "Ensure any UI framework integrations (like React) are added before MDX in the integrations array."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Query Content with getCollection",
+        "explanation": "Use the 'getCollection' function in your Astro components to fetch and filter your data. This function provides full type safety based on the Zod schema defined in step 2.",
+        "code": {
+          "language": "astro",
+          "content": "---\nimport { getCollection } from 'astro:content';\nconst allPosts = await getCollection('blog', ({ data }) => {\n  return data.draft !== true;\n});\n---\n<ul>\n  {allPosts.map(post => (\n    <li><a href={`/blog/${post.slug}`}>{post.data.title}</a></li>\n  ))}\n</ul>"
+        },
+        "pitfalls": [
+          "Filtering should happen inside the getCollection callback for better performance in large datasets.",
+          "Accessing 'post.data' directly without checking if the collection exists will cause TypeScript errors."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement Dynamic Routing for Content Pages",
+        "explanation": "Create a dynamic route to render individual content entries. Use 'getStaticPaths' to generate a route for every entry in your collection and the '<Content />' component to render the Markdown/MDX body.",
+        "code": {
+          "language": "astro",
+          "content": "---\nimport { getCollection } from 'astro:content';\n\nexport async function getStaticPaths() {\n  const blogEntries = await getCollection('blog');\n  return blogEntries.map(entry => ({\n    params: { slug: entry.slug }, props: { entry },\n  }));\n}\n\nconst { entry } = Astro.props;\nconst { Content } = await entry.render();\n---\n<h1>{entry.data.title}</h1>\n<Content />",
+          "filename": "src/pages/blog/[...slug].astro"
+        },
+        "pitfalls": [
+          "In SSR mode, getStaticPaths is not used; you must fetch the entry using the slug directly from the URL params.",
+          "The 'entry.render()' function is asynchronous; failing to await it will prevent the Content component from being available."
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Configure Image Optimization for Content",
+        "explanation": "To ensure high performance, use Astro's built-in image optimization. In your MDX files, reference local images using relative paths, and Astro will automatically process them during build.",
+        "code": {
+          "language": "markdown",
+          "content": "---\ntitle: \"My Optimized Post\"\n---\n![Alt text](../../assets/hero.png)"
+        },
+        "pitfalls": [
+          "Remote images are not automatically optimized unless you use the <Image /> component or configure remote patterns in astro.config.mjs.",
+          "Relative paths in Markdown must correctly resolve to the assets directory relative to the .md file location."
+        ]
+      }
+    ],
+    "conclusion": "By implementing Content Collections with Zod, you have created a type-safe, high-performance content pipeline. This architecture ensures that frontmatter errors are caught during development, MDX allows for interactive elements without sacrificing SEO, and Astro's build process optimizes all assets for production. This setup is now ready for scaling to thousands of pages for pSEO or documentation needs."
+  }
+}

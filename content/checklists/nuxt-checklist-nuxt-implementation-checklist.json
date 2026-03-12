@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "nuxt",
+    "generated_at": "2026-03-12T21:27:20.349Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Nuxt implementation checklist",
+    "description": "A practical checklist for shipping Nuxt projects safely.",
+    "keywords": [
+      "nuxt",
+      "checklist"
+    ],
+    "slug": "nuxt-checklist-nuxt-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist ensures your Nuxt application is optimized for performance, security, and scalability before deployment to production environments such as Vercel, Netlify, or self-hosted Docker containers.",
+    "sections": [
+      {
+        "heading": "Performance and Rendering",
+        "items": [
+          {
+            "title": "Enable Payload Extraction",
+            "description": "Verify that 'experimental.payloadExtraction' is set to true in nuxt.config.ts to reduce the size of the initial HTML response.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement Nuxt Image",
+            "description": "Replace standard <img> tags with <NuxtImg> to enable automatic resizing, WebP conversion, and lazy loading.",
+            "priority": "critical"
+          },
+          {
+            "title": "Analyze Bundle Sizes",
+            "description": "Run 'npx nuxi analyze' to identify large third-party dependencies and replace them with smaller alternatives or move them to server-only modules.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Configure Route Rules",
+            "description": "Define SWR (Stale-While-Revalidate) or ISR (Incremental Static Regeneration) rules in nuxt.config.ts for high-traffic dynamic pages.",
+            "priority": "critical"
+          },
+          {
+            "title": "Optimize Font Loading",
+            "description": "Use @nuxtjs/google-fonts with 'download: true' to host fonts locally and prevent layout shifts (CLS).",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Environment",
+        "items": [
+          {
+            "title": "Validate Environment Variables",
+            "description": "Use a validation schema (e.g., Zod) within a nitro plugin to ensure all NUXT_PUBLIC_* and NUXT_PRIVATE_* variables are present at runtime.",
+            "priority": "critical"
+          },
+          {
+            "title": "Install Nuxt Security Module",
+            "description": "Configure 'nuxt-security' to automatically apply CSP headers, CORS policies, and Rate Limiting to server routes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sanitize Server Routes",
+            "description": "Verify that all /server/api routes use readBody() or getQuery() with input validation to prevent injection attacks.",
+            "priority": "critical"
+          },
+          {
+            "title": "Disable Production DevTools",
+            "description": "Ensure 'devtools: { enabled: false }' is explicitly set or conditionally disabled for production builds.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Restrict Public Assets",
+            "description": "Audit the /public folder to ensure no sensitive configuration files, .env backups, or private keys are exposed.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Data Fetching and State",
+        "items": [
+          {
+            "title": "Unique useFetch Keys",
+            "description": "Ensure every manually keyed useFetch or useAsyncData call has a unique string key to prevent hydration mismatches during SSR.",
+            "priority": "critical"
+          },
+          {
+            "title": "Pinia Server-Side State",
+            "description": "Verify that Pinia stores are initialized within the setup function to prevent state cross-contamination between different user requests.",
+            "priority": "critical"
+          },
+          {
+            "title": "Handle Fetch Errors",
+            "description": "Implement 'fatal: true' in createError calls within fetch blocks to force a redirect to the error page when critical data fails.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Lazy Loading Data",
+            "description": "Use useLazyFetch for non-critical UI components to prevent blocking the initial page navigation.",
+            "priority": "optional"
+          },
+          {
+            "title": "Cache API Responses",
+            "description": "Use Nitro's 'useStorage' or 'defineCachedEventHandler' to cache expensive database queries or external API calls.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "SEO and Meta Management",
+        "items": [
+          {
+            "title": "Dynamic Meta Tags",
+            "description": "Use useSeoMeta() in every page component to define unique titles, descriptions, and Open Graph images.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sitemap Generation",
+            "description": "Configure @nuxtjs/sitemap to automatically crawl routes and include dynamic slugs from your CMS or database.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Robots.txt Configuration",
+            "description": "Add @nuxtjs/robots to prevent indexing of staging environments and private admin routes.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Canonical URL Implementation",
+            "description": "Verify that useHead() includes a canonical link tag to prevent duplicate content penalties from search engines.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Structured Data",
+            "description": "Inject JSON-LD scripts using useHead for product, article, or organization schemas to improve rich snippet visibility.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Error Handling and Logging",
+        "items": [
+          {
+            "title": "Global Error Page",
+            "description": "Create a custom error.vue in the root directory to handle 404 and 500 errors with a user-friendly UI.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sentry Integration",
+            "description": "Configure Sentry or a similar observability tool to capture both client-side Vue errors and server-side Nitro errors.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Hydration Mismatch Audit",
+            "description": "Run the build in a staging environment and check the browser console for hydration mismatches that could break interactivity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Structured Server Logs",
+            "description": "Ensure Nitro server logs are outputting in JSON format for easier ingestion by log management platforms like Datadog or Logtail.",
+            "priority": "optional"
+          },
+          {
+            "title": "Route Middleware Guards",
+            "description": "Verify that auth middleware correctly redirects unauthenticated users before the page component begins mounting.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and CI/CD",
+        "items": [
+          {
+            "title": "Nitro Preset Selection",
+            "description": "Explicitly set the 'NITRO_PRESET' environment variable (e.g., vercel, netlify, or node-server) to match your hosting provider.",
+            "priority": "critical"
+          },
+          {
+            "title": "Prisma/Drizzle Migration Check",
+            "description": "Include a database migration step in your CI/CD pipeline before the 'nuxt build' command executes.",
+            "priority": "critical"
+          },
+          {
+            "title": "Health Check Endpoint",
+            "description": "Create a /server/api/health.ts route that returns a 200 status to allow load balancers to monitor instance readiness.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Brotli Compression",
+            "description": "Ensure the hosting provider or reverse proxy (Nginx) is configured to serve .mjs and .css files with Brotli compression.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Source Map Generation",
+            "description": "Disable production source maps in nuxt.config.ts unless they are specifically required for your error reporting service.",
+            "priority": "optional"
+          }
+        ]
+      }
+    ]
+  }
+}

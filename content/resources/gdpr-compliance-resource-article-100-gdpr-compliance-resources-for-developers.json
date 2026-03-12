@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-03-12T21:27:26.599Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 GDPR Compliance resources for developers",
+    "description": "A curated set of practical GDPR Compliance resources for engineers.",
+    "keywords": [
+      "gdpr-compliance",
+      "gdpr compliance",
+      "resource-article"
+    ],
+    "slug": "gdpr-compliance-resource-article-100-gdpr-compliance-resources-for-developers"
+  },
+  "content": {
+    "intro": "GDPR compliance for developers involves more than a privacy policy; it requires technical implementation of data residency, consent management, and automated data lifecycle workflows. This guide provides specific tools and technical patterns to ensure your SaaS infrastructure meets EU regulatory standards without sacrificing development velocity.",
+    "sections": [
+      {
+        "heading": "Privacy-First Analytics and Telemetry",
+        "items": [
+          {
+            "title": "Plausible Analytics (Self-Hosted)",
+            "description": "A lightweight, open-source alternative to Google Analytics that does not use cookies and is fully GDPR compliant out of the box. Self-hosting via Docker ensures data never leaves your infrastructure.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Fathom Analytics EU Isolation",
+            "description": "Use Fathom's 'EU Isolation' feature to ensure that all data from EU visitors is processed on servers located within the European Union, bypassing Schrems II concerns.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Umami with PostgreSQL",
+            "description": "An open-source, privacy-focused analytics tool you can point to your own Supabase or RDS instance. It collects no personally identifiable information (PII) and bypasses the need for a consent banner.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "PostHog Self-Hosted (Hobby)",
+            "description": "Deploy PostHog on your own VPC to keep event data internal. Use their 'Anonymize IP' configuration to avoid collecting PII during session recording.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Ackee Node.js Analytics",
+            "description": "A self-hosted, Node.js-based analytics tool that uses a unique ID system instead of cookies. Ideal for developers who want a GraphQL API for their analytics data.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "GoatCounter Export API",
+            "description": "A simple analytics service that provides a robust API for exporting data, facilitating easy compliance with Data Portability requests.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Pirsch.io Core",
+            "description": "A server-side analytics library for Go and Python that allows you to track events without any client-side scripts, mitigating fingerprinting risks.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Tinybird GDPR Workflows",
+            "description": "When using Tinybird for real-time analytics, implement their TTL (Time To Live) settings on Data Sources to automatically purge user data after a set period.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Shynet Analytics",
+            "description": "A modern, cookie-less analytics tool that tracks visitors without tracking individuals. It ignores DNT headers because it doesn't track across sites.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Microanalytics.io",
+            "description": "A lightweight tracking solution hosted in the EU (Germany). It uses proprietary technology to track unique visitors without storing IP addresses or using cookies.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Data Residency and Identity Management",
+        "items": [
+          {
+            "title": "Supabase EU-Central-1 Region",
+            "description": "When initializing a Supabase project, select the Frankfurt (eu-central-1) region to ensure all PostgreSQL data and Auth metadata remain within the EU jurisdiction.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Clerk Data Processing Agreement (DPA)",
+            "description": "Sign Clerk's DPA and use their 'Data Residency' features to ensure user authentication logs and metadata are stored in EU data centers.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Kinde EU Data Residency",
+            "description": "Configure Kinde to store all user identity data in their Ireland or Frankfurt regions. Use their 'Organization' features to isolate data by geographic location.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Auth0 Private Cloud (EU)",
+            "description": "For enterprise requirements, deploy Auth0 on a private cloud instance located in the EU to satisfy strict data sovereignty requirements.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Neon Postgres Region Pinning",
+            "description": "Use Neon's serverless Postgres and pin your compute and storage to the AWS Frankfurt or Ireland regions to comply with data localization needs.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Upstash Redis EU Clusters",
+            "description": "When using Redis for session management, specifically provision clusters in 'eu-west-1' or 'eu-central-1' to avoid cross-border session data transfers.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "AWS CloudFront Edge Functions for Geo-Routing",
+            "description": "Implement Lambda@Edge to detect user location and route requests to EU-specific API endpoints, ensuring EU data never hits US-based processing logic.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "PlanetScale Region Constraints",
+            "description": "Utilize PlanetScale's region-specific database branches to ensure that production data for EU customers is physically located in EU-based AWS or GCP regions.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Stripe Data Locality",
+            "description": "Configure Stripe to store customer data in the EU. Ensure your integration uses the 'eu' specific endpoints where available for processing.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "PostgreSQL Row-Level Security (RLS) for Residency",
+            "description": "Implement RLS policies that restrict data access based on a 'region' column, preventing accidental cross-region data leakage in multi-tenant apps.",
+            "difficulty": "advanced",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Data Subject Requests (DSR) and Erasure Workflows",
+        "items": [
+          {
+            "title": "PostgreSQL ON DELETE CASCADE",
+            "description": "Structure your schema with proper foreign key constraints using ON DELETE CASCADE to ensure that deleting a user record automatically purges all associated PII.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "S3 Lifecycle Policies for Log Purging",
+            "description": "Configure S3 bucket lifecycle rules to automatically delete application logs containing IP addresses or user IDs after 30 days to comply with data minimization.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Segment 'Delete User' API",
+            "description": "Automate Right to Erasure by calling the Segment Personas Delete API, which propagates the deletion request to all connected downstream tools.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Intercom Data Deletion API",
+            "description": "Integrate the Intercom 'Delete a User' endpoint into your application's 'Delete Account' workflow to ensure support chat history is removed.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Stripe Redact Customer API",
+            "description": "Use the Stripe 'Redact' endpoint to remove sensitive personal information from customer objects while keeping financial records for tax compliance.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Mailgun Suppression List Automation",
+            "description": "When a user exercises their right to object, programmatically add their email to the Mailgun suppression list to prevent any further outbound marketing.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Mixpanel Data Deletion Task API",
+            "description": "Programmatically create deletion tasks in Mixpanel using their API to remove specific $user_ids from all historical event data.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Redis TTL for Temporary Data",
+            "description": "Enforce strict TTLs on all Redis keys containing PII (like temporary verification codes) to ensure data is not stored longer than necessary.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Customer.io Data Erasure",
+            "description": "Trigger the Customer.io 'Suppress and Delete' API call during user offboarding to remove them from all marketing journeys and delete their profile.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Database Soft-Delete Auditing",
+            "description": "Implement a 'deleted_at' column but pair it with a background worker (e.g., using pg_cron) that performs a hard purge after a 14-day 'grace period'.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Treat IP addresses as PII in all logs; use Nginx or HAProxy configurations to mask the last octet before writing to disk.",
+      "Draft a Data Processing Agreement (DPA) with every sub-processor you use; most SaaS tools like AWS and Vercel have these available as self-service downloads.",
+      "Implement a 'Data Portability' feature by providing a JSON export of all rows associated with a user's ID across all tables in your database.",
+      "Avoid 'dark patterns' in cookie banners; the 'Reject All' button must be as prominent and accessible as the 'Accept All' button.",
+      "Use environment variables to toggle tracking scripts off for users identified as being in the EU via GeoIP if you lack a valid consent mechanism."
+    ]
+  }
+}

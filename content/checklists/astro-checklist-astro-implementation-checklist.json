@@ -1,0 +1,172 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "astro",
+    "generated_at": "2026-03-12T21:26:35.301Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Astro implementation checklist",
+    "description": "A practical checklist for shipping Astro projects safely.",
+    "keywords": [
+      "astro",
+      "checklist"
+    ],
+    "slug": "astro-checklist-astro-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist provides a technical verification path for Astro projects transitioning from development to a production environment, focusing on content integrity, performance optimization, and deployment stability.",
+    "sections": [
+      {
+        "heading": "Content Collections and Type Safety",
+        "items": [
+          {
+            "title": "Zod Schema Validation",
+            "description": "Verify that all collections in src/content/config.ts have a defined schema and that 'npm run build' passes without validation errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Slug Uniqueness Check",
+            "description": "Ensure no duplicate slugs exist across content collections to prevent build-time routing conflicts.",
+            "priority": "critical"
+          },
+          {
+            "title": "Frontmatter Type Alignment",
+            "description": "Audit all .md and .mdx files to ensure frontmatter fields match the required Zod schema types exactly, specifically for dates and booleans.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Content Relationship Mapping",
+            "description": "Use the reference() function in Zod schemas for related content (e.g., authors or categories) to ensure referential integrity.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Draft Content Filtering",
+            "description": "Confirm that build scripts or collection queries explicitly filter out items where 'draft: true' is present in the frontmatter.",
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "heading": "Island Architecture and Hydration",
+        "items": [
+          {
+            "title": "Client Directive Audit",
+            "description": "Review all components for 'client:load', 'client:idle', or 'client:visible' and remove directives from components that do not require interactivity.",
+            "priority": "critical"
+          },
+          {
+            "title": "Component Tree Analysis",
+            "description": "Ensure no server-side only data (like Node.js FS modules) is passed to hydrated client components to avoid bundling errors.",
+            "priority": "critical"
+          },
+          {
+            "title": "Framework Bundle Minimization",
+            "description": "Verify that only one framework (e.g., React or Svelte) is used per page unless strictly necessary to minimize JS payload.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Client:Only Verification",
+            "description": "Confirm that 'client:only' is only used for components that rely on browser-specific APIs and that a fallback loading state is provided.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Shared State Management",
+            "description": "Validate that shared state between islands is handled via Nano Stores or custom events rather than a heavy global provider if possible.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Asset and Image Optimization",
+        "items": [
+          {
+            "title": "Astro Image Component Usage",
+            "description": "Replace all standard <img> tags with the <Image /> component from 'astro:assets' for automatic WebP conversion and resizing.",
+            "priority": "critical"
+          },
+          {
+            "title": "Remote Image Patterns",
+            "description": "Configure 'image.remotePatterns' in astro.config.mjs to authorize external domains used for dynamic images or pSEO content.",
+            "priority": "critical"
+          },
+          {
+            "title": "LCP Optimization",
+            "description": "Apply 'loading=\"eager\"' and 'fetchpriority=\"high\"' to images appearing in the initial viewport to improve Largest Contentful Paint.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Explicit Dimensions",
+            "description": "Define width and height attributes for all images to prevent Layout Shift (CLS) during page load.",
+            "priority": "critical"
+          },
+          {
+            "title": "SVG Optimization",
+            "description": "Pass SVGs through an optimizer like SVGO or use a dedicated Astro icon integration to remove unnecessary metadata.",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "SEO and Meta Configuration",
+        "items": [
+          {
+            "title": "Site Configuration",
+            "description": "Define the 'site' property in astro.config.mjs with the final production URL to enable correct absolute URL generation for sitemaps.",
+            "priority": "critical"
+          },
+          {
+            "title": "Sitemap Integration",
+            "description": "Install and configure '@astrojs/sitemap' and verify that the sitemap.xml is generated in the /dist folder after build.",
+            "priority": "critical"
+          },
+          {
+            "title": "Canonical URL Implementation",
+            "description": "Ensure every page includes a <link rel=\"canonical\"> tag generated using Astro.url to prevent duplicate content issues.",
+            "priority": "critical"
+          },
+          {
+            "title": "OpenGraph and Meta Tags",
+            "description": "Verify that dynamic meta tags (title, description, og:image) are correctly populated from content collection frontmatter.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Robots.txt Setup",
+            "description": "Add a robots.txt file to the public/ directory that correctly points to the sitemap and defines crawl rules.",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Deployment and Infrastructure",
+        "items": [
+          {
+            "title": "Adapter Configuration",
+            "description": "Install the correct SSR adapter (e.g., @astrojs/cloudflare, @astrojs/vercel) if using Hybrid or SSR mode.",
+            "priority": "critical"
+          },
+          {
+            "title": "Environment Variable Validation",
+            "description": "Define all production secrets in the hosting provider's dashboard and verify they are accessed via import.meta.env.",
+            "priority": "critical"
+          },
+          {
+            "title": "404 Page Customization",
+            "description": "Create a src/pages/404.astro file to ensure custom branding for broken links and verify it renders correctly in the build output.",
+            "priority": "recommended"
+          },
+          {
+            "title": "Build Cache Verification",
+            "description": "Confirm that the CI/CD pipeline is configured to cache the .astro directory to speed up subsequent builds.",
+            "priority": "optional"
+          },
+          {
+            "title": "Header and Redirect Rules",
+            "description": "Configure _headers or _redirects files in the public/ folder if required by your specific hosting provider (e.g., Cloudflare Pages).",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

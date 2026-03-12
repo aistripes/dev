@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "rag",
+    "generated_at": "2026-03-12T21:27:18.217Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building RAG (Retrieval-Augmented Generation) with open-s...",
+    "description": "A step-by-step implementation guide for RAG (Retrieval-Augmented Generation) with open-source tools.",
+    "keywords": [
+      "rag",
+      "rag (retrieval-augmented generation)",
+      "guide"
+    ],
+    "slug": "rag-guide-building-rag-retrieval-augmented-generation-with-open-s"
+  },
+  "content": {
+    "intro": "This guide outlines the implementation of a production-grade RAG pipeline, focusing on the transition from basic vector search to a high-precision retrieval system. We address the core challenges of chunking strategy, hybrid search, and reranking to ensure responses are grounded in provided data while maintaining low latency.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Access to an LLM provider (e.g., OpenAI, Anthropic)",
+      "A vector database instance (e.g., Pinecone, Qdrant, or pgvector)",
+      "Python 3.9+ or Node.js environment",
+      "Dataset of documents (PDF, Markdown, or HTML)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define Chunking and Overlap Strategy",
+        "explanation": "Select a chunking strategy based on your document structure. For standard technical documentation, a recursive character splitter with a chunk size of 512-1024 tokens and a 10-15% overlap is recommended to maintain semantic context across boundaries.",
+        "code": {
+          "language": "python",
+          "content": "from langchain.text_splitter import RecursiveCharacterTextSplitter\n\ntext_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=1000,\n    chunk_overlap=150,\n    length_function=len,\n    is_separator_regex=False,\n)\nchunks = text_splitter.split_text(raw_document_content)",
+          "filename": "preprocess.py"
+        },
+        "pitfalls": [
+          "Using fixed-length splitting that cuts through sentences or code blocks.",
+          "Zero overlap leading to loss of context at the edges of chunks."
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Generate and Store Embeddings with Metadata",
+        "explanation": "Convert chunks into vectors using an embedding model (e.g., text-embedding-3-small). Store these in your vector database alongside metadata like 'source_url', 'page_number', and 'last_updated'. Metadata is critical for post-retrieval filtering and source attribution.",
+        "code": {
+          "language": "python",
+          "content": "import openai\n\ndef get_embedding(text, model=\"text-embedding-3-small\"):\n    return openai.embeddings.create(input=[text], model=model).data[0].embedding\n\n# Batch upsert to vector DB\nvectors = [\n    {\"id\": f\"vec_{i}\", \"values\": get_embedding(chunk), \"metadata\": {\"text\": chunk, \"source\": \"doc_1\"}}\n    for i, chunk in enumerate(chunks)\n]\nindex.upsert(vectors)",
+          "filename": "embed_and_store.py"
+        },
+        "pitfalls": [
+          "Ignoring rate limits during bulk embedding generation.",
+          "Storing large text chunks in the vector DB without an external storage reference, increasing DB costs."
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement Hybrid Search (Vector + Keyword)",
+        "explanation": "Pure vector search often fails on specific acronyms or product IDs. Implement hybrid search by combining Cosine Similarity (vector) with BM25 (keyword) using reciprocal rank fusion (RRF) to improve retrieval recall.",
+        "code": {
+          "language": "python",
+          "content": "# Example logic for a hybrid query using Pinecone/Weaviate style\nresults = index.query(\n    vector=query_embedding,\n    top_k=20,\n    include_metadata=True,\n    filter={\"category\": {\"$eq\": \"documentation\"}},\n    hybrid_search={\"alpha\": 0.5} # Balance between keyword and vector\n)",
+          "filename": "query_logic.py"
+        },
+        "pitfalls": [
+          "Setting alpha to 1.0 (pure vector) or 0.0 (pure keyword) and missing relevant context.",
+          "Failing to normalize scores between different search algorithms."
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate a Reranking Step",
+        "explanation": "Retrieving the top 20 results via vector search provides high recall but low precision. Use a Cross-Encoder reranker (like Cohere Rerank) to score the relevance of the retrieved chunks against the query, passing only the top 5 most relevant chunks to the LLM.",
+        "code": {
+          "language": "python",
+          "content": "import cohere\n\nco = cohere.Client('YOUR_API_KEY')\nresults = co.rerank(\n    query=user_query,\n    documents=retrieved_chunks,\n    top_n=5,\n    model='rerank-english-v3.0'\n)",
+          "filename": "rerank.py"
+        },
+        "pitfalls": [
+          "Reranking too many documents (e.g., >100), which significantly increases total request latency.",
+          "Using a reranker that was trained on a vastly different domain than your data."
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Construct the Context-Injected Prompt",
+        "explanation": "Feed the reranked chunks into the LLM prompt. Use a system message that explicitly instructs the model to use ONLY the provided context and to state 'I don't know' if the answer isn't present to prevent hallucinations.",
+        "code": {
+          "language": "text",
+          "content": "System: You are a technical assistant. Use the following context to answer the question.\nContext: {context_chunks}\n\nQuestion: {user_query}\n\nRules:\n1. Only use the provided context.\n2. If the answer is not in the context, say 'I do not have enough information'.\n3. Include source citations in [1], [2] format.",
+          "filename": "prompt_template.txt"
+        },
+        "pitfalls": [
+          "Exceeding the LLM's context window by including too many or too large chunks.",
+          "Vague system prompts that allow the LLM to use its general training data instead of the retrieved context."
+        ]
+      }
+    ],
+    "conclusion": "A successful RAG implementation moves beyond simple semantic search by incorporating robust chunking, hybrid retrieval, and reranking. To maintain performance, monitor your 'hit rate' (how often the correct answer is in the retrieved chunks) and 'faithfulness' (how often the LLM answer is supported by the context)."
+  }
+}

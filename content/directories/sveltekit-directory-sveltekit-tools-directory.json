@@ -1,0 +1,253 @@
+{
+  "meta": {
+    "content_type": "directory",
+    "niche": "sveltekit",
+    "generated_at": "2026-03-12T21:27:19.577Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "SvelteKit tools directory",
+    "description": "A developer-first directory of SvelteKit tools and references.",
+    "keywords": [
+      "sveltekit",
+      "directory"
+    ],
+    "slug": "sveltekit-directory-sveltekit-tools-directory"
+  },
+  "content": {
+    "intro": "A curated directory of essential tools, libraries, and deployment resources optimized for SvelteKit development, focusing on performance, Svelte 5 runes, and server-side logic.",
+    "filter_dimensions": [
+      {
+        "name": "Category",
+        "values": [
+          "Deployment",
+          "Authentication",
+          "Database",
+          "UI",
+          "Forms",
+          "AI"
+        ]
+      },
+      {
+        "name": "Pricing Model",
+        "values": [
+          "free",
+          "freemium",
+          "paid",
+          "open-source",
+          "enterprise"
+        ]
+      }
+    ],
+    "entries": [
+      {
+        "name": "SvelteKit Official Documentation",
+        "description": "The primary technical reference for routing, server-side rendering, and the SvelteKit application lifecycle.",
+        "url": "https://kit.svelte.dev/docs",
+        "category": "Core",
+        "pricing_model": "open-source",
+        "pros": [
+          "Definitive source for API changes",
+          "Clear examples of load functions and form actions",
+          "Comprehensive adapter documentation"
+        ],
+        "cons": [
+          "Can be overwhelming for beginners migrating from SPAs"
+        ],
+        "tags": [
+          "docs",
+          "reference"
+        ]
+      },
+      {
+        "name": "Lucia Auth",
+        "description": "An authentication library that abstracts session management while giving developers full control over the database schema.",
+        "url": "https://lucia-auth.com",
+        "category": "Authentication",
+        "pricing_model": "open-source",
+        "pros": [
+          "Framework agnostic but has excellent SvelteKit integration",
+          "Handles session management without external providers",
+          "Works seamlessly with Drizzle and Prisma"
+        ],
+        "cons": [
+          "Requires manual setup of database tables",
+          "No built-in UI components"
+        ],
+        "tags": [
+          "auth",
+          "security",
+          "sessions"
+        ]
+      },
+      {
+        "name": "Superforms",
+        "description": "A comprehensive library for managing SvelteKit form actions with Zod validation and client-side state synchronization.",
+        "url": "https://superforms.rocks",
+        "category": "Forms",
+        "pricing_model": "open-source",
+        "pros": [
+          "Reduces boilerplate for form action handling",
+          "Automatic client-side validation using Zod schemas",
+          "Supports progressive enhancement out of the box"
+        ],
+        "cons": [
+          "Steep learning curve for complex nested arrays",
+          "Tight coupling with Zod"
+        ],
+        "tags": [
+          "forms",
+          "validation",
+          "zod"
+        ]
+      },
+      {
+        "name": "@sveltejs/adapter-cloudflare",
+        "description": "The official adapter for deploying SvelteKit applications to Cloudflare Pages using Workers.",
+        "url": "https://kit.svelte.dev/docs/adapter-cloudflare",
+        "category": "Deployment",
+        "pricing_model": "open-source",
+        "pros": [
+          "Enables edge-side rendering",
+          "Zero-config integration with Cloudflare KV and D1",
+          "Extremely low latency for global audiences"
+        ],
+        "cons": [
+          "Strict 1MB worker size limits on free tier",
+          "Limited Node.js built-in module support"
+        ],
+        "tags": [
+          "edge",
+          "cloudflare",
+          "serverless"
+        ]
+      },
+      {
+        "name": "Drizzle ORM",
+        "description": "A TypeScript ORM with a focus on type safety and performance, often used in SvelteKit for server-side database interactions.",
+        "url": "https://orm.drizzle.team",
+        "category": "Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "SQL-like syntax with full type safety",
+          "Zero-runtime overhead",
+          "Excellent migration generation tools"
+        ],
+        "cons": [
+          "Newer ecosystem compared to Prisma",
+          "Documentation can be sparse for complex joins"
+        ],
+        "tags": [
+          "sql",
+          "typescript",
+          "orm"
+        ]
+      },
+      {
+        "name": "DaisyUI",
+        "description": "A Tailwind CSS component library that uses semantic class names to reduce utility bloat in Svelte components.",
+        "url": "https://daisyui.com",
+        "category": "UI",
+        "pricing_model": "open-source",
+        "pros": [
+          "Pure CSS with no JS required",
+          "Highly customizable via Tailwind config",
+          "Small bundle size impact"
+        ],
+        "cons": [
+          "Opinionated styling can be hard to override",
+          "Limited complex interactive components"
+        ],
+        "tags": [
+          "tailwind",
+          "css",
+          "components"
+        ]
+      },
+      {
+        "name": "Vercel AI SDK",
+        "description": "A library for building AI-powered streaming interfaces, compatible with SvelteKit's streaming response capabilities.",
+        "url": "https://sdk.vercel.ai/docs",
+        "category": "AI",
+        "pricing_model": "open-source",
+        "pros": [
+          "Built-in hooks for Svelte 5 runes",
+          "Handles edge-streamed responses automatically",
+          "Supports OpenAI, Anthropic, and Hugging Face"
+        ],
+        "cons": [
+          "Best features are optimized for Vercel deployment",
+          "Rapidly changing API"
+        ],
+        "tags": [
+          "llm",
+          "streaming",
+          "ai"
+        ]
+      },
+      {
+        "name": "PocketBase",
+        "description": "An open-source Go backend consisting of SQLite, real-time subscriptions, and auth, popular for SvelteKit indie projects.",
+        "url": "https://pocketbase.io",
+        "category": "Database",
+        "pricing_model": "open-source",
+        "pros": [
+          "Single file executable deployment",
+          "Easy-to-use JS SDK for SvelteKit load functions",
+          "Built-in file storage and admin UI"
+        ],
+        "cons": [
+          "Horizontal scaling is difficult (SQLite based)",
+          "Limited to Go or JS for backend extensions"
+        ],
+        "tags": [
+          "backend",
+          "sqlite",
+          "baas"
+        ]
+      },
+      {
+        "name": "Svelte 5 Runes Preview",
+        "description": "The technical documentation for the new Svelte 5 reactivity system ($state, $derived, $effect).",
+        "url": "https://svelte-5-preview.vercel.app/docs/runes",
+        "category": "Core",
+        "pricing_model": "free",
+        "pros": [
+          "Explains the shift from let to $state",
+          "Crucial for future-proofing SvelteKit apps",
+          "Clear examples of universal reactivity"
+        ],
+        "cons": [
+          "Content is subject to change until stable release",
+          "May conflict with older Svelte 4 tutorials"
+        ],
+        "tags": [
+          "runes",
+          "reactivity",
+          "svelte5"
+        ]
+      },
+      {
+        "name": "Skeleton UI",
+        "description": "A UI toolkit specifically designed for Svelte and Tailwind CSS, featuring high-quality accessible components.",
+        "url": "https://www.skeleton.dev",
+        "category": "UI",
+        "pricing_model": "open-source",
+        "pros": [
+          "Deep integration with Svelte transitions",
+          "Strong focus on accessibility (A11y)",
+          "Built-in dark mode support"
+        ],
+        "cons": [
+          "Heavy dependency on Tailwind CSS",
+          "Migration between major versions can be breaking"
+        ],
+        "tags": [
+          "ui-kit",
+          "accessibility",
+          "tailwind"
+        ]
+      }
+    ]
+  }
+}

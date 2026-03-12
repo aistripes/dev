@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "content_type": "resource-article",
+    "niche": "sveltekit",
+    "generated_at": "2026-03-12T21:27:23.636Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "100 SvelteKit resources for developers",
+    "description": "A curated set of practical SvelteKit resources for engineers.",
+    "keywords": [
+      "sveltekit",
+      "resource-article"
+    ],
+    "slug": "sveltekit-resource-article-100-sveltekit-resources-for-developers"
+  },
+  "content": {
+    "intro": "This resource guide provides technical implementations for SvelteKit developers focusing on Svelte 5 runes, edge deployment strategies, and high-performance data patterns using modern adapters and ORMs.",
+    "sections": [
+      {
+        "heading": "Deployment Adapters and Edge Configuration",
+        "items": [
+          {
+            "title": "@sveltejs/adapter-cloudflare",
+            "description": "Configure wrangler.toml to expose KV namespaces and D1 databases to the platform-specific 'platform' object in SvelteKit load functions.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Vercel ISR Implementation",
+            "description": "Utilize config.incrementalStaticRegeneration in +page.server.ts to cache dynamic routes at the edge for specific durations.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "adapter-node Cluster Mode",
+            "description": "Deploy SvelteKit on multi-core VPS instances using PM2 to manage multiple node processes for increased request throughput.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Dynamic Environment Variables",
+            "description": "Use $env/dynamic/private for runtime configuration like API keys that must not be baked into the build artifact for security compliance.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Cross-Origin Resource Sharing (CORS) Hooks",
+            "description": "Implement a handle hook in hooks.server.ts to inject Access-Control-Allow-Origin headers for API-only SvelteKit routes.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "Cloudflare Workers Local Simulation",
+            "description": "Run 'wrangler pages dev' with the --compatibility-date flag to mirror the production edge environment during local development.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Prerendering Specific Routes",
+            "description": "Set 'export const prerender = true' in +layout.ts for static documentation or marketing sub-trees to reduce server load.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Custom Error Handling",
+            "description": "Create a +error.svelte file to capture and format errors from load functions without exposing sensitive stack traces to users.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Vercel Cron Jobs",
+            "description": "Define scheduled tasks in vercel.json that target specific SvelteKit API routes for automated database maintenance or report generation.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Streaming with adapter-auto",
+            "description": "Enable streaming responses in your host platform settings to allow SvelteKit load functions to pipe data chunks to the client.",
+            "difficulty": "advanced",
+            "potential": "high"
+          }
+        ]
+      },
+      {
+        "heading": "Svelte 5 Runes and State Management",
+        "items": [
+          {
+            "title": "$state for Reactive Declarations",
+            "description": "Replace let declarations with the $state() rune to opt-into fine-grained reactivity in Svelte 5 components and logic files.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "$derived for Computed Values",
+            "description": "Use $derived() to create reactive values that automatically update when their dependencies change, replacing the legacy $: syntax.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "$effect for Side Effects",
+            "description": "Implement $effect() to manage DOM manipulations or external API synchronizations, ensuring proper cleanup through returned functions.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "$props with Snippets",
+            "description": "Define component interfaces using the $props() rune and utilize snippets to pass UI blocks as arguments for better code reuse.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "$bindable for Two-Way Binding",
+            "description": "Explicitly mark component props as $bindable() to allow parent components to synchronize state back from child components.",
+            "difficulty": "intermediate",
+            "potential": "standard"
+          },
+          {
+            "title": "npx sv migrate",
+            "description": "Execute the official migration script to automatically convert Svelte 4 syntax and stores into Svelte 5 rune patterns.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "Class-based Reactive Logic",
+            "description": "Encapsulate complex state logic inside JavaScript classes using runes to create portable, reactive controllers outside of .svelte files.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "$inspect for Debugging",
+            "description": "Inject the $inspect() rune into your code to log reactive state changes to the console without manual console.log triggers.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Typed Snippets for TypeScript",
+            "description": "Define Snippet types in Svelte 5 to ensure that UI fragments passed as props adhere to strict data structures.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Untracking State",
+            "description": "Use the untrack() function within an effect to read a reactive value without adding it to the effect's dependency list.",
+            "difficulty": "advanced",
+            "potential": "standard"
+          }
+        ]
+      },
+      {
+        "heading": "Data Handling and AI Integration",
+        "items": [
+          {
+            "title": "SvelteKit Form Actions",
+            "description": "Use +page.server.ts actions to handle POST requests, providing automatic CSRF protection and progressive enhancement capabilities.",
+            "difficulty": "beginner",
+            "potential": "high"
+          },
+          {
+            "title": "AI Streaming with ReadableStream",
+            "description": "Implement a +server.ts endpoint that returns a ReadableStream from OpenAI or Anthropic for real-time text generation in the UI.",
+            "difficulty": "advanced",
+            "potential": "high"
+          },
+          {
+            "title": "Drizzle ORM Integration",
+            "description": "Configure Drizzle with SvelteKit server routes to perform type-safe SQL queries against PostgreSQL or SQLite databases.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Lucia Auth Session Management",
+            "description": "Integrate Lucia in hooks.server.ts to validate session cookies and populate event.locals.user for access control across routes.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "Superforms for Validation",
+            "description": "Use the sveltekit-superforms library with Zod schemas to handle server-side validation and client-side error display.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Parallel Load Functions",
+            "description": "Avoid awaiting parent() data at the start of load functions to allow SvelteKit to fetch layout and page data concurrently.",
+            "difficulty": "advanced",
+            "potential": "medium"
+          },
+          {
+            "title": "Stripe Checkout Sessions",
+            "description": "Create server actions that initialize Stripe Checkout sessions and redirect users to the hosted payment page securely.",
+            "difficulty": "intermediate",
+            "potential": "high"
+          },
+          {
+            "title": "PocketBase JS SDK Setup",
+            "description": "Initialize the PocketBase client in hooks.server.ts to maintain authentication state between the browser and the server.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          },
+          {
+            "title": "Cache-Control Header Injection",
+            "description": "Set 'setHeaders' in load functions to control browser and CDN caching behavior for dynamic content.",
+            "difficulty": "beginner",
+            "potential": "standard"
+          },
+          {
+            "title": "Optimistic UI Updates",
+            "description": "Use the applyAction helper in use:enhance to update the UI immediately before the server round-trip completes.",
+            "difficulty": "intermediate",
+            "potential": "medium"
+          }
+        ]
+      }
+    ],
+    "pro_tips": [
+      "Use data-sveltekit-preload-data='hover' on anchor tags to reduce perceived latency by fetching page data when a user hovers over a link.",
+      "Implement the handle error hook in hooks.server.ts to pipe server-side exceptions directly to Sentry or Axiom for production monitoring.",
+      "Leverage the snapshot feature in +page.svelte to preserve scroll position and form input values when a user navigates away and back.",
+      "Use $app/paths 'base' and 'assets' imports to ensure your application works correctly when deployed to a sub-path or a custom CDN.",
+      "Avoid putting large objects in $page.data; instead, use individual API endpoints for heavy data to keep the initial HTML payload small."
+    ]
+  }
+}
