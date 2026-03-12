@@ -1,0 +1,40 @@
+{
+  "slug": "ai-search",
+  "name": "AI-Powered Search",
+  "category": "ai-patterns",
+  "context": {
+    "audience": "Product developers replacing traditional search with AI-powered alternatives, SaaS builders adding intelligent search to their applications, developers implementing internal knowledge base search",
+    "pain_points": [
+      "Balancing search relevance between keyword matching and semantic understanding",
+      "Latency requirements for real-time search versus background AI processing",
+      "Indexing and re-indexing strategies for large and frequently updated content",
+      "Search result ranking that combines vector similarity with business logic",
+      "Building a search UI that handles different result types and confidence levels"
+    ],
+    "monetization": [
+      "AI search products and APIs",
+      "Internal search consulting",
+      "Search infrastructure tooling",
+      "Knowledge management platforms"
+    ],
+    "tools_and_stack": [
+      "Algolia", "Typesense", "Meilisearch", "Elasticsearch",
+      "Pinecone", "Weaviate", "OpenAI Embeddings",
+      "Cohere Rerank", "Pagefind", "Fuse.js"
+    ],
+    "content_that_works": [
+      "Search engine comparison articles",
+      "Semantic search implementation tutorials",
+      "Search UX pattern guides",
+      "Hybrid search architecture articles"
+    ],
+    "subtopics": [
+      "Hybrid keyword and vector search",
+      "Search reranking strategies",
+      "Search UI patterns and components",
+      "Search indexing pipelines",
+      "Search analytics and optimization"
+    ],
+    "adjacent_niches": ["embeddings", "rag", "databases", "saas"]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "monitoring",
+  "name": "Monitoring & Observability",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Backend developers responsible for production reliability, DevOps engineers building observability stacks, startup CTOs setting up monitoring before scaling",
+    "pain_points": [
+      "Choosing between Sentry, Datadog, Grafana, and open-source monitoring stacks",
+      "Tracking LLM API costs, latency, and error rates across different providers",
+      "Setting up meaningful alerts without alert fatigue in small teams",
+      "Distributed tracing for AI pipelines with multiple service calls",
+      "Cost-effective monitoring that scales with the application"
+    ],
+    "monetization": [
+      "Monitoring tool products and services",
+      "DevOps consulting and setup",
+      "Observability platform development",
+      "Training on production operations"
+    ],
+    "tools_and_stack": [
+      "Sentry", "Grafana", "Prometheus", "Datadog",
+      "PostHog", "BetterStack", "Highlight.io",
+      "OpenTelemetry", "Helicone", "LangSmith"
+    ],
+    "content_that_works": [
+      "Monitoring tool comparison articles",
+      "Observability stack setup guides",
+      "LLM monitoring and cost tracking tutorials",
+      "Alerting strategy guides"
+    ],
+    "subtopics": [
+      "Error tracking and alerting setup",
+      "LLM cost and latency monitoring",
+      "Open-source observability stacks",
+      "Distributed tracing for AI pipelines",
+      "Uptime monitoring strategies"
+    ],
+    "adjacent_niches": ["self-hosting", "cost-optimization", "docker", "security"]
+  }
+}

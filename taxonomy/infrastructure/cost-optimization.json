@@ -1,0 +1,40 @@
+{
+  "slug": "cost-optimization",
+  "name": "AI API Cost Optimization",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Startup CTOs managing AI infrastructure budgets, developers optimizing LLM API costs for production applications, indie hackers building AI products with constrained budgets",
+    "pain_points": [
+      "Predicting and controlling monthly LLM API costs as usage scales",
+      "Choosing between model tiers and providers for cost vs quality trade-offs",
+      "Implementing caching and batching strategies to reduce redundant API calls",
+      "Monitoring per-feature and per-user AI costs for pricing decisions",
+      "Migrating between LLM providers to optimize cost without breaking features"
+    ],
+    "monetization": [
+      "AI cost optimization consulting",
+      "LLM cost monitoring tools",
+      "AI infrastructure advisory services",
+      "Cost benchmarking reports and guides"
+    ],
+    "tools_and_stack": [
+      "Helicone", "LangSmith", "Braintrust", "OpenRouter",
+      "LiteLLM", "Portkey", "Ollama", "vLLM",
+      "GPT-4o mini", "Gemini Flash", "Claude Haiku"
+    ],
+    "content_that_works": [
+      "LLM cost comparison calculators and articles",
+      "Cost optimization strategy guides",
+      "Model selection decision frameworks",
+      "Caching and batching implementation tutorials"
+    ],
+    "subtopics": [
+      "LLM pricing comparison and calculators",
+      "Response caching for cost reduction",
+      "Model routing and fallback strategies",
+      "Self-hosted model cost analysis",
+      "Per-feature AI cost tracking"
+    ],
+    "adjacent_niches": ["caching", "monitoring", "fine-tuning", "streaming"]
+  }
+}

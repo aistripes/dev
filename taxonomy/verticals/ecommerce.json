@@ -1,0 +1,40 @@
+{
+  "slug": "ecommerce",
+  "name": "E-Commerce",
+  "category": "verticals",
+  "context": {
+    "audience": "Developers building online stores and marketplaces, agencies creating e-commerce solutions for clients, entrepreneurs launching direct-to-consumer brands with custom storefronts",
+    "pain_points": [
+      "Choosing between headless commerce platforms like Shopify Hydrogen, Medusa, and Saleor",
+      "AI-generated product descriptions that are unique, SEO-friendly, and accurate",
+      "Payment processing integration across regions with proper tax handling",
+      "Performance optimization for product listing pages with many images and filters",
+      "Personalization and recommendation features powered by AI"
+    ],
+    "monetization": [
+      "E-commerce platform and storefront products",
+      "Agency development services",
+      "E-commerce plugin and extension sales",
+      "Consulting on e-commerce architecture"
+    ],
+    "tools_and_stack": [
+      "Shopify", "Medusa", "Saleor", "Stripe",
+      "Next.js", "Remix", "Algolia", "Meilisearch",
+      "Cloudinary", "Sanity"
+    ],
+    "content_that_works": [
+      "Headless commerce platform comparison articles",
+      "Product page optimization guides",
+      "AI for e-commerce implementation tutorials",
+      "Payment integration step-by-step guides"
+    ],
+    "subtopics": [
+      "Headless commerce platform comparison",
+      "AI product descriptions and recommendations",
+      "E-commerce SEO optimization",
+      "Payment and checkout integration",
+      "E-commerce performance optimization"
+    ],
+    "adjacent_niches": ["nextjs", "saas", "analytics", "programmatic-seo"]
+  }
+}

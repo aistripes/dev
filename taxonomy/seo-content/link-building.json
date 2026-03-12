@@ -1,0 +1,40 @@
+{
+  "slug": "link-building",
+  "name": "Link Building for Dev Tools",
+  "category": "seo-content",
+  "context": {
+    "audience": "Developer tool founders growing organic traffic, marketing engineers building link acquisition systems, indie hackers creating link-worthy content assets",
+    "pain_points": [
+      "Building backlinks to developer-focused content without spammy outreach tactics",
+      "Creating link-worthy assets like tools, calculators, and datasets that attract natural links",
+      "Measuring link building ROI and prioritizing efforts that move domain authority",
+      "Building relationships in developer communities for organic link opportunities",
+      "Scaling link building efforts without sacrificing quality or reputation"
+    ],
+    "monetization": [
+      "SEO and link building consulting",
+      "Link-worthy tool and asset development",
+      "Content marketing services",
+      "Digital PR for developer brands"
+    ],
+    "tools_and_stack": [
+      "Ahrefs", "Moz", "SEMrush", "Pitchbox",
+      "HARO", "Google Search Console",
+      "BuzzSumo", "Hunter.io", "Screaming Frog"
+    ],
+    "content_that_works": [
+      "Link building strategy guides",
+      "Link-worthy content creation tutorials",
+      "Developer community marketing articles",
+      "Case studies of successful link campaigns"
+    ],
+    "subtopics": [
+      "Link-worthy developer tool creation",
+      "Developer community outreach",
+      "Digital PR for technical products",
+      "Open-source as a link building strategy",
+      "Link building performance tracking"
+    ],
+    "adjacent_niches": ["technical-seo", "programmatic-seo", "devtools", "content-strategy"]
+  }
+}

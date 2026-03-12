@@ -1,0 +1,40 @@
+{
+  "slug": "rails",
+  "name": "Ruby on Rails",
+  "category": "frameworks",
+  "context": {
+    "audience": "Ruby developers building full-stack web applications, startup founders using Rails for rapid MVP development, experienced developers maintaining mature Rails codebases",
+    "pain_points": [
+      "Modernizing Rails frontends with Hotwire, Turbo, and Stimulus vs adopting an SPA",
+      "Scaling Rails applications beyond the monolith with horizontal scaling and background jobs",
+      "Integrating LLM APIs into the Rails MVC pattern and Active Job pipelines",
+      "Keeping up with Rails 8 features like Kamal deployment and Solid Queue",
+      "Testing strategies for complex Rails applications with system tests and factories"
+    ],
+    "monetization": [
+      "SaaS products built on Rails",
+      "Freelance and consultancy for Rails applications",
+      "Starter kit and template sales",
+      "Training and mentoring services"
+    ],
+    "tools_and_stack": [
+      "Rails 8", "Hotwire", "Turbo", "Stimulus", "Sidekiq",
+      "PostgreSQL", "Redis", "Kamal", "RSpec", "FactoryBot",
+      "Tailwind CSS"
+    ],
+    "content_that_works": [
+      "Rails modernization and upgrade guides",
+      "Hotwire and Turbo implementation tutorials",
+      "Rails deployment strategy comparisons",
+      "Rails + AI integration case studies"
+    ],
+    "subtopics": [
+      "Rails Hotwire and Turbo patterns",
+      "Rails 8 features and migration",
+      "Rails deployment with Kamal",
+      "Rails background job processing",
+      "Rails API-only applications"
+    ],
+    "adjacent_niches": ["django", "laravel", "self-hosting", "docker"]
+  }
+}
