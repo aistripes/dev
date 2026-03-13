@@ -20,8 +20,12 @@ This repository is in planning/bootstrap mode. Use the docs below as the source 
   - Project: `aistripes-dev`
   - Production branch: `main`
   - URL: `https://aistripes-dev.pages.dev/`
+- Primary deployment workflow:
+  - Commit and push to `main` to trigger Cloudflare Pages automatic production deploys.
+  - Prefer this auto-deploy path for normal releases.
 - To publish a build artifact directory:
   - `npx wrangler pages deploy <directory>`
+  - Use manual Wrangler deploys only when explicitly requested or when auto-deploy is unavailable.
 
 ## Security for a Public Repo
 
