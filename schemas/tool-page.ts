@@ -17,6 +17,28 @@ export const ToolPageSchema = z.object({
     headline: z.string(),
     description: z.string(),
     tool_type: z.enum(['generator', 'calculator', 'checker', 'formatter', 'analyzer']),
+    delivery: z.discriminatedUnion('mode', [
+      z.object({
+        mode: z.literal('run'),
+        runner: z.enum(['client', 'server']),
+        output: z.object({
+          type: z.enum(['text', 'json', 'score', 'list']),
+          label: z.string(),
+        }),
+      }),
+      z.object({
+        mode: z.literal('link'),
+        links: z
+          .array(
+            z.object({
+              label: z.string(),
+              url: z.url(),
+              kind: z.enum(['official', 'docs', 'example', 'repo', 'playground']),
+            })
+          )
+          .min(1),
+      }),
+    ]),
     inputs: z.array(
       z.object({
         name: z.string(),
@@ -31,6 +53,7 @@ export const ToolPageSchema = z.object({
       z.object({
         label: z.string(),
         input: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])),
+        expected_output: z.string().optional(),
       })
     ),
     how_it_works: z.string(),
