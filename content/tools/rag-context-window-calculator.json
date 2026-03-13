@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "rag",
+    "generated_at": "2026-03-12T00:00:00.000Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "RAG Context Window Calculator",
+    "description": "Estimate chunk size, overlap, and retrieval budget for retrieval-augmented generation pipelines.",
+    "keywords": [
+      "rag",
+      "chunking",
+      "context window",
+      "retrieval",
+      "vector search"
+    ],
+    "slug": "rag-context-window-calculator"
+  },
+  "content": {
+    "headline": "Plan Chunking and Retrieval Budget",
+    "description": "Quickly estimate whether your chunking strategy fits a model context window while leaving room for system prompts and user queries.",
+    "tool_type": "calculator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Chunking recommendation"
+      }
+    },
+    "inputs": [
+      {
+        "name": "model_context_tokens",
+        "label": "Model context window (tokens)",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "reserved_tokens",
+        "label": "Reserved tokens for system + user prompt",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "chunk_size_tokens",
+        "label": "Chunk size (tokens)",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "chunk_overlap_percent",
+        "label": "Chunk overlap (%)",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "top_k",
+        "label": "Retrieved chunks (top_k)",
+        "type": "number",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Balanced setup for a mid-size context model",
+        "input": {
+          "model_context_tokens": 128000,
+          "reserved_tokens": 8000,
+          "chunk_size_tokens": 1000,
+          "chunk_overlap_percent": 15,
+          "top_k": 8
+        },
+        "expected_output": "{\"retrieval_tokens\":6800,\"fits_context\":true,\"headroom_tokens\":113200,\"note\":\"Good baseline; consider top_k 6-8 for latency.\"}"
+      },
+      {
+        "label": "Over-budget retrieval configuration",
+        "input": {
+          "model_context_tokens": 32000,
+          "reserved_tokens": 6000,
+          "chunk_size_tokens": 2000,
+          "chunk_overlap_percent": 30,
+          "top_k": 16
+        },
+        "expected_output": "{\"retrieval_tokens\":22400,\"fits_context\":false,\"overflow_tokens\":-6400,\"note\":\"Reduce top_k or chunk size.\"}"
+      }
+    ],
+    "how_it_works": "The tool estimates effective tokens per chunk after overlap, multiplies by top_k, and compares the total against available context after reserved prompt budget. It highlights headroom or overflow so you can tune chunk size and top_k before indexing large corpora.",
+    "related_tools": [
+      "structured-output-json-schema-sanitizer"
+    ]
+  }
+}

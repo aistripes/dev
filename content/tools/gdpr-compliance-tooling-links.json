@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-03-12T00:00:00.000Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "GDPR Compliance Tooling Links",
+    "description": "Curated links for GDPR compliance workflows: CMPs, data mapping, subject rights, and audit-ready documentation.",
+    "keywords": [
+      "gdpr-compliance",
+      "privacy",
+      "consent management",
+      "data subject rights",
+      "compliance tools"
+    ],
+    "slug": "gdpr-compliance-tooling-links"
+  },
+  "content": {
+    "headline": "Useful GDPR Tools and References",
+    "description": "A starter stack of practical GDPR tooling and docs for teams shipping data-heavy applications.",
+    "tool_type": "analyzer",
+    "delivery": {
+      "mode": "link",
+      "links": [
+        {
+          "label": "EDPB Guidelines and Publications",
+          "url": "https://www.edpb.europa.eu/our-work-tools/our-documents_en",
+          "kind": "official"
+        },
+        {
+          "label": "ICO UK GDPR Guide",
+          "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/",
+          "kind": "docs"
+        },
+        {
+          "label": "OneTrust Privacy and Consent Platform",
+          "url": "https://www.onetrust.com/",
+          "kind": "official"
+        },
+        {
+          "label": "Cookiebot CMP Documentation",
+          "url": "https://www.cookiebot.com/en/developer/",
+          "kind": "docs"
+        },
+        {
+          "label": "Open-source Data Privacy Vocabulary (DPV)",
+          "url": "https://github.com/w3c/dpv",
+          "kind": "repo"
+        },
+        {
+          "label": "Iubenda Compliance Examples",
+          "url": "https://www.iubenda.com/en/help",
+          "kind": "example"
+        }
+      ]
+    },
+    "inputs": [],
+    "examples": [],
+    "how_it_works": "Use this list as a practical starting point: official guidance for legal interpretation, CMP tooling for consent capture, and implementation references for engineering teams building compliant data flows.",
+    "related_tools": [
+      "nextjs-metadata-validator"
+    ]
+  }
+}
