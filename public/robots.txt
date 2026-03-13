@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aistripes.dev/sitemap.xml
