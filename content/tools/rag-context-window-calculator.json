@@ -80,9 +80,9 @@
           "reserved_tokens": 6000,
           "chunk_size_tokens": 2000,
           "chunk_overlap_percent": 30,
-          "top_k": 16
+          "top_k": 20
         },
-        "expected_output": "{\"retrieval_tokens\":22400,\"fits_context\":false,\"overflow_tokens\":-6400,\"note\":\"Reduce top_k or chunk size.\"}"
+        "expected_output": "{\"retrieval_tokens\":28000,\"fits_context\":false,\"overflow_tokens\":2000,\"note\":\"Reduce top_k or chunk size.\"}"
       }
     ],
     "how_it_works": "The tool estimates effective tokens per chunk after overlap, multiplies by top_k, and compares the total against available context after reserved prompt budget. It highlights headroom or overflow so you can tune chunk size and top_k before indexing large corpora.",

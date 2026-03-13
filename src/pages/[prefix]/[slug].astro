@@ -6,11 +6,13 @@ import ResourceArticleRenderer from '../../renderers/ResourceArticle';
 import ChecklistRenderer from '../../renderers/Checklist';
 import ComparisonRenderer from '../../renderers/Comparison';
 import GuideRenderer from '../../renderers/Guide';
+import ToolPageRenderer from '../../renderers/ToolPage';
 import DirectoryRenderer from '../../renderers/Directory';
 import type { ResourceArticle } from '../../../schemas/resource-article';
 import type { Checklist } from '../../../schemas/checklist';
 import type { Comparison } from '../../../schemas/comparison';
 import type { Guide } from '../../../schemas/guide';
+import type { ToolPage } from '../../../schemas/tool-page';
 import type { Directory } from '../../../schemas/directory';
 
 export function getStaticPaths() {
@@ -46,6 +48,9 @@ const contentType = content.meta.content_type;
   )}
   {contentType === 'guide' && (
     <GuideRenderer client:load content={content as Guide} />
+  )}
+  {contentType === 'tool-page' && (
+    <ToolPageRenderer client:load content={content as ToolPage} />
   )}
   {contentType === 'directory' && (
     <DirectoryRenderer client:load content={content as Directory} />
