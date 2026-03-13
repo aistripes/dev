@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "nextjs",
+    "generated_at": "2026-03-12T00:00:00.000Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Next.js Metadata Validator",
+    "description": "Validate title, description, canonical URL, and social metadata basics before shipping a Next.js page.",
+    "keywords": [
+      "nextjs",
+      "seo",
+      "metadata",
+      "open graph",
+      "validator"
+    ],
+    "slug": "nextjs-metadata-validator"
+  },
+  "content": {
+    "headline": "Check Metadata Quality Before Deploy",
+    "description": "Run a quick metadata sanity check for common SEO and social preview issues in Next.js apps.",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "list",
+        "label": "Validation results"
+      }
+    },
+    "inputs": [
+      {
+        "name": "title",
+        "label": "Page title",
+        "type": "text",
+        "placeholder": "AI invoice OCR for finance teams",
+        "required": true
+      },
+      {
+        "name": "description",
+        "label": "Meta description",
+        "type": "textarea",
+        "placeholder": "Extract invoice line items with structured output and review workflows.",
+        "required": true
+      },
+      {
+        "name": "canonical_url",
+        "label": "Canonical URL",
+        "type": "url",
+        "placeholder": "https://example.com/invoice-ocr",
+        "required": true
+      },
+      {
+        "name": "og_image_url",
+        "label": "Open Graph image URL",
+        "type": "url",
+        "placeholder": "https://example.com/og/invoice-ocr.png",
+        "required": false
+      },
+      {
+        "name": "noindex",
+        "label": "Noindex this page",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Healthy production metadata",
+        "input": {
+          "title": "Invoice OCR for Next.js Apps",
+          "description": "Implement invoice OCR with structured extraction, confidence checks, and human-in-the-loop review in your Next.js workflow.",
+          "canonical_url": "https://example.com/invoice-ocr-nextjs",
+          "og_image_url": "https://example.com/og/invoice-ocr-nextjs.png",
+          "noindex": false
+        },
+        "expected_output": "PASS: title length good, description length good, canonical is valid HTTPS URL, og image present."
+      },
+      {
+        "label": "Draft page with issues",
+        "input": {
+          "title": "Invoice",
+          "description": "OCR tool.",
+          "canonical_url": "http://localhost:3000/invoice",
+          "og_image_url": "",
+          "noindex": false
+        },
+        "expected_output": "WARN: title too short, description too short, canonical should be production HTTPS URL, og image missing."
+      }
+    ],
+    "how_it_works": "The checker evaluates metadata against practical thresholds (title and description length, canonical URL quality, and OG image presence). It returns pass/warn items so teams can fix issues before indexing or social sharing.",
+    "related_tools": [
+      "structured-output-json-schema-sanitizer"
+    ]
+  }
+}
