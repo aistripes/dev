@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "agents",
+    "generated_at": "2026-04-16T20:20:26.744Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "LangChain for AI Agents & Tool Use",
+    "description": "How LangChain fits into real AI Agents & Tool Use workflows.",
+    "keywords": [
+      "agents",
+      "ai agents & tool use",
+      "tool-page",
+      "LangChain",
+      "LangGraph",
+      "CrewAI"
+    ],
+    "slug": "agents-tool-page-langchain-for-ai-agents-tool-use"
+  },
+  "content": {
+    "headline": "Tool Call Validator",
+    "description": "Validates function schemas and parameters against LLM tool call specifications to prevent runtime errors",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Validation Results"
+      }
+    },
+    "inputs": [
+      {
+        "name": "tool_definition",
+        "label": "Function Schema (JSON)",
+        "type": "textarea",
+        "placeholder": "{name: 'search', parameters: {type: 'object', properties: {query: {type: 'string'}}}}",
+        "required": true
+      },
+      {
+        "name": "parameters",
+        "label": "Input Parameters (JSON)",
+        "type": "textarea",
+        "placeholder": "{query: 'test'}",
+        "required": true
+      },
+      {
+        "name": "llm_provider",
+        "label": "LLM Provider",
+        "type": "select",
+        "options": [
+          "OpenAI",
+          "Anthropic",
+          "Google",
+          "Meta"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Valid Search Call",
+        "input": {
+          "tool_definition": "{name: 'search', parameters: {type: 'object', properties: {query: {type: 'string'}}}}",
+          "parameters": "{query: 'test'}",
+          "llm_provider": "OpenAI"
+        },
+        "expected_output": "{valid: true, message: 'Schema matches parameters'}"
+      },
+      {
+        "label": "Missing Required Param",
+        "input": {
+          "tool_definition": "{name: 'email', parameters: {type: 'object', properties: {to: {type: 'string'}, subject: {type: 'string'}}}}",
+          "parameters": "{to: 'user@example.com'}",
+          "llm_provider": "Anthropic"
+        },
+        "expected_output": "{valid: false, message: 'Missing required parameters: subject'}"
+      }
+    ],
+    "how_it_works": "Parses the provided function schema and compares it against the input parameters. Validates type consistency, required fields, and provider-specific constraints. Returns structured validation results for immediate feedback.",
+    "related_tools": [
+      "LangSmith",
+      "LangChain",
+      "AutoGen"
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "self-hosting",
+    "generated_at": "2026-04-16T20:24:57.646Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Self-hosted application directories with Docker...",
+    "description": "A step-by-step implementation guide for Self-hosted application directories with Docker and Coolify.",
+    "keywords": [
+      "self-hosting",
+      "guide",
+      "Docker",
+      "Coolify",
+      "Dokku"
+    ],
+    "slug": "self-hosting-guide-building-self-hosted-application-directories-with-docker"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to setting up a self-hosted environment using Docker, Traefik, and VPS infrastructure, focusing on security, automation, and compliance with European data sovereignty requirements.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "VPS from Hetzner or Contabo with Ubuntu 22.04",
+      "Domain name with DNS management access",
+      "SSH access to the VPS",
+      "Docker and Docker Compose installed"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure VPS firewall and OS hardening",
+        "explanation": "Set up UFW firewall rules to allow SSH, HTTP, HTTPS, and required application ports. Disable root login and update system packages.",
+        "code": {
+          "language": "bash",
+          "content": "ufw allow OpenSSH\nufw allow http\nufw allow https\nufw enable\nsed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config"
+        },
+        "pitfalls": [
+          "Forgetting to allow specific application ports",
+          "Leaving root login enabled"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Install Traefik with Let's Encrypt integration",
+        "explanation": "Deploy Traefik as a reverse proxy with automatic SSL certificate generation using Let's Encrypt. Configure domain routing.",
+        "code": {
+          "language": "yaml",
+          "content": "version: '3.8'\nservices:\n  traefik:\n    image: traefik:v2.9\n    ports:\n      - \"80:80\"\n      - \"443:443\"\n    volumes:\n      - /etc/traefik:/etc/traefik\n      - /var/run/docker.sock:/var/run/docker.sock\n    command:\n      - --api.insecure=true\n      - --providers.docker=true\n      - --certificatesresolvers.le.acme.email=your@email.com\n      - --certificatesresolvers.le.acme.storage=/etc/traefik/acme.json",
+          "filename": "docker-compose-traefik.yml"
+        },
+        "pitfalls": [
+          "Incorrect ACME email configuration",
+          "Forgetting to persist acme.json"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Deploy application with Docker Compose",
+        "explanation": "Create a Docker Compose file for a sample application (e.g., WordPress) with Traefik routing and environment variables for database credentials.",
+        "code": {
+          "language": "yaml",
+          "content": "version: '3.8'\nservices:\n  wordpress:\n    image: wordpress:latest\n    ports:\n      - \"8080:80\"\n    environment:\n      WORDPRESS_DB_HOST: db:3306\n      WORDPRESS_DB_USER: user\n      WORDPRESS_DB_PASSWORD: password\n    labels:\n      - \"traefik.http.routers.wordpress.rule=Host(`app.example.com`)\")",
+          "filename": "docker-compose-wordpress.yml"
+        },
+        "pitfalls": [
+          "Exposing container ports without Traefik routing",
+          "Hardcoding credentials in Docker Compose"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Set up automated container updates",
+        "explanation": "Use Watchtower to monitor and update containers. Configure it to restart containers after updates.",
+        "code": {
+          "language": "yaml",
+          "content": "version: '3.8'\nservices:\n  watchtower:\n    image: containrrr/watchtower\n    volumes:\n      - /var/run/docker.sock:/var/run/docker.sock\n    command: --watch-stopped --no-pull",
+          "filename": "docker-compose-watchtower.yml"
+        },
+        "pitfalls": [
+          "Not testing updates in staging environments",
+          "Forgetting to restart services after updates"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement backup strategy with BorgBackup",
+        "explanation": "Configure BorgBackup to create incremental backups of critical data. Set up retention policies and remote storage.",
+        "code": {
+          "language": "bash",
+          "content": "borg init --encryption=repokey /backup/repo\nborg create /backup/repo::{hostname}-$(date +'%Y-%m-%d') /var/www /etc/traefik"
+        },
+        "pitfalls": [
+          "Not testing backup restoration procedures",
+          "Storing backups in same physical location as primary data"
+        ]
+      }
+    ],
+    "conclusion": "This setup provides a secure, automated self-hosted infrastructure with core components for application deployment, security, and maintenance. Regularly review logs, update dependencies, and validate backups to ensure reliability."
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "laravel",
+    "generated_at": "2026-04-16T20:22:50.145Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Laravel Livewire patterns with Laravel and Livewire",
+    "description": "A step-by-step implementation guide for Laravel Livewire patterns with Laravel and Livewire.",
+    "keywords": [
+      "laravel",
+      "guide",
+      "Laravel",
+      "Livewire",
+      "Inertia.js"
+    ],
+    "slug": "laravel-guide-building-laravel-livewire-patterns-with-laravel-and-livewire"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building a Laravel SaaS application with multi-tenancy, AI integration, and deployment considerations. Focuses on practical implementation patterns and toolchain decisions.",
+    "estimated_time": "3-5 hours",
+    "prerequisites": [
+      "Laravel 10.x installation",
+      "PHP 8.2+ with Composer",
+      "Database system (MySQL/PostgreSQL)",
+      "Node.js 18+ for asset pipeline",
+      "Git version control"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Project setup with authentication",
+        "explanation": "Initialize Laravel project with Breeze for authentication scaffolding. Configure environment variables for database and app key.",
+        "code": {
+          "language": "bash",
+          "content": "composer create-project laravel/laravel saas-app\ncd saas-app\ncomposer require laravel/breeze\nphp artisan breeze:install",
+          "filename": "setup.sh"
+        },
+        "pitfalls": [
+          "Forgetting to set APP_URL in .env",
+          "Not configuring database connection before migration"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Choose frontend framework",
+        "explanation": "Decide between Livewire and Inertia.js based on application complexity. Install required packages and configure routing.",
+        "code": {
+          "language": "bash",
+          "content": "npm install @inertiajs/vue3 vue@^3\nnpm install livewire/livewire",
+          "filename": "frontend-install.sh"
+        },
+        "pitfalls": [
+          "Using Livewire for complex SPAs without Vue/React integration",
+          "Forgetting to register Inertia middleware in Kernel"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement AI API integration",
+        "explanation": "Set up OpenAI API integration using Laravel's service container. Create a dedicated service class for API interactions.",
+        "code": {
+          "language": "php",
+          "content": "<?php\n\nnamespace App\\Services;\n\nclass OpenAIService {\n    protected $apiKey;\n\n    public function __construct()\n    {\n        $this->apiKey = config('services.openai.key');\n    }\n\n    public function generateText($prompt)\n    {\n        // Implementation with Guzzle HTTP client\n    }\n}",
+          "filename": "OpenAIService.php"
+        },
+        "pitfalls": [
+          "Hardcoding API keys in service classes",
+          "Not implementing retry logic for API failures"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure multi-tenancy",
+        "explanation": "Implement database per tenant pattern using tenancy package. Set up tenant identification and database connection switching.",
+        "code": {
+          "language": "php",
+          "content": "<?php\n\n// config/tenancy.php\nreturn [\n    'tenant' => [\n        'identifier' => 'tenant_id',\n        'resolver' => \\App\\Tenancy\\TenantResolver::class,\n    ],\n];",
+          "filename": "tenancy.php"
+        },
+        "pitfalls": [
+          "Forgetting to clear cached configurations after changes",
+          "Not implementing proper database connection pooling"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Set up deployment pipeline",
+        "explanation": "Configure Laravel Forge for server provisioning. Create deployment script with artisan commands and cache warming.",
+        "code": {
+          "language": "bash",
+          "content": "#!/bin/bash\n\ncd /home/forge/saas-app\nphp artisan migrate --force\nphp artisan config:clear\nphp artisan route:clear\nphp artisan view:clear",
+          "filename": "deploy.sh"
+        },
+        "pitfalls": [
+          "Not setting correct file permissions on deployment",
+          "Forgetting to update Nginx configuration after deployment"
+        ]
+      }
+    ],
+    "conclusion": "This implementation path establishes a foundation for scalable Laravel SaaS applications. Validate each component with automated tests and monitor performance metrics after deployment."
+  }
+}

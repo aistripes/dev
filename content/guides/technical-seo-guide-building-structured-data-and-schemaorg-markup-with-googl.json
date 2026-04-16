@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "technical-seo",
+    "generated_at": "2026-04-16T20:24:29.512Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Structured data and Schema.org markup with Googl...",
+    "description": "A step-by-step implementation guide for Structured data and Schema.org markup with Google Search Console and Lighthouse.",
+    "keywords": [
+      "technical-seo",
+      "technical seo for web apps",
+      "guide",
+      "Google Search Console",
+      "Lighthouse",
+      "Screaming Frog"
+    ],
+    "slug": "technical-seo-guide-building-structured-data-and-schemaorg-markup-with-googl"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing technical SEO for web applications, focusing on crawlability, performance, and structured data. Follow these steps to align your app with search engine requirements while maintaining development efficiency.",
+    "estimated_time": "2-3 hours for baseline implementation",
+    "prerequisites": [
+      "Access to Google Search Console",
+      "Lighthouse audit tool",
+      "Sitemap.xml generator integration",
+      "Basic understanding of HTTP headers",
+      "Deployed web application with server access"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure crawlability infrastructure",
+        "explanation": "Set up robots.txt and sitemap.xml to control crawler access. Ensure sitemap.xml includes all dynamic routes and is updated with a crawler-friendly generation method.",
+        "code": {
+          "language": "text",
+          "content": "User-agent: *\nDisallow: /admin/\nSitemap: https://www.example.com/sitemap.xml",
+          "filename": "robots.txt"
+        },
+        "pitfalls": [
+          "Incorrect robots.txt syntax blocking critical content",
+          "Static sitemap.xml not updating with dynamic content"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement structured data markup",
+        "explanation": "Add JSON-LD schema.org markup for key content types. Use schema.org's validator tool to verify implementation before deployment.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"WebApplication\",\n  \"name\": \"Example App\",\n  \"operatingSystem\": \"Web\",\n  \"applicationCategory\": \"Software\"\n}",
+          "filename": "schema.json"
+        },
+        "pitfalls": [
+          "Missing required properties for rich results",
+          "Incorrect JSON-LD formatting causing parsing errors"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Optimize Core Web Vitals",
+        "explanation": "Use Lighthouse to identify and fix performance bottlenecks. Prioritize Largest Contentful Paint (LCP) improvements through image optimization and critical CSS delivery.",
+        "code": {
+          "language": "html",
+          "content": "<link rel=\"preload\" href=\"/critical.css\" as=\"style\">\n<noscript><link rel=\"stylesheet\" href=\"/critical.css\"></noscript>",
+          "filename": "head.html"
+        },
+        "pitfalls": [
+          "Overusing preload for non-critical resources",
+          "Ignoring server response time as a LCP factor"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement JavaScript SEO patterns",
+        "explanation": "For SPAs, use server-side rendering or pre-rendering for critical routes. Add meta tags dynamically through framework lifecycle methods.",
+        "code": {
+          "language": "javascript",
+          "content": "useEffect(() => {\n  document.title = 'Product Page - Example';\n  document.querySelector('meta[name=description]').setAttribute('content', 'Detailed product description');\n}, [])",
+          "filename": "ProductPage.js"
+        },
+        "pitfalls": [
+          "Client-side only meta tag updates failing to render",
+          "SSR implementation causing hydration errors"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Set up crawl budget monitoring",
+        "explanation": "Use Google Search Console's crawl stats and Screaming Frog to identify low-value pages. Implement 301 redirects for obsolete URLs and limit crawler access to high-value content.",
+        "pitfalls": [
+          "Over-optimizing crawl budget for low-traffic pages",
+          "Ignoring server response time as a crawl budget factor"
+        ]
+      }
+    ],
+    "conclusion": "By implementing crawlability controls, structured data, performance optimizations, and JavaScript SEO patterns, you create a foundation for search engines to effectively index and rank your web application. Regularly monitor crawl stats and Core Web Vitals to maintain SEO health."
+  }
+}

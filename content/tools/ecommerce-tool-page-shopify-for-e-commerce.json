@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "ecommerce",
+    "generated_at": "2026-04-16T20:26:00.603Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Shopify for E-Commerce",
+    "description": "How Shopify fits into real E-Commerce workflows.",
+    "keywords": [
+      "ecommerce",
+      "e-commerce",
+      "tool-page",
+      "Shopify",
+      "Medusa",
+      "Saleor"
+    ],
+    "slug": "ecommerce-tool-page-shopify-for-e-commerce"
+  },
+  "content": {
+    "headline": "Payment Gateway Region-Specific URL Generator",
+    "description": "Generates payment URLs with region-specific tax parameters for compliant checkout flows",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated payment URL"
+      }
+    },
+    "inputs": [
+      {
+        "name": "region",
+        "label": "Region",
+        "type": "select",
+        "options": [
+          "US",
+          "EU",
+          "UK",
+          "CA",
+          "AU"
+        ],
+        "required": true
+      },
+      {
+        "name": "currency",
+        "label": "Currency Code",
+        "type": "text",
+        "placeholder": "USD",
+        "required": false
+      },
+      {
+        "name": "tax_rate",
+        "label": "Tax Rate (%)",
+        "type": "number",
+        "placeholder": "7.5",
+        "required": false
+      },
+      {
+        "name": "include_vat",
+        "label": "Include VAT",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "US checkout with 7.5% tax",
+        "input": {
+          "region": "US",
+          "currency": "USD",
+          "tax_rate": "7.5",
+          "include_vat": false
+        },
+        "expected_output": "https://payment.example.com?region=US&currency=USD&tax=7.5"
+      },
+      {
+        "label": "EU checkout with VAT",
+        "input": {
+          "region": "EU",
+          "currency": "EUR",
+          "include_vat": true
+        },
+        "expected_output": "https://payment.example.com?region=EU&currency=EUR&vat=true"
+      }
+    ],
+    "how_it_works": "Inputs define regional tax rules and currency. The tool constructs a payment URL with parameters that match local tax requirements, ensuring compliance for multi-region checkout flows.",
+    "related_tools": [
+      "https://stripe.com/docs/api",
+      "https://docs.shopify.com/api",
+      "https://developer.paypal.com/docs"
+    ]
+  }
+}

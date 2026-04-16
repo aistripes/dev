@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "multimodal",
+    "generated_at": "2026-04-16T20:23:29.032Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "GPT-4o for Multimodal AI (Vision, Audio)",
+    "description": "How GPT-4o fits into real Multimodal AI (Vision, Audio) workflows.",
+    "keywords": [
+      "multimodal",
+      "multimodal ai (vision, audio)",
+      "tool-page",
+      "GPT-4o",
+      "Gemini Pro Vision",
+      "Claude Vision"
+    ],
+    "slug": "multimodal-tool-page-gpt-4o-for-multimodal-ai-vision-audio"
+  },
+  "content": {
+    "headline": "Multimodal Input Size Optimizer",
+    "description": "Calculates optimal image/audio input size for AI models to balance cost and quality",
+    "tool_type": "calculator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Optimized dimensions and cost estimate"
+      }
+    },
+    "inputs": [
+      {
+        "name": "model",
+        "label": "AI Model",
+        "type": "select",
+        "options": [
+          "GPT-4o",
+          "Gemini Pro Vision",
+          "Claude Vision",
+          "Whisper",
+          "ElevenLabs"
+        ],
+        "required": true
+      },
+      {
+        "name": "input_type",
+        "label": "Media Type",
+        "type": "select",
+        "options": [
+          "image",
+          "audio"
+        ],
+        "required": true
+      },
+      {
+        "name": "quality",
+        "label": "Quality Level (1-10)",
+        "type": "number",
+        "placeholder": "7",
+        "required": true
+      },
+      {
+        "name": "max_size",
+        "label": "Max Size (MB)",
+        "type": "number",
+        "placeholder": "10",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Optimize image for GPT-4o",
+        "input": {
+          "model": "GPT-4o",
+          "input_type": "image",
+          "quality": "8",
+          "max_size": "5"
+        },
+        "expected_output": "{\"dimensions\":\"1024x768\",\"cost_estimate\":\"$0.02\"}"
+      },
+      {
+        "label": "Optimize audio for Whisper",
+        "input": {
+          "model": "Whisper",
+          "input_type": "audio",
+          "quality": "6",
+          "max_size": "15"
+        },
+        "expected_output": "{\"duration\":\"120s\",\"cost_estimate\":\"$0.15\"}"
+      }
+    ],
+    "how_it_works": "Uses model-specific input constraints and quality scaling algorithms to calculate dimensions/duration that fit size limits while maintaining acceptable fidelity. Returns estimated processing cost based on model pricing tiers.",
+    "related_tools": [
+      "Replicate",
+      "Cloudinary",
+      "DALL-E API"
+    ]
+  }
+}

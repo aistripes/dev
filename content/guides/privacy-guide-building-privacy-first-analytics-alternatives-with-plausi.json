@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "privacy",
+    "generated_at": "2026-04-16T20:24:06.442Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Privacy-first analytics alternatives with Plausi...",
+    "description": "A step-by-step implementation guide for Privacy-first analytics alternatives with Plausible and Umami.",
+    "keywords": [
+      "privacy",
+      "privacy-first architecture",
+      "guide",
+      "Plausible",
+      "Umami",
+      "Fathom"
+    ],
+    "slug": "privacy-guide-building-privacy-first-analytics-alternatives-with-plausi"
+  },
+  "content": {
+    "intro": "Build a privacy-first architecture by implementing data minimization, on-premise processing, and consent-driven systems. This guide focuses on European compliance requirements and practical tool integration.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Basic backend development experience (Node.js/Python)",
+      "Access to European hosting provider (Hetzner/Supabase)",
+      "Familiarity with containerization (Docker)",
+      "Privacy policy documentation template"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define data minimization principles",
+        "explanation": "Create a data classification matrix mapping data types to required retention periods and processing purposes. Use GDPR Article 5(1)(c) as baseline for necessity checks.",
+        "code": {
+          "language": "markdown",
+          "content": "| Data Type       | Purpose              | Retention | Storage Location |\n|-----------------|----------------------|-----------|------------------|\n| User IP         | Crash analytics      | 7 days    | On-premise       |\n| Device Fingerprint | Session tracking | 30 days   | Encrypted DB     |"
+        },
+        "pitfalls": [
+          "Over-collecting data for hypothetical future use",
+          "Ignoring third-party data sharing in classification"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement privacy-respecting analytics",
+        "explanation": "Replace Google Analytics with self-hosted alternatives. Configure Matomo or PostHog with IP anonymization and disable client-side tracking.",
+        "code": {
+          "language": "bash",
+          "content": "docker run -d -p 80:80 matomo/matomo:latest\nmatomo --setup-mode\n# Configure in config.ini.php\n[General]\ntrack_visitors = 1\ntrack_actions = 1\nip_address_anonymization = 1"
+        },
+        "pitfalls": [
+          "Forgetting to disable client-side tracking features",
+          "Not configuring IP anonymization in analytics setup"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Set up on-premise AI processing",
+        "explanation": "Deploy open-source models locally using TensorFlow Lite or ONNX. Use secure enclaves for sensitive processing and avoid cloud-based API calls.",
+        "code": {
+          "language": "python",
+          "content": "import tensorflow as tf\ninterpreter = tf.lite.Interpreter(model_path=\"local_model.tflite\")\ninterpreter.allocate_tensors()\ninput_details = interpreter.get_input_details()\noutput_details = interpreter.get_output_details()"
+        },
+        "pitfalls": [
+          "Exposing AI models through insecure APIs",
+          "Not validating input data sanitization"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement consent management system",
+        "explanation": "Build a consent dashboard using Buttondown or Listmonk with explicit opt-in tracking. Store consent records in a GDPR-compliant database.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE TABLE user_consent (\n  user_id UUID PRIMARY KEY,\n  consent_date TIMESTAMP,\n  consent_type TEXT,\n  ip_address INET\n);"
+        },
+        "pitfalls": [
+          "Allowing pre-ticked consent boxes",
+          "Not storing audit trails for compliance"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Configure European data sovereignty",
+        "explanation": "Use Hetzner or PlanetScale for hosting. Set up TLS 1.3 with HSTS headers and ensure data residency in EU servers.",
+        "code": {
+          "language": "nginx",
+          "content": "ssl_protocols TLSv1.2 TLSv1.3;\nssl_ciphers HIGH:!aNULL:!MD5;\nadd_header Strict-Transport-Security 'max-age=31536000; includeSubDomains' always;"
+        },
+        "pitfalls": [
+          "Using mixed content (HTTP/HTTPS) in embedded resources",
+          "Not configuring HSTS preloading"
+        ]
+      }
+    ],
+    "conclusion": "Verify all components through penetration testing and conduct quarterly privacy impact assessments. Maintain audit logs for data processing activities and update consent mechanisms with each regulatory change."
+  }
+}

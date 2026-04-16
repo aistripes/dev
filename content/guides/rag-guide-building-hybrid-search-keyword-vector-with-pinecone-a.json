@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "rag",
+    "generated_at": "2026-04-16T20:20:31.072Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Hybrid search (keyword + vector) with Pinecone a...",
+    "description": "A step-by-step implementation guide for Hybrid search (keyword + vector) with Pinecone and Weaviate.",
+    "keywords": [
+      "rag",
+      "rag (retrieval-augmented generation)",
+      "guide",
+      "Pinecone",
+      "Weaviate",
+      "Qdrant"
+    ],
+    "slug": "rag-guide-building-hybrid-search-keyword-vector-with-pinecone-a"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing RAG systems, focusing on production considerations for developers working with knowledge bases, enterprise data, and AI-powered search tools. Each step includes actionable implementation details and mitigation strategies for common challenges.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Python 3.8+",
+      "Vector database account (Pinecone/Weaviate/Qdrant)",
+      "LLM API key (OpenAI/Cohere/Gemini)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Choose and configure vector database",
+        "explanation": "Select a vector database that matches your scale and latency requirements. Configure indexes with appropriate dimensionality and metric type (e.g., cosine similarity).",
+        "code": {
+          "language": "python",
+          "content": "import pinecone\npinecone.init(api_key='YOUR_API_KEY')\npinecone.create_index(name='rag-index', dimension=768, metric='cosine')",
+          "filename": "setup_database.py"
+        },
+        "pitfalls": [
+          "Using incorrect dimensionality for embedding model",
+          "Neglecting to set proper index metric type"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement document preprocessing pipeline",
+        "explanation": "Split documents into optimal chunks (512-1024 tokens) with 20-30% overlap. Use LangChain's RecursiveCharacterTextSplitter for consistent results.",
+        "code": {
+          "language": "python",
+          "content": "from langchain.text_splitter import RecursiveCharacterTextSplitter\nsplitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=64)",
+          "filename": "document_splitter.py"
+        },
+        "pitfalls": [
+          "Using fixed chunk sizes without content analysis",
+          "Ignoring semantic boundaries in text splitting"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Generate embeddings with cost controls",
+        "explanation": "Use efficient embedding models (e.g., text-embedding-ada-002) and implement batch processing. Monitor API usage limits and implement rate limiting.",
+        "code": {
+          "language": "python",
+          "content": "import openai\nembeddings = openai.Embedding.create(input=text, model='text-embedding-ada-002')['data']",
+          "filename": "generate_embeddings.py"
+        },
+        "pitfalls": [
+          "Not using context-aware embedding models",
+          "Failing to implement batch processing for large datasets"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement hybrid search strategy",
+        "explanation": "Combine keyword matching (BM25) with vector similarity search. Use Weaviate's hybrid search or Pinecone's filter capabilities for multi-criteria queries.",
+        "code": {
+          "language": "python",
+          "content": "query = 'system architecture'\nresults = index.query(vector=embedding, filter={'text': {'$contains': query}})",
+          "filename": "hybrid_search.py"
+        },
+        "pitfalls": [
+          "Over-relying on vector similarity without keyword filters",
+          "Ignoring case sensitivity in text filters"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Integrate with LLM for answer generation",
+        "explanation": "Use LangChain's VectorDBQAChain or LlamaIndex's QueryEngine to combine retrieved documents with LLM prompts. Include strict prompt engineering to reduce hallucinations.",
+        "code": {
+          "language": "python",
+          "content": "from langchain.chains import VectorDBQAChain\nchain = VectorDBQAChain.from_chain_type(llm, vectorstore=index)",
+          "filename": "llm_integration.py"
+        },
+        "pitfalls": [
+          "Not including retrieved documents in LLM prompt",
+          "Using default LLM parameters without fine-tuning"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Implement reranking for precision",
+        "explanation": "Use a cross-encoder model (e.g., BERT) to re-rank retrieved documents. Prioritize relevance over raw similarity scores.",
+        "code": {
+          "language": "python",
+          "content": "from sentence_transformers import CrossEncoder\ncross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')\nscores = cross_encoder.predict([(query, doc) for doc in retrieved_docs])",
+          "filename": "rerank_documents.py"
+        },
+        "pitfalls": [
+          "Using dense models without proper hardware acceleration",
+          "Not normalizing reranking scores for comparison"
+        ]
+      }
+    ],
+    "conclusion": "By following this implementation sequence, developers can build reliable RAG systems that balance accuracy, cost, and latency. Focus on iterative testing of chunk sizes, embedding strategies, and reranking approaches to optimize for specific use cases."
+  }
+}

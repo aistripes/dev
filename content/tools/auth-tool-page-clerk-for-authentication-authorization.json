@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "auth",
+    "generated_at": "2026-04-16T20:27:31.839Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Clerk for Authentication & Authorization",
+    "description": "How Clerk fits into real Authentication & Authorization workflows.",
+    "keywords": [
+      "auth",
+      "authentication & authorization",
+      "tool-page",
+      "Clerk",
+      "Auth.js",
+      "Supabase Auth"
+    ],
+    "slug": "auth-tool-page-clerk-for-authentication-authorization"
+  },
+  "content": {
+    "headline": "RBAC JSON Policy Generator",
+    "description": "Generate a structured JSON authorization schema for Role-Based Access Control (RBAC). This tool creates a centralized permission map that can be imported into your backend middleware or frontend state management to enforce access across different user roles and resource entities.",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Generated RBAC Policy"
+      }
+    },
+    "inputs": [
+      {
+        "name": "roles",
+        "label": "User Roles",
+        "type": "textarea",
+        "placeholder": "admin, editor, viewer, guest",
+        "required": true
+      },
+      {
+        "name": "resources",
+        "label": "Resource Entities",
+        "type": "textarea",
+        "placeholder": "users, posts, billing, settings",
+        "required": true
+      },
+      {
+        "name": "default_state",
+        "label": "Default Permission State",
+        "type": "select",
+        "options": [
+          "allow",
+          "deny"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Standard SaaS Role Set",
+        "input": {
+          "roles": "admin, member, guest",
+          "resources": "workspace, documents, billing",
+          "default_state": "deny"
+        },
+        "expected_output": "{\n  \"admin\": {\n    \"workspace\": { \"create\": true, \"read\": true, \"update\": true, \"delete\": true },\n    \"documents\": { \"create\": true, \"read\": true, \"update\": true, \"delete\": true },\n    \"billing\": { \"create\": true, \"read\": true, \"update\": true, \"delete\": true }\n  },\n  \"member\": { ... },\n  \"guest\": { ... }\n}"
+      },
+      {
+        "label": "Content Management System",
+        "input": {
+          "roles": "editor, author",
+          "resources": "articles, media, comments",
+          "default_state": "deny"
+        }
+      }
+    ],
+    "how_it_works": "The generator takes a comma-separated list of roles and resources and maps them into a nested object structure. For every role-resource pair, it generates a CRUD (Create, Read, Update, Delete) boolean set based on the default permission state. Strengths: Provides a deterministic, type-safe configuration file for authorization logic. Limits: This tool generates a static RBAC map; it does not support Attribute-Based Access Control (ABAC) logic like 'can edit if owner'. Integration: Import the JSON into a library like CASL.js or use it inside a custom Express/Next.js middleware to check if `policy[user.role][resource][action]` is true. Ideal for multi-tenant SaaS applications needing a clear source of truth for access levels.",
+    "related_tools": [
+      "JWT Payload Decoder",
+      "Password Entropy Calculator",
+      "OAuth Scope Generator",
+      "CORS Header Policy Tester"
+    ]
+  }
+}

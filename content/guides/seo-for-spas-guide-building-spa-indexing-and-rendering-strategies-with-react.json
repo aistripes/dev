@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "seo-for-spas",
+    "generated_at": "2026-04-16T20:24:42.435Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building SPA indexing and rendering strategies with React...",
+    "description": "A step-by-step implementation guide for SPA indexing and rendering strategies with React and Vue.",
+    "keywords": [
+      "seo-for-spas",
+      "seo for single-page apps",
+      "guide",
+      "React",
+      "Vue",
+      "Angular"
+    ],
+    "slug": "seo-for-spas-guide-building-spa-indexing-and-rendering-strategies-with-react"
+  },
+  "content": {
+    "intro": "This guide provides actionable steps to implement SEO for single-page applications (SPAs) using React, Vue, or Angular. Focuses on resolving indexing issues, dynamic content rendering, and crawlability challenges specific to client-rendered frameworks.",
+    "estimated_time": "30-60 minutes",
+    "prerequisites": [
+      "SPA built with React, Vue, or Angular",
+      "Access to Google Search Console",
+      "Basic understanding of HTTP status codes",
+      "Prerendering service account (e.g., Prerender.io)",
+      "CDN configured for static assets"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure server-side rendering (SSR) or prerendering",
+        "explanation": "Implement SSR using Next.js/Nuxt or prerendering with Prerender.io. Ensure server returns 200 status code for all routes and serves pre-rendered HTML. Use framework-specific SSR middleware for React/Angular.",
+        "code": {
+          "language": "javascript",
+          "content": "/* Next.js example: pages/_document.js */\nimport Document, { Html, Head, Main, NextScript } from 'next/document';\nexport default class MyDocument extends Document {\n  render() {\n    return (\n      <Html>\n        <Head />\n        <body>\n          <Main />\n          <NextScript />\n        </body>\n      </Html>\n    );\n  }\n}",
+          "filename": "pages/_document.js"
+        },
+        "pitfalls": [
+          "Forgetting to set proper HTTP headers for prerendered content",
+          "Not handling 404 routes in SSR setup"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement dynamic meta tags and Open Graph data",
+        "explanation": "Use framework-specific meta tag managers (React Helmet, vue-meta) to set page-specific title, description, and Open Graph tags. Ensure values update on route changes and match content.",
+        "code": {
+          "language": "typescript",
+          "content": "/* React Helmet example */\nimport { Helmet } from 'react-helmet';\nfunction Page({ title, description }) {\n  return (\n    <div>\n      <Helmet>\n        <title>{title}</title>\n        <meta name=\"description\" content={description} />\n        <meta property=\"og:title\" content={title} />\n        <meta property=\"og:description\" content={description} />\n      </Helmet>\n      {/* Page content */}\n    </div>\n  );\n}",
+          "filename": "components/SeoMeta.tsx"
+        },
+        "pitfalls": [
+          "Not updating meta tags during client-side navigation",
+          "Using static meta values across all pages"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Validate URL structure and navigation",
+        "explanation": "Ensure all client routes use proper HTTP 200 responses and match server-rendered content. Implement hash-based or HTML5 history navigation consistently across the app.",
+        "code": {
+          "language": "javascript",
+          "content": "/* Vue Router example: router/index.js */\nimport { createRouter, createWebHistory } from 'vue-router';\nconst router = createRouter({\n  history: createWebHistory(),\n  routes: [...]\n});\nexport default router;",
+          "filename": "router/index.js"
+        },
+        "pitfalls": [
+          "Using hash-based URLs without 301 redirects to canonical versions",
+          "Not testing deep linking in SPA routing"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Test crawlability with Googlebot",
+        "explanation": "Use Google Search Console's URL Inspection tool to verify how Googlebot renders pages. Check for JavaScript errors in the console and ensure all content is visible in the rendered HTML.",
+        "code": {
+          "language": "bash",
+          "content": "curl -I https://your-spa-domain.com/your-page\n# Verify response code 200 and check for rendered HTML content",
+          "filename": "crawl-test.sh"
+        },
+        "pitfalls": [
+          "Ignoring JavaScript execution errors in crawl tests",
+          "Not verifying content visibility in Google's rendered view"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Set up server-side redirects for legacy URLs",
+        "explanation": "Configure server to handle 301 redirects for old URLs when migrating from traditional server-rendered apps. Use middleware to maintain SEO value during SPA transitions.",
+        "code": {
+          "language": "javascript",
+          "content": "/* Express.js redirect example */\napp.get('/old-page', (req, res) => {\n  res.redirect(301, '/new-page');\n});",
+          "filename": "server.js"
+        },
+        "pitfalls": [
+          "Forgetting to update sitemap.xml after redirects",
+          "Creating redirect loops during migration"
+        ]
+      }
+    ],
+    "conclusion": "After implementing these steps, verify crawlability with Google Search Console and monitor organic traffic patterns. Regularly audit dynamic content rendering and ensure SSR/prerendering pipelines remain aligned with application changes."
+  }
+}

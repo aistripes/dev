@@ -3,13 +3,13 @@
   "name": "Structured Output / JSON Mode",
   "category": "ai-patterns",
   "context": {
-    "audience": "Developers building data pipelines with LLMs, pSEO practitioners generating content at scale, developers replacing brittle prompt parsing with schema-validated output",
+    "audience": "Backend and platform developers building schema-first LLM pipelines, pSEO teams generating validated JSON content at scale, edge developers replacing brittle regex parsing with typed structured output contracts",
     "pain_points": [
-      "LLMs occasionally breaking JSON structure despite instruction",
-      "Choosing between function calling, JSON mode, and Zod-validated output",
-      "Schema design that balances flexibility and constraint",
-      "Handling partial or streaming structured responses",
-      "Cost per output token vs. quality trade-offs across models"
+      "LLMs occasionally producing almost-valid JSON that still fails strict validation",
+      "Choosing between function calling, JSON mode, and schema-constrained generation",
+      "Schema design that balances strictness with forward compatibility",
+      "Handling envelope responses when the model returns meta/seo/content wrappers",
+      "Model and provider differences in JSON schema support across Gemini, Qwen, and Claude"
     ],
     "monetization": [
       "Content generation platforms",
@@ -18,22 +18,22 @@
       "LLM pipeline consulting"
     ],
     "tools_and_stack": [
-      "OpenAI", "Anthropic Claude", "Google Gemini", "Zod",
-      "Instructor (Python/JS)", "Vercel AI SDK", "LangChain"
+      "Google Gemini", "Cloudflare Workers AI", "Cloudflare AI Gateway", "Alibaba Qwen",
+      "OpenAI-compatible SDKs", "Zod", "zod-to-json-schema", "LangChain"
     ],
     "content_that_works": [
       "Model comparison for structured output reliability",
       "Schema design best practices",
       "Zod integration tutorials for LLM output",
-      "Cost per output benchmarks"
+      "Provider-specific JSON mode failure analysis"
     ],
     "subtopics": [
-      "Function calling vs. JSON mode vs. constrained decoding",
-      "Structured output with Gemini Flash",
-      "Streaming partial structured objects",
-      "Zod schema design for LLM output",
-      "Schema versioning for content pipelines"
+      "Function calling vs JSON mode vs constrained decoding",
+      "Structured output with Gemini 3 Flash",
+      "Structured output with Qwen 3.5 on Workers AI",
+      "Schema sanitization for provider compatibility",
+      "Schema versioning and migration in content pipelines"
     ],
-    "adjacent_niches": ["rag", "content-generation", "nextjs", "programmatic-seo"]
+    "adjacent_niches": ["rag", "content-generation", "edge-deployment", "programmatic-seo"]
   }
 }

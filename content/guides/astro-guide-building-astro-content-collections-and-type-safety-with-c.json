@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "astro",
+    "generated_at": "2026-04-16T20:20:19.764Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Astro content collections and type safety with C...",
+    "description": "A step-by-step implementation guide for Astro content collections and type safety with Cloudflare Pages and Netlify.",
+    "keywords": [
+      "astro",
+      "guide",
+      "Cloudflare Pages",
+      "Netlify",
+      "Vercel"
+    ],
+    "slug": "astro-guide-building-astro-content-collections-and-type-safety-with-c"
+  },
+  "content": {
+    "intro": "This guide provides a step-by-step implementation strategy for building a content-heavy Astro site with performance-first principles. Focuses on content collections, dynamic integration patterns, and deployment workflows tailored for technical documentation and programmatic SEO use cases.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Node.js 18+ installed",
+      "Astro CLI global installation",
+      "Code editor with TS/MDX support",
+      "Basic understanding of static site generation"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Project setup with content-first structure",
+        "explanation": "Initialize project with Astro CLI and establish content directory layout. Create src/content directory for markdown/MDX files and src/pages for route-based components.",
+        "code": {
+          "language": "bash",
+          "content": "npm create astro@latest my-astro-site\ncd my-astro-site\nmkdir -p src/content/{articles,docs}\nmkdir src/pages"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Configure content collections with Zod validation",
+        "explanation": "Define content collections in astro.config.mjs using defineCollection. Implement Zod schemas for type-safe metadata and content validation.",
+        "code": {
+          "language": "javascript",
+          "content": "import { defineCollection, z } from 'astro:content';\n\nconst articles = defineCollection({\n  type: 'content',\n  schema: z.object({\n    title: z.string(),\n    date: z.date(),\n    tags: z.array(z.string()),\n    draft: z.boolean().optional(),\n  }),\n});\n\nexport default defineConfig({\n  collections: { articles },\n});"
+        },
+        "pitfalls": [
+          "Forgetting to add 'content' type for non-route collections",
+          "Not exporting the config object from astro.config.mjs"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement responsive image patterns",
+        "explanation": "Use Astro's Image component with srcset attributes for adaptive image loading. Configure image optimization pipeline with sharp via astro.config.mjs.",
+        "code": {
+          "language": "astro",
+          "content": "<Image\n  src=\"/images/photo.jpg\"\n  alt=\"Description\"\n  width=\"800\"\n  height=\"600\"\n  loading=\"lazy\"\n  srcset=\"\n    /images/photo.jpg 800w,\n    /images/photo@2x.jpg 1600w\n  \"\n/>"
+        },
+        "pitfalls": [
+          "Not specifying width/height attributes",
+          "Forgetting to add image files to the public directory"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate React islands for dynamic features",
+        "explanation": "Create React components for interactive elements (e.g., comment forms, dark mode toggle). Import and use them as islands in Astro pages.",
+        "code": {
+          "language": "tsx",
+          "content": "import { useState } from 'react';\n\nexport default function DarkModeToggle() {\n  const [dark, setDark] = useState(false);\n  \n  return (\n    <button onClick={() => setDark(!dark)}>\n      {dark ? 'Light Mode' : 'Dark Mode'}\n    </button>\n  );\n}",
+          "filename": "src/components/DarkModeToggle.tsx"
+        },
+        "pitfalls": [
+          "Overusing islands for simple interactions",
+          "Not adding React as a dev dependency"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Deploy with Cloudflare Pages optimization",
+        "explanation": "Configure netlify.toml for build settings. Set environment variables for content collection endpoints and enable edge caching.",
+        "code": {
+          "language": "toml",
+          "content": "[build]\ncommand = \"npm run build\"\noutput = \"dist\"\n\n[build.environment]\nASTRO_ENV = \"production\""
+        },
+        "pitfalls": [
+          "Forgetting to add environment variables in dashboard",
+          "Not configuring cache headers for static assets"
+        ]
+      }
+    ],
+    "conclusion": "This implementation sequence establishes a performant foundation for content-centric Astro projects. Validate content collections with Zod, optimize media delivery, and use React islands judiciously for interactivity. Confirm deployment settings align with edge computing requirements for maximum performance."
+  }
+}

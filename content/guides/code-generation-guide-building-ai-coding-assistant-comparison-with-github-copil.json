@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "code-generation",
+    "generated_at": "2026-04-16T20:20:17.339Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building AI coding assistant comparison with GitHub Copil...",
+    "description": "A step-by-step implementation guide for AI coding assistant comparison with GitHub Copilot and Cursor.",
+    "keywords": [
+      "code-generation",
+      "ai code generation",
+      "guide",
+      "GitHub Copilot",
+      "Cursor",
+      "Claude Code"
+    ],
+    "slug": "code-generation-guide-building-ai-coding-assistant-comparison-with-github-copil"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing AI code generation workflows, focusing on reliability, security, and integration. It addresses common pain points through actionable steps tailored to developers using AI coding assistants daily.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "GitHub Copilot or equivalent AI coding tool subscription",
+      "VS Code or JetBrains IDE with AI assistant integration",
+      "Existing CI/CD pipeline (e.g., GitHub Actions)",
+      "Project with defined coding standards",
+      "Basic understanding of containerization (Docker)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure AI coding tool with project context",
+        "explanation": "Set up your AI assistant to recognize project-specific patterns. For GitHub Copilot, use the 'Add to Project' feature in VS Code to train the model on local codebases. Ensure language servers are configured for all project languages.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"settings\": {\n    \"python.analysis.useLanguageServer\": true,\n    \"javascript.implicitProjectConfig.checkJs\": true\n  }\n}",
+          "filename": ".vscode/settings.json"
+        },
+        "pitfalls": [
+          "Ignoring language server configuration leads to incomplete context understanding",
+          "Failing to retrain models after major codebase refactors"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement AI code generation validation",
+        "explanation": "Create a validation pipeline that runs linters, type checkers, and security scanners on AI-generated code. Use mypy for type validation, ESLint for style, and Snyk for dependency vulnerabilities.",
+        "code": {
+          "language": "yml",
+          "content": "jobs:\n  validate:\n    runs-on: ubuntu-latest\n    steps:\n    - name: Run Snyk\n      uses: snyk/actions/github@v1\n      with:\n        args: --file=package.json",
+          "filename": ".github/workflows/validation.yml"
+        },
+        "pitfalls": [
+          "Skipping type validation for dynamically typed languages",
+          "Not configuring Snyk to ignore false positives"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Integrate AI code review checklists",
+        "explanation": "Implement a code review process that includes specific checks for AI-generated code. Use GitHub's PR template system to enforce review criteria like 'AI-generated code must have manual verification' and 'Security scan results attached'.",
+        "code": {
+          "language": "markdown",
+          "content": "### AI Code Review Checklist\n- [ ] Manual verification of critical logic\n- [ ] Security scan results attached\n- [ ] Test coverage validation\n- [ ] Dependency vulnerability check",
+          "filename": ".github/PULL_REQUEST_TEMPLATE.md"
+        },
+        "pitfalls": [
+          "Allowing AI-generated code to bypass manual review",
+          "Not documenting review criteria for team consistency"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement prompt engineering patterns",
+        "explanation": "Use structured prompts with explicit constraints. For complex tasks, break into subproblems using 'Think step by step' patterns. Example: 'Generate a Python async API endpoint with JWT authentication. First, create the route handler. Second, implement the authentication middleware.'",
+        "code": {
+          "language": "txt",
+          "content": "## Prompt Template\n\"\"\"\nWrite a [LANGUAGE] function to [TASK] with [CONSTRAINTS].\n\nRequirements:\n- [REQUIREMENT 1]\n- [REQUIREMENT 2]\n\"\"\"",
+          "filename": "prompt-templates/async-api.txt"
+        },
+        "pitfalls": [
+          "Using vague prompts that produce unstable outputs",
+          "Not versioning prompt templates with code"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Set up AI code generation metrics",
+        "explanation": "Track key metrics through IDE extensions or custom scripts. Measure code generation accuracy (percentage of passing tests), error rates, and time saved. Use VS Code extensions like 'Code Stats' for basic metrics.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"metrics\": {\n    \"accuracy\": \"test-pass-rate\",\n    \"error_rate\": \"linter-violations-per-1000-lines\",\n    \"time_saved\": \"code-generation-time-vs-manual\"\n  }\n}",
+          "filename": "metrics-config.json"
+        },
+        "pitfalls": [
+          "Not tracking metrics across multiple AI tools",
+          "Using unvalidated metrics that don't reflect actual productivity"
+        ]
+      }
+    ],
+    "conclusion": "By following these steps, teams can implement AI code generation workflows that balance speed with reliability. Focus on continuous validation, explicit prompting, and integration with existing development practices to maximize benefits while mitigating risks."
+  }
+}

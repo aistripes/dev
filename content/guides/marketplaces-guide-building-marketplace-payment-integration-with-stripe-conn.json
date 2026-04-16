@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "marketplaces",
+    "generated_at": "2026-04-16T20:24:55.137Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Marketplace payment integration with Stripe Conn...",
+    "description": "A step-by-step implementation guide for Marketplace payment integration with Stripe Connect and PayPal for Marketplaces.",
+    "keywords": [
+      "marketplaces",
+      "guide",
+      "Stripe Connect",
+      "PayPal for Marketplaces",
+      "Sharetribe"
+    ],
+    "slug": "marketplaces-guide-building-marketplace-payment-integration-with-stripe-conn"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing core marketplace functionality, focusing on payment handling, trust systems, and search matching. Key tools include Stripe Connect for payments, Algolia for search, and Clerk for authentication. Address common challenges like supply-demand balancing and role-based access control.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Node.js 18+",
+      "PostgreSQL instance",
+      "Stripe Connect account",
+      "Algolia API key",
+      "Clerk dashboard access"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Design core database schema",
+        "explanation": "Create tables for users, listings, transactions, and reviews. Use PostgreSQL with foreign keys to enforce relationships. Include fields for user roles (buyer/seller), listing categories, and transaction statuses.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE TABLE users (\n  id UUID PRIMARY KEY,\n  role VARCHAR(10) CHECK (role IN ('buyer', 'seller')),\n  verified BOOLEAN DEFAULT FALSE\n);\n\nCREATE TABLE listings (\n  id UUID PRIMARY KEY,\n  seller_id UUID REFERENCES users(id),\n  title VARCHAR(255),\n  price DECIMAL(10,2),\n  category VARCHAR(50)\n);",
+          "filename": "database/schema.sql"
+        },
+        "pitfalls": [
+          "Missing foreign key constraints leading to orphaned records",
+          "Insufficient indexing on frequently queried columns"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Stripe Connect payment flow",
+        "explanation": "Set up connected accounts for sellers using Stripe Connect. Configure platform fees and transfer splits. Use webhooks to update transaction statuses when payments are captured.",
+        "code": {
+          "language": "javascript",
+          "content": "const { Stripe } = require('stripe');\nconst stripe = new Stripe(process.env.STRIPE_SECRET_KEY);\n\nasync function createTransfer({ amount, sellerAccountId }) {\n  return await stripe.transfers.create({\n    amount: Math.round(amount * 100),\n    currency: 'usd',\n    destination: sellerAccountId,\n    transfer_group: 'order_123'\n  });\n}",
+          "filename": "src/payments/stripe.js"
+        },
+        "pitfalls": [
+          "Not handling webhook signatures leading to security vulnerabilities",
+          "Incorrectly calculating platform fees during splits"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Build trust system with reviews and verification",
+        "explanation": "Implement a 5-star rating system with review text. Add verification steps for seller accounts using Clerk's email verification. Store review data in a separate table linked to transactions.",
+        "code": {
+          "language": "javascript",
+          "content": "async function createReview({ userId, listingId, rating, comment }) {\n  if (!(await checkTransactionExists(userId, listingId))) {\n    throw new Error('Cannot review un-purchased item');\n  }\n  return await db.query(`\n    INSERT INTO reviews (user_id, listing_id, rating, comment)\n    VALUES ($1, $2, $3, $4)\n    RETURNING *`,\n    [userId, listingId, rating, comment]\n  );\n}",
+          "filename": "src/trust/reviews.js"
+        },
+        "pitfalls": [
+          "Allowing anonymous reviews that damage platform credibility",
+          "Not rate-limiting review submissions for spam prevention"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure Algolia search with relevance scoring",
+        "explanation": "Index listings in Algolia with attributes for title, category, and price range. Use custom ranking to prioritize verified sellers and recent listings. Implement faceted search for filtering.",
+        "code": {
+          "language": "javascript",
+          "content": "const index = client.initIndex('listings');\nawait index.setSettings({\n  attributesToIndex: ['title', 'category', 'price'],\n  customRanking: ['desc(verified)', 'desc(created_at)'],\n  searchableAttributes: ['title', 'description']\n});",
+          "filename": "src/search/algolia.js"
+        },
+        "pitfalls": [
+          "Overloading search indices with non-essential fields",
+          "Not implementing query rate limiting for search endpoints"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement role-based access control",
+        "explanation": "Use Clerk's session management to enforce permissions. Restrict seller-only actions (listing creation, price changes) to users with 'seller' role. Validate permissions at both API and UI layers.",
+        "code": {
+          "language": "javascript",
+          "content": "function requireSellerRole(req, res, next) {\n  const user = req.auth.user;\n  if (user.role !== 'seller') {\n    return res.status(403).json({ error: 'Seller access required' });\n  }\n  next();\n}",
+          "filename": "src/middleware/sellerMiddleware.js"
+        },
+        "pitfalls": [
+          "Bypassing permission checks in client-side code",
+          "Not auditing role assignment logic for security flaws"
+        ]
+      }
+    ],
+    "conclusion": "This implementation addresses core marketplace requirements while mitigating common pitfalls. Verify all payment flows with Stripe's test mode, stress-test search endpoints, and continuously monitor trust system metrics. Expand with AI features like recommendation engines or dynamic pricing as needed."
+  }
+}

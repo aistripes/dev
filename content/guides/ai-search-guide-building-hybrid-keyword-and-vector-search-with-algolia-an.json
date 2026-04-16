@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "ai-search",
+    "generated_at": "2026-04-16T20:20:58.419Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Hybrid keyword and vector search with Algolia an...",
+    "description": "A step-by-step implementation guide for Hybrid keyword and vector search with Algolia and Typesense.",
+    "keywords": [
+      "ai-search",
+      "ai-powered search",
+      "guide",
+      "Algolia",
+      "Typesense",
+      "Meilisearch"
+    ],
+    "slug": "ai-search-guide-building-hybrid-keyword-and-vector-search-with-algolia-an"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing an AI-powered search system, focusing on hybrid keyword-vector search, reranking, and UI integration. Steps address latency, indexing, and ranking challenges specific to AI search workflows.",
+    "estimated_time": "4-6 hours",
+    "prerequisites": [
+      "Elasticsearch or Pinecone instance",
+      "OpenAI API key",
+      "Python 3.8+ with requests and numpy",
+      "Basic understanding of search query DSL"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Set up search infrastructure",
+        "explanation": "Provision an Elasticsearch cluster with vector support or configure Pinecone with OpenAI embeddings. Install required plugins like elasticsearch-knn for vector search capabilities.",
+        "code": {
+          "language": "bash",
+          "content": "docker run -e \"discovery.type=single-node\" -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:8.7.0",
+          "filename": "setup_elasticsearch.sh"
+        },
+        "pitfalls": [
+          "Missing vector plugin causes index failures",
+          "Incompatible Elasticsearch version with vector extensions"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Create hybrid search index",
+        "explanation": "Design an index mapping that combines keyword fields (text) with vector fields (embeddings). Use a multi-field approach to enable both term matching and semantic similarity searches.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"mappings\": {\n    \"properties\": {\n      \"content\": { \"type\": \"text\" },\n      \"embedding\": { \"type\": \"dense_vector\", \"dims\": 1536 }\n    }\n  }\n}",
+          "filename": "hybrid_index.json"
+        },
+        "pitfalls": [
+          "Incorrect vector dimensions cause indexing errors",
+          "Missing keyword fields limit traditional search capabilities"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement hybrid search query",
+        "explanation": "Construct a search query that combines match_all with a knn_search for vector similarity. Use function_score to weight results by both keyword relevance and vector distance.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"query\": {\n    \"function_score\": {\n      \"query\": { \"match_all\": {} },\n      \"knn\": { \"field\": \"embedding\", \"k\": 10 },\n      \"score_mode\": \"max\"\n    }\n  }\n}",
+          "filename": "hybrid_query.json"
+        },
+        "pitfalls": [
+          "Improper score_mode leads to unexpected ranking",
+          "KNN search without filtering causes excessive computation"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Add reranking with business logic",
+        "explanation": "Use a separate API (e.g., Cohere Rerank) to reorder results based on custom criteria after initial vector search. Pass original query and results to the reranker for context-aware sorting.",
+        "code": {
+          "language": "python",
+          "content": "import cohere\nco = cohere.Client('YOUR_API_KEY')\nresponse = co.rerank(\n  query='search term',\n  documents=[result['text'] for result in initial_results],\n  top_n=5\n)",
+          "filename": "rerank_results.py"
+        },
+        "pitfalls": [
+          "Reranking API rate limits during high traffic",
+          "Missing document context causes poor reranking decisions"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Build search UI components",
+        "explanation": "Create a search bar with auto-suggestions, result cards showing confidence scores, and filters for different content types. Implement loading states for asynchronous search requests.",
+        "code": {
+          "language": "jsx",
+          "content": "function SearchBox({ onSearch }) {\n  return (\n    <input \n      type=\"text\"\n      placeholder=\"Search...\"\n      onChange={(e) => onSearch(e.target.value)}\n    />\n  );\n}",
+          "filename": "SearchBox.jsx"
+        },
+        "pitfalls": [
+          "Ignoring loading states causes UI freezes",
+          "Missing confidence indicators leads to unclear result quality"
+        ]
+      }
+    ],
+    "conclusion": "This implementation addresses core AI search challenges through hybrid indexing, reranking, and structured UI components. Validate each stage with real user queries and monitor performance metrics for continuous optimization."
+  }
+}

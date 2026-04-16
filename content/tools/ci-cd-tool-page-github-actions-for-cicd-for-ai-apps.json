@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "ci-cd",
+    "generated_at": "2026-04-16T20:23:15.401Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "GitHub Actions for CI/CD for AI Apps",
+    "description": "How GitHub Actions fits into real CI/CD for AI Apps workflows.",
+    "keywords": [
+      "ci-cd",
+      "ci/cd for ai apps",
+      "tool-page",
+      "GitHub Actions",
+      "GitLab CI",
+      "Vercel"
+    ],
+    "slug": "ci-cd-tool-page-github-actions-for-cicd-for-ai-apps"
+  },
+  "content": {
+    "headline": "AI Test Validator for CI Pipelines",
+    "description": "Validates AI feature tests in CI pipelines by checking for deterministic output patterns and test stability",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Validation Results"
+      }
+    },
+    "inputs": [
+      {
+        "name": "test_script",
+        "label": "AI Test Script",
+        "type": "textarea",
+        "placeholder": "Paste your AI test code here",
+        "required": true
+      },
+      {
+        "name": "non_determinism_threshold",
+        "label": "Non-Determinism Threshold",
+        "type": "number",
+        "placeholder": "0.8 (0-1 scale)",
+        "required": false
+      },
+      {
+        "name": "strict_mode",
+        "label": "Strict Output Matching",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic Test Validation",
+        "input": {
+          "test_script": "def test_llm_response(): assert 'error' not in generate_text()",
+          "non_determinism_threshold": "0.7",
+          "strict_mode": "false"
+        },
+        "expected_output": "{ \"stability_score\": 0.68, \"issues\": [\"Non-deterministic output detected\"] }"
+      },
+      {
+        "label": "Strict Mode Check",
+        "input": {
+          "test_script": "def test_prompt_consistency(): assert generate_prompt() == 'version_2'",
+          "strict_mode": "true"
+        },
+        "expected_output": "{ \"stability_score\": 0.92, \"issues\": [] }"
+      }
+    ],
+    "how_it_works": "Analyzes AI test scripts by executing them multiple times, measuring output consistency, and comparing against stability thresholds. Identifies flaky tests caused by non-deterministic LLM behavior while allowing configurable flexibility for acceptable variation.",
+    "related_tools": [
+      "GitHub Actions",
+      "Terraform",
+      "ArgoCD"
+    ]
+  }
+}

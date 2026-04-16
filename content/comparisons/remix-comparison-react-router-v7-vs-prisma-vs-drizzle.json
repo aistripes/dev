@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "remix",
+    "generated_at": "2026-04-16T20:24:22.263Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "React Router v7 vs Prisma vs Drizzle",
+    "description": "A practical comparison of React Router v7, Prisma, and Drizzle for Remix.",
+    "keywords": [
+      "remix",
+      "comparison",
+      "React Router v7",
+      "Prisma",
+      "Drizzle"
+    ],
+    "slug": "remix-comparison-react-router-v7-vs-prisma-vs-drizzle"
+  },
+  "content": {
+    "intro": "Comparing Remix and Next.js for full-stack React development, focusing on data workflows, deployment flexibility, and progressive enhancement trade-offs.",
+    "options": [
+      {
+        "name": "Remix",
+        "tagline": "Full-stack framework with first-class data loading and progressive enhancement",
+        "url": "https://remix.run",
+        "best_for": "Teams needing explicit data loading control, Cloudflare Workers deployment, and complex form workflows"
+      },
+      {
+        "name": "Next.js",
+        "tagline": "Hybrid static/server rendering framework with built-in API routes",
+        "url": "https://nextjs.org",
+        "best_for": "Projects requiring SEO-first indexing, static site generation, and larger ecosystem tooling"
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Data Loading Patterns",
+        "description": "How frameworks handle server-side data fetching and client-side updates",
+        "values": {
+          "Remix": "Loader functions with explicit data dependencies",
+          "Next.js": "getServerSideProps/getStaticProps with automatic revalidation"
+        }
+      },
+      {
+        "name": "Routing Complexity",
+        "description": "Handling nested routes and shared data requirements",
+        "values": {
+          "Remix": "File-based routing with nested loader/action composition",
+          "Next.js": "App directory routing with parallel routes and layout components"
+        }
+      },
+      {
+        "name": "Deployment Targets",
+        "description": "Supported runtime environments and edge computing capabilities",
+        "values": {
+          "Remix": "Node.js, Deno, Cloudflare Workers (via remix-deploy)",
+          "Next.js": "Vercel, AWS, self-hosted Node.js, Edge Functions"
+        }
+      },
+      {
+        "name": "Form Handling",
+        "description": "Progressive enhancement support and optimistic UI patterns",
+        "values": {
+          "Remix": "Native form actions with built-in optimistic updates",
+          "Next.js": "Requires custom implementation or libraries like react-hook-form"
+        }
+      },
+      {
+        "name": "Ecosystem Maturity",
+        "description": "Available tools for database integration and testing",
+        "values": {
+          "Remix": "Prisma, Drizzle, Vitest (limited ecosystem)",
+          "Next.js": "TypeORM, Prisma, Playwright, and broader community libraries"
+        }
+      },
+      {
+        "name": "Learning Curve",
+        "description": "Time required to implement complex data workflows",
+        "values": {
+          "Remix": "Steeper initial curve for data loading architecture",
+          "Next.js": "Easier onboarding with existing React patterns"
+        }
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Infrastructure and tooling expenses for production",
+        "values": {
+          "Remix": "Lower cold start costs on Cloudflare Workers",
+          "Next.js": "Higher Vercel costs for large-scale API routes"
+        }
+      },
+      {
+        "name": "Lock-in Risk",
+        "description": "Ease of migrating between frameworks or runtime environments",
+        "values": {
+          "Remix": "Higher risk due to framework-specific data loading model",
+          "Next.js": "Lower risk with standard Node.js API routes"
+        }
+      }
+    ],
+    "verdict": {
+      "summary": "Remix offers superior control over data flows and Cloudflare integration but requires more architectural investment. Next.js provides broader ecosystem support and easier onboarding for SEO-focused projects.",
+      "use_cases": [
+        {
+          "scenario": "Building a data-heavy CRM with progressive enhancement",
+          "recommendation": "Remix",
+          "reason": "Explicit data loading patterns reduce API complexity for nested forms and tables"
+        },
+        {
+          "scenario": "Creating an e-commerce site with SEO requirements",
+          "recommendation": "Next.js",
+          "reason": "Static generation capabilities and existing SEO tooling provide faster time-to-market"
+        },
+        {
+          "scenario": "Deploying to Cloudflare Workers with minimal runtime costs",
+          "recommendation": "Remix",
+          "reason": "Native Worker support with optimized cold start performance"
+        },
+        {
+          "scenario": "Maintaining a large team with mixed React expertise",
+          "recommendation": "Next.js",
+          "reason": "Familiar patterns reduce onboarding time for developers new to full-stack workflows"
+        }
+      ]
+    }
+  }
+}

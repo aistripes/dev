@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "structured-output",
+    "generated_at": "2026-04-16T20:20:21.333Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Function calling vs JSON mode vs constrained dec...",
+    "description": "A step-by-step implementation guide for Function calling vs JSON mode vs constrained decoding with Google Gemini and Cloudflare Workers AI.",
+    "keywords": [
+      "structured-output",
+      "structured output / json mode",
+      "guide",
+      "Google Gemini",
+      "Cloudflare Workers AI",
+      "Cloudflare AI Gateway"
+    ],
+    "slug": "structured-output-guide-building-function-calling-vs-json-mode-vs-constrained-dec"
+  },
+  "content": {
+    "intro": "This guide provides a step-by-step implementation strategy for building reliable structured JSON output pipelines using AI models. Focuses on schema validation, provider compatibility, and envelope handling for production-grade systems.",
+    "estimated_time": "30-45 minutes",
+    "prerequisites": [
+      "Node.js 18+ with npm",
+      "Zod schema validation library",
+      "Cloudflare Workers AI or Google Gemini API key",
+      "Basic understanding of JSON schema specifications"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define strict Zod schemas with versioning",
+        "explanation": "Create schema definitions that balance validation strength with forward compatibility. Use Zod's refine method for custom validation rules. Version schemas to enable gradual migration.",
+        "code": {
+          "language": "typescript",
+          "content": "const UserSchema = z.object({\n  id: z.string().uuid(),\n  name: z.string().min(1),\n  email: z.string().email(),\n}).refine(data => data.email.includes('@example.com'), {\n  message: 'Must use company email'\n});",
+          "filename": "schemas/userSchema.ts"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Configure model-specific JSON mode parameters",
+        "explanation": "Set model-specific parameters for structured output. Gemini requires 'response_schema' parameter, while Cloudflare Workers AI uses 'response_format' with 'type' set to 'json'.",
+        "code": {
+          "language": "javascript",
+          "content": "const response = await model.generateContent(\n  'Generate user data',\n  {\n    response_format: {\n      type: 'json_object',\n      schema: JSON.stringify(UserSchema.shape)\n    }\n  }\n);"
+        },
+        "pitfalls": [
+          "Forgetting to stringify schema definitions for model ingestion",
+          "Ignoring provider-specific schema validation quirks"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement envelope response parsing",
+        "explanation": "Create middleware to handle models that wrap content in meta/seo/content structures. Extract the core content field before validation.",
+        "code": {
+          "language": "typescript",
+          "content": "function parseEnvelope(response: any): any {\n  if (response.content) return response.content;\n  if (response.choices?.[0]?.message?.content) {\n    return JSON.parse(response.choices[0].message.content);\n  }\n  throw new Error('Unexpected response format');\n}"
+        },
+        "pitfalls": [
+          "Assuming consistent response structures across models",
+          "Missing error handling for malformed envelope patterns"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Validate output against schema before use",
+        "explanation": "Perform strict validation on model output using Zod. Capture and log validation errors for debugging. Use zod's safeParse method for error tracking.",
+        "code": {
+          "language": "typescript",
+          "content": "const result = UserSchema.safeParse(parsedContent);\nif (!result.success) {\n  console.error('Validation failed:', result.error.issues);\n  throw new Error('Invalid output format');\n}"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Create schema compatibility layer for providers",
+        "explanation": "Build a schema transformation layer to normalize differences between model providers. Map provider-specific schema features to a common subset.",
+        "code": {
+          "language": "typescript",
+          "content": "function normalizeSchema(schema: any): any {\n  if (schema.type === 'object' && schema.additionalProperties === false) {\n    return { ...schema, additionalProperties: undefined };\n  }\n  return schema;\n}"
+        },
+        "pitfalls": [
+          "Overlooking provider-specific schema feature limitations",
+          "Creating brittle schema transformation rules"
+        ]
+      }
+    ],
+    "conclusion": "By following these steps, developers can build robust structured output pipelines that handle validation, envelope patterns, and provider differences. Regularly update schema versions and monitor validation failures to maintain output reliability."
+  }
+}

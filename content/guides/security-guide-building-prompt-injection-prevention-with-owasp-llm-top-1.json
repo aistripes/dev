@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "security",
+    "generated_at": "2026-04-16T20:24:20.251Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Prompt injection prevention with OWASP LLM Top 1...",
+    "description": "A step-by-step implementation guide for Prompt injection prevention with OWASP LLM Top 10 and Rebuff.",
+    "keywords": [
+      "security",
+      "security for ai apps",
+      "guide",
+      "OWASP LLM Top 10",
+      "Rebuff",
+      "Guardrails AI"
+    ],
+    "slug": "security-guide-building-prompt-injection-prevention-with-owasp-llm-top-1"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to securing AI applications by addressing common vulnerabilities in prompt handling, API key management, data leakage, and compliance. Each step includes implementation details and real-world tool integration.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Existing AI application with LLM integration",
+      "Access to LLM provider APIs (e.g., OpenAI, Anthropic)",
+      "Vault or AWS KMS for secret management",
+      "Basic security auditing tools (e.g., Snyk, SonarQube)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Conduct threat modeling for LLM interfaces",
+        "explanation": "Map attack vectors for user input channels. Identify where prompt injection, data exfiltration, and API key exposure risks exist. Use OWASP LLM Top 10 as a baseline.",
+        "code": {
+          "language": "markdown",
+          "content": "# Threat Model\n\n## Attack Surface\n- User input fields\n- API request parameters\n- System prompts\n\n## Mitigations\n- Input validation\n- Prompt sanitization\n- Access controls",
+          "filename": "threat_model.md"
+        },
+        "pitfalls": [
+          "Overlooking indirect input channels (e.g., file uploads)",
+          "Failing to update threat models during feature changes"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement prompt injection prevention",
+        "explanation": "Use framework-specific guardrails to isolate user input. Validate and sanitize prompts before LLM processing. Test with known injection patterns.",
+        "code": {
+          "language": "python",
+          "content": "from guardrails import Guard\n\nprompt_guard = Guard().add(\"detect_prompt_injection\")\nsecure_prompt = prompt_guard.validate(user_input)",
+          "filename": "prompt_sanitize.py"
+        },
+        "pitfalls": [
+          "Relying solely on regex-based detection",
+          "Ignoring multi-turn conversation contexts"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Secure LLM API key management",
+        "explanation": "Store credentials in secret management systems. Use IAM roles for cloud providers. Rotate keys regularly and monitor access logs.",
+        "code": {
+          "language": "bash",
+          "content": "aws secretsmanager get-secret-value --secret-id /ai/app/llm_key",
+          "filename": "get_api_key.sh"
+        },
+        "pitfalls": [
+          "Hardcoding keys in configuration files",
+          "Using shared credentials across multiple services"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Prevent data leakage in outputs",
+        "explanation": "Implement content redaction for sensitive information. Use LLM output filters to block prohibited patterns. Test with synthetic data samples.",
+        "code": {
+          "language": "python",
+          "content": "import re\n\ndef redact_sensitive(text):\n    return re.sub(r'\\b\\d{3}-\\d{2}-\\d{4}\\b', '[REDACTED]', text)",
+          "filename": "data_redact.py"
+        },
+        "pitfalls": [
+          "Overlooking non-ASCII character patterns",
+          "Failing to test edge cases in output formatting"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement content moderation pipeline",
+        "explanation": "Integrate AI content filters to block harmful outputs. Use multi-layer validation (e.g., keyword matching + LLM-based classification). Regularly update banned word lists.",
+        "code": {
+          "language": "python",
+          "content": "from nemo_guardrails import Guard\n\nmoderation_guard = Guard().add(\"harmful_content_detection\")\nfiltered_output = moderation_guard.validate(response_text)",
+          "filename": "content_moderate.py"
+        },
+        "pitfalls": [
+          "Ignoring context-dependent content risks",
+          "Overlooking false positive rates in production"
+        ]
+      }
+    ],
+    "conclusion": "Security for AI applications requires continuous validation of input handling, secret management, and output controls. Regularly update guardrails using OWASP LLM guidelines and audit implementations against compliance requirements."
+  }
+}

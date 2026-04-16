@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "international-seo",
+    "generated_at": "2026-04-16T20:25:53.751Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Google Search Console vs Ahrefs vs DeepL",
+    "description": "A practical comparison of Google Search Console, Ahrefs, and DeepL for International SEO.",
+    "keywords": [
+      "international-seo",
+      "international seo",
+      "comparison",
+      "Google Search Console",
+      "Ahrefs",
+      "DeepL"
+    ],
+    "slug": "international-seo-comparison-google-search-console-vs-ahrefs-vs-deepl"
+  },
+  "content": {
+    "intro": "Comparing URL structure strategies for international SEO: subdomains, subdirectories, and ccTLDs. Evaluate trade-offs in implementation, maintenance, and regional performance for multi-language web applications.",
+    "options": [
+      {
+        "name": "Subdomains",
+        "tagline": "Independent regional brand presence",
+        "url": "https://developers.google.com/search/docs/crawling-indexing/complex-urls/hreflang-tag-country-codes",
+        "best_for": "Developers needing separate regional brand identity with distinct server configurations"
+      },
+      {
+        "name": "Subdirectories",
+        "tagline": "Centralized content management",
+        "url": "https://www.w3.org/International/questions/qa-choosing-language-in-html",
+        "best_for": "Teams prioritizing unified content governance across languages"
+      },
+      {
+        "name": "ccTLDs",
+        "tagline": "Local SEO authority and compliance",
+        "url": "https://support.google.com/webmasters/answer/182192",
+        "best_for": "European businesses requiring GDPR-compliant regional hosting"
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Implementation Complexity",
+        "description": "Effort required to set up server configurations and hreflang tags",
+        "values": {
+          "Subdomains": "Moderate",
+          "Subdirectories": "Low",
+          "ccTLDs": "High"
+        }
+      },
+      {
+        "name": "SEO Effectiveness",
+        "description": "Search engine visibility for region-specific queries",
+        "values": {
+          "Subdomains": "High",
+          "Subdirectories": "Medium",
+          "ccTLDs": "Very High"
+        }
+      },
+      {
+        "name": "Maintenance Effort",
+        "description": "Ongoing management of content, links, and technical SEO",
+        "values": {
+          "Subdomains": "High",
+          "Subdirectories": "Low",
+          "ccTLDs": "Moderate"
+        }
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Server, domain, and translation management expenses",
+        "values": {
+          "Subdomains": "Moderate",
+          "Subdirectories": "Low",
+          "ccTLDs": "High"
+        }
+      },
+      {
+        "name": "Scalability",
+        "description": "Ease of adding new languages/regions",
+        "values": {
+          "Subdomains": "High",
+          "Subdirectories": "Moderate",
+          "ccTLDs": "Low"
+        }
+      },
+      {
+        "name": "Geo-Targeting Precision",
+        "description": "Ability to serve region-specific content",
+        "values": {
+          "Subdomains": "High",
+          "Subdirectories": "Medium",
+          "ccTLDs": "Very High"
+        }
+      },
+      {
+        "name": "Crawl Budget Efficiency",
+        "description": "Search engine crawling effectiveness across variants",
+        "values": {
+          "Subdomains": "Medium",
+          "Subdirectories": "High",
+          "ccTLDs": "Low"
+        }
+      },
+      {
+        "name": "Content Management Complexity",
+        "description": "Effort to maintain translations and localizations",
+        "values": {
+          "Subdomains": "High",
+          "Subdirectories": "Low",
+          "ccTLDs": "Moderate"
+        }
+      }
+    ],
+    "verdict": {
+      "summary": "No single approach dominates across all criteria. Subdirectories offer balanced simplicity but limit regional branding. Subdomains provide flexibility with higher maintenance costs. ccTLDs deliver strongest local SEO but require significant infrastructure investment.",
+      "use_cases": [
+        {
+          "scenario": "SaaS expansion to 10+ EU markets",
+          "recommendation": "Subdomains",
+          "reason": "Balances regional brand identity with scalable technical implementation"
+        },
+        {
+          "scenario": "European e-commerce platform targeting 3 countries",
+          "recommendation": "ccTLDs",
+          "reason": "Maximizes local search visibility and GDPR compliance"
+        },
+        {
+          "scenario": "Small team managing 3 language versions",
+          "recommendation": "Subdirectories",
+          "reason": "Minimizes technical complexity while maintaining centralized control"
+        }
+      ]
+    }
+  }
+}

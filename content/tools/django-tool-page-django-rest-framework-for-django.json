@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "django",
+    "generated_at": "2026-04-16T20:23:01.919Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Django REST Framework for Django",
+    "description": "How Django REST Framework fits into real Django workflows.",
+    "keywords": [
+      "django",
+      "tool-page",
+      "Django REST Framework",
+      "Celery",
+      "PostgreSQL"
+    ],
+    "slug": "django-tool-page-django-rest-framework-for-django"
+  },
+  "content": {
+    "headline": "Django Sync View Async Conversion Checker",
+    "description": "Identifies sync functions in Django views and suggests async conversion patterns to avoid blocking the event loop.",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Async conversion suggestions"
+      }
+    },
+    "inputs": [
+      {
+        "name": "code",
+        "label": "Django View Code",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "name": "async_suggestions",
+        "label": "Enable Async Suggestions",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Sync View Conversion",
+        "input": {
+          "code": "def my_view(request):\n    data = fetch_data_sync()\n    return HttpResponse(data)",
+          "async_suggestions": true
+        },
+        "expected_output": "Suggested async conversion: async def my_view(request): data = await fetch_data_sync()\nReplace fetch_data_sync() with async version"
+      },
+      {
+        "label": "Blocking Operation Detection",
+        "input": {
+          "code": "def expensive_operation(request):\n    time.sleep(5)\n    return JsonResponse({})",
+          "async_suggestions": false
+        },
+        "expected_output": "Warning: Blocking operation detected in expensive_operation. Use asyncio.sleep() instead."
+      }
+    ],
+    "how_it_works": "Analyzes input code for sync functions, detects blocking operations, and provides actionable async conversion suggestions without requiring external dependencies.",
+    "related_tools": [
+      "Django REST Framework",
+      "Celery",
+      "ASGI",
+      "HTMX"
+    ]
+  }
+}

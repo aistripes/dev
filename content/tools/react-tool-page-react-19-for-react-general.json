@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "react",
+    "generated_at": "2026-04-16T20:22:48.151Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "React 19 for React (general)",
+    "description": "How React 19 fits into real React (general) workflows.",
+    "keywords": [
+      "react",
+      "react (general)",
+      "tool-page",
+      "React 19",
+      "TypeScript",
+      "Vite"
+    ],
+    "slug": "react-tool-page-react-19-for-react-general"
+  },
+  "content": {
+    "headline": "React State Management Strategy Generator",
+    "description": "Determines optimal state management approach based on project requirements and team constraints",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Recommendation"
+      }
+    },
+    "inputs": [
+      {
+        "name": "projectSize",
+        "label": "Project Size",
+        "type": "select",
+        "options": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "required": true
+      },
+      {
+        "name": "reduxFamiliarity",
+        "label": "Team Familiarity with Redux",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "serverSideState",
+        "label": "Need for Server-Side State",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "typescript",
+        "label": "Uses TypeScript",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "performancePriority",
+        "label": "Performance Priority (1-5)",
+        "type": "number",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Small project with TypeScript",
+        "input": {
+          "projectSize": "Small",
+          "typescript": true
+        },
+        "expected_output": "{\"recommendation\": \"React Context API with Zustand for simplicity\"}"
+      },
+      {
+        "label": "Large enterprise app",
+        "input": {
+          "projectSize": "Large",
+          "reduxFamiliarity": true,
+          "performancePriority": 5
+        },
+        "expected_output": "{\"recommendation\": \"Redux Toolkit with React Query for scalability\"}"
+      },
+      {
+        "label": "Medium app with server state",
+        "input": {
+          "projectSize": "Medium",
+          "serverSideState": true,
+          "performancePriority": 3
+        },
+        "expected_output": "{\"recommendation\": \"React Server Components with Suspense for data fetching\"}"
+      }
+    ],
+    "how_it_works": "Evaluates project size, team expertise, and technical requirements to recommend context API, redux, Zustand, or server components. Prioritizes simplicity for small projects and scalability for enterprise apps.",
+    "related_tools": [
+      "Redux",
+      "Zustand",
+      "React Context API",
+      "React Query"
+    ]
+  }
+}

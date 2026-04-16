@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "voice-ai",
+    "generated_at": "2026-04-16T20:21:01.547Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Whisper for Voice & Speech AI",
+    "description": "How Whisper fits into real Voice & Speech AI workflows.",
+    "keywords": [
+      "voice-ai",
+      "voice & speech ai",
+      "tool-page",
+      "Whisper",
+      "Deepgram",
+      "AssemblyAI"
+    ],
+    "slug": "voice-ai-tool-page-whisper-for-voice-speech-ai"
+  },
+  "content": {
+    "headline": "Speech API Selection Assistant",
+    "description": "Helps developers choose between real-time and batch transcription APIs based on specific use case requirements",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Recommended API"
+      }
+    },
+    "inputs": [
+      {
+        "name": "real_time_required",
+        "label": "Real-time processing needed?",
+        "type": "checkbox",
+        "required": true
+      },
+      {
+        "name": "languages",
+        "label": "Supported languages",
+        "type": "select",
+        "options": [
+          "en",
+          "es",
+          "fr",
+          "de",
+          "ja",
+          "zh",
+          "others"
+        ],
+        "required": true
+      },
+      {
+        "name": "noise_level",
+        "label": "Audio environment noise level",
+        "type": "number",
+        "placeholder": "1-10",
+        "required": true
+      },
+      {
+        "name": "latency_tolerance",
+        "label": "Maximum acceptable latency (ms)",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "cost_sensitive",
+        "label": "Cost-sensitive workload?",
+        "type": "checkbox",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Real-time chat app with multi-language support",
+        "input": {
+          "real_time_required": true,
+          "languages": "en,es,fr",
+          "noise_level": 3,
+          "latency_tolerance": 200,
+          "cost_sensitive": false
+        },
+        "expected_output": "Deepgram (real-time with multi-language support and low latency)"
+      },
+      {
+        "label": "Batch transcription with high noise tolerance",
+        "input": {
+          "real_time_required": false,
+          "languages": "zh",
+          "noise_level": 8,
+          "latency_tolerance": 1000,
+          "cost_sensitive": true
+        },
+        "expected_output": "Google Cloud Speech-to-Text (high noise tolerance with cost optimization)"
+      }
+    ],
+    "how_it_works": "Evaluates real-time requirements, language coverage, noise handling, latency constraints, and cost sensitivity against API feature matrices to recommend optimal speech-to-text solutions",
+    "related_tools": [
+      "Speech-to-text API comparison",
+      "Audio processing pipeline builder",
+      "Text-to-speech integration guide"
+    ]
+  }
+}

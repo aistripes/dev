@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "saas",
+    "generated_at": "2026-04-16T20:25:10.378Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building SaaS billing and payment integration with Stripe...",
+    "description": "A step-by-step implementation guide for SaaS billing and payment integration with Stripe and LemonSqueezy.",
+    "keywords": [
+      "saas",
+      "saas applications",
+      "guide",
+      "Stripe",
+      "LemonSqueezy",
+      "Clerk"
+    ],
+    "slug": "saas-guide-building-saas-billing-and-payment-integration-with-stripe"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building core SaaS functionality with focus on billing, authentication, and compliance. Follow these steps to implement critical components with production-grade considerations.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Stripe account with API keys",
+      "Clerk dashboard API keys",
+      "Supabase project setup",
+      "Node.js 18+ or Python 3.10+",
+      "Basic understanding of PostgreSQL schema design",
+      "GitHub account for code hosting"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Set up authentication and tenant identification",
+        "explanation": "Configure Clerk for user authentication and create a tenant identifier schema. Use Supabase's row-level security to isolate data between tenants.",
+        "code": {
+          "language": "sql",
+          "content": "ALTER TABLE tenants ADD COLUMN tenant_id UUID NOT NULL DEFAULT gen_random_uuid(); GRANT SELECT ON tenants TO anon; CREATE POLICY tenant_policy ON tenants FOR ALL USING (tenant_id = current_setting('app.current_tenant')::UUID);"
+        },
+        "pitfalls": [
+          "Forgetting to set app.current_tenant in database connections",
+          "Not validating tenant_id in API routes"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement subscription billing with Stripe",
+        "explanation": "Create products and pricing tiers in Stripe Dashboard. Set up webhooks to handle subscription events and update tenant status in your database.",
+        "code": {
+          "language": "javascript",
+          "content": "const stripe = require('stripe')('sk_test_...'); stripe.webhooks.on('checkout.session.completed', async (event) => { const session = event.data.object; const tenant = await getTenantByCustomerId(session.customer); await updateSubscriptionStatus(tenant, session); });"
+        },
+        "pitfalls": [
+          "Not verifying webhook signatures with Stripe's endpoint secret",
+          "Ignoring trial periods in subscription logic"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure multi-tenancy database schema",
+        "explanation": "Design a shared database schema with tenant-specific data partitions. Use Supabase's built-in row-level security to enforce data isolation.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE TABLE tenant_features (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), tenant_id UUID NOT NULL REFERENCES tenants(id), feature_type TEXT NOT NULL, enabled BOOLEAN NOT NULL DEFAULT true); CREATE INDEX idx_tenant_features_tenant ON tenant_features(tenant_id);"
+        },
+        "pitfalls": [
+          "Not indexing tenant_id columns in multi-tenant tables",
+          "Using global UUIDs instead of tenant-specific identifiers"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Add AI API cost tracking",
+        "explanation": "Instrument API calls to track usage against tenant quotas. Implement rate limiting and cost alerts using a time-series database.",
+        "code": {
+          "language": "python",
+          "content": "from prometheus_client import Counter ai_api_calls = Counter('ai_api_calls_total', 'Total AI API calls per tenant', ['tenant_id', 'model']) def track_call(tenant_id, model): ai_api_calls.labels(tenant_id=tenant_id, model=model).inc()"
+        },
+        "pitfalls": [
+          "Not sampling API usage data for cost estimation",
+          "Ignoring rate-limiting thresholds in production"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement GDPR data management",
+        "explanation": "Create endpoints for data export and deletion. Use Supabase's built-in retention policies to automatically purge inactive tenant data.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE OR REPLACE FUNCTION delete_tenant_data(tenant_id UUID) RETURNS void AS $$ BEGIN DELETE FROM user_activity WHERE tenant_id = tenant_id; DELETE FROM api_logs WHERE tenant_id = tenant_id; END; $$ LANGUAGE plpgsql;"
+        },
+        "pitfalls": [
+          "Not anonymizing user data before deletion",
+          "Forgetting to update audit logs when data is removed"
+        ]
+      }
+    ],
+    "conclusion": "This implementation sequence addresses core SaaS requirements with production considerations. Verify each component with integration tests and monitor metrics through PostHog for user behavior insights."
+  }
+}

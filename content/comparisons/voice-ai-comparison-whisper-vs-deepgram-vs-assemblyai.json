@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "voice-ai",
+    "generated_at": "2026-04-16T20:27:30.924Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Whisper vs Deepgram vs AssemblyAI",
+    "description": "A practical comparison of Whisper, Deepgram, and AssemblyAI for Voice & Speech AI.",
+    "keywords": [
+      "voice-ai",
+      "voice & speech ai",
+      "comparison",
+      "Whisper",
+      "Deepgram",
+      "AssemblyAI"
+    ],
+    "slug": "voice-ai-comparison-whisper-vs-deepgram-vs-assemblyai"
+  },
+  "content": {
+    "intro": "Selecting a voice AI provider requires balancing transcription latency against the depth of post-processing intelligence and total cost of ownership. This comparison evaluates the leading APIs for speech-to-text (STT) and voice intelligence based on implementation effort and performance in production environments.",
+    "options": [
+      {
+        "name": "Deepgram",
+        "tagline": "Specialized high-speed inference engine for real-time streaming applications.",
+        "url": "https://deepgram.com",
+        "best_for": "Low-latency conversational AI and high-volume real-time transcription."
+      },
+      {
+        "name": "AssemblyAI",
+        "tagline": "Feature-rich API focused on developer experience and integrated LLM analysis.",
+        "url": "https://www.assemblyai.com",
+        "best_for": "Batch processing with complex requirements like summarization and sentiment analysis."
+      },
+      {
+        "name": "OpenAI Whisper",
+        "tagline": "General-purpose robust transcription model with flexible deployment options.",
+        "url": "https://openai.com/research/whisper",
+        "best_for": "Applications requiring high accuracy across diverse accents or self-hosted privacy."
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Real-time Latency",
+        "description": "The time elapsed between audio transmission and receipt of transcription results.",
+        "values": {
+          "Deepgram": "Sub-300ms latency via WebSocket streaming; optimized for live interactions.",
+          "AssemblyAI": "Supports streaming but typically higher latency than Deepgram; optimized for accuracy over speed.",
+          "OpenAI Whisper": "Standard Whisper is batch-oriented; OpenAI Realtime API offers low latency but at significantly higher cost."
+        },
+        "winner": "Deepgram"
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Standard pricing per minute of audio processed.",
+        "values": {
+          "Deepgram": "Approximately $0.0043/min for Nova-2 model; high volume discounts available.",
+          "AssemblyAI": "Approximately $0.015/min for core transcription; additional costs for 'Audio Intelligence' features.",
+          "OpenAI Whisper": "$0.006/min for hosted API; free (compute only) for self-hosted open-source version."
+        },
+        "winner": "Deepgram"
+      },
+      {
+        "name": "Deployment Flexibility",
+        "description": "Options for hosting and data residency compliance.",
+        "values": {
+          "Deepgram": "Cloud-hosted and on-premise/private cloud deployment options available.",
+          "AssemblyAI": "Cloud-only API service; no self-hosting option.",
+          "OpenAI Whisper": "Fully open-source model weights allow for local, air-gapped, or custom cloud hosting."
+        },
+        "winner": "OpenAI Whisper"
+      },
+      {
+        "name": "Language Support",
+        "description": "Breadth of supported languages and automatic language detection capabilities.",
+        "values": {
+          "Deepgram": "30+ languages with specific models for specialized domains like medical or finance.",
+          "AssemblyAI": "80+ languages with robust automatic language detection and switching.",
+          "OpenAI Whisper": "99 languages; exceptional performance on low-resource languages due to massive training set."
+        },
+        "winner": "OpenAI Whisper"
+      },
+      {
+        "name": "PII Redaction",
+        "description": "Built-in capability to identify and mask sensitive personal information.",
+        "values": {
+          "Deepgram": "Supports redaction of SSNs, credit card numbers, and emails via API parameter.",
+          "AssemblyAI": "Sophisticated PII redaction including entity identification (names, locations) with high precision.",
+          "OpenAI Whisper": "No native redaction in the model; requires post-processing with secondary LLMs."
+        },
+        "winner": "AssemblyAI"
+      },
+      {
+        "name": "Speaker Diarization",
+        "description": "The ability to distinguish between different speakers in a single audio stream.",
+        "values": {
+          "Deepgram": "Fast, real-time diarization; sometimes struggles with overlapping speech.",
+          "AssemblyAI": "High-accuracy diarization with speaker count detection and turn-taking logic.",
+          "OpenAI Whisper": "Not natively supported in the base model; requires third-party tools like Pyannote."
+        },
+        "winner": "AssemblyAI"
+      },
+      {
+        "name": "Audio Intelligence Features",
+        "description": "Native capabilities for summarization, sentiment, and intent detection.",
+        "values": {
+          "Deepgram": "Offers basic summarization and topic detection as add-on features.",
+          "AssemblyAI": "Extensive 'LeMUR' framework allows running LLM prompts directly against transcripts.",
+          "OpenAI Whisper": "Requires piping transcript output into GPT-4o for intelligence tasks."
+        },
+        "winner": "AssemblyAI"
+      },
+      {
+        "name": "Implementation Effort",
+        "description": "Complexity of SDKs, documentation, and initial authentication setup.",
+        "values": {
+          "Deepgram": "Moderate; requires managing WebSocket states for real-time features.",
+          "AssemblyAI": "Low; very polished SDKs and clear documentation for REST and WebSocket interfaces.",
+          "OpenAI Whisper": "Variable; API is simple, but self-hosting requires significant DevOps and GPU management."
+        },
+        "winner": "AssemblyAI"
+      },
+      {
+        "name": "Resilience to Noise",
+        "description": "Accuracy levels in environments with background noise or poor microphone quality.",
+        "values": {
+          "Deepgram": "Highly resilient via specialized 'Nova' models trained on diverse real-world audio.",
+          "AssemblyAI": "Strong performance in telephonic and meeting environments.",
+          "OpenAI Whisper": "Industry-leading robustness to background noise and technical artifacts."
+        },
+        "winner": "OpenAI Whisper"
+      }
+    ],
+    "verdict": {
+      "summary": "Deepgram is the technical choice for real-time, low-latency infrastructure where speed and cost-efficiency are paramount. AssemblyAI provides the best developer experience for post-call analysis and complex data extraction. OpenAI Whisper is the standard for high-accuracy batch processing and applications where data privacy necessitates self-hosting.",
+      "use_cases": [
+        {
+          "scenario": "Building a live AI voice assistant for a mobile app.",
+          "recommendation": "Deepgram",
+          "reason": "The sub-300ms latency is critical for natural turn-taking in conversational AI."
+        },
+        {
+          "scenario": "Automated call center auditing and compliance reporting.",
+          "recommendation": "AssemblyAI",
+          "reason": "Native PII redaction and LeMUR intelligence simplify the extraction of structured data from calls."
+        },
+        {
+          "scenario": "On-premise transcription for a healthcare provider.",
+          "recommendation": "OpenAI Whisper",
+          "reason": "Allows for deployment on local hardware to ensure HIPAA compliance without data leaving the network."
+        }
+      ]
+    }
+  }
+}

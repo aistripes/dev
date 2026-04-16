@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "monitoring",
+    "generated_at": "2026-04-16T20:24:02.339Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Error tracking and alerting setup with Sentry an...",
+    "description": "A step-by-step implementation guide for Error tracking and alerting setup with Sentry and Grafana.",
+    "keywords": [
+      "monitoring",
+      "monitoring & observability",
+      "guide",
+      "Sentry",
+      "Grafana",
+      "Prometheus"
+    ],
+    "slug": "monitoring-guide-building-error-tracking-and-alerting-setup-with-sentry-an"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing a monitoring and observability stack for backend systems, focusing on production reliability, LLM API tracking, and distributed tracing. It emphasizes actionable steps for setting up metrics, alerts, and distributed tracing with open-source and commercial tools.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Installed Prometheus and Grafana",
+      "Basic understanding of OpenTelemetry instrumentation",
+      "Access to LLM API endpoints (e.g., Anthropic, OpenAI)",
+      "Docker and Kubernetes cluster (optional)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define monitoring scope and critical metrics",
+        "explanation": "Identify key performance indicators (KPIs) for your system. Focus on error rates (e.g., 5xx responses), latency thresholds (e.g., P99 < 200ms), and LLM API costs. Use tools like Prometheus to define scrape targets for services and APIs.",
+        "code": {
+          "language": "yaml",
+          "content": "scrape_configs:\n  - job_name: 'my-service'\n    static_configs:\n      - targets: ['localhost:9090']",
+          "filename": "prometheus.yml"
+        },
+        "pitfalls": [
+          "Over-monitoring without clear alerting criteria",
+          "Ignoring business-critical metrics in favor of technical ones"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Set up Prometheus for service metrics",
+        "explanation": "Deploy Prometheus to collect metrics from your backend services. Configure service discovery for dynamic environments or static targets for monolithic applications. Use the Prometheus Query Language (PromQL) to create initial alerting rules.",
+        "code": {
+          "language": "yaml",
+          "content": "alerting:\n  rules:\n  - alert: HighRequestLatency\n    expr: job:request_latency_seconds:99percentile{job=\"my-service\"} > 0.2",
+          "filename": "prometheus.yml"
+        },
+        "pitfalls": [
+          "Incorrect scrape intervals causing data gaps",
+          "Not securing Prometheus endpoints in production"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Integrate Grafana for visualization",
+        "explanation": "Add Prometheus as a data source in Grafana and create dashboards for error rates, latency, and LLM API usage. Use pre-built templates for common metrics (e.g., CPU, memory, request counts) and customize them for your service.",
+        "pitfalls": [
+          "Overloading dashboards with non-actionable metrics",
+          "Not using Grafana's built-in alerting for critical thresholds"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement OpenTelemetry for distributed tracing",
+        "explanation": "Instrument your services with OpenTelemetry to collect traces. Configure the OpenTelemetry Collector to export traces to a backend like Jaeger or Zipkin. Add trace context propagation between microservices.",
+        "code": {
+          "language": "python",
+          "content": "from opentelemetry import trace\nfrom opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPTraceExporter\nfrom opentelemetry.sdk.trace import TracerProvider\n\ntrace.set_tracer_provider(TracerProvider())\ntrace.get_tracer_provider().add_exporter(OTLPTraceExporter(endpoint=\"http://otel-collector:4317\"))",
+          "filename": "instrumentation.py"
+        },
+        "pitfalls": [
+          "Incorrect service name configuration in traces",
+          "Not sampling enough traces for meaningful analysis"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Configure alerting with Alertmanager",
+        "explanation": "Set up Alertmanager to handle alert routing and deduplication. Define notification channels (e.g., Slack, email) and configure silences for maintenance periods. Test alerting rules with synthetic traffic.",
+        "code": {
+          "language": "yaml",
+          "content": "route:\n  receiver: 'slack-notifications'\n  group_by: ['job']\n  group_wait: 30s\n  group_interval: 5m\n  repeat_interval: 3h\nreceivers:\n- name: 'slack-notifications'\n  slack_configs:\n  - api_url: 'https://hooks.slack.com/...'",
+          "filename": "alertmanager.yml"
+        },
+        "pitfalls": [
+          "Alert fatigue from overly broad rules",
+          "Not testing alert silences during deployments"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Monitor LLM API costs and latency",
+        "explanation": "Integrate LLM API metrics (e.g., token usage, request rate) using tools like Helicone or LangSmith. Create dashboards to track costs per model and detect anomalies in latency or error rates.",
+        "code": {
+          "language": "bash",
+          "content": "curl -X POST https://api.helicone.ai/v1/chat/completions \\\n  -H 'Authorization: Bearer YOUR_API_KEY' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"model\": \"gpt-3.5-turbo\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}]}'",
+          "filename": "llm_request.sh"
+        },
+        "pitfalls": [
+          "Missing custom metrics for vendor-specific API limits",
+          "Not correlating LLM errors with upstream service failures"
+        ]
+      },
+      {
+        "number": 7,
+        "title": "Validate distributed tracing across AI pipelines",
+        "explanation": "Verify that traces span multiple services in your AI pipeline (e.g., API gateway → model inference → database). Use trace ID correlation to debug latency bottlenecks and error propagation.",
+        "pitfalls": [
+          "Traces not being exported due to network policies",
+          "Missing context propagation between asynchronous components"
+        ]
+      }
+    ],
+    "conclusion": "This guide establishes a foundation for monitoring production systems with actionable metrics, alerting, and distributed tracing. Continuously refine alert thresholds, expand instrumentation to new services, and validate observability pipelines under load."
+  }
+}

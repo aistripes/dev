@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "structured-output",
+    "generated_at": "2026-04-16T20:20:09.369Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Google Gemini for Structured Output / JSON Mode",
+    "description": "How Google Gemini fits into real Structured Output / JSON Mode workflows.",
+    "keywords": [
+      "structured-output",
+      "structured output / json mode",
+      "tool-page",
+      "Google Gemini",
+      "Cloudflare Workers AI",
+      "Cloudflare AI Gateway"
+    ],
+    "slug": "structured-output-tool-page-google-gemini-for-structured-output-json-mode"
+  },
+  "content": {
+    "headline": "Schema Validation Tester",
+    "description": "Validate JSON schemas against model outputs to catch compatibility issues before deployment",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Validation Results"
+      }
+    },
+    "inputs": [
+      {
+        "name": "schema",
+        "label": "JSON Schema",
+        "type": "textarea",
+        "placeholder": "Enter JSON schema for validation",
+        "required": true
+      },
+      {
+        "name": "model_output",
+        "label": "Model Output",
+        "type": "textarea",
+        "placeholder": "Paste raw model output to validate",
+        "required": true
+      },
+      {
+        "name": "provider",
+        "label": "Model Provider",
+        "type": "select",
+        "options": [
+          "Gemini",
+          "Qwen",
+          "Claude",
+          "OpenAI"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Valid Gemini Output",
+        "input": {
+          "schema": "{\"type\": \"object\", \"properties\": {\"title\": {\"type\": \"string\"}}, \"required\": [\"title\"]}",
+          "model_output": "{\"title\": \"Test Article\"}",
+          "provider": "Gemini"
+        },
+        "expected_output": "{\"valid\": true, \"errors\": []}"
+      },
+      {
+        "label": "Invalid Qwen Output",
+        "input": {
+          "schema": "{\"type\": \"object\", \"properties\": {\"content\": {\"type\": \"string\"}}, \"required\": [\"content\"]}",
+          "model_output": "{\"meta\": {\"status\": \"ok\"}, \"content\": \"Valid text\"}",
+          "provider": "Qwen"
+        },
+        "expected_output": "{\"valid\": false, \"errors\": [\"Envelope structure mismatch\"]}"
+      }
+    ],
+    "how_it_works": "Analyzes provided JSON schema and model output against provider-specific validation rules. Checks for type consistency, required fields, and envelope structure compliance. Returns detailed validation results including error locations.",
+    "related_tools": [
+      "zod-to-json-schema",
+      "Cloudflare AI Gateway",
+      "LangChain"
+    ]
+  }
+}

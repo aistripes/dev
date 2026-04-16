@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "programmatic-seo",
+    "generated_at": "2026-04-16T20:25:12.165Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building pSEO page template design with Astro and Next.js",
+    "description": "A step-by-step implementation guide for pSEO page template design with Astro and Next.js.",
+    "keywords": [
+      "programmatic-seo",
+      "programmatic seo",
+      "guide",
+      "Astro",
+      "Next.js",
+      "Ahrefs"
+    ],
+    "slug": "programmatic-seo-guide-building-pseo-page-template-design-with-astro-and-nextjs"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building programmatic SEO pages with scalable templates, data integration, and performance tracking. Focuses on implementation details for developers creating high-volume content assets.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Next.js project setup",
+      "Ahrefs account for keyword research",
+      "Google Search Console verification",
+      "OpenAI/Gemini API access",
+      "Cloudflare Pages deployment pipeline"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define page template architecture",
+        "explanation": "Create a component-based template system using Next.js dynamic routes. Structure templates to accept data props for content customization while maintaining SEO best practices.",
+        "code": {
+          "language": "typescript",
+          "content": "export default function ProductPage({ product }) {\n  return (\n    <div>\n      <h1>{product.title}</h1>\n      <p>{product.description}</p>\n    </div>\n  )\n}",
+          "filename": "pages/products/[slug].tsx"
+        },
+        "pitfalls": [
+          "Hardcoding content elements instead of using props",
+          "Missing canonical tags for duplicate templates"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Set up data sourcing pipeline",
+        "explanation": "Implement an API endpoint or CMS connector to fetch raw data. Use Zod for schema validation to ensure consistent data structures across generated pages.",
+        "code": {
+          "language": "typescript",
+          "content": "const schema = z.object({\n  title: z.string(),\n  description: z.string(),\n  slug: z.string().min(3)\n})",
+          "filename": "src/schemas/productSchema.ts"
+        },
+        "pitfalls": [
+          "Ignoring data validation leading to malformed pages",
+          "Not implementing rate limiting for external APIs"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Generate content templates with AI",
+        "explanation": "Use OpenAI's API to create content variations. Implement a template system that injects dynamic values while maintaining natural language flow.",
+        "code": {
+          "language": "javascript",
+          "content": "const prompt = `Write a product description for ${productName} with keywords: ${keywords}`;",
+          "filename": "src/utils/generateContent.js"
+        },
+        "pitfalls": [
+          "Overusing AI without human review",
+          "Not setting content quality thresholds"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement internal linking strategy",
+        "explanation": "Create a script to automatically generate contextual links between related pages. Use Screaming Frog to audit link equity distribution.",
+        "code": {
+          "language": "javascript",
+          "content": "function addInternalLinks(content, relatedPages) {\n  return content.replace(/\\b(\\w+)/g, (match, word) => {\n    const page = relatedPages.find(p => p.keywords.includes(word))\n    return page ? `<a href=\"/${page.slug}\">${match}</a>` : match\n  })\n}",
+          "filename": "src/utils/linkGenerator.js"
+        },
+        "pitfalls": [
+          "Creating excessive links that dilute authority",
+          "Not testing link equity flow"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Configure metadata templates",
+        "explanation": "Build dynamic metadata components that pull from both page data and global settings. Include Open Graph and Twitter Card tags.",
+        "code": {
+          "language": "typescript",
+          "content": "export function SeoMeta({ title, description, image }) {\n  return (\n    <Head>\n      <title>{title}</title>\n      <meta name=\"description\" content={description} />\n      <meta property=\"og:image\" content={image} />\n    </Head>\n  )\n}",
+          "filename": "components/SeoMeta.tsx"
+        },
+        "pitfalls": [
+          "Missing required metadata fields",
+          "Using duplicate title tags across pages"
+        ]
+      }
+    ],
+    "conclusion": "Validate your implementation with Google Search Console and Ahrefs. Monitor page performance metrics and refine your data sources and content templates iteratively. Maintain a testing environment to validate changes before production deployment."
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "docker",
+    "generated_at": "2026-04-16T20:23:43.798Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Dockerfile best practices and optimization with...",
+    "description": "A step-by-step implementation guide for Dockerfile best practices and optimization with Docker and Docker Compose.",
+    "keywords": [
+      "docker",
+      "docker & containers",
+      "guide",
+      "Docker",
+      "Docker Compose",
+      "Podman"
+    ],
+    "slug": "docker-guide-building-dockerfile-best-practices-and-optimization-with"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building secure, optimized Docker workflows for web applications. Focuses on practical implementation patterns for development, security, and CI/CD integration.",
+    "estimated_time": "30-45 minutes",
+    "prerequisites": [
+      "Docker Engine 20.10+ installed",
+      "Docker Compose 1.29+ installed",
+      "Basic web application with a Dockerfile",
+      "Code editor with terminal access",
+      "Trivy (or Clair) for security scanning"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Project structure normalization",
+        "explanation": "Create consistent directory layout with .dockerignore, Dockerfile, and build context. Place Dockerfile in root directory and exclude unnecessary files.",
+        "code": {
+          "language": "text",
+          "content": ".dockerignore\n*.git\nnode_modules\n*.env\n\nDockerfile\nREADME.md\napp/\nbuild/\n",
+          "filename": ".dockerignore"
+        },
+        "pitfalls": [
+          "Including source control files in build context",
+          "Missing .dockerignore leading to large image sizes"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Dockerfile optimization",
+        "explanation": "Use multi-stage builds and minimize layers. Combine installation and cleanup steps in single RUN commands.",
+        "code": {
+          "language": "dockerfile",
+          "content": "FROM golang:1.21 as builder\nWORKDIR /app\nCOPY . .\nRUN go mod download && go build -o /myapp\n\nFROM gcr.io/distroless/static-debian12\nCOPY --from=builder /myapp /myapp\nCMD [\"/myapp\"]",
+          "filename": "Dockerfile"
+        },
+        "pitfalls": [
+          "Separating installation and cleanup steps",
+          "Using apt-get without autoremove"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Security baseline implementation",
+        "explanation": "Add vulnerability scanning and minimal base images. Verify image integrity with notary.",
+        "code": {
+          "language": "shell",
+          "content": "trivy image myapp:latest\nnotary -s https://notary.example.com verify myapp:latest",
+          "filename": "scan.sh"
+        },
+        "pitfalls": [
+          "Ignoring high-severity vulnerabilities",
+          "Not verifying image signatures"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Docker Compose development setup",
+        "explanation": "Configure services with build contexts, environment variables, and volume mounts for hot reload.",
+        "code": {
+          "language": "yaml",
+          "content": "version: '3.8'\nservices:\n  app:\n    build: .\n    ports:\n      - \"8080:8080\"\n    volumes:\n      - .:/app\n    environment:\n      - DEBUG=1",
+          "filename": "docker-compose.yml"
+        },
+        "pitfalls": [
+          "Mounting entire project directory",
+          "Forgetting to set environment variables"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "CI/CD pipeline integration",
+        "explanation": "Configure build pipelines with cache mounts and image tagging strategies.",
+        "code": {
+          "language": "yaml",
+          "content": "jobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n    - uses: actions/checkout@v3\n    - name: Build Docker image\n      run: |\n        docker build --cache-from myapp:latest -t myapp:latest .\n        docker tag myapp:latest myregistry.com/myapp:$(git rev-parse --short HEAD)",
+          "filename": ".github/workflows/ci.yml"
+        },
+        "pitfalls": [
+          "Not invalidating caches on dependency changes",
+          "Using insecure registry credentials"
+        ]
+      }
+    ],
+    "conclusion": "This implementation provides a secure, optimized Docker workflow. Validate each step with your specific application requirements and security policies."
+  }
+}

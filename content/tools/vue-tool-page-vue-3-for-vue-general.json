@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "vue",
+    "generated_at": "2026-04-16T20:23:22.076Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Vue 3 for Vue (general)",
+    "description": "How Vue 3 fits into real Vue (general) workflows.",
+    "keywords": [
+      "vue",
+      "vue (general)",
+      "tool-page",
+      "Vue 3",
+      "Pinia",
+      "Vue Router"
+    ],
+    "slug": "vue-tool-page-vue-3-for-vue-general"
+  },
+  "content": {
+    "headline": "Vue 3 Composition API Pattern Selector",
+    "description": "Guides developers in selecting optimal Composition API patterns based on component requirements and team constraints",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Recommended Pattern"
+      }
+    },
+    "inputs": [
+      {
+        "name": "component_type",
+        "label": "Component Type",
+        "type": "select",
+        "options": [
+          "State management",
+          "Reactive data",
+          "Lifecycle hooks",
+          "Custom logic reuse",
+          "Event handling"
+        ],
+        "required": true
+      },
+      {
+        "name": "team_size",
+        "label": "Team Size",
+        "type": "select",
+        "options": [
+          "Small (1-3)",
+          "Medium (4-10)",
+          "Large (11+)"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "State management in medium team",
+        "input": {
+          "component_type": "State management",
+          "team_size": "Medium (4-10)"
+        },
+        "expected_output": "Composition API with reactive() and ref() + custom composables"
+      },
+      {
+        "label": "Lifecycle hooks in small team",
+        "input": {
+          "component_type": "Lifecycle hooks",
+          "team_size": "Small (1-3)"
+        },
+        "expected_output": "Options API with lifecycle methods"
+      }
+    ],
+    "how_it_works": "Analyzes component requirements and team structure to recommend API patterns. Prioritizes team consistency while aligning with Vue 3 best practices for maintainability.",
+    "related_tools": [
+      "VueUse",
+      "Pinia",
+      "Vue DevTools"
+    ]
+  }
+}

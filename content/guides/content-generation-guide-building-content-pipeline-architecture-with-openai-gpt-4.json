@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "content-generation",
+    "generated_at": "2026-04-16T20:20:16.913Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Content pipeline architecture with OpenAI GPT-4...",
+    "description": "A step-by-step implementation guide for Content pipeline architecture with OpenAI GPT-4 and Anthropic Claude.",
+    "keywords": [
+      "content-generation",
+      "ai content generation",
+      "guide",
+      "OpenAI GPT-4",
+      "Anthropic Claude",
+      "Google Gemini"
+    ],
+    "slug": "content-generation-guide-building-content-pipeline-architecture-with-openai-gpt-4"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building a reliable AI content generation pipeline, focusing on technical implementation, quality control, and SEO integration. Each step includes actionable configuration and validation checks.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "LangChain v0.1+ installation",
+      "OpenAI API key",
+      "Zod schema validation library",
+      "Contentful CMS account",
+      "Basic Python/JavaScript environment"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define content requirements and constraints",
+        "explanation": "Create a formal specification document with tone guidelines, keyword requirements, and quality thresholds. Use Zod to define schema for content structure and validation rules.",
+        "code": {
+          "language": "typescript",
+          "content": "const ContentSchema = z.object({\n  title: z.string().min(50),\n  body: z.string().min(1000),\n  keywords: z.array(z.string()).max(5),\n  brandVoice: z.enum(['formal', 'casual', 'technical'])\n});",
+          "filename": "schemas/contentSchema.ts"
+        },
+        "pitfalls": [
+          "Vague guidelines leading to inconsistent output",
+          "Ignoring content length requirements during generation"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure LLM stack with prompt engineering",
+        "explanation": "Set up prompt templates with explicit instructions for tone, structure, and keyword placement. Use LangChain's PromptTemplate for reusable patterns.",
+        "code": {
+          "language": "python",
+          "content": "from langchain import PromptTemplate\n\ndef create_content_prompt():\n    return PromptTemplate(\n        template=\"\"\"Write a {tone} article about {topic} with keywords: {keywords}. Include 3 paragraphs.\\n\\n{additional_instructions}\"\"\",\n        input_variables=[\"tone\", \"topic\", \"keywords\", \"additional_instructions\"]\n    )",
+          "filename": "prompts/content_prompt.py"
+        },
+        "pitfalls": [
+          "Overlooking explicit instructions for content structure",
+          "Not testing prompt variations for output quality"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement content validation pipeline",
+        "explanation": "Add validation steps to check generated content against defined schemas, keyword density, and readability metrics. Use Zod for type validation and regex for pattern matching.",
+        "code": {
+          "language": "typescript",
+          "content": "function validateContent(content: any): ValidationResult {\n  const result = ContentSchema.safeParse(content);\n  if (!result.success) {\n    return { valid: false, errors: result.error.issues };\n  }\n  return { valid: true, errors: [] };\n}",
+          "filename": "validation/contentValidator.ts"
+        },
+        "pitfalls": [
+          "Skipping validation for production content",
+          "Not monitoring for schema drift over time"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate with content delivery system",
+        "explanation": "Set up API connections to CMS platforms like Contentful. Implement error handling for rate limits and authentication failures during content publishing.",
+        "code": {
+          "language": "javascript",
+          "content": "const contentful = require('contentful');\n\nconst client = contentful.createClient({\n  space: process.env.CONTENTFUL_SPACE_ID,\n  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN\n});\n\nasync function publishContent(entryData) {\n  try {\n    const entry = await client.createEntry('content', { fields: entryData });\n    await entry.publish();\n  } catch (error) {\n    console.error('Publish failed:', error.message);\n  }\n}",
+          "filename": "integrations/contentfulPublisher.js"
+        },
+        "pitfalls": [
+          "Not handling CMS API rate limits",
+          "Missing error recovery for failed publishes"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Add SEO optimization layer",
+        "explanation": "Implement NLP-based keyword placement checks and meta tag generation. Use spaCy or similar libraries for semantic analysis of content.",
+        "code": {
+          "language": "python",
+          "content": "import spacy\n\ndef analyze_keywords(text, keywords):\n    nlp = spacy.load('en_core_web_sm')\n    doc = nlp(text)\n    found = [kw for kw in keywords if any(tok.text.lower() == kw.lower() for tok in doc)]\n    return {'found': found, 'missing': [kw for kw in keywords if kw not in found]}",
+          "filename": "seo/keywordAnalyzer.py"
+        },
+        "pitfalls": [
+          "Over-optimizing for keywords at expense of readability",
+          "Ignoring semantic relevance checks"
+        ]
+      }
+    ],
+    "conclusion": "A production-ready AI content pipeline requires explicit specification, validation, and integration with content delivery systems. Regular monitoring of output quality and SEO effectiveness is critical for maintaining content standards at scale."
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "content-strategy",
+    "generated_at": "2026-04-16T20:24:22.913Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building AI-assisted editorial workflows with Ahrefs and...",
+    "description": "A step-by-step implementation guide for AI-assisted editorial workflows with Ahrefs and SEMrush.",
+    "keywords": [
+      "content-strategy",
+      "ai content strategy",
+      "guide",
+      "Ahrefs",
+      "SEMrush",
+      "Google Search Console"
+    ],
+    "slug": "content-strategy-guide-building-ai-assisted-editorial-workflows-with-ahrefs-and"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing an AI-assisted content strategy focused on technical SEO and developer audiences. It emphasizes workflow integration, keyword alignment, and performance validation.",
+    "estimated_time": "3-5 hours",
+    "prerequisites": [
+      "Ahrefs or SEMrush account",
+      "Notion workspace with API access",
+      "Google Analytics 4 property setup",
+      "OpenAI API key",
+      "Content calendar template in Linear or equivalent"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define content strategy framework",
+        "explanation": "Create a Notion page with columns for content type, keyword target, AI tool usage, and editorial review status. Use the 'Content Strategy Framework' template from the official documentation.",
+        "code": {
+          "language": "markdown",
+          "content": "| Content Type | Keyword Target | AI Tool | Review Status |\n|------------|----------------|---------|--------------|\n| Tutorial   | #ai-content-strategy | GPT-4 | Draft        |",
+          "filename": "content-strategy-template.md"
+        },
+        "pitfalls": [
+          "Avoid using generic templates without aligning with audience intent"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Conduct technical keyword research",
+        "explanation": "Use Ahrefs' Keyword Explorer to identify keywords with 100+ monthly searches and less than 500K search volume. Filter for 'technical content' and 'developer tools' intent.",
+        "code": {
+          "language": "python",
+          "content": "import requests\n\nheaders = {'Authorization': 'Bearer YOUR_AHREFS_API_KEY'}\nresponse = requests.get('https://api.ahrefs.com/v3/keywords/keyword-difficulty', params={'target': 'developer tools', 'limit': 10}, headers=headers)\nprint(response.json())",
+          "filename": "ahrefs_keyword_research.py"
+        },
+        "pitfalls": [
+          "Ignore keywords with high volume but low intent specificity",
+          "Avoid over-optimizing for keywords without search intent signals"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Build AI-assisted editorial workflow",
+        "explanation": "Configure a Notion integration with OpenAI to auto-generate content outlines. Use the 'Content Strategy Framework' template to structure prompts for technical tutorials.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"prompt\": \"Write a 1500-word technical tutorial about {topic} for developer-marketers. Include code examples, implementation steps, and SEO recommendations. Use the 'Content Strategy Framework' structure.\",\n  \"model\": \"gpt-4\"\n}",
+          "filename": "openai_content_prompt.json"
+        },
+        "pitfalls": [
+          "Don't use AI-generated content without human editorial review",
+          "Avoid over-reliance on template-based content without customization"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement performance tracking",
+        "explanation": "Set up Google Analytics 4 event tracking for content engagement metrics. Create a report in Google Data Studio to monitor time on page, bounce rate, and keyword rankings.",
+        "code": {
+          "language": "javascript",
+          "content": "gtag('event', 'content_engagement', {\n  'event_category': 'technical_tutorial',\n  'event_label': 'ai-content-strategy-guide',\n  'value': 1\n});",
+          "filename": "ga4_content_tracking.js"
+        },
+        "pitfalls": [
+          "Ignore bounce rate thresholds for technical content",
+          "Don't track metrics without defining success criteria"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Optimize content with search data",
+        "explanation": "Use Google Search Console to identify low-performing pages with high impressions. Update content using SurferSEO's on-page optimization checklist for technical keywords.",
+        "code": {
+          "language": "bash",
+          "content": "curl -X POST https://api.surferseo.com/v1/seo-check \\\n  -H 'Authorization: Bearer YOUR_SURFER_API_KEY' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"url\": \"https://example.com/ai-content-strategy\", \"target_keywords\": [\"ai content strategy\"]}'",
+          "filename": "surferseo_seo_check.sh"
+        },
+        "pitfalls": [
+          "Avoid making content changes without A/B testing",
+          "Don't ignore mobile usability issues in search console"
+        ]
+      }
+    ],
+    "conclusion": "This implementation guide establishes a repeatable process for creating AI-assisted technical content that balances efficiency with search visibility. Regularly audit workflows using performance data to refine keyword targeting and content quality metrics."
+  }
+}

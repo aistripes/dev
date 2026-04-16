@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "mobile-web",
+    "generated_at": "2026-04-16T20:25:01.938Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building PWA development and deployment with Service Work...",
+    "description": "A step-by-step implementation guide for PWA development and deployment with Service Workers and Workbox.",
+    "keywords": [
+      "mobile-web",
+      "mobile web / pwa",
+      "guide",
+      "Service Workers",
+      "Workbox",
+      "Web App Manifest"
+    ],
+    "slug": "mobile-web-guide-building-pwa-development-and-deployment-with-service-work"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building a Progressive Web App (PWA) with mobile-first optimization, focusing on core PWA features, performance, and cross-platform consistency. Follow these steps to implement a functional PWA with practical considerations for mobile web development.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Node.js and npm installed",
+      "Basic JavaScript/TypeScript knowledge",
+      "Familiarity with Vite or Next.js",
+      "Access to a mobile device for testing"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize PWA project with Vite",
+        "explanation": "Create a new project using Vite with PWA template. This sets up service worker integration, manifest files, and necessary build tools. Use the command: `npm create vite@latest my-pwa -- --template react-ts`.",
+        "code": {
+          "language": "bash",
+          "content": "npm create vite@latest my-pwa -- --template react-ts\ncd my-pwa\nnpm install\nnpm install @vitejs/plugin-react @pwa-kit/vite",
+          "filename": "setup.sh"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Configure Web App Manifest",
+        "explanation": "Create a manifest.json file with icons, theme colors, and start URL. Ensure icons are 512x512px and include all required display modes for mobile browsers.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"name\": \"My PWA\",\n  \"short_name\": \"PWA\",\n  \"icons\": [\n    {\n      \"src\": \"icons/icon-512x512.png\",\n      \"sizes\": \"512x512\",\n      \"type\": \"image/png\"\n    }\n  ],\n  \"theme_color\": \"#ffffff\",\n  \"background_color\": \"#ffffff\",\n  \"display\": \"standalone\",\n  \"start_url\": \"/\"\n}",
+          "filename": "manifest.json"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Implement Service Worker with Workbox",
+        "explanation": "Register a service worker using Workbox to handle caching strategies. Configure precache for critical assets and runtime caching for dynamic content. Use `workbox-cli` to generate routing rules.",
+        "code": {
+          "language": "javascript",
+          "content": "import { precacheAndRoute } from 'workbox-precaching';\nprecacheAndRoute(self.__WB_MANIFEST);\n\nconst { registerRoute } = require('workbox-routing');\nconst { CacheFirst } = require('workbox-strategies');\n\nregisterRoute(\n  ({ request }) => request.mode === 'navigate',\n  new CacheFirst({\n    cacheName: 'html-cache',\n    plugins: [\n      new workbox.expiration.Plugin({\n        maxEntries: 20,\n        maxAgeSeconds: 7 * 24 * 60 * 60\n      })\n    ]\n  })\n);",
+          "filename": "service-worker.js"
+        },
+        "pitfalls": [
+          "iOS requires manifest file to be served over HTTPS for full PWA features",
+          "Service worker registration must occur before DOMContentLoaded"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Add Push Notification Support",
+        "explanation": "Implement push notifications using the Push API. Generate VAPID keys with `web-push` and register a push subscription in the service worker. Handle notifications in the app's main thread.",
+        "code": {
+          "language": "javascript",
+          "content": "navigator.serviceWorker.register('/service-worker.js');\n\nnavigator.serviceWorker.ready.then(reg => {\n  reg.pushManager.subscribe({\n    applicationServerKey: urlBase64ToUint8Array('YOUR_VAPID_KEY'),\n    userVisibleOnly: true\n  }).then(sub => {\n    console.log('Subscription:', sub);\n  });\n});",
+          "filename": "push.js"
+        },
+        "pitfalls": [
+          "iOS requires a PWA to be installed before push notifications work",
+          "Browser push services require HTTPS origin"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Optimize for Mobile Performance",
+        "explanation": "Use Lighthouse to audit performance metrics. Implement critical CSS extraction, image optimization, and code splitting. Enable lazy loading for non-critical resources.",
+        "code": {
+          "language": "bash",
+          "content": "npx lighthouse https://your-pwa.com --view\nnpm install --save-dev critical",
+          "filename": "performance.sh"
+        }
+      }
+    ],
+    "conclusion": "This implementation establishes a baseline PWA with offline support, performance optimizations, and cross-platform features. Validate across mobile browsers, test under simulated poor network conditions, and refine caching strategies based on user behavior analytics."
+  }
+}

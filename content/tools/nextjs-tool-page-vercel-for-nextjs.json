@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "nextjs",
+    "generated_at": "2026-04-16T20:23:32.810Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Vercel for Next.js",
+    "description": "How Vercel fits into real Next.js workflows.",
+    "keywords": [
+      "nextjs",
+      "next.js",
+      "tool-page",
+      "Vercel",
+      "Cloudflare Pages",
+      "Prisma"
+    ],
+    "slug": "nextjs-tool-page-vercel-for-nextjs"
+  },
+  "content": {
+    "headline": "Next.js Router Decision Tool",
+    "description": "Determines optimal router (App Router or Pages Router) based on project requirements and constraints.",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Router Recommendation"
+      }
+    },
+    "inputs": [
+      {
+        "name": "server_components",
+        "label": "Are you using React Server Components?",
+        "type": "checkbox",
+        "required": true
+      },
+      {
+        "name": "dynamic_routes",
+        "label": "Do you need dynamic routing patterns?",
+        "type": "checkbox",
+        "required": true
+      },
+      {
+        "name": "ssr_required",
+        "label": "Does content require Server-Side Rendering?",
+        "type": "checkbox",
+        "required": true
+      },
+      {
+        "name": "next_version",
+        "label": "Are you using Next.js 13+?",
+        "type": "checkbox",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Static site with no SSR",
+        "input": {
+          "server_components": false,
+          "dynamic_routes": false,
+          "ssr_required": false,
+          "next_version": true
+        },
+        "expected_output": "Pages Router"
+      },
+      {
+        "label": "SSR + Server Components",
+        "input": {
+          "server_components": true,
+          "dynamic_routes": true,
+          "ssr_required": true,
+          "next_version": true
+        },
+        "expected_output": "App Router"
+      }
+    ],
+    "how_it_works": "Evaluates project requirements against Next.js router capabilities. Prioritizes App Router for Server Components and SSR needs, defaults to Pages Router for static/legacy patterns.",
+    "related_tools": [
+      "https://nextjs.org/docs/app/api-reference/file-conventions/app",
+      "https://nextjs.org/docs/pages/api-reference/file-conventions/pages",
+      "https://nextjs.org/docs/app/building-your-application/routing"
+    ]
+  }
+}

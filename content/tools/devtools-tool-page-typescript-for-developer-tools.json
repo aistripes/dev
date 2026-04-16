@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "devtools",
+    "generated_at": "2026-04-16T20:24:47.219Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "TypeScript for Developer Tools",
+    "description": "How TypeScript fits into real Developer Tools workflows.",
+    "keywords": [
+      "devtools",
+      "developer tools",
+      "tool-page",
+      "TypeScript",
+      "Rust",
+      "Go"
+    ],
+    "slug": "devtools-tool-page-typescript-for-developer-tools"
+  },
+  "content": {
+    "headline": "CLI Command Formatter",
+    "description": "Formats CLI commands with proper syntax, options, and help text based on user input",
+    "tool_type": "formatter",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Formatted CLI Command"
+      }
+    },
+    "inputs": [
+      {
+        "name": "commandName",
+        "label": "Command Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "options",
+        "label": "Options",
+        "type": "textarea",
+        "placeholder": "e.g. --env <string> --force",
+        "required": false
+      },
+      {
+        "name": "description",
+        "label": "Description",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "name": "requiredFlags",
+        "label": "Required Flags",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic Deployment Command",
+        "input": {
+          "commandName": "deploy",
+          "options": "--env <string> --force",
+          "description": "Deploy the application",
+          "requiredFlags": true
+        },
+        "expected_output": "Usage: deploy [options]\n\nDeploy the application\n\nOptions:\n  --env <string>  Environment to deploy to (required)\n  --force         Force deployment without confirmation"
+      },
+      {
+        "label": "Version Check Command",
+        "input": {
+          "commandName": "version",
+          "options": "-v, --verbose",
+          "description": "Show version information"
+        },
+        "expected_output": "Usage: version [options]\n\nShow version information\n\nOptions:\n  -v, --verbose  Show detailed version info"
+      }
+    ],
+    "how_it_works": "The tool takes command structure parameters and generates standardized CLI output. It formats options with proper syntax, adds help text, and enforces required flag indicators. Output follows common CLI conventions for clarity and usability.",
+    "related_tools": [
+      "commander.js",
+      "ink",
+      "npm-cli"
+    ]
+  }
+}

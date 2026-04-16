@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "internal-tools",
+    "generated_at": "2026-04-16T20:24:57.113Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Admin panel builder comparison with Retool and A...",
+    "description": "A step-by-step implementation guide for Admin panel builder comparison with Retool and Appsmith.",
+    "keywords": [
+      "internal-tools",
+      "internal tools & admin panels",
+      "guide",
+      "Retool",
+      "Appsmith",
+      "Tooljet"
+    ],
+    "slug": "internal-tools-guide-building-admin-panel-builder-comparison-with-retool-and-a"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building internal tools with a focus on balancing custom development and low-code solutions. Key considerations include data integration, access control, and maintainability for startup-scale applications.",
+    "estimated_time": "3-5 hours",
+    "prerequisites": [
+      "Basic React/Next.js proficiency",
+      "Node.js (18+)",
+      "PostgreSQL or Supabase instance",
+      "Authentication system (e.g., Auth0, Firebase)",
+      "API integration experience"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define data model and API requirements",
+        "explanation": "Map internal tool workflows to database schemas. Identify required APIs (internal/external) and data transformations. Use Prisma schema or Supabase database editor to create models.",
+        "code": {
+          "language": "prisma",
+          "content": "model User {\n  id      Int    @id @default(autoincrement())\n  name    String\n  role    Role   @relation(fields: [roleId], references: [id])\n  roleId  Int\n}\n\nenum Role {\n  ADMIN\n  EDITOR\n  VIEWER\n}",
+          "filename": "prisma/schema.prisma"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Set up project structure",
+        "explanation": "Create Next.js app with API routes. Configure authentication middleware. Initialize database client (Prisma or Supabase). Use shadcn/ui for component baseline.",
+        "code": {
+          "language": "bash",
+          "content": "npx create-next-app@latest internal-tools --typescript\nnpm install @prisma/client shadcn/ui",
+          "filename": "setup.sh"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Implement role-based access control",
+        "explanation": "Create middleware to validate user roles against requested routes. Store permissions in database. Use React context for client-side access checks.",
+        "code": {
+          "language": "typescript",
+          "content": "const middleware = (auth: AuthClient) => {\n  return async (req: NextRequest) => {\n    const user = await auth.getUser();\n    if (!user.roles.includes('ADMIN')) {\n      return NextResponse.redirect(new URL('/unauthorized', req.url));\n    }\n    return NextResponse.next();\n  };\n};",
+          "filename": "middleware.ts"
+        },
+        "pitfalls": [
+          "Missing server-side validation for critical operations",
+          "Inconsistent role state between client and server"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Build data table components",
+        "explanation": "Create reusable table components with sorting, filtering, and inline editing. Use server-side pagination for large datasets. Implement column configuration via JSON schema.",
+        "code": {
+          "language": "typescript",
+          "content": "const DataGrid = ({ columns, fetchData }) => {\n  const [sort, setSort] = useState({ field: '', direction: 'asc' });\n  const data = useQuery(['data', sort], () => fetchData(sort));\n  \n  return (\n    <table>\n      <thead>\n        {columns.map(col => (\n          <th key={col.key} onClick={() => setSort({ field: col.key, direction: ... })}>\n            {col.label}\n          </th>\n        ))}\n      </thead>\n      <tbody>{data.map(row => <tr>{columns.map(col => <td>{row[col.key]}</td>)}</tr>)}</tbody>\n    </table>\n  );\n};",
+          "filename": "DataGrid.tsx"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Connect multiple data sources",
+        "explanation": "Create API proxies for external services. Use unified data transformation layer. Implement error handling for API failures and rate limiting.",
+        "code": {
+          "language": "typescript",
+          "content": "const fetchExternalData = async (endpoint: string) => {\n  try {\n    const response = await fetch(`https://api.example.com/${endpoint}`, {\n      headers: { Authorization: `Bearer ${process.env.EXTERNAL_API_KEY}` },\n    });\n    return await response.json();\n  } catch (error) {\n    logError('External API failure', error);\n    throw new Error('Data unavailable');\n  }\n};",
+          "filename": "api/proxy.ts"
+        },
+        "pitfalls": [
+          "Hardcoded API keys in client code",
+          "Insufficient retry strategies for transient failures"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Add audit logging",
+        "explanation": "Track user actions with timestamps and IP addresses. Store logs in separate database table. Implement log retention policy.",
+        "code": {
+          "language": "typescript",
+          "content": "const logAction = async (userId: number, action: string, details: any) => {\n  await prisma.auditLog.create({\n    data: {\n      userId,\n      action,\n      ip: getIPAddress(),\n      timestamp: new Date(),\n      details: JSON.stringify(details)\n    }\n  });\n};",
+          "filename": "audit.ts"
+        }
+      }
+    ],
+    "conclusion": "This implementation sequence addresses core internal tool requirements while maintaining security and scalability. Validate against actual workflow needs and adjust data modeling based on API response patterns and access frequency."
+  }
+}

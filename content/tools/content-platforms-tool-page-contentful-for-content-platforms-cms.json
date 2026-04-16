@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "content-platforms",
+    "generated_at": "2026-04-16T20:25:07.755Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Contentful for Content Platforms & CMS",
+    "description": "How Contentful fits into real Content Platforms & CMS workflows.",
+    "keywords": [
+      "content-platforms",
+      "content platforms & cms",
+      "tool-page",
+      "Contentful",
+      "Sanity",
+      "Strapi"
+    ],
+    "slug": "content-platforms-tool-page-contentful-for-content-platforms-cms"
+  },
+  "content": {
+    "headline": "Content Model Validator",
+    "description": "Validates content model structures against best practices for scalability and maintainability in headless CMS environments.",
+    "tool_type": "analyzer",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Validation Results"
+      }
+    },
+    "inputs": [
+      {
+        "name": "modelStructure",
+        "label": "Content Model Structure",
+        "type": "textarea",
+        "placeholder": "Paste JSON content model definition",
+        "required": true
+      },
+      {
+        "name": "cmsPlatform",
+        "label": "CMS Platform",
+        "type": "select",
+        "options": [
+          "Contentful",
+          "Sanity",
+          "Strapi",
+          "Payload",
+          "Keystatic",
+          "Tina"
+        ],
+        "required": true
+      },
+      {
+        "name": "includeSEO",
+        "label": "Check SEO Best Practices",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic Blog Model Validation",
+        "input": {
+          "modelStructure": "{ \"type\": \"document\", \"name\": \"blogPost\", \"fields\": [{ \"name\": \"title\", \"type\": \"string\" }, { \"name\": \"body\", \"type\": \"text\" }] }",
+          "cmsPlatform": "Contentful",
+          "includeSEO": true
+        },
+        "expected_output": "{ \"valid\": true, \"issues\": [], \"score\": 95, \"recommendations\": [\"Add metaDescription field for SEO\"] }"
+      },
+      {
+        "label": "Complex E-commerce Model Check",
+        "input": {
+          "modelStructure": "{ \"type\": \"document\", \"name\": \"product\", \"fields\": [{ \"name\": \"name\", \"type\": \"string\" }, { \"name\": \"variants\", \"type\": \"array\", \"items\": { \"type\": \"object\", \"fields\": [{ \"name\": \"sku\", \"type\": \"string\" }] } }] }",
+          "cmsPlatform": "Sanity",
+          "includeSEO": false
+        },
+        "expected_output": "{ \"valid\": false, \"issues\": [{ \"type\": \"relationship\", \"message\": \"Missing reference for category\" }], \"score\": 68 }"
+      }
+    ],
+    "how_it_works": "Analyzes provided content model definitions against platform-specific best practices for scalability, relationship management, and SEO. Evaluates field types, nesting patterns, and relationship structures to identify potential bottlenecks or optimization opportunities."
+  }
+}

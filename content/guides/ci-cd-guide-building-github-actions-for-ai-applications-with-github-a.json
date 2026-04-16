@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "ci-cd",
+    "generated_at": "2026-04-16T20:23:26.286Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building GitHub Actions for AI applications with GitHub A...",
+    "description": "A step-by-step implementation guide for GitHub Actions for AI applications with GitHub Actions and GitLab CI.",
+    "keywords": [
+      "ci-cd",
+      "ci/cd for ai apps",
+      "guide",
+      "GitHub Actions",
+      "GitLab CI",
+      "Vercel"
+    ],
+    "slug": "ci-cd-guide-building-github-actions-for-ai-applications-with-github-a"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing CI/CD pipelines for AI applications, focusing on handling non-deterministic outputs, versioning, and cost optimization. Each step includes actionable configuration and mitigation strategies for common pitfalls.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "AI application with LLM integration",
+      "GitHub/GitLab repository with CI/CD configuration",
+      "Docker installed and configured",
+      "Version control system with branch protection rules"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure CI pipeline triggers",
+        "explanation": "Set up workflow triggers in GitHub Actions or GitLab CI to execute on code changes and pull requests. Use branch-specific rules to avoid unnecessary runs for non-essential changes.",
+        "code": {
+          "language": "yaml",
+          "content": "name: AI CI Pipeline\non:\n  push:\n    branches: [ main, 'feature/*' ]\n  pull_request:\n    branches: [ main ]",
+          "filename": ".github/workflows/ci.yml"
+        },
+        "pitfalls": [
+          "Overly broad branch triggers causing excessive runs",
+          "Missing pull_request triggers for PR-specific testing"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement prompt versioning",
+        "explanation": "Create a versioned directory structure for prompts and configuration files. Use a script to inject the current version into AI requests during testing.",
+        "code": {
+          "language": "bash",
+          "content": "#!/bin/bash\nPROMPT_VERSION=$(cat VERSION)\nexport PROMPT_VERSION"
+        },
+        "pitfalls": [
+          "Stale version files in repository history",
+          "Missing version synchronization between code and prompts"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Automate model containerization",
+        "explanation": "Create Dockerfiles that include model artifacts and dependencies. Use multi-stage builds to reduce image size and ensure reproducibility.",
+        "code": {
+          "language": "dockerfile",
+          "content": "FROM python:3.9 as builder\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install -r requirements.txt\n\nFROM python:3.9-slim\nCOPY --from=builder /app /app\nCMD [\"python\", \"app.py\"]"
+        },
+        "pitfalls": [
+          "Including unnecessary development dependencies in production images",
+          "Missing layer caching configuration for faster builds"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Add deterministic AI testing",
+        "explanation": "Implement tests that validate AI outputs against expected patterns rather than exact strings. Use mock responses for core logic verification.",
+        "code": {
+          "language": "python",
+          "content": "def test_ai_response():\n    response = ai_model.generate()\n    assert 'error' not in response.lower()\n    assert len(response) > 10"
+        },
+        "pitfalls": [
+          "Over-reliance on mock responses for production validation",
+          "Insufficient coverage of edge case scenarios"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Optimize CI costs with caching",
+        "explanation": "Configure caching for dependency downloads and model artifacts. Use GitHub Actions' cache feature with versioned keys for consistent builds.",
+        "code": {
+          "language": "yaml",
+          "content": "cache:\n  key: dependency-cache-v1\n  paths:\n    - ~/.cache/pip"
+        },
+        "pitfalls": [
+          "Inadequate cache invalidation strategies",
+          "Caching large binary artifacts without size limits"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Set up model rollback strategy",
+        "explanation": "Implement versioned model deployment with tags. Create a script to roll back to a previous version using container image tags.",
+        "code": {
+          "language": "bash",
+          "content": "#!/bin/bash\nif [ \"$DEPLOY_ENV\" = \"production\" ]; then\n  docker pull my-ai-model:$ROLLBACK_TAG\n  docker tag my-ai-model:$ROLLBACK_TAG my-ai-model:latest\nfi"
+        },
+        "pitfalls": [
+          "Missing rollback script execution in deployment workflows",
+          "Incorrect image tag referencing during rollback"
+        ]
+      }
+    ],
+    "conclusion": "By implementing versioned prompts, deterministic testing, and cost-effective caching, teams can create reliable CI/CD pipelines for AI applications. Ensure rollback mechanisms are tested regularly and monitor pipeline execution to refine cost optimization strategies."
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "voice-ai",
+    "generated_at": "2026-04-16T20:22:45.335Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Speech-to-text API comparison with Whisper and D...",
+    "description": "A step-by-step implementation guide for Speech-to-text API comparison with Whisper and Deepgram.",
+    "keywords": [
+      "voice-ai",
+      "voice & speech ai",
+      "guide",
+      "Whisper",
+      "Deepgram",
+      "AssemblyAI"
+    ],
+    "slug": "voice-ai-guide-building-speech-to-text-api-comparison-with-whisper-and-d"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing voice and speech AI features, focusing on practical integration patterns, latency management, and cost control. Follow these steps to build a functional voice interface with transcription and text-to-speech capabilities.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Node.js 16+ or Python 3.8+",
+      "API keys for at least two speech services (e.g., Deepgram and ElevenLabs)",
+      "Sample audio file with 16-bit PCM format",
+      "Basic understanding of HTTP request handling",
+      "Access to a web server for TTS endpoint testing"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Set up environment with core dependencies",
+        "explanation": "Install required libraries for audio processing and API integration. Use pip or npm to install speech-to-text and text-to-speech packages from your chosen providers.",
+        "code": {
+          "language": "bash",
+          "content": "npm install @deepgram/sdk elevenlabs @ffmpeg-installer/ffmpeg",
+          "filename": "package.json"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Implement audio input pipeline",
+        "explanation": "Create a function to handle audio file ingestion, ensuring proper format validation and preprocessing. Add error handling for unsupported codecs or sample rates.",
+        "code": {
+          "language": "python",
+          "content": "def validate_audio(file_path):\n    with open(file_path, 'rb') as f:\n        header = f.read(44)\n    if b'WAVE' not in header:\n        raise ValueError('Invalid WAVE file')\n    return True"
+        },
+        "pitfalls": [
+          "Ignoring audio format requirements may cause API rejection",
+          "Failing to handle large files may cause memory exhaustion"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Choose and configure transcription service",
+        "explanation": "Implement a function to select between real-time (WebSocket) and batch (HTTP) processing based on use case requirements. Configure language detection and punctuation settings.",
+        "code": {
+          "language": "javascript",
+          "content": "const deepgram = new Deepgram('YOUR_API_KEY');\nconst source = deepgram.transcription.live({ language: 'en-US', punctuate: true });"
+        }
+      },
+      {
+        "number": 4,
+        "title": "Integrate text-to-speech output",
+        "explanation": "Implement a TTS endpoint that converts text to audio using a provider's API. Add parameters for voice selection, rate control, and format conversion.",
+        "code": {
+          "language": "python",
+          "content": "import elevenlabs\nelevenlabs.set_api_key('YOUR_API_KEY')\ntts = elevenlabs.generate(text='Hello', voice='Rachel', model='eleven_multilingual_v2')"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Optimize for real-time latency",
+        "explanation": "Implement audio streaming with buffer management. Use WebSockets for low-latency transcription and add pacing logic to handle network fluctuations.",
+        "code": {
+          "language": "javascript",
+          "content": "const socket = new WebSocket('wss://api.deepgram.com/v1/listen');\nsocket.binaryType = 'arraybuffer';\nsocket.onmessage = (event) => {\n    const result = JSON.parse(event.data);\n    console.log(result.channel.alternatives[0].transcript);\n};"
+        },
+        "pitfalls": [
+          "Ignoring buffer underruns causes audio dropout",
+          "Not implementing retry logic for unstable connections"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Implement cost management controls",
+        "explanation": "Add metrics collection for API usage and implement rate limiting. Use audio duration tracking to estimate costs before processing.",
+        "code": {
+          "language": "python",
+          "content": "def calculate_cost(duration_seconds):\n    return (duration_seconds * 0.0015)  # Example pricing model"
+        }
+      }
+    ],
+    "conclusion": "By following these steps, you've created a voice AI implementation that handles transcription, TTS, and cost control. Validate each component with test cases covering edge scenarios like noisy audio, language switches, and network failures."
+  }
+}

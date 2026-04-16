@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "sveltekit",
+    "generated_at": "2026-04-16T20:23:36.122Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building SvelteKit form actions and progressive enhanceme...",
+    "description": "A step-by-step implementation guide for SvelteKit form actions and progressive enhancement with Vercel and Cloudflare Pages.",
+    "keywords": [
+      "sveltekit",
+      "guide",
+      "Vercel",
+      "Cloudflare Pages",
+      "PocketBase"
+    ],
+    "slug": "sveltekit-guide-building-sveltekit-form-actions-and-progressive-enhanceme"
+  },
+  "content": {
+    "intro": "This guide provides a step-by-step implementation approach for building a SvelteKit application with deployment flexibility, form handling, and AI integration. Focuses on production-ready patterns for performance-conscious developers.",
+    "estimated_time": "30 minutes",
+    "prerequisites": [
+      "SvelteKit CLI installed",
+      "Code editor with TypeScript support",
+      "Vercel/Cloudflare account",
+      "Node.js 18+ with pnpm/yarn"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize project with deployment targets",
+        "explanation": "Create new SvelteKit project and configure deployment targets in svelte.config.js. Use adapter-node for server deployments and adapter-vercel/adapter-cloudflare for edge computing.",
+        "code": {
+          "language": "javascript",
+          "content": "npm create svelte@latest my-app\nnpm install\nnpm install -D @sveltejs/adapter-node @sveltejs/adapter-vercel"
+        },
+        "pitfalls": [
+          "Forgetting to install adapter dependencies for target platforms",
+          "Incorrectly configuring outDir for server deployments"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure environment variables",
+        "explanation": "Set up .env files for different deployment targets. Use $APP_ENV variable to conditionally load configurations for Vercel, Cloudflare, and Node.js.",
+        "code": {
+          "language": "text",
+          "content": "# .env.development\nAPP_ENV=development\nAPI_URL=http://localhost:3000\n\n# .env.production\nAPP_ENV=production\nAPI_URL=https://api.example.com"
+        },
+        "pitfalls": [
+          "Exposing sensitive variables in client-side builds",
+          "Missing .env files in deployment environments"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement form actions with progressive enhancement",
+        "explanation": "Create form actions in +page.server.ts while maintaining client-side validation. Use form action URLs that work across different deployment targets.",
+        "code": {
+          "language": "typescript",
+          "content": "export const actions = {\n  default: async ({ request }) => {\n    const data = await request.formData();\n    // Process form data\n  }\n};",
+          "filename": "src/routes/+page.server.ts"
+        },
+        "pitfalls": [
+          "Forgetting to handle form submissions in server-side actions",
+          "Not validating data on both client and server"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate AI streaming response",
+        "explanation": "Implement server load functions that stream AI responses using ReadableStream. Use fetch() with 'response' mode to handle streaming data.",
+        "code": {
+          "language": "typescript",
+          "content": "export async function load({ fetch }) {\n  const res = await fetch('/api/ai', {\n    method: 'POST',\n    body: JSON.stringify({ prompt: 'Hello' })\n  });\n  \n  return {\n    stream: res.body\n  };\n}",
+          "filename": "src/routes/+page.server.ts"
+        },
+        "pitfalls": [
+          "Not setting correct Content-Type headers for streaming",
+          "Missing error handling for failed AI requests"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Optimize for SEO and pre-rendering",
+        "explanation": "Configure prerendering for dynamic routes using src/routes/+layout.js. Use getStaticPaths() to generate static pages for search engines.",
+        "code": {
+          "language": "typescript",
+          "content": "export async function load({ params }) {\n  return {\n    props: await fetchData(params.id)\n  };\n}\n\nexport function getStaticPaths() {\n  return [{ params: { id: '1' } }, { params: { id: '2' } }];\n}",
+          "filename": "src/routes/[id]/+page.server.ts"
+        },
+        "pitfalls": [
+          "Forgetting to add dynamic routes to getStaticPaths",
+          "Not caching pre-rendered content properly"
+        ]
+      }
+    ],
+    "conclusion": "This implementation pattern provides a foundation for SvelteKit applications that balance performance, deployment flexibility, and modern features. Validate configurations against target platforms and test streaming workflows thoroughly."
+  }
+}

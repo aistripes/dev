@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "privacy",
+    "generated_at": "2026-04-16T20:24:16.365Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Plausible for Privacy-First Architecture",
+    "description": "How Plausible fits into real Privacy-First Architecture workflows.",
+    "keywords": [
+      "privacy",
+      "privacy-first architecture",
+      "tool-page",
+      "Plausible",
+      "Umami",
+      "Fathom"
+    ],
+    "slug": "privacy-tool-page-plausible-for-privacy-first-architecture"
+  },
+  "content": {
+    "headline": "Privacy-First Analytics Config Generator",
+    "description": "Generates privacy-compliant analytics configuration snippets based on selected tools and data minimization preferences.",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Generated config"
+      }
+    },
+    "inputs": [
+      {
+        "name": "analytics_tool",
+        "label": "Analytics Tool",
+        "type": "select",
+        "options": [
+          "Plausible",
+          "Matomo",
+          "PostHog",
+          "Umami",
+          "Fathom"
+        ],
+        "required": true
+      },
+      {
+        "name": "collect_ip",
+        "label": "Collect IP addresses",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "anonymize",
+        "label": "Enable IP anonymization",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "data_retention",
+        "label": "Data retention period (days)",
+        "type": "number",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Plausible with anonymization",
+        "input": {
+          "analytics_tool": "Plausible",
+          "collect_ip": "false",
+          "anonymize": "true",
+          "data_retention": "30"
+        },
+        "expected_output": "{ \"tool\": \"Plausible\", \"anonymize\": true, \"retention\": \"30d\" }"
+      },
+      {
+        "label": "Matomo without IP collection",
+        "input": {
+          "analytics_tool": "Matomo",
+          "collect_ip": "false",
+          "anonymize": "false",
+          "data_retention": "90"
+        },
+        "expected_output": "{ \"tool\": \"Matomo\", \"disable_ip\": true, \"retention\": \"90d\" }"
+      }
+    ],
+    "how_it_works": "The tool constructs a configuration object by mapping selected privacy parameters to the syntax of the chosen analytics platform, ensuring compliance with data minimization principles.",
+    "related_tools": [
+      "Plausible",
+      "Matomo",
+      "PostHog",
+      "Umami",
+      "Fathom"
+    ]
+  }
+}

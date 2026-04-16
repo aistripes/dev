@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "self-hosting",
+    "generated_at": "2026-04-16T20:24:30.718Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Docker for Self-Hosting",
+    "description": "How Docker fits into real Self-Hosting workflows.",
+    "keywords": [
+      "self-hosting",
+      "tool-page",
+      "Docker",
+      "Coolify",
+      "Dokku"
+    ],
+    "slug": "self-hosting-tool-page-docker-for-self-hosting"
+  },
+  "content": {
+    "headline": "Traefik Configuration Generator",
+    "description": "Generate secure, optimized Traefik v2 configuration snippets for self-hosted services with HTTPS and reverse proxy settings.",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Generated Traefik configuration"
+      }
+    },
+    "inputs": [
+      {
+        "name": "domain",
+        "label": "Primary domain",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "service_name",
+        "label": "Service identifier",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "target_port",
+        "label": "Container port",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "ssl_cert_type",
+        "label": "SSL certificate source",
+        "type": "select",
+        "options": [
+          "Let's Encrypt",
+          "Custom",
+          "None"
+        ],
+        "required": true
+      },
+      {
+        "name": "redirect_http",
+        "label": "Enforce HTTPS redirect",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic HTTP service",
+        "input": {
+          "domain": "app.example.com",
+          "service_name": "my-app",
+          "target_port": 3000,
+          "ssl_cert_type": "None",
+          "redirect_http": false
+        },
+        "expected_output": "{\n  \"http\": {\n    \"routers\": {\n      \"my-app\": {\n        \"rule\": \"Host(`app.example.com`)\",\n        \"service\": \"my-app\",\n        \"entryPoints\": [\"http\"]\n      }\n    },\n    \"services\": {\n      \"my-app\": {\n        \"loadBalancer\": {\n          \"servers\": [{\"url\": \"http://localhost:3000\"}]\n        }\n      }\n    }\n  }\n}"
+      },
+      {
+        "label": "HTTPS with Let's Encrypt",
+        "input": {
+          "domain": "dashboard.example.com",
+          "service_name": "admin-panel",
+          "target_port": 8080,
+          "ssl_cert_type": "Let's Encrypt",
+          "redirect_http": true
+        },
+        "expected_output": "{\n  \"http\": {\n    \"routers\": {\n      \"admin-panel\": {\n        \"rule\": \"Host(`dashboard.example.com`)\",\n        \"service\": \"admin-panel\",\n        \"entryPoints\": [\"http\"],\n        \"middlewares\": [{\"name\": \"https-redirect\"}]\n      }\n    },\n    \"middlewares\": {\n      \"https-redirect\": {\n        \"redirectScheme\": {\"scheme\": \"https\", \"permanent\": true}\n      }\n    },\n    \"services\": {\n      \"admin-panel\": {\n        \"loadBalancer\": {\n          \"servers\": [{\"url\": \"http://localhost:8080\"}]\n        }\n      }\n    },\n    \"secure\": true\n  }\n}"
+      }
+    ],
+    "how_it_works": "The tool constructs a minimal Traefik v2 configuration by combining user-provided domain, service identifiers, and security preferences. It generates valid TOML/JSON format configurations with proper routing rules, service definitions, and SSL settings based on input parameters.",
+    "related_tools": [
+      "Traefik",
+      "Caddy",
+      "Let's Encrypt",
+      "Docker"
+    ]
+  }
+}

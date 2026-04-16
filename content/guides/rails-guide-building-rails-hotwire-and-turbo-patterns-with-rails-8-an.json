@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "rails",
+    "generated_at": "2026-04-16T20:20:51.875Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Rails Hotwire and Turbo patterns with Rails 8 an...",
+    "description": "A step-by-step implementation guide for Rails Hotwire and Turbo patterns with Rails 8 and Hotwire.",
+    "keywords": [
+      "rails",
+      "ruby on rails",
+      "guide",
+      "Rails 8",
+      "Hotwire",
+      "Turbo"
+    ],
+    "slug": "rails-guide-building-rails-hotwire-and-turbo-patterns-with-rails-8-an"
+  },
+  "content": {
+    "intro": "This guide provides a step-by-step implementation strategy for modernizing a Rails application with Hotwire, deploying with Kamal, and integrating background job processing. Focuses on practical architecture decisions and production constraints.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Ruby 3.1+ with Rails 7.0.4",
+      "Kamal CLI installed and configured",
+      "PostgreSQL 14+ with Rails app connected",
+      "Basic understanding of Turbo Frames and Stimulus controllers"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Audit application for Hotwire compatibility",
+        "explanation": "Identify JavaScript dependencies and Turbo Frame usage patterns. Check for jQuery plugins that require replacement with Stimulus controllers or Hotwire behaviors.",
+        "code": {
+          "language": "bash",
+          "content": "grep -r 'jquery' app/javascript/packs\nrails generate stimulus:controller turbo\nrails generate stimulus:controller hotwire"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Update Gemfile for Rails 8 compatibility",
+        "explanation": "Replace Rails 7 gems with Rails 8 equivalents. Update Active Job backend to use Solid Queue for background processing.",
+        "code": {
+          "language": "ruby",
+          "content": "gem 'rails', '8.0.0'\ngem 'solid_queue', '~> 0.6.0'\ngem 'bootsnap', require: false",
+          "filename": "Gemfile"
+        },
+        "pitfalls": [
+          "Ensure all gems in Gemfile.lock are compatible with Ruby 3.1+",
+          "Check for deprecated Active Record query methods"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure Kamal deployment pipeline",
+        "explanation": "Create production deployment configuration with Kamal. Set up environment variables for database connections and secret keys.",
+        "code": {
+          "language": "yaml",
+          "content": "production:\n  app: my-rails-app\n  repo: git@github.com:username/my-rails-app.git\n  branch: main\n  secret_key_base: ENV['SECRET_KEY_BASE']",
+          "filename": "kamal.yml"
+        }
+      },
+      {
+        "number": 4,
+        "title": "Implement Turbo Streams for real-time updates",
+        "explanation": "Replace AJAX calls with Turbo Streams. Create partials for DOM updates and add Turbo Stream tags to views.",
+        "code": {
+          "language": "erb",
+          "content": "<%= turbo_stream_from \"comments_#{post.id}\" %>\n<%= turbo_stream.replace \"comment_#{@comment.id}\", partial: 'comments/comment', locals: { comment: @comment } %>",
+          "filename": "app/views/comments/_comment.html.erb"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Set up Sidekiq with Redis for background jobs",
+        "explanation": "Configure Sidekiq middleware and Redis connection. Add job classes to Active Job queue with proper retry policies.",
+        "code": {
+          "language": "ruby",
+          "content": "class CommentNotificationJob < ApplicationJob\n  queue_as :default\n  retry_on StandardError, wait: 5.seconds, attempts: 3\n  def perform(comment_id)\n    CommentMailer.notify(comment_id).deliver_now\n  end\nend",
+          "filename": "app/jobs/comment_notification_job.rb"
+        },
+        "pitfalls": [
+          "Ensure Redis connection pool size matches concurrent job processing needs",
+          "Avoid long-running jobs in default queue"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Create system tests with RSpec and FactoryBot",
+        "explanation": "Write integration tests for Hotwire interactions. Use FactoryBot to create test data for complex scenarios.",
+        "code": {
+          "language": "ruby",
+          "content": "FactoryBot.define do\n  factory :comment do\n    body { 'Test comment' }\n    post\n  end\nend",
+          "filename": "spec/factories/comments.rb"
+        }
+      }
+    ],
+    "conclusion": "Verify all Hotwire components work without JavaScript, confirm Kamal deployment process, and ensure background jobs process reliably. Run full test suite with coverage report before production release."
+  }
+}

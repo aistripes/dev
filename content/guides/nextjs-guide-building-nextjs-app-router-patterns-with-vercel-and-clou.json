@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "nextjs",
+    "generated_at": "2026-04-16T20:23:00.460Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Next.js App Router patterns with Vercel and Clou...",
+    "description": "A step-by-step implementation guide for Next.js App Router patterns with Vercel and Cloudflare Pages.",
+    "keywords": [
+      "nextjs",
+      "next.js",
+      "guide",
+      "Vercel",
+      "Cloudflare Pages",
+      "Prisma"
+    ],
+    "slug": "nextjs-guide-building-nextjs-app-router-patterns-with-vercel-and-clou"
+  },
+  "content": {
+    "intro": "Integrate AI SDKs into Next.js applications while securing API keys and managing rate limits through server-side handling and middleware.",
+    "estimated_time": "1-2 hours",
+    "prerequisites": [
+      "Next.js 13+ project setup",
+      "Vercel deployment account",
+      "AI API key from provider (e.g., OpenAI, Anthropic)",
+      "Environment variable management setup"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure environment variables",
+        "explanation": "Store AI API keys in .env.local with NEXT_PUBLIC_ prefix for client access and NEXT_PRIVATE_ for server-only use.",
+        "code": {
+          "language": "text",
+          "content": "NEXT_PRIVATE_AI_API_KEY=your-secure-key\nNEXT_PUBLIC_AI_API_ENDPOINT=https://api.example-ai.com/v1"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Create server-side API route",
+        "explanation": "Implement a protected API route to handle AI SDK requests, preventing direct client-side key exposure.",
+        "code": {
+          "language": "javascript",
+          "content": "import { NextResponse } from 'next/server';\nimport OpenAI from 'openai';\n\nconst openai = new OpenAI({\n  apiKey: process.env.NEXT_PRIVATE_AI_API_KEY,\n  baseURL: process.env.NEXT_PUBLIC_AI_API_ENDPOINT,\n});\n\nexport async function POST(request) {\n  const { prompt } = await request.json();\n  const response = await openai.chat.completions.create({\n    model: 'gpt-3.5-turbo',\n    messages: [{ role: 'user', content: prompt }],\n  });\n  return NextResponse.json(response.choices[0].message);\n}",
+          "filename": "app/api/ai/route.js"
+        },
+        "pitfalls": [
+          "Exposing NEXT_PRIVATE_ variables in client-side code",
+          "Forgetting to add .env.local to .gitignore"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement rate limiting middleware",
+        "explanation": "Add middleware to restrict API call frequency per user session using Redis or in-memory tracking.",
+        "code": {
+          "language": "javascript",
+          "content": "import { NextResponse } from 'next/server';\nimport { ratelimit } from '@/lib/ratelimit';\n\nexport function middleware(request) {\n  const ip = request.ip || request.headers.get('x-forwarded-for') || '127.0.0.1';\n  const { success } = ratelimit.limit(ip);\n  if (!success) {\n    return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });\n  }\n  return NextResponse.next();\n}",
+          "filename": "middleware.js"
+        }
+      },
+      {
+        "number": 4,
+        "title": "Build client-side interaction component",
+        "explanation": "Create a React component that sends user input to the protected API route with proper error handling.",
+        "code": {
+          "language": "javascript",
+          "content": "export default function AIChat() {\n  const [input, setInput] = useState('');\n  const [response, setResponse] = useState('');\n\n  const handleSubmit = async () => {\n    const res = await fetch('/api/ai', {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ prompt: input }),\n    });\n    const data = await res.json();\n    setResponse(data.content);\n  };\n\n  return (\n    <div>\n      <input value={input} onChange={(e) => setInput(e.target.value)} />\n      <button onClick={handleSubmit}>Send</button>\n      <div>{response}</div>\n    </div>\n  );\n}",
+          "filename": "components/AIChat.js"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Set up logging and monitoring",
+        "explanation": "Integrate with Vercel's logging or external services to track API usage patterns and detect anomalies.",
+        "code": {
+          "language": "text",
+          "content": "Vercel CLI: vercel logs --type=error\nThird-party: Sentry or Datadog integration"
+        }
+      }
+    ],
+    "conclusion": "This implementation secures AI API keys through server-side handling, prevents rate abuse with middleware, and provides structured client interactions while maintaining compliance with deployment constraints."
+  }
+}

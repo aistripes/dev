@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "marketplaces",
+    "generated_at": "2026-04-16T20:25:49.031Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Stripe Connect for Marketplaces",
+    "description": "How Stripe Connect fits into real Marketplaces workflows.",
+    "keywords": [
+      "marketplaces",
+      "tool-page",
+      "Stripe Connect",
+      "PayPal for Marketplaces",
+      "Sharetribe"
+    ],
+    "slug": "marketplaces-tool-page-stripe-connect-for-marketplaces"
+  },
+  "content": {
+    "headline": "Stripe Connect Payment Splitter Code Generator",
+    "description": "Generates code snippets for splitting payments between platform and sellers using Stripe Connect's API.",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated Code"
+      }
+    },
+    "inputs": [
+      {
+        "name": "platform_fee_percent",
+        "label": "Platform Fee (%)",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "seller_fee_percent",
+        "label": "Seller Fee (%)",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "currency",
+        "label": "Currency",
+        "type": "select",
+        "options": [
+          "USD",
+          "EUR",
+          "GBP"
+        ],
+        "required": true
+      },
+      {
+        "name": "payment_method",
+        "label": "Payment Method",
+        "type": "select",
+        "options": [
+          "card",
+          "bank_transfer",
+          "paypal"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic Split Configuration",
+        "input": {
+          "platform_fee_percent": 10,
+          "seller_fee_percent": 5,
+          "currency": "USD",
+          "payment_method": "card"
+        },
+        "expected_output": "const split = { platform_fee_percent: 10, seller_fee_percent: 5, currency: 'USD', payment_method: 'card' };"
+      },
+      {
+        "label": "EUR Split with Bank Transfer",
+        "input": {
+          "platform_fee_percent": 8,
+          "seller_fee_percent": 7,
+          "currency": "EUR",
+          "payment_method": "bank_transfer"
+        },
+        "expected_output": "const split = { platform_fee_percent: 8, seller_fee_percent: 7, currency: 'EUR', payment_method: 'bank_transfer' };"
+      }
+    ],
+    "how_it_works": "Inputs define the fee structure and payment parameters. The tool generates a JavaScript object literal compatible with Stripe Connect's API for transaction splitting.",
+    "related_tools": [
+      "stripe-docs",
+      "sharetribe",
+      "supabase"
+    ]
+  }
+}

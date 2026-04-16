@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "docker",
+    "generated_at": "2026-04-16T20:24:53.739Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Docker for Docker & Containers",
+    "description": "How Docker fits into real Docker & Containers workflows.",
+    "keywords": [
+      "docker",
+      "docker & containers",
+      "tool-page",
+      "Docker",
+      "Docker Compose",
+      "Podman"
+    ],
+    "slug": "docker-tool-page-docker-for-docker-containers"
+  },
+  "content": {
+    "headline": "Dockerfile Best Practices Checker",
+    "description": "Analyzes Dockerfiles for best practices, efficiency, and security vulnerabilities",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "link",
+      "links": [
+        {
+          "label": "Official Site",
+          "url": "https://github.com/hadolint/hadolint",
+          "kind": "official"
+        },
+        {
+          "label": "Documentation",
+          "url": "https://github.com/hadolint/hadolint/blob/master/README.md",
+          "kind": "docs"
+        },
+        {
+          "label": "Example Usage",
+          "url": "https://github.com/hadolint/hadolint#example",
+          "kind": "example"
+        },
+        {
+          "label": "GitHub Repo",
+          "url": "https://github.com/hadolint/hadolint",
+          "kind": "repo"
+        },
+        {
+          "label": "Playground",
+          "url": "https://hadolint.github.io/hadolint/",
+          "kind": "playground"
+        }
+      ]
+    },
+    "inputs": [
+      {
+        "name": "dockerfile",
+        "label": "Dockerfile content",
+        "type": "textarea",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic Dockerfile",
+        "input": {
+          "dockerfile": "FROM ubuntu:20.04\nRUN apt-get update && apt-get install -y python3"
+        },
+        "expected_output": "Recommendation: Use multi-stage build for better security and size."
+      },
+      {
+        "label": "Insecure Configuration",
+        "input": {
+          "dockerfile": "FROM python:3.9\nEXPOSE 5000\nCMD [\"python\", \"app.py\"]"
+        },
+        "expected_output": "Warning: Missing security headers. Add USER nonroot and HEALTHCHECK."
+      }
+    ],
+    "how_it_works": "The tool analyzes the provided Dockerfile content against best practices, identifying issues related to security, efficiency, and image size. It checks for common pitfalls like using non-essential packages, missing security headers, and unnecessary layers.",
+    "related_tools": [
+      "Docker Bench for Security",
+      "Docker Scan",
+      "Hadolint"
+    ]
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "link-building",
+    "generated_at": "2026-04-16T20:27:29.216Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Ahrefs for Link Building for Dev Tools",
+    "description": "How Ahrefs fits into real Link Building for Dev Tools workflows.",
+    "keywords": [
+      "link-building",
+      "link building for dev tools",
+      "tool-page",
+      "Ahrefs",
+      "Moz",
+      "SEMrush"
+    ],
+    "slug": "link-building-tool-page-ahrefs-for-link-building-for-dev-tools"
+  },
+  "content": {
+    "headline": "Developer Asset Linkability Scorecard",
+    "description": "Evaluate the organic link-earning potential of a technical tool, calculator, or dataset. This analyzer benchmarks your asset against criteria known to drive citations from technical blogs, documentation, and developer communities.",
+    "tool_type": "analyzer",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "score",
+        "label": "Linkability Potential Score"
+      }
+    },
+    "inputs": [
+      {
+        "name": "asset_name",
+        "label": "Asset Name",
+        "type": "text",
+        "placeholder": "e.g., Cron Expression Generator",
+        "required": true
+      },
+      {
+        "name": "utility_level",
+        "label": "Utility Level",
+        "type": "select",
+        "options": [
+          "High: Solves a daily recurring task",
+          "Medium: Solves an occasional but complex task",
+          "Low: Solves a rare or niche task"
+        ],
+        "required": true
+      },
+      {
+        "name": "novelty",
+        "label": "Novelty Factor",
+        "type": "select",
+        "options": [
+          "High: No existing web-based tool exists",
+          "Medium: Better UX/UI than 2-3 existing tools",
+          "Low: Many existing competitors"
+        ],
+        "required": true
+      },
+      {
+        "name": "is_embeddable",
+        "label": "Embeddable (Can others host it via iframe/script?)",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "is_open_source",
+        "label": "Open Source (Is the logic public on GitHub?)",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "targets_error_codes",
+        "label": "Specific Targeting (Does it solve a specific error code?)",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "High Potential Asset",
+        "input": {
+          "asset_name": "Kubernetes Cost Estimator",
+          "utility_level": "High: Solves a daily recurring task",
+          "novelty": "Medium: Better UX/UI than 2-3 existing tools",
+          "is_embeddable": true,
+          "is_open_source": true,
+          "targets_error_codes": false
+        },
+        "expected_output": "85/100"
+      },
+      {
+        "label": "Low Potential Asset",
+        "input": {
+          "asset_name": "Generic Base64 Decoder",
+          "utility_level": "High: Solves a daily recurring task",
+          "novelty": "Low: Many existing competitors",
+          "is_embeddable": false,
+          "is_open_source": false,
+          "targets_error_codes": false
+        },
+        "expected_output": "40/100"
+      }
+    ],
+    "how_it_works": "The scorecard uses a weighted algorithm designed for the developer niche. Utility (40%) is the highest weight, as tools that solve frequent pain points are cited in internal wikis and READMEs. Novelty (30%) determines the likelihood of being featured in newsletters like TLDR or Console. Embeddability (10%) and Open Source status (10%) encourage citations from technical writers and contributors. Finally, targeting specific error codes (10%) increases visibility in search results for long-tail technical queries, leading to passive link acquisition.",
+    "related_tools": [
+      "Programmatic SEO Keyword Mapper",
+      "GitHub Repository Link Auditor",
+      "Technical Content ROI Calculator"
+    ]
+  }
+}

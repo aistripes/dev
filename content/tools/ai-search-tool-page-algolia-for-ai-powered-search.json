@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "ai-search",
+    "generated_at": "2026-04-16T20:20:12.209Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Algolia for AI-Powered Search",
+    "description": "How Algolia fits into real AI-Powered Search workflows.",
+    "keywords": [
+      "ai-search",
+      "ai-powered search",
+      "tool-page",
+      "Algolia",
+      "Typesense",
+      "Meilisearch"
+    ],
+    "slug": "ai-search-tool-page-algolia-for-ai-powered-search"
+  },
+  "content": {
+    "headline": "Hybrid Search Query Generator",
+    "description": "Constructs search queries combining keyword and vector search parameters for AI-powered search systems",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Hybrid Search Configuration"
+      }
+    },
+    "inputs": [
+      {
+        "name": "keyword_query",
+        "label": "Keyword Search Term",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "vector_threshold",
+        "label": "Vector Similarity Threshold",
+        "type": "number",
+        "placeholder": "0.7",
+        "required": true
+      },
+      {
+        "name": "use_rerank",
+        "label": "Enable Reranking",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic Hybrid Search",
+        "input": {
+          "keyword_query": "machine learning algorithms",
+          "vector_threshold": 0.7,
+          "use_rerank": false
+        },
+        "expected_output": "{\"keyword\": \"machine learning algorithms\", \"vector\": {\"threshold\": 0.7}}"
+      },
+      {
+        "label": "Reranked Vector Search",
+        "input": {
+          "keyword_query": "neural network optimization",
+          "vector_threshold": 0.85,
+          "use_rerank": true
+        },
+        "expected_output": "{\"keyword\": \"neural network optimization\", \"vector\": {\"threshold\": 0.85, \"rerank\": true}}"
+      }
+    ],
+    "how_it_works": "Combines keyword matching with vector similarity scores by generating configuration objects that prioritize both exact term matches and semantic relevance. The vector threshold controls similarity cutoffs while reranking adds post-processing for result ordering.",
+    "related_tools": [
+      "Pinecone",
+      "Weaviate",
+      "Elasticsearch",
+      "OpenAI Embeddings"
+    ]
+  }
+}

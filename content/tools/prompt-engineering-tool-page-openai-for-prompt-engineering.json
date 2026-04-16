@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "prompt-engineering",
+    "generated_at": "2026-04-16T20:20:19.236Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "OpenAI for Prompt Engineering",
+    "description": "How OpenAI fits into real Prompt Engineering workflows.",
+    "keywords": [
+      "prompt-engineering",
+      "prompt engineering",
+      "tool-page",
+      "OpenAI",
+      "Anthropic Claude",
+      "Google Gemini"
+    ],
+    "slug": "prompt-engineering-tool-page-openai-for-prompt-engineering"
+  },
+  "content": {
+    "headline": "Prompt Structure Formatter",
+    "description": "Standardizes prompt formatting for consistent LLM behavior across model providers and task types",
+    "tool_type": "formatter",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Formatted Prompt"
+      }
+    },
+    "inputs": [
+      {
+        "name": "prompt_text",
+        "label": "Raw Prompt",
+        "type": "textarea",
+        "placeholder": "Enter your unstructured prompt...",
+        "required": true
+      },
+      {
+        "name": "model_provider",
+        "label": "Model Provider",
+        "type": "select",
+        "options": [
+          "OpenAI",
+          "Anthropic",
+          "Google Gemini"
+        ],
+        "required": true
+      },
+      {
+        "name": "include_system",
+        "label": "Add System Instructions",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic Translation Prompt",
+        "input": {
+          "prompt_text": "Translate this paragraph to French",
+          "model_provider": "OpenAI",
+          "include_system": false
+        },
+        "expected_output": "Translate this paragraph to French"
+      },
+      {
+        "label": "Multi-Step Reasoning",
+        "input": {
+          "prompt_text": "Solve this math problem: 2+2. Show your work.",
+          "model_provider": "Anthropic",
+          "include_system": true
+        },
+        "expected_output": "Think step by step: 2 + 2 = 4. Final answer: 4"
+      }
+    ],
+    "how_it_works": "Analyzes input text and applies formatting rules specific to the selected model provider. Adds system instructions template if enabled, standardizing prompt structure for consistent LLM behavior.",
+    "related_tools": [
+      "LangChain",
+      "PromptLayer",
+      "Vercel AI SDK"
+    ]
+  }
+}

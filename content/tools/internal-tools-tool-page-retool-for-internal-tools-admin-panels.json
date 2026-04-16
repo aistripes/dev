@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "internal-tools",
+    "generated_at": "2026-04-16T20:24:53.016Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Retool for Internal Tools & Admin Panels",
+    "description": "How Retool fits into real Internal Tools & Admin Panels workflows.",
+    "keywords": [
+      "internal-tools",
+      "internal tools & admin panels",
+      "tool-page",
+      "Retool",
+      "Appsmith",
+      "Tooljet"
+    ],
+    "slug": "internal-tools-tool-page-retool-for-internal-tools-admin-panels"
+  },
+  "content": {
+    "headline": "RBAC Permission Validator",
+    "description": "Validates and simulates RBAC permissions for internal tools based on user roles and actions",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Permission evaluation result"
+      }
+    },
+    "inputs": [
+      {
+        "name": "user_role",
+        "label": "User Role",
+        "type": "select",
+        "options": [
+          "admin",
+          "editor",
+          "viewer",
+          "auditor"
+        ],
+        "required": true
+      },
+      {
+        "name": "action",
+        "label": "Action",
+        "type": "select",
+        "options": [
+          "read",
+          "write",
+          "delete",
+          "export"
+        ],
+        "required": true
+      },
+      {
+        "name": "resource",
+        "label": "Resource Type",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "permission_matrix",
+        "label": "Permission Matrix (JSON)",
+        "type": "textarea",
+        "placeholder": "{ \"admin\": { \"dashboard\": [\"read\", \"write\"] }, \"viewer\": { \"dashboard\": [\"read\"] } }",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Admin write access",
+        "input": {
+          "user_role": "admin",
+          "action": "write",
+          "resource": "dashboard",
+          "permission_matrix": "{ \"admin\": { \"dashboard\": [\"read\", \"write\"] } }"
+        },
+        "expected_output": "{ \"allowed\": true, \"reason\": \"Admin has write permissions for dashboard\" }"
+      },
+      {
+        "label": "Viewer delete attempt",
+        "input": {
+          "user_role": "viewer",
+          "action": "delete",
+          "resource": "settings",
+          "permission_matrix": "{ \"admin\": { \"settings\": [\"read\", \"write\"] }, \"viewer\": { \"settings\": [\"read\"] } }"
+        },
+        "expected_output": "{ \"allowed\": false, \"reason\": \"Viewer lacks delete permissions for settings\" }"
+      }
+    ],
+    "how_it_works": "This tool evaluates RBAC permissions by matching user roles to defined permission matrices. Developers input their role-based access control structure and test specific action/resource combinations to verify authorization rules before implementation.",
+    "related_tools": [
+      "Auth0",
+      "Firebase Auth",
+      "Keycloak",
+      "Casbin"
+    ]
+  }
+}

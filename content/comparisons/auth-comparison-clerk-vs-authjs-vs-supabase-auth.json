@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "auth",
+    "generated_at": "2026-04-16T20:24:06.067Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Clerk vs Auth.js vs Supabase Auth",
+    "description": "A practical comparison of Clerk, Auth.js, and Supabase Auth for Authentication & Authorization.",
+    "keywords": [
+      "auth",
+      "authentication & authorization",
+      "comparison",
+      "Clerk",
+      "Auth.js",
+      "Supabase Auth"
+    ],
+    "slug": "auth-comparison-clerk-vs-authjs-vs-supabase-auth"
+  },
+  "content": {
+    "intro": "Comparing authentication solutions for developers balancing implementation speed, customization, and long-term maintainability. Focus on trade-offs between hosted services, open-source frameworks, and self-hosted options.",
+    "options": [
+      {
+        "name": "Clerk",
+        "tagline": "Hosted authentication with built-in UI components",
+        "url": "https://clerk.com",
+        "best_for": "Startup teams needing rapid authentication implementation with minimal infrastructure"
+      },
+      {
+        "name": "Auth.js",
+        "tagline": "Open-source authentication library for Next.js and Node.js",
+        "url": "https://authjs.dev",
+        "best_for": "Full-stack developers requiring custom authentication flows with JWT and OAuth support"
+      },
+      {
+        "name": "Supabase Auth",
+        "tagline": "Self-hosted authentication with PostgreSQL integration",
+        "url": "https://supabase.com",
+        "best_for": "Teams building data-driven applications requiring database-coupled authentication"
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Implementation Effort",
+        "description": "Time required to integrate authentication into application",
+        "values": {
+          "Clerk": "Low (pre-built UI + API)",
+          "Auth.js": "Moderate (framework integration)",
+          "Supabase Auth": "High (database setup required)"
+        }
+      },
+      {
+        "name": "Lock-in Risk",
+        "description": "Difficulty of switching to alternative authentication systems",
+        "values": {
+          "Clerk": "High (custom APIs and UI components)",
+          "Auth.js": "Low (standard OAuth/JWT protocols)",
+          "Supabase Auth": "Medium (PostgreSQL schema dependencies)"
+        }
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Financial implications of usage patterns",
+        "values": {
+          "Clerk": "Pay-as-you-go (free tier available)",
+          "Auth.js": "Free (open-source)",
+          "Supabase Auth": "Free (self-hosted) or paid managed service"
+        }
+      },
+      {
+        "name": "Reliability",
+        "description": "Uptime and performance guarantees for production systems",
+        "values": {
+          "Clerk": "High (SLA 99.95%)",
+          "Auth.js": "Variable (dependent on infrastructure)",
+          "Supabase Auth": "High (managed service SLA 99.9%)"
+        }
+      },
+      {
+        "name": "Multi-Tenancy Support",
+        "description": "Built-in capabilities for tenant isolation and access control",
+        "values": {
+          "Clerk": "Limited (requires custom implementation)",
+          "Auth.js": "High (custom claims and middleware)",
+          "Supabase Auth": "High (row-level security integration)"
+        }
+      },
+      {
+        "name": "OAuth Integration",
+        "description": "Support for social logins and enterprise identity providers",
+        "values": {
+          "Clerk": "Excellent (100+ providers)",
+          "Auth.js": "Excellent (standard OAuth 2.0)",
+          "Supabase Auth": "Good (limited provider list)"
+        }
+      },
+      {
+        "name": "Community Support",
+        "description": "Availability of documentation, forums, and third-party tools",
+        "values": {
+          "Clerk": "Good (enterprise-focused)",
+          "Auth.js": "Excellent (active open-source community)",
+          "Supabase Auth": "Excellent (developer-first ecosystem)"
+        }
+      },
+      {
+        "name": "Customization Flexibility",
+        "description": "Ability to modify authentication workflows and UI",
+        "values": {
+          "Clerk": "Limited (pre-built components)",
+          "Auth.js": "High (full control over flows)",
+          "Supabase Auth": "High (database-driven customization)"
+        }
+      }
+    ],
+    "verdict": {
+      "summary": "Clerk offers fastest initial implementation but creates vendor lock-in. Auth.js provides maximum flexibility with higher development overhead. Supabase Auth balances customization with database integration but requires more setup. Choose based on team expertise and long-term maintenance preferences.",
+      "use_cases": [
+        {
+          "scenario": "Startup building MVP with limited engineering resources",
+          "recommendation": "Clerk",
+          "reason": "Rapid implementation with minimal infrastructure requirements"
+        },
+        {
+          "scenario": "Enterprise application requiring custom access control",
+          "recommendation": "Auth.js",
+          "reason": "Full control over authentication workflows and security policies"
+        },
+        {
+          "scenario": "Data-driven application needing tenant isolation",
+          "recommendation": "Supabase Auth",
+          "reason": "Seamless integration with PostgreSQL for multi-tenancy patterns"
+        },
+        {
+          "scenario": "Open-source project requiring no vendor dependencies",
+          "recommendation": "Auth.js",
+          "reason": "Leverages standard authentication protocols with no lock-in risk"
+        }
+      ]
+    }
+  }
+}

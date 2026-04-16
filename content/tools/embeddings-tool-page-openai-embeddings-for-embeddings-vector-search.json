@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "embeddings",
+    "generated_at": "2026-04-16T20:23:00.388Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "OpenAI Embeddings for Embeddings & Vector Search",
+    "description": "How OpenAI Embeddings fits into real Embeddings & Vector Search workflows.",
+    "keywords": [
+      "embeddings",
+      "embeddings & vector search",
+      "tool-page",
+      "OpenAI Embeddings",
+      "Cohere Embed",
+      "Voyage AI"
+    ],
+    "slug": "embeddings-tool-page-openai-embeddings-for-embeddings-vector-search"
+  },
+  "content": {
+    "headline": "Embedding Storage Calculator",
+    "description": "Calculate estimated storage requirements for embedding vectors based on dataset size, dimension, and data type.",
+    "tool_type": "calculator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Storage Estimate"
+      }
+    },
+    "inputs": [
+      {
+        "name": "vector_count",
+        "label": "Number of Vectors",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "dimension",
+        "label": "Embedding Dimension",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "data_type",
+        "label": "Data Type",
+        "type": "select",
+        "options": [
+          "float32",
+          "float16",
+          "bfloat16"
+        ],
+        "required": true
+      },
+      {
+        "name": "compression",
+        "label": "Use Compression",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "100k vectors at 768 dimensions (float32)",
+        "input": {
+          "vector_count": 100000,
+          "dimension": 768,
+          "data_type": "float32"
+        },
+        "expected_output": "307.2 MB"
+      },
+      {
+        "label": "50k vectors at 2048 dimensions (float16, compressed)",
+        "input": {
+          "vector_count": 50000,
+          "dimension": 2048,
+          "data_type": "float16",
+          "compression": true
+        },
+        "expected_output": "102.4 MB (compressed)"
+      }
+    ],
+    "how_it_works": "The calculator estimates storage by multiplying the number of vectors by the embedding dimension and the bytes per value (4 for float32, 2 for float16/bfloat16). Compression reduces storage by 50% if enabled.",
+    "related_tools": [
+      "vector-database-comparison",
+      "embedding-model-benchmark"
+    ]
+  }
+}
