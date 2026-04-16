@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "analytics",
+    "generated_at": "2026-04-16T20:22:57.733Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Privacy-first analytics comparison with Plausibl...",
+    "description": "A step-by-step implementation guide for Privacy-first analytics comparison with Plausible and Fathom.",
+    "keywords": [
+      "analytics",
+      "web analytics",
+      "guide",
+      "Plausible",
+      "Fathom",
+      "Umami"
+    ],
+    "slug": "analytics-guide-building-privacy-first-analytics-comparison-with-plausibl"
+  },
+  "content": {
+    "intro": "This guide provides a step-by-step implementation process for integrating privacy-first web analytics tools into your application, focusing on GDPR compliance, self-hosting, and custom event tracking. Follow these steps to replace traditional analytics solutions with ethical, actionable alternatives.",
+    "estimated_time": "2-3 hours depending on tool choice and existing infrastructure",
+    "prerequisites": [
+      "A web application with server access",
+      "Selected analytics tool (e.g. Matomo, PostHog, Plausible)",
+      "SSL certificate for production environments",
+      "Basic understanding of HTTP headers and server configuration"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Choose privacy-first analytics tool",
+        "explanation": "Select a tool that matches your compliance needs and technical stack. Prioritize tools with self-hosting options, cookieless tracking, and open-source transparency. Compare features like event tracking flexibility and data retention policies.",
+        "code": {
+          "language": "text",
+          "content": "Example: Matomo (self-hosted) vs Plausible (hosted, cookieless) vs PostHog (open-source, feature-rich)"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Install and configure backend",
+        "explanation": "Deploy the analytics platform using recommended methods. For self-hosted solutions, set up database connections and configure CORS policies. Ensure server-side tracking is enabled for enhanced privacy compliance.",
+        "code": {
+          "language": "bash",
+          "content": "docker run -e MATOMO_DATABASE_HOST=db -e MATOMO_DATABASE_NAME=matomo -p 80:80 matomo",
+          "filename": "docker-compose.yml"
+        },
+        "pitfalls": [
+          "Forgetting to set secure cookies for production environments",
+          "Misconfiguring database credentials leading to connection failures"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement client-side tracking",
+        "explanation": "Add the analytics snippet to your application. Use asynchronous loading to avoid blocking page render. Configure event tracking for key user interactions and AI feature usage patterns.",
+        "code": {
+          "language": "javascript",
+          "content": "const tracker = new PostHog('PROJECT_API_KEY', { host: 'https://analytics.example.com' });\ntracker.track('AI Feature Used', { feature: 'chatbot' });"
+        }
+      },
+      {
+        "number": 4,
+        "title": "Configure privacy compliance settings",
+        "explanation": "Enable anonymization options, set data retention policies, and implement IP address masking. Verify that tracking works without cookies by testing in incognito mode or using privacy-focused browsers.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"anonymize_ip\": true,\n  \"delete_data_after_days\": 30,\n  \"cookie_flags\": \"SameSite=Strict; Secure\"\n}"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Validate tracking implementation",
+        "explanation": "Use browser developer tools to verify tracking requests. Check server logs for incoming data. Test event tracking with simulated user interactions to ensure data is being captured correctly.",
+        "code": {
+          "language": "bash",
+          "content": "curl -I https://analytics.example.com/track?token=PROJECT_API_KEY"
+        },
+        "pitfalls": [
+          "Missing tracking events due to incorrect event naming conventions",
+          "Failing to test in environments without JavaScript enabled"
+        ]
+      }
+    ],
+    "conclusion": "By following these steps, you've implemented a privacy-compliant analytics solution that maintains data ownership while providing actionable insights. Regularly review tracking configurations to adapt to changing compliance requirements and product feature updates."
+  }
+}

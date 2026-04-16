@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "privacy",
+    "generated_at": "2026-04-16T20:27:30.818Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Plausible vs Umami vs Fathom",
+    "description": "A practical comparison of Plausible, Umami, and Fathom for Privacy-First Architecture.",
+    "keywords": [
+      "privacy",
+      "privacy-first architecture",
+      "comparison",
+      "Plausible",
+      "Umami",
+      "Fathom"
+    ],
+    "slug": "privacy-comparison-plausible-vs-umami-vs-fathom"
+  },
+  "content": {
+    "intro": "Evaluating analytics platforms for privacy-first architectures requires balancing data minimization against actionable insights. This comparison focuses on tools that prioritize GDPR compliance, minimize or eliminate cookie-based tracking, and provide developers with control over data residency and ownership.",
+    "options": [
+      {
+        "name": "Plausible",
+        "tagline": "Lightweight, open-source analytics without cookies.",
+        "url": "https://plausible.io",
+        "best_for": "Developers needing simple, performant metrics without the overhead of consent banners."
+      },
+      {
+        "name": "Matomo",
+        "tagline": "The full-featured open-source Google Analytics alternative.",
+        "url": "https://matomo.org",
+        "best_for": "Enterprises requiring total data ownership and deep feature parity with legacy analytics."
+      },
+      {
+        "name": "PostHog (Self-Hosted)",
+        "tagline": "Product OS including session recording and feature flags.",
+        "url": "https://posthog.com",
+        "best_for": "SaaS founders needing product-led growth tools without sending PII to third-party clouds."
+      },
+      {
+        "name": "Fathom",
+        "tagline": "Privacy-focused analytics with a focus on speed and simplicity.",
+        "url": "https://usefathom.com",
+        "best_for": "Commercial projects wanting a managed service with high uptime and zero configuration."
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Data Residency",
+        "description": "Where the data is physically stored and processed.",
+        "values": {
+          "Plausible": "EU (Germany/Estonia) via Hetzner.",
+          "Matomo": "User-defined (Self-hosted) or EU (Cloud).",
+          "PostHog (Self-Hosted)": "User-defined (On-premise/Private Cloud).",
+          "Fathom": "Global edge with EU isolation for European traffic."
+        },
+        "winner": "Matomo"
+      },
+      {
+        "name": "Cookie Usage",
+        "description": "Requirement for HTTP cookies and associated consent banners.",
+        "values": {
+          "Plausible": "No cookies used; no consent banner required.",
+          "Matomo": "Uses cookies by default; can be configured for cookieless.",
+          "PostHog (Self-Hosted)": "Uses cookies and local storage for session tracking.",
+          "Fathom": "No cookies used; no consent banner required."
+        },
+        "winner": "Plausible"
+      },
+      {
+        "name": "Script Size",
+        "description": "Impact on frontend performance and Core Web Vitals.",
+        "values": {
+          "Plausible": "< 1 KB optimized.",
+          "Matomo": "Approx. 22 KB (minified/gzipped).",
+          "PostHog (Self-Hosted)": "Approx. 50 KB (includes feature flags/session recording).",
+          "Fathom": "Approx. 2 KB."
+        },
+        "winner": "Plausible"
+      },
+      {
+        "name": "Implementation Effort",
+        "description": "Developer hours required for initial setup and maintenance.",
+        "values": {
+          "Plausible": "Very Low (Single script tag).",
+          "Matomo": "High (Requires PHP/MySQL management for self-hosting).",
+          "PostHog (Self-Hosted)": "Medium (Docker/Kubernetes deployment required).",
+          "Fathom": "Very Low (Single script tag)."
+        },
+        "winner": "Fathom"
+      },
+      {
+        "name": "Extensibility",
+        "description": "Ability to track custom events, properties, and user paths.",
+        "values": {
+          "Plausible": "Basic custom goals and properties.",
+          "Matomo": "Extensive (Custom dimensions, ecommerce, heatmaps).",
+          "PostHog (Self-Hosted)": "High (Full event pipelines, SQL access, plugins).",
+          "Fathom": "Basic event tracking."
+        },
+        "winner": "PostHog (Self-Hosted)"
+      },
+      {
+        "name": "Open Source Status",
+        "description": "Transparency of the codebase and licensing.",
+        "values": {
+          "Plausible": "AGPLv3 (Open Source).",
+          "Matomo": "GPLv3 (Open Source).",
+          "PostHog (Self-Hosted)": "MIT (Open Source core), proprietary enterprise features.",
+          "Fathom": "Proprietary (Closed Source)."
+        },
+        "winner": "Matomo"
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Monthly expenditure for 100k monthly pageviews.",
+        "values": {
+          "Plausible": "Approx. $19/mo (Cloud) or Free (Self-hosted).",
+          "Matomo": "Free (Self-hosted) or ~$35/mo (Cloud).",
+          "PostHog (Self-Hosted)": "Free (Open Source) + Infrastructure costs.",
+          "Fathom": "$14/mo (Cloud)."
+        },
+        "winner": "Fathom"
+      },
+      {
+        "name": "Session Recording",
+        "description": "Ability to replay user sessions for UX analysis.",
+        "values": {
+          "Plausible": "Not available.",
+          "Matomo": "Available via paid plugin/Premium cloud.",
+          "PostHog (Self-Hosted)": "Built-in native feature.",
+          "Fathom": "Not available."
+        },
+        "winner": "PostHog (Self-Hosted)"
+      }
+    ],
+    "verdict": {
+      "summary": "For pure privacy and performance, Plausible and Fathom are the leaders due to their cookieless nature and minimal script weight. Matomo remains the standard for organizations requiring deep legacy reporting and 100% control over the server stack. PostHog is the clear choice for product-led startups where privacy is a requirement but product analytics (funnels, recordings) are essential.",
+      "use_cases": [
+        {
+          "scenario": "A European developer building a personal blog or documentation site.",
+          "recommendation": "Plausible",
+          "reason": "Lightweight, respects user privacy by default, and requires zero maintenance or consent banners."
+        },
+        {
+          "scenario": "A privacy-focused SaaS startup needing to analyze conversion funnels and user churn.",
+          "recommendation": "PostHog (Self-Hosted)",
+          "reason": "Provides the advanced product analytics of Mixpanel or Amplitude while keeping all PII on the startup's own infrastructure."
+        },
+        {
+          "scenario": "A government agency or enterprise with strict data residency and auditing requirements.",
+          "recommendation": "Matomo",
+          "reason": "Mature, open-source, and can be air-gapped on internal servers while providing comprehensive reporting."
+        }
+      ]
+    }
+  }
+}

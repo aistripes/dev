@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "ecommerce",
+    "generated_at": "2026-04-16T20:26:01.424Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Shopify vs Medusa vs Saleor",
+    "description": "A practical comparison of Shopify, Medusa, and Saleor for E-Commerce.",
+    "keywords": [
+      "ecommerce",
+      "e-commerce",
+      "comparison",
+      "Shopify",
+      "Medusa",
+      "Saleor"
+    ],
+    "slug": "ecommerce-comparison-shopify-vs-medusa-vs-saleor"
+  },
+  "content": {
+    "intro": "Comparing headless commerce platforms for e-commerce developers focusing on implementation, flexibility, and integration trade-offs.",
+    "options": [
+      {
+        "name": "Shopify Hydrogen",
+        "tagline": "Shopify's React-based headless storefront framework",
+        "url": "https://hydrogen.shopify.dev",
+        "best_for": "Rapid storefront development with Shopify ecosystem integration"
+      },
+      {
+        "name": "Medusa",
+        "tagline": "Open-source headless commerce platform",
+        "url": "https://medusajs.com",
+        "best_for": "Customizable commerce solutions with self-hosting flexibility"
+      },
+      {
+        "name": "Saleor",
+        "tagline": "Open-source e-commerce platform with GraphQL API",
+        "url": "https://saleor.io",
+        "best_for": "Enterprise-grade customization with multi-tenancy support"
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Implementation Effort",
+        "description": "Time and complexity to build a functional storefront",
+        "values": {
+          "Shopify Hydrogen": "Low (pre-built components, Shopify ecosystem)",
+          "Medusa": "Medium (requires custom API integration)",
+          "Saleor": "Medium (requires GraphQL setup and customization)"
+        },
+        "winner": "Shopify Hydrogen"
+      },
+      {
+        "name": "Lock-in Risk",
+        "description": "Difficulty transitioning to alternative platforms",
+        "values": {
+          "Shopify Hydrogen": "High (tightly coupled with Shopify backend)",
+          "Medusa": "Low (open-source, decoupled architecture)",
+          "Saleor": "Low (open-source, standard API contracts)"
+        },
+        "winner": "Medusa"
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Ongoing financial commitment for infrastructure and licensing",
+        "values": {
+          "Shopify Hydrogen": "High (Shopify subscription + custom code costs)",
+          "Medusa": "Low (self-hosted, open-source with optional SaaS features)",
+          "Saleor": "Low (open-source, self-hosted with optional enterprise support)"
+        },
+        "winner": "Medusa"
+      },
+      {
+        "name": "Reliability",
+        "description": "Uptime, performance, and stability under load",
+        "values": {
+          "Shopify Hydrogen": "High (Shopify infrastructure)",
+          "Medusa": "Medium (dependent on host configuration)",
+          "Saleor": "Medium (dependent on host configuration)"
+        },
+        "winner": "Shopify Hydrogen"
+      },
+      {
+        "name": "Customization Flexibility",
+        "description": "Ability to modify core functionality",
+        "values": {
+          "Shopify Hydrogen": "Low (limited to Shopify's API constraints)",
+          "Medusa": "High (full control over codebase)",
+          "Saleor": "High (full control over codebase)"
+        },
+        "winner": "Medusa"
+      },
+      {
+        "name": "AI Integration",
+        "description": "Support for AI-driven features like product descriptions",
+        "values": {
+          "Shopify Hydrogen": "Medium (limited native support, third-party apps)",
+          "Medusa": "High (custom AI integration via APIs)",
+          "Saleor": "High (custom AI integration via APIs)"
+        },
+        "winner": "Medusa"
+      },
+      {
+        "name": "Payment Integration",
+        "description": "Regional payment processor support and tax handling",
+        "values": {
+          "Shopify Hydrogen": "High (built-in global payment support)",
+          "Medusa": "Medium (requires custom payment provider setup)",
+          "Saleor": "Medium (requires custom payment provider setup)"
+        },
+        "winner": "Shopify Hydrogen"
+      },
+      {
+        "name": "Performance Optimization",
+        "description": "Handling product pages with heavy media and filters",
+        "values": {
+          "Shopify Hydrogen": "High (optimized for Shopify's infrastructure)",
+          "Medusa": "Medium (requires manual optimization)",
+          "Saleor": "Medium (requires manual optimization)"
+        },
+        "winner": "Shopify Hydrogen"
+      }
+    ],
+    "verdict": {
+      "summary": "Shopify Hydrogen offers the fastest development path but with higher lock-in and cost. Medusa and Saleor provide greater flexibility but require more engineering effort. Medusa's open-source model and modern architecture make it ideal for custom solutions, while Saleor's GraphQL focus suits enterprise-scale projects.",
+      "use_cases": [
+        {
+          "scenario": "Rapid storefront deployment with minimal customization",
+          "recommendation": "Shopify Hydrogen",
+          "reason": "Leverages Shopify's infrastructure and pre-built components for quick time-to-market"
+        },
+        {
+          "scenario": "Full customization with self-hosted infrastructure",
+          "recommendation": "Medusa",
+          "reason": "Open-source architecture allows complete control over codebase and deployment"
+        },
+        {
+          "scenario": "Enterprise-scale multi-tenant e-commerce solution",
+          "recommendation": "Saleor",
+          "reason": "Built-in multi-tenancy support and GraphQL API for complex enterprise requirements"
+        }
+      ]
+    }
+  }
+}

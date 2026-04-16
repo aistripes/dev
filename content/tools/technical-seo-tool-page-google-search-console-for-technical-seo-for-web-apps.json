@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "technical-seo",
+    "generated_at": "2026-04-16T20:24:44.064Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Google Search Console for Technical SEO for Web Apps",
+    "description": "How Google Search Console fits into real Technical SEO for Web Apps workflows.",
+    "keywords": [
+      "technical-seo",
+      "technical seo for web apps",
+      "tool-page",
+      "Google Search Console",
+      "Lighthouse",
+      "Screaming Frog"
+    ],
+    "slug": "technical-seo-tool-page-google-search-console-for-technical-seo-for-web-apps"
+  },
+  "content": {
+    "headline": "Schema.org Markup Validator",
+    "description": "Validates and generates Schema.org markup for web applications to ensure rich search results and proper structured data implementation.",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Validation Results"
+      }
+    },
+    "inputs": [
+      {
+        "name": "schemaType",
+        "label": "Schema Type",
+        "type": "select",
+        "options": [
+          "WebPage",
+          "Article",
+          "Product",
+          "LocalBusiness",
+          "Event",
+          "Course"
+        ],
+        "required": true
+      },
+      {
+        "name": "jsonLd",
+        "label": "JSON-LD Content",
+        "type": "textarea",
+        "placeholder": "{\"@context\": \"https://schema.org\", \"@type\": \"WebPage\", \"name\": \"Example Page\"}",
+        "required": true
+      },
+      {
+        "name": "autoGenerate",
+        "label": "Auto-generate missing fields",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic WebPage Validation",
+        "input": {
+          "schemaType": "WebPage",
+          "jsonLd": "{\"@context\": \"https://schema.org\", \"@type\": \"WebPage\", \"name\": \"Example Page\"}",
+          "autoGenerate": "false"
+        },
+        "expected_output": "{\"valid\": true, \"missingFields\": [], \"errors\": []}"
+      },
+      {
+        "label": "Incomplete Article Schema",
+        "input": {
+          "schemaType": "Article",
+          "jsonLd": "{\"@context\": \"https://schema.org\", \"@type\": \"Article\"}",
+          "autoGenerate": "true"
+        },
+        "expected_output": "{\"valid\": true, \"missingFields\": [\"headline\", \"datePublished\"], \"generatedFields\": {\"headline\": \"Untitled Article\", \"datePublished\": \"2023-10-05\"}}"
+      }
+    ],
+    "how_it_works": "The tool validates JSON-LD against Schema.org's required properties for the selected type. If auto-generate is enabled, it fills missing fields with default values. Results include error messages for invalid properties and warnings for missing required fields.",
+    "related_tools": [
+      "Schema.org Reference",
+      "Google Structured Data Testing Tool",
+      "JSON Validator"
+    ]
+  }
+}

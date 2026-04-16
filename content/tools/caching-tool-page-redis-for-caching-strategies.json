@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "caching",
+    "generated_at": "2026-04-16T20:23:38.304Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Redis for Caching Strategies",
+    "description": "How Redis fits into real Caching Strategies workflows.",
+    "keywords": [
+      "caching",
+      "caching strategies",
+      "tool-page",
+      "Redis",
+      "Upstash",
+      "Cloudflare Cache"
+    ],
+    "slug": "caching-tool-page-redis-for-caching-strategies"
+  },
+  "content": {
+    "headline": "Cache Invalidation Strategy Checker",
+    "description": "Analyzes system requirements to recommend optimal cache invalidation patterns for backend systems",
+    "tool_type": "analyzer",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Recommended invalidation strategy"
+      }
+    },
+    "inputs": [
+      {
+        "name": "data_volatility",
+        "label": "Data update frequency",
+        "type": "select",
+        "options": [
+          "Real-time",
+          "Frequent (min)",
+          "Occasional (hour)",
+          "Rare (day+)"
+        ],
+        "required": true
+      },
+      {
+        "name": "cache_type",
+        "label": "Cache layer type",
+        "type": "select",
+        "options": [
+          "In-memory",
+          "Distributed",
+          "CDN"
+        ],
+        "required": true
+      },
+      {
+        "name": "system_complexity",
+        "label": "System complexity",
+        "type": "select",
+        "options": [
+          "Simple",
+          "Moderate",
+          "High"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "High-frequency API data",
+        "input": {
+          "data_volatility": "Frequent (min)",
+          "cache_type": "Distributed",
+          "system_complexity": "Moderate"
+        },
+        "expected_output": "Event-driven invalidation with Redis pub/sub"
+      },
+      {
+        "label": "Static content delivery",
+        "input": {
+          "data_volatility": "Rare (day+)",
+          "cache_type": "CDN",
+          "system_complexity": "Simple"
+        },
+        "expected_output": "Time-based expiration with Cloudflare Cache"
+      }
+    ],
+    "how_it_works": "Evaluates data volatility patterns, cache layer capabilities, and system complexity to match with established invalidation patterns from Redis and Varnish best practices. Recommends strategies based on tradeoffs between freshness guarantees and operational complexity.",
+    "related_tools": [
+      "Redis",
+      "Varnish",
+      "Cloudflare Cache"
+    ]
+  }
+}

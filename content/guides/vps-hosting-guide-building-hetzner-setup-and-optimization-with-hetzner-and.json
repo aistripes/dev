@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "vps-hosting",
+    "generated_at": "2026-04-16T20:24:19.954Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Hetzner setup and optimization with Hetzner and...",
+    "description": "A step-by-step implementation guide for Hetzner setup and optimization with Hetzner and Contabo.",
+    "keywords": [
+      "vps-hosting",
+      "vps hosting (hetzner, etc.)",
+      "guide",
+      "Hetzner",
+      "Contabo",
+      "OVH"
+    ],
+    "slug": "vps-hosting-guide-building-hetzner-setup-and-optimization-with-hetzner-and"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to deploying and securing a VPS using European providers like Hetzner. Focuses on production-ready setup, automation, and scaling considerations for developers prioritizing control and compliance.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "VPS account with Hetzner/Contabo/OVH",
+      "SSH access to server",
+      "Domain name with DNS configured",
+      "Basic Linux command line knowledge",
+      "SSH key pair for authentication"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Provision VPS with European provider",
+        "explanation": "Select a provider and server plan matching your region requirements. Enable IPv6 if needed. Configure initial firewall rules to allow SSH (port 22) and HTTP/HTTPS (ports 80/443).",
+        "code": {
+          "language": "bash",
+          "content": "hcloud server create --name my-app --image ubuntu-22.04 --plan cpx11 --location nbg1",
+          "filename": "provision.sh"
+        },
+        "pitfalls": [
+          "Ignoring provider-specific network configuration requirements",
+          "Not enabling IPv6 support for European compliance"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Initial server hardening",
+        "explanation": "Update system packages, create a non-root user, and configure SSH to disable root login. Set up basic firewall rules using UFW.",
+        "code": {
+          "language": "bash",
+          "content": "adduser devuser\nusermod -aG sudo devuser\nufw allow OpenSSH\nufw enable"
+        },
+        "pitfalls": [
+          "Leaving root account active for extended periods",
+          "Not restricting SSH access to specific IP ranges"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Deploy application with automation",
+        "explanation": "Use Ansible or a shell script to deploy your application. Include steps for installing dependencies, setting environment variables, and configuring systemd services.",
+        "code": {
+          "language": "yaml",
+          "content": "- name: Deploy app\n  hosts: all\n  tasks:\n    - name: Clone repository\n      git:\n        repo: https://github.com/example/app.git\n        dest: /var/www/app"
+        },
+        "pitfalls": [
+          "Hardcoding secrets in deployment scripts",
+          "Not testing automation in staging environment"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure SSL and reverse proxy",
+        "explanation": "Set up Caddy or Nginx as reverse proxy. Use Let's Encrypt for SSL certificates. Configure HTTP-to-HTTPS redirection and HSTS headers.",
+        "code": {
+          "language": "caddy",
+          "content": "example.com {\n  reverse_proxy / http://localhost:3000\n  tls /etc/ssl/certs/caddy.pem /etc/ssl/private/caddy.key\n}"
+        },
+        "pitfalls": [
+          "Incorrect DNS configuration for certificate validation",
+          "Forgetting to renew certificates before expiration"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement monitoring and logging",
+        "explanation": "Install Prometheus and Grafana for metrics. Configure syslog forwarding to centralized logging. Set up alerts for disk usage and service status.",
+        "code": {
+          "language": "bash",
+          "content": "sudo apt install prometheus grafana\nsudo systemctl enable prometheus"
+        },
+        "pitfalls": [
+          "Not configuring log rotation for systemd journals",
+          "Ignoring disk space alerts during high traffic"
+        ]
+      }
+    ],
+    "conclusion": "This setup provides a secure, automated VPS foundation. Verify all services through live traffic tests, ensure disaster recovery plans include server snapshots, and monitor resource usage to inform scaling decisions."
+  }
+}

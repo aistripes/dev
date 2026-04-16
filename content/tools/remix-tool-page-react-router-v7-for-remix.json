@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "remix",
+    "generated_at": "2026-04-16T20:22:37.347Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "React Router v7 for Remix",
+    "description": "How React Router v7 fits into real Remix workflows.",
+    "keywords": [
+      "remix",
+      "tool-page",
+      "React Router v7",
+      "Prisma",
+      "Drizzle"
+    ],
+    "slug": "remix-tool-page-react-router-v7-for-remix"
+  },
+  "content": {
+    "headline": "Remix Data Loader Helper",
+    "description": "Generates optimized data loading patterns for Remix applications based on route structure and database schema",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated data loading code"
+      }
+    },
+    "inputs": [
+      {
+        "name": "route_structure",
+        "label": "Route structure (e.g. /users/[id])",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "name": "database_schema",
+        "label": "Database schema (Prisma/Drizzle format)",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "name": "strategy",
+        "label": "Data loading strategy",
+        "type": "select",
+        "options": [
+          "loader",
+          "action",
+          "combined"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "User profile route",
+        "input": {
+          "route_structure": "/users/[id]",
+          "database_schema": "model User { id Int @id }",
+          "strategy": "loader"
+        },
+        "expected_output": "export async function loader({ params }) {\n  return await db.user.findUnique({ where: { id: parseInt(params.id) } });\n}"
+      },
+      {
+        "label": "Comment form submission",
+        "input": {
+          "route_structure": "/comments/new",
+          "database_schema": "model Comment { id Int @id content String }",
+          "strategy": "action"
+        },
+        "expected_output": "export async function action({ request }) {\n  const formData = await request.formData();\n  return await db.comment.create({ data: { content: formData.get('content') } });\n}"
+      }
+    ],
+    "how_it_works": "Analyzes route patterns and database schema to generate type-safe data loading implementations. Selects between loader functions, action handlers, or combined approaches based on route structure and database relationships.",
+    "related_tools": [
+      "https://remix.run/docs/en/main",
+      "https://www.prisma.io/docs",
+      "https://orm.drizzle.team"
+    ]
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "django",
+    "generated_at": "2026-04-16T20:20:15.732Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Django REST Framework patterns with Django REST...",
+    "description": "A step-by-step implementation guide for Django REST Framework patterns with Django REST Framework and Celery.",
+    "keywords": [
+      "django",
+      "guide",
+      "Django REST Framework",
+      "Celery",
+      "PostgreSQL"
+    ],
+    "slug": "django-guide-building-django-rest-framework-patterns-with-django-rest"
+  },
+  "content": {
+    "intro": "Build a scalable Django application with async support, AI integration, and containerized deployment. This guide focuses on practical implementation of architecture decisions from setup to production.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Python 3.10+ installed",
+      "Django 4.2+ project structure",
+      "PostgreSQL 14+ with psycopg2",
+      "Redis 7.0+ instance",
+      "Docker 24.0+ installed"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize project structure with async support",
+        "explanation": "Create a new Django project and configure ASGI for async capabilities. Add core apps for database, tasks, and API interfaces.",
+        "code": {
+          "language": "bash",
+          "content": "django-admin startproject myproject\n cd myproject\n python -m venv venv\n source venv/bin/activate\n pip install django psycopg2-binary redis docker",
+          "filename": "setup.sh"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Configure PostgreSQL and Redis connections",
+        "explanation": "Set up DATABASES and CACHES settings with production-ready parameters. Validate connection parameters match your environment.",
+        "code": {
+          "language": "python",
+          "content": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql',\n        'NAME': 'mydb',\n        'USER': 'myuser',\n        'PASSWORD': 'securepassword',\n        'HOST': 'localhost',\n        'PORT': '5432',\n    }\n}\n\nCACHES = {\n    'default': {\n        'BACKEND': 'django_redis.cache.RedisCache',\n        'LOCATION': 'redis://127.0.0.1:6379/0',\n        'OPTIONS': {'CLIENT_CLASS': 'django_redis.client.DefaultClient'},\n    }\n}"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Implement async view patterns",
+        "explanation": "Create an ASGI application with async views. Use async def for I/O-bound operations and ensure proper middleware configuration.",
+        "code": {
+          "language": "python",
+          "content": "from django.http import JsonResponse\nfrom asgiref.sync import sync_to_async\n\nasync def async_view(request):\n    data = await sync_to_async(MyModel.objects.all)()\n    return JsonResponse({'data': data})\n\n# In asgi.py\napplication = get_asgi_application()"
+        }
+      },
+      {
+        "number": 4,
+        "title": "Integrate AI model inference",
+        "explanation": "Load a pre-trained model in a background task worker. Use Redis for task queuing and ensure model persistence between requests.",
+        "code": {
+          "language": "python",
+          "content": "import torch\nfrom celery import shared_task\n\n@shared_task\ndef predict(text):\n    model = torch.load('model.pth')\n    return model.predict(text)"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Containerize with Docker",
+        "explanation": "Create a production-ready Docker image with Gunicorn and Nginx. Configure environment variables for database and Redis connections.",
+        "code": {
+          "language": "dockerfile",
+          "content": "FROM python:3.10-slim\nWORKDIR /app\nCOPY requirements.txt requirements.txt\nRUN pip install -r requirements.txt\nCOPY . .\nEXPOSE 8000\nCMD [\"gunicorn\", \"myproject.wsgi:application\", \"--bind\", \"0.0.0.0:8000\"]"
+        }
+      },
+      {
+        "number": 6,
+        "title": "Configure ASGI scaling",
+        "explanation": "Set up Gunicorn with ASGI workers for concurrent request handling. Adjust worker processes based on CPU cores.",
+        "code": {
+          "language": "bash",
+          "content": "gunicorn myproject.wsgi:application --bind 0.0.0.0:8000 --workers 4 --worker-class asgiref.sync.Worker"
+        }
+      }
+    ],
+    "conclusion": "This implementation provides a foundation for Django applications requiring async processing, AI integration, and scalable deployment. Validate each component with load testing and monitor performance metrics in production."
+  }
+}

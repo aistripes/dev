@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "sveltekit",
+    "generated_at": "2026-04-16T20:22:54.001Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Vercel for SvelteKit",
+    "description": "How Vercel fits into real SvelteKit workflows.",
+    "keywords": [
+      "sveltekit",
+      "tool-page",
+      "Vercel",
+      "Cloudflare Pages",
+      "PocketBase"
+    ],
+    "slug": "sveltekit-tool-page-vercel-for-sveltekit"
+  },
+  "content": {
+    "headline": "SvelteKit Deployment Config Generator",
+    "description": "Generates deployment configuration files for SvelteKit apps targeting Vercel, Cloudflare, or Node.js",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated config file"
+      }
+    },
+    "inputs": [
+      {
+        "name": "target",
+        "label": "Deployment Target",
+        "type": "select",
+        "options": [
+          "Vercel",
+          "Cloudflare",
+          "Node.js"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Vercel config",
+        "input": {
+          "target": "Vercel"
+        },
+        "expected_output": "vite.config.js\nsvelte.config.js\nvercel.json\n\n// vercel.json\n{\n  \"version\": 2,\n  \"builds\": [\n    {\n      \"src\": \"./\",\n      \"use\": \"@vercel/static\"\n    }\n  ]\n}"
+      },
+      {
+        "label": "Cloudflare config",
+        "input": {
+          "target": "Cloudflare"
+        },
+        "expected_output": "svelte.config.js\nsrc/hooks.server.ts\n\n// hooks.server.ts\nexport async function handle({ request, resolve }) {\n  const response = await resolve(request);\n  return new Response(response.body, {\n    ...response,\n    headers: {\n      ...response.headers,\n      'X-Cloudflare-Workers': 'true'\n    }\n  });\n}"
+      }
+    ],
+    "how_it_works": "Select your deployment platform to generate matching configuration files. Outputs Vercel's build specifications, Cloudflare Workers hooks, or Node.js server setup code. Useful for quickly initializing deployment-specific code without manual configuration.",
+    "related_tools": [
+      "https://vercel.com/docs",
+      "https://developers.cloudflare.com/workers/",
+      "https://nodejs.org/api/http.html"
+    ]
+  }
+}

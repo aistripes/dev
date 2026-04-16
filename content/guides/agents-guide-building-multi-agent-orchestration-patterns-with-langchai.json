@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "agents",
+    "generated_at": "2026-04-16T20:20:19.253Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Multi-agent orchestration patterns with LangChai...",
+    "description": "A step-by-step implementation guide for Multi-agent orchestration patterns with LangChain and LangGraph.",
+    "keywords": [
+      "agents",
+      "ai agents & tool use",
+      "guide",
+      "LangChain",
+      "LangGraph",
+      "CrewAI"
+    ],
+    "slug": "agents-guide-building-multi-agent-orchestration-patterns-with-langchai"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing AI agents with tool integration, focusing on reliability, observability, and cost control. Follow these steps to build and debug agent workflows using common frameworks.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "LangChain and LangGraph installed",
+      "LLM API key (OpenAI/Anthropic)",
+      "Basic understanding of function calling patterns",
+      "LangSmith account for observability",
+      "Code editor with Python 3.10+"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define tool function schemas",
+        "explanation": "Create explicit JSON schemas for all tools your agent will use. Use the 'tool' parameter in LangChain's StructuredOutputParser to enforce strict formatting.",
+        "code": {
+          "language": "python",
+          "content": "from langchain.output_parsers import StructuredOutputParser\nfrom langchain_core.pydantic_v1 import BaseModel, Field\n\nclass WeatherTool(BaseModel):\n    location: str = Field(description=\"City name\")\n    unit: str = Field(description=\"Temperature unit\", enum=[\"C\", \"F\"])\n\nparser = StructuredOutputParser.from_instructions(\"Return a JSON object with location and unit fields.\")",
+          "filename": "tool_schemas.py"
+        },
+        "pitfalls": [
+          "Using vague schema definitions leading to hallucinated tool calls",
+          "Forgetting to include required fields in function parameters"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement agent state management",
+        "explanation": "Create a state class that tracks tool calls, responses, and execution context. Use LangGraph's StateGraph to define workflow transitions.",
+        "code": {
+          "language": "python",
+          "content": "from langgraph.graph import StateGraph, START, END\nfrom typing import TypedDict\n\nclass AgentState(TypedDict):\n    messages: list\n    tool_calls: list\n    context: dict\n\nworkflow = StateGraph(AgentState)\nworkflow.add_node(\"tool_call\", tool_call_node)\nworkflow.add_edge(START, \"tool_call\")\nworkflow.add_edge(\"tool_call\", END)",
+          "filename": "agent_state.py"
+        },
+        "pitfalls": [
+          "Not persisting state between steps causing context loss",
+          "Incorrect edge definitions leading to workflow deadlocks"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Add observability hooks",
+        "explanation": "Integrate LangSmith to track agent execution. Use the 'langsmith' callback to log tool calls and responses for debugging.",
+        "code": {
+          "language": "python",
+          "content": "from langchain_community.callbacks import LangSmithTracer\n\ntracer = LangSmithTracer()\ntracer.set_project(\"agent-debugging\")\n\n# Add to LLM call:\nllm = OpenAI(callbacks=[tracer])",
+          "filename": "observability.py"
+        },
+        "pitfalls": [
+          "Forgetting to set the project name leading to unorganized traces",
+          "Not capturing all tool call outputs in logs"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement cost monitoring",
+        "explanation": "Track token usage and API costs using middleware. Add a counter that triggers alerts when thresholds are exceeded.",
+        "code": {
+          "language": "python",
+          "content": "class CostMonitor:\n    def __init__(self):\n        self.total_cost = 0.0\n        self.token_count = 0\n\n    def on_llm_end(self, response):\n        self.token_count += response.usage.total_tokens\n        self.total_cost += calculate_cost(response)\n        if self.token_count > 1000:\n            raise Exception(\"Token limit exceeded\")",
+          "filename": "cost_monitor.py"
+        },
+        "pitfalls": [
+          "Not accounting for different pricing models across LLM providers",
+          "Ignoring background cost monitoring during long-running tasks"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Add human-in-the-loop validation",
+        "explanation": "Implement a step that requires human approval for critical decisions. Use a tool that returns a 'needs_approval' flag.",
+        "code": {
+          "language": "python",
+          "content": "def approval_node(state):\n    tool_response = state[\"tool_response\"]\n    if tool_response.get(\"needs_approval\"):\n        return {\"approval_required\": True, \"content\": tool_response[\"content\"]}\n    return {\"approval_required\": False}",
+          "filename": "approval_flow.py"
+        },
+        "pitfalls": [
+          "Not handling approval timeouts leading to workflow stalls",
+          "Skipping validation for non-critical decisions"
+        ]
+      }
+    ],
+    "conclusion": "By following these steps, you've implemented a robust agent workflow with proper tool integration, observability, and safety controls. Regularly review logs in LangSmith and adjust cost thresholds based on usage patterns."
+  }
+}

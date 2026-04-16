@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "chrome-extensions",
+    "generated_at": "2026-04-16T20:24:39.531Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Chrome Extension API for Browser Extensions",
+    "description": "How Chrome Extension API fits into real Browser Extensions workflows.",
+    "keywords": [
+      "chrome-extensions",
+      "browser extensions",
+      "tool-page",
+      "Chrome Extension API",
+      "Manifest V3",
+      "Plasmo"
+    ],
+    "slug": "chrome-extensions-tool-page-chrome-extension-api-for-browser-extensions"
+  },
+  "content": {
+    "headline": "Manifest V3 Compliance Validator",
+    "description": "Validates Chrome extension manifests against Manifest V3 requirements, checking service worker compatibility, permission restrictions, and deprecated APIs.",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Compliance Report"
+      }
+    },
+    "inputs": [
+      {
+        "name": "manifest_json",
+        "label": "Manifest JSON",
+        "type": "textarea",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic V3 Compliance Check",
+        "input": {
+          "manifest_json": "{ \"manifest_version\": 3, \"name\": \"Test Ext\", \"version\": \"1.0\", \"service_worker\": \"background.js\" }"
+        },
+        "expected_output": "{ \"compliant\": true, \"issues\": [], \"suggestions\": [] }"
+      },
+      {
+        "label": "V2 to V3 Migration Check",
+        "input": {
+          "manifest_json": "{ \"manifest_version\": 2, \"name\": \"Legacy Ext\", \"version\": \"1.0\", \"background\": { \"scripts\": [\"background.js\"] } }"
+        },
+        "expected_output": "{ \"compliant\": false, \"issues\": [\"Manifest version 2 is deprecated\", \"Background page usage requires service_worker replacement\"], \"suggestions\": [\"Set manifest_version to 3\", \"Replace background scripts with service_worker\"] }"
+      }
+    ],
+    "how_it_works": "Parses input manifest JSON, checks for V3-specific requirements (service_worker usage, permission restrictions, API deprecations), and returns structured compliance results with actionable suggestions.",
+    "related_tools": [
+      "https://developer.chrome.com/docs/extensions/mv3/intro/",
+      "https://plasmo.com/docs",
+      "https://www.wxt.dev/",
+      "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions"
+    ]
+  }
+}

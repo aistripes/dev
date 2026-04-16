@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "auth",
+    "generated_at": "2026-04-16T20:23:35.001Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Auth provider comparison and selection with Cler...",
+    "description": "A step-by-step implementation guide for Auth provider comparison and selection with Clerk and Auth.js.",
+    "keywords": [
+      "auth",
+      "authentication & authorization",
+      "guide",
+      "Clerk",
+      "Auth.js",
+      "Supabase Auth"
+    ],
+    "slug": "auth-guide-building-auth-provider-comparison-and-selection-with-cler"
+  },
+  "content": {
+    "intro": "This guide implements a secure authentication and authorization system with multi-tenant support, OAuth integration, and API protection. Focuses on practical implementation patterns for full-stack developers.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Node.js 18+ with npm",
+      "PostgreSQL or MongoDB instance",
+      "Selected auth provider (Auth.js, Clerk, or Supabase Auth)",
+      "Basic understanding of JWT and OAuth 2.0"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize auth provider integration",
+        "explanation": "Set up your chosen auth provider SDK with environment variables. Configure domain, API keys, and callback URLs. Verify provider-specific setup requirements (e.g., Clerk dashboard, Auth.js middleware).",
+        "code": {
+          "language": "bash",
+          "content": "export AUTH_PROVIDER=authjs\nexport NEXTAUTH_URL=http://localhost:3000\nexport AUTH_SECRET=your-32-byte-secret"
+        },
+        "pitfalls": [
+          "Exposing API keys in client-side code",
+          "Using development URLs in production environments"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement multi-tenant schema",
+        "explanation": "Add tenant identifier to database models. Create middleware to extract tenant context from subdomain or request headers. Configure database connection pooling per-tenant if needed.",
+        "code": {
+          "language": "javascript",
+          "content": "app.use((req, res, next) => {\n  req.tenantId = req.headers['x-tenant-id'] || 'default';\n  next();\n});",
+          "filename": "middleware/tenant.js"
+        },
+        "pitfalls": [
+          "Forgetting to index tenant identifiers in database queries",
+          "Sharing session storage across tenants without isolation"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure OAuth provider integration",
+        "explanation": "Register application with identity providers (Google, GitHub, etc.). Implement OAuth callback handlers with state validation. Store access tokens securely in database with scope restrictions.",
+        "code": {
+          "language": "javascript",
+          "content": "passport.use(new GoogleStrategy({\n  clientID: process.env.GOOGLE_CLIENT_ID,\n  clientSecret: process.env.GOOGLE_CLIENT_SECRET,\n  callbackURL: '/api/auth/google/callback'\n}, (token, refreshToken, profile, done) => {\n  // Validate and store tenant-specific credentials\n}));"
+        },
+        "pitfalls": [
+          "Allowing implicit grant flows without PKCE",
+          "Not validating state parameters in OAuth callbacks"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement token-based session management",
+        "explanation": "Use opaque session tokens with refresh tokens stored in secure HTTP-only cookies. Implement token revocation patterns for logout and password changes.",
+        "code": {
+          "language": "javascript",
+          "content": "const session = await getSession({ req });\nif (!session) {\n  return res.status(401).json({ error: 'Unauthorized' });\n}"
+        },
+        "pitfalls": [
+          "Using JWTs for session storage without proper signing configurations",
+          "Failing to invalidate tokens on password reset"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Secure API endpoints",
+        "explanation": "Add middleware to verify JWT tokens and enforce role-based access control. Implement rate limiting per-user and per-tenant. Validate all request inputs against schema.",
+        "code": {
+          "language": "javascript",
+          "content": "function requireAuth(req, res, next) {\n  const token = req.headers['authorization']?.split(' ')[1];\n  if (!token || !verifyToken(token)) {\n    return res.status(401).json({ error: 'Invalid token' });\n  }\n  next();\n}"
+        },
+        "pitfalls": [
+          "Missing CORS configuration for API endpoints",
+          "Not validating content-type headers for JSON payloads"
+        ]
+      }
+    ],
+    "conclusion": "This implementation provides a secure foundation for authentication and authorization with multi-tenant support. Verify all security configurations through penetration testing and maintain regular audits of access control policies."
+  }
+}

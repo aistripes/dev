@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "fine-tuning",
+    "generated_at": "2026-04-16T20:22:50.956Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "OpenAI Fine-Tuning API for Fine-Tuning & Custom Models",
+    "description": "How OpenAI Fine-Tuning API fits into real Fine-Tuning & Custom Models workflows.",
+    "keywords": [
+      "fine-tuning",
+      "fine-tuning & custom models",
+      "tool-page",
+      "OpenAI Fine-Tuning API",
+      "Hugging Face",
+      "LoRA"
+    ],
+    "slug": "fine-tuning-tool-page-openai-fine-tuning-api-for-fine-tuning-custom-models"
+  },
+  "content": {
+    "headline": "LoRA Training Data Formatter",
+    "description": "Converts raw text datasets into structured LoRA-compatible training formats with tokenization guidance",
+    "tool_type": "formatter",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Formatted training data"
+      }
+    },
+    "inputs": [
+      {
+        "name": "raw_text",
+        "label": "Raw training text",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "name": "format_type",
+        "label": "Target format",
+        "type": "select",
+        "options": [
+          "JSONL",
+          "CSV",
+          "Parquet"
+        ],
+        "required": true
+      },
+      {
+        "name": "add_special_tokens",
+        "label": "Add model special tokens",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic JSONL conversion",
+        "input": {
+          "raw_text": "Hello world\\nThis is a test",
+          "format_type": "JSONL"
+        },
+        "expected_output": "[\"Hello world\\nThis is a test\"]"
+      },
+      {
+        "label": "CSV with tokens",
+        "input": {
+          "raw_text": "System: Keep it concise\\nUser: Explain AI\\nAssistant: Artificial intelligence...",
+          "format_type": "CSV",
+          "add_special_tokens": true
+        },
+        "expected_output": "text\\n\"<s>[INST] Keep it concise\\nExplain AI[/INST] Artificial intelligence...\""
+      }
+    ],
+    "how_it_works": "Processes raw text inputs through tokenization rules optimized for LoRA training, adding model-specific special tokens when requested. Outputs structured datasets in selected formats with proper formatting for training frameworks.",
+    "related_tools": [
+      "Hugging Face Dataset Library",
+      "LoRA Training Scripts",
+      "Weights & Biases Data Logger"
+    ]
+  }
+}

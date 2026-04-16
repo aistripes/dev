@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "prompt-engineering",
+    "generated_at": "2026-04-16T20:20:33.462Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Chain-of-thought and reasoning prompts with Open...",
+    "description": "A step-by-step implementation guide for Chain-of-thought and reasoning prompts with OpenAI and Anthropic Claude.",
+    "keywords": [
+      "prompt-engineering",
+      "prompt engineering",
+      "guide",
+      "OpenAI",
+      "Anthropic Claude",
+      "Google Gemini"
+    ],
+    "slug": "prompt-engineering-guide-building-chain-of-thought-and-reasoning-prompts-with-open"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing effective prompt engineering workflows for LLM integration, focusing on reliability, cost efficiency, and maintainability across model updates and providers.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Basic understanding of machine learning model behavior",
+      "Access to LLM API keys (OpenAI/Anthropic/Google)",
+      "Familiarity with Python and prompt engineering frameworks",
+      "Version control system (Git)",
+      "Prompt testing environment"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define task constraints and output format",
+        "explanation": "Explicitly specify input requirements, output structure, and validation criteria before drafting prompts. Use JSON schema for structured outputs and define edge case handling rules.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"task\": \"summarize key points\",\n  \"input_format\": \"array of text paragraphs\",\n  \"output_format\": \"{\\\"summary\\\": string, \\\"confidence\\\": number}\",\n  \"constraints\": [\"max_tokens: 512\", \"no markdown\"]\n}",
+          "filename": "task_definition.json"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Structure system and user messages",
+        "explanation": "Separate model instructions (system message) from user input. Use LangChain's PromptTemplate to create reusable components with variable placeholders.",
+        "code": {
+          "language": "python",
+          "content": "from langchain.prompts import PromptTemplate\n\nsystem_prompt = PromptTemplate(\n    input_variables=[\"context\"],\n    template=\"You are an AI assistant. {context}\"\n)\nuser_prompt = PromptTemplate(\n    input_variables=[\"query\"],\n    template=\"{query}\"\n)"
+        },
+        "pitfalls": [
+          "Overloading system messages with too many instructions",
+          "Missing context variables in template parameters"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement few-shot examples",
+        "explanation": "Include 2-5 annotated examples in the prompt to establish pattern expectations. Use the 'example' template format for consistency across models.",
+        "code": {
+          "language": "text",
+          "content": "Example 1:\nInput: [text]\nOutput: {\"summary\": \"key points\", \"confidence\": 0.95}\n\nExample 2:\nInput: [text]\nOutput: {\"summary\": \"key points\", \"confidence\": 0.87}"
+        }
+      },
+      {
+        "number": 4,
+        "title": "Test with diverse input sets",
+        "explanation": "Create validation suites with normal, edge, and adversarial cases. Use LangSmith to track prompt performance metrics and error patterns.",
+        "code": {
+          "language": "python",
+          "content": "from langsmith import Client\n\nclient = Client()\nclient.create_dataset(\n    name=\"prompt_validation\",\n    examples=[\n        {\"inputs\": {\"query\": \"test input 1\"}, \"outputs\": {\"summary\": \"test\"}},\n        {\"inputs\": {\"query\": \"test input 2\"}, \"outputs\": {\"summary\": \"test\"}}\n    ]\n)"
+        },
+        "pitfalls": [
+          "Using identical test cases across model versions",
+          "Ignoring input format variations"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Optimize for token efficiency",
+        "explanation": "Trim redundant context and use compact representations. Implement dynamic prompt trimming that maintains core constraints while reducing token count.",
+        "code": {
+          "language": "python",
+          "content": "def trim_prompt(prompt, max_tokens=2048):\n    tokens = tokenizer(prompt)\n    if len(tokens) > max_tokens:\n        return tokenizer.decode(tokens[:max_tokens])\n    return prompt"
+        },
+        "pitfalls": [
+          "Removing critical context for token savings",
+          "Ignoring model-specific tokenization rules"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Version prompt artifacts",
+        "explanation": "Store prompt templates, test suites, and evaluation metrics in version control. Use semantic versioning for prompt iterations with clear changelog entries.",
+        "code": {
+          "language": "text",
+          "content": "# prompt_v1.2.0\n# Changes: Added confidence scoring, updated example format\nsystem_prompt: ..."
+        },
+        "pitfalls": [
+          "Not documenting breaking changes",
+          "Storing prompts in non-versioned databases"
+        ]
+      }
+    ],
+    "conclusion": "Implementing structured prompt engineering requires systematic testing, version control, and continuous validation. Prioritize explicit constraints, thorough testing, and maintainable artifact storage to ensure reliable LLM integration."
+  }
+}

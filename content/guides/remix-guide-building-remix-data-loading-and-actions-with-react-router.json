@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "remix",
+    "generated_at": "2026-04-16T20:20:55.939Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Remix data loading and actions with React Router...",
+    "description": "A step-by-step implementation guide for Remix data loading and actions with React Router v7 and Prisma.",
+    "keywords": [
+      "remix",
+      "guide",
+      "React Router v7",
+      "Prisma",
+      "Drizzle"
+    ],
+    "slug": "remix-guide-building-remix-data-loading-and-actions-with-react-router"
+  },
+  "content": {
+    "intro": "This guide provides a step-by-step implementation process for building a data-heavy application with Remix, focusing on data loading, nested routing, and deployment. Covers migration patterns, form handling, and deployment strategies for Node, Deno, and Cloudflare Workers.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Node.js 18+ installed",
+      "Basic React component structure knowledge",
+      "Familiarity with React Router v6 syntax",
+      "Code editor with TypeScript support"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Project setup with Vite",
+        "explanation": "Create a new project using the Remix Vite template. Select the appropriate variant (react-router-dom or @remix-run/react) based on your migration path.",
+        "code": {
+          "language": "bash",
+          "content": "npm create vite@latest my-remix-app --template remix-react",
+          "filename": "setup.sh"
+        },
+        "pitfalls": [
+          "Incorrect template selection may require reconfiguration later",
+          "Forgetting to install dependencies after template creation"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure data loading patterns",
+        "explanation": "Implement loader functions in route files to fetch data. Use the useLoaderData hook to access loaded data in components.",
+        "code": {
+          "language": "typescript",
+          "content": "export const loader = async () => {\n  const data = await fetchData();\n  return json(data);\n};",
+          "filename": "app/routes/index.tsx"
+        },
+        "pitfalls": [
+          "Forgetting to return a JSON response from loader functions",
+          "Not handling loader errors in production"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement form actions with optimistic UI",
+        "explanation": "Create action functions for form submissions. Use the useActionData hook to handle server responses and update UI state locally before server confirmation.",
+        "code": {
+          "language": "typescript",
+          "content": "export const action = async ({ request }) => {\n  const formData = await request.formData();\n  const result = await submitForm(formData);\n  return json(result);\n};",
+          "filename": "app/routes/forms.tsx"
+        },
+        "pitfalls": [
+          "Not validating form data on the server side",
+          "Forgetting to reset form state after successful submission"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Set up nested routing structure",
+        "explanation": "Create parent route files with loader functions that provide shared data. Use <Outlet> components in parent layouts to render child routes.",
+        "code": {
+          "language": "typescript",
+          "content": "app/routes/dashboard/index.tsx\nexport const loader = () => fetchDashboardData();",
+          "filename": "app/routes/dashboard/index.tsx"
+        },
+        "pitfalls": [
+          "Incorrect route hierarchy causing data loading issues",
+          "Forgetting to include <Outlet> in layout components"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Configure Cloudflare Workers deployment",
+        "explanation": "Create a wrangler.toml file with the correct configuration. Use the remix-cloudflare package for serverless deployment.",
+        "code": {
+          "language": "toml",
+          "content": "[dev]\nname = \"my-remix-app\"\ntype = \"javascript\"\nmain = \"dist/index.js\"\n",
+          "filename": "wrangler.toml"
+        },
+        "pitfalls": [
+          "Missing environment variable configuration in Cloudflare dashboard",
+          "Incorrect main file path in deployment configuration"
+        ]
+      }
+    ],
+    "conclusion": "This guide establishes a production-ready Remix application structure with data loading, form handling, and deployment configuration. Verify all API endpoints, test error boundaries, and validate deployment settings before production release."
+  }
+}

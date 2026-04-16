@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "ecommerce",
+    "generated_at": "2026-04-16T20:24:46.107Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Headless commerce platform comparison with Shopi...",
+    "description": "A step-by-step implementation guide for Headless commerce platform comparison with Shopify and Medusa.",
+    "keywords": [
+      "ecommerce",
+      "e-commerce",
+      "guide",
+      "Shopify",
+      "Medusa",
+      "Saleor"
+    ],
+    "slug": "ecommerce-guide-building-headless-commerce-platform-comparison-with-shopi"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building a scalable e-commerce storefront with headless commerce platforms, focusing on practical implementation steps, integration patterns, and common pitfalls to avoid.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Shopify",
+      "Medusa",
+      "Saleor",
+      "Stripe",
+      "Next.js",
+      "Remix",
+      "Algolia",
+      "Meilisearch",
+      "Cloudinary",
+      "Sanity"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Set up base environment",
+        "explanation": "Initialize a Next.js or Remix project with a headless commerce platform. Configure environment variables for API keys and domain settings. Use Medusa's CLI for local development setup.",
+        "code": {
+          "language": "bash",
+          "content": "npx create-next-app@latest my-ecommerce\ncd my-ecommerce\nnpm install @medusajs/medusa"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Implement product data schema",
+        "explanation": "Define product data structures using Sanity or a CMS. Ensure fields for variants, pricing, and SEO metadata are standardized. Use GraphQL schemas for headless platforms.",
+        "code": {
+          "language": "graphql",
+          "content": "type Product {\n  id: ID!\n  name: String!\n  price: Float!\n  images: [String!]!\n  description: String\n}"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Integrate payment processing",
+        "explanation": "Implement Stripe's Checkout API with region-specific tax handling. Use webhooks for order status updates and fraud detection. Test with Stripe's test cards.",
+        "code": {
+          "language": "javascript",
+          "content": "const session = await stripe.checkout.sessions.create({\n  payment_method_types: ['card'],\n  line_items: [{}],\n  mode: 'payment',\n  success_url: 'https://example.com/success',\n  cancel_url: 'https://example.com/cancel'\n});"
+        },
+        "pitfalls": [
+          "Ignoring tax jurisdiction requirements for EU/VAT compliance",
+          "Not validating webhook signatures"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Optimize product listing performance",
+        "explanation": "Implement lazy loading for images using Cloudinary's transformation URLs. Use Meilisearch for fast filterable product searches. Cache static assets with Vercel/Netlify."
+      },
+      {
+        "number": 5,
+        "title": "Add AI-powered recommendations",
+        "explanation": "Integrate Algolia's AI recommendations with product view events. Use machine learning models to suggest related products based on browsing patterns.",
+        "code": {
+          "language": "javascript",
+          "content": "const results = await searchClient.search([{\n  indexName: 'products',\n  query: 'running shoes',\n  params: { \n    filters: 'category:men',\n    clickAnalytics: true\n  }\n}]);"
+        }
+      }
+    ],
+    "conclusion": "By following these steps, developers can create a performant e-commerce solution that balances flexibility with maintainability. Prioritize testing edge cases in payment flows and performance bottlenecks in product listings."
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "databases",
+    "generated_at": "2026-04-16T20:23:39.711Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building PostgreSQL for AI applications with PostgreSQL a...",
+    "description": "A step-by-step implementation guide for PostgreSQL for AI applications with PostgreSQL and pgvector.",
+    "keywords": [
+      "databases",
+      "databases for ai apps",
+      "guide",
+      "PostgreSQL",
+      "pgvector",
+      "Supabase"
+    ],
+    "slug": "databases-guide-building-postgresql-for-ai-applications-with-postgresql-a"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing databases for AI applications using PostgreSQL with pgvector, focusing on vector search integration, schema management, and scalability. Steps include setup, migration, optimization, and deployment considerations.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "PostgreSQL 14+ with pgvector extension",
+      "Python 3.8+ with psycopg2 and alembic",
+      "Basic understanding of vector similarity search",
+      "Code editor with SQL and Python support"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Install and configure PostgreSQL with pgvector",
+        "explanation": "Initialize a PostgreSQL instance and enable the pgvector extension. Configure shared_buffers and work_mem for vector operations. Verify installation with `SELECT vector_dims('1,2,3');`",
+        "code": {
+          "language": "sql",
+          "content": "CREATE EXTENSION IF NOT EXISTS vector;\nALTER SYSTEM SET shared_buffers = '2GB';\nALTER SYSTEM SET work_mem = '4MB';\nSELECT pg_reload_conf();"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Create vector store schema",
+        "explanation": "Design a table structure for embeddings and metadata. Use 1536-dimensional vectors for OpenAI embeddings. Add indexes for similarity search.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE TABLE embeddings (\n  id UUID PRIMARY KEY,\n  vector vector(1536),\n  metadata JSONB\n);\nCREATE INDEX idx_vector ON embeddings USING hnsw (vector);"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Implement migration strategy",
+        "explanation": "Use Alembic for versioned schema changes. Create a migration script for adding vector columns and indexes. Test rollbacks with `alembic downgrade -1`.",
+        "code": {
+          "language": "python",
+          "content": "from alembic import op\nimport sqlalchemy as sa\n\ndef upgrade():\n    op.add_column('embeddings', sa.Column('vector', sa.String()))\n    op.create_index('idx_vector', 'embeddings', ['vector'], unique=False)\n\ndef downgrade():\n    op.drop_index('idx_vector', table_name='embeddings')\n    op.drop_column('embeddings', 'vector')"
+        },
+        "pitfalls": [
+          "Forgetting to version vector schema changes",
+          "Not testing downgrade paths for production rollbacks"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Configure connection pooling",
+        "explanation": "Set up PgBouncer for serverless deployments. Configure 'pool_mode = session' and adjust max_connections to match function concurrency limits.",
+        "code": {
+          "language": "ini",
+          "content": "[databases]\nhost = 127.0.0.1\nport = 6432\nuser = postgres\npassword = secret\nmax_connections = 64"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Optimize query performance",
+        "explanation": "Analyze query plans for vector operations. Use EXPLAIN ANALYZE to identify missing indexes or inefficient similarity thresholds.",
+        "code": {
+          "language": "sql",
+          "content": "EXPLAIN ANALYZE SELECT * FROM embeddings\nWHERE vector <#> '1,2,3' < 0.1\nORDER BY vector <-> '1,2,3'\nLIMIT 10;"
+        }
+      },
+      {
+        "number": 6,
+        "title": "Implement data retention policies",
+        "explanation": "Create a scheduled job to purge old embeddings. Use a retention window of 30 days for training data.",
+        "code": {
+          "language": "sql",
+          "content": "CREATE EVENT SCHEDULE purge_old_embeddings\nON SCHEDULE EVERY 1 DAY\nDO\nDELETE FROM embeddings WHERE created_at < NOW() - INTERVAL '30 days';"
+        }
+      }
+    ],
+    "conclusion": "This implementation guide establishes a production-ready database foundation for AI applications. Validate vector search performance with synthetic workloads, monitor query latency, and adjust indexing strategies based on actual data patterns."
+  }
+}

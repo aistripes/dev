@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "angular",
+    "generated_at": "2026-04-16T20:23:44.772Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Angular CLI for Angular",
+    "description": "How Angular CLI fits into real Angular workflows.",
+    "keywords": [
+      "angular",
+      "tool-page",
+      "Angular CLI",
+      "RxJS",
+      "NgRx"
+    ],
+    "slug": "angular-tool-page-angular-cli-for-angular"
+  },
+  "content": {
+    "headline": "Angular Standalone Component Generator",
+    "description": "Generates boilerplate code for converting module-based Angular components into standalone components with required imports and decorators",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated component code"
+      }
+    },
+    "inputs": [
+      {
+        "name": "component_name",
+        "label": "Component name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "module_name",
+        "label": "Original module name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "include_imports",
+        "label": "Include required imports",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Basic standalone component",
+        "input": {
+          "component_name": "UserProfile",
+          "module_name": "AppModule",
+          "include_imports": true
+        },
+        "expected_output": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-user-profile',\n  template: '<div>User Profile</div>'\n})\nexport class UserProfileComponent { }"
+      },
+      {
+        "label": "Standalone component without imports",
+        "input": {
+          "component_name": "Dashboard",
+          "module_name": "FeaturesModule",
+          "include_imports": false
+        },
+        "expected_output": "@Component({\n  selector: 'app-dashboard',\n  template: '<div>Dashboard</div>'\n})\nexport class DashboardComponent { }"
+      }
+    ],
+    "how_it_works": "Analyzes component and module relationships to generate standalone component decorators and import statements. Automatically handles Angular 14+ standalone syntax requirements."
+  }
+}

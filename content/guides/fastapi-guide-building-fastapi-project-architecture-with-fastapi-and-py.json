@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "fastapi",
+    "generated_at": "2026-04-16T20:20:15.857Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building FastAPI project architecture with FastAPI and Py...",
+    "description": "A step-by-step implementation guide for FastAPI project architecture with FastAPI and Pydantic.",
+    "keywords": [
+      "fastapi",
+      "guide",
+      "FastAPI",
+      "Pydantic",
+      "SQLAlchemy"
+    ],
+    "slug": "fastapi-guide-building-fastapi-project-architecture-with-fastapi-and-py"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building scalable FastAPI applications with async database integration, LLM streaming, and production deployment. Focuses on architecture decisions and common pitfalls for real-world implementation.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "FastAPI",
+      "Pydantic",
+      "SQLAlchemy",
+      "Alembic",
+      "uvicorn",
+      "Docker",
+      "PostgreSQL",
+      "Redis",
+      "pytest",
+      "httpx"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Project Structure for Scalability",
+        "explanation": "Create a modular structure with separate modules for routers, models, services, and dependencies. Use FastAPI's dependency injection system to decouple components.",
+        "code": {
+          "language": "python",
+          "content": "app/main.py\nfrom fastapi import FastAPI\nfrom app.routers import items\n\napp = FastAPI()\napp.include_router(items.router)\n\nif __name__ == \"__main__\":\n    uvicorn.run(app, host=\"0.0.0.0\", port=8000)",
+          "filename": "app/main.py"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Async Database Configuration",
+        "explanation": "Set up SQLAlchemy with async drivers (asyncpg) and connection pooling. Use async sessionmaker for database operations.",
+        "code": {
+          "language": "python",
+          "content": "from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession\nfrom sqlalchemy.orm import sessionmaker\n\nengine = create_async_engine(\"postgresql+asyncpg://user:password@localhost/dbname\")\nAsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Deployment with Docker and Reverse Proxy",
+        "explanation": "Create a Dockerfile with Uvicorn and Gunicorn for production. Configure Nginx or Traefik as reverse proxy with WebSocket support.",
+        "code": {
+          "language": "dockerfile",
+          "content": "FROM python:3.10\nWORKDIR /app\nCOPY requirements.txt requirements.txt\nRUN pip install -r requirements.txt\nCOPY . .\nCMD [\"uvicorn\", \"main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\"]"
+        }
+      },
+      {
+        "number": 4,
+        "title": "LLM Streaming Endpoint Implementation",
+        "explanation": "Implement a streaming route using Server-Sent Events (SSE) with proper backpressure handling. Use Redis for request tracking if needed.",
+        "code": {
+          "language": "python",
+          "content": "from fastapi import APIRouter\nfrom fastapi.responses import StreamingResponse\nimport asyncio\n\nrouter = APIRouter()\n\n@router.get(\"/stream\")\ndef stream_response():\n    async def generate():\n        for i in range(10):\n            yield f\"Chunk {i}\\n\"\n            await asyncio.sleep(0.1)\n    return StreamingResponse(generate(), media_type=\"text/event-stream\")"
+        }
+      },
+      {
+        "number": 5,
+        "title": "JWT-Based Authentication Setup",
+        "explanation": "Implement JWT authentication with Pydantic models for credentials. Create a dependency to verify tokens and extract user information.",
+        "code": {
+          "language": "python",
+          "content": "from fastapi import Depends, HTTPException, status\nfrom pydantic import BaseModel\nimport jwt\n\nclass TokenData(BaseModel):\n    username: str\n\ndef get_current_user(token: str = Depends(oauth2_scheme)):\n    try:\n        payload = jwt.decode(token, \"secret_key\", algorithms=[\"HS256\"])\n        user = get_user(username=payload[\"sub\"])\n        if not user:\n            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)\n        return user\n    except jwt.PyJWTError:\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)"
+        }
+      }
+    ],
+    "conclusion": "This implementation guide addresses core challenges in FastAPI development through concrete architecture decisions. Validate each component with pytest and monitor performance in production using metrics collection."
+  }
+}

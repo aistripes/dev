@@ -1,0 +1,176 @@
+{
+  "meta": {
+    "content_type": "checklist",
+    "niche": "cloudflare-workers",
+    "generated_at": "2026-04-16T20:09:59.340Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Cloudflare Workers implementation checklist",
+    "description": "A practical checklist for shipping Cloudflare Workers projects safely.",
+    "keywords": [
+      "cloudflare-workers",
+      "cloudflare workers",
+      "checklist",
+      "Cloudflare Workers",
+      "Cloudflare Workers AI",
+      "Cloudflare AI Gateway"
+    ],
+    "slug": "cloudflare-workers-checklist-cloudflare-workers-implementation-checklist"
+  },
+  "content": {
+    "intro": "This checklist ensures production readiness for Cloudflare Workers-based systems. Verify each item to address runtime constraints, security, performance, and AI workflow reliability.",
+    "sections": [
+      {
+        "heading": "Runtime Environment Setup",
+        "items": [
+          {
+            "title": "Validate Node.js API compatibility",
+            "description": "Check all dependencies against Cloudflare Workers' runtime limitations using https://github.com/cloudflare/workers-sdk",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure Wrangler profile",
+            "description": "Ensure wrangler.toml includes production routes, environment variables, and build settings for edge deployment",
+            "priority": "critical"
+          },
+          {
+            "title": "Test with Miniflare",
+            "description": "Run local tests with miniflare --compatibility-date and verify against production runtime version",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set up KV namespace bindings",
+            "description": "Confirm all KV namespaces are explicitly declared in wrangler.toml with correct environment mappings",
+            "priority": "critical"
+          },
+          {
+            "title": "Validate Durable Object stubs",
+            "description": "Ensure Durable Object class definitions match production bindings and are versioned correctly",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Security and Secrets Management",
+        "items": [
+          {
+            "title": "Rotate secrets via KV",
+            "description": "Verify all credentials are stored in KV and accessed through environment variables with restricted permissions",
+            "priority": "critical"
+          },
+          {
+            "title": "Implement CORS policies",
+            "description": "Configure fetch() requests with explicit CORS headers matching origin requirements",
+            "priority": "recommended"
+          },
+          {
+            "title": "Validate JWT validation",
+            "description": "Test JWT verification against configured public keys with expiration and audience checks",
+            "priority": "recommended"
+          },
+          {
+            "title": "Secure AI Gateway access",
+            "description": "Ensure AI Gateway integrations use API tokens with least-privilege roles",
+            "priority": "critical"
+          },
+          {
+            "title": "Test secret rotation workflow",
+            "description": "Validate automated secret rotation process with KV versioning and zero-downtime deployment",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "Performance Optimization",
+        "items": [
+          {
+            "title": "Measure cold start latency",
+            "description": "Test Worker initialization time with https://developers.cloudflare.com/workers/platform/limits/#cold-starts",
+            "priority": "recommended"
+          },
+          {
+            "title": "Optimize R2/D1 usage",
+            "description": "Verify database queries use prepared statements and R2 objects are cached appropriately",
+            "priority": "recommended"
+          },
+          {
+            "title": "Implement edge caching",
+            "description": "Configure Cache API rules for static assets and API responses with appropriate TTLs",
+            "priority": "recommended"
+          },
+          {
+            "title": "Profile Workers AI latency",
+            "description": "Measure inference time with Workers AI and compare against baseline performance metrics",
+            "priority": "critical"
+          },
+          {
+            "title": "Test queue backpressure",
+            "description": "Validate queue processing handles rate limiting and retry policies for high-throughput scenarios",
+            "priority": "recommended"
+          }
+        ]
+      },
+      {
+        "heading": "Observability and Incident Response",
+        "items": [
+          {
+            "title": "Instrument logging",
+            "description": "Ensure all critical paths include console.log() with structured JSON format for centralized logging",
+            "priority": "recommended"
+          },
+          {
+            "title": "Set up metrics collection",
+            "description": "Configure metrics endpoints for request rates, latency, and error counts using https://developers.cloudflare.com/analytics/metrics/",
+            "priority": "recommended"
+          },
+          {
+            "title": "Validate error tracking",
+            "description": "Test error handling for uncaught exceptions and verify error logs are captured in Cloudflare Logs",
+            "priority": "critical"
+          },
+          {
+            "title": "Configure alerting rules",
+            "description": "Set up Cloudflare Alerts for critical thresholds like 5xx rates and queue backlogs",
+            "priority": "recommended"
+          },
+          {
+            "title": "Test disaster recovery",
+            "description": "Validate rollback procedures for Workers versions and KV data recovery processes",
+            "priority": "optional"
+          }
+        ]
+      },
+      {
+        "heading": "AI Workflow Reliability",
+        "items": [
+          {
+            "title": "Validate model routing",
+            "description": "Verify Workers AI model selection logic handles versioning and fallback strategies",
+            "priority": "critical"
+          },
+          {
+            "title": "Test async processing",
+            "description": "Confirm queue-based AI inference pipelines handle retries and message acknowledgments",
+            "priority": "critical"
+          },
+          {
+            "title": "Monitor token usage",
+            "description": "Implement rate limiting for AI API calls with token budget tracking",
+            "priority": "recommended"
+          },
+          {
+            "title": "Validate structured outputs",
+            "description": "Test JSON schema validation for Workers AI model outputs with error handling",
+            "priority": "critical"
+          },
+          {
+            "title": "Audit model security",
+            "description": "Verify AI Gateway configurations prevent prompt injection and content leakage",
+            "priority": "recommended"
+          }
+        ]
+      }
+    ]
+  }
+}

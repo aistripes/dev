@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "nuxt",
+    "generated_at": "2026-04-16T20:23:58.130Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Vercel for Nuxt",
+    "description": "How Vercel fits into real Nuxt workflows.",
+    "keywords": [
+      "nuxt",
+      "tool-page",
+      "Vercel",
+      "Netlify",
+      "Pinia"
+    ],
+    "slug": "nuxt-tool-page-vercel-for-nuxt"
+  },
+  "content": {
+    "headline": "Nuxt 3 Server Route Generator",
+    "description": "Creates boilerplate code for Nuxt 3 server routes and API layers with correct file structure and exports.",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated server route code"
+      }
+    },
+    "inputs": [
+      {
+        "name": "routeName",
+        "label": "Route Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "method",
+        "label": "HTTP Method",
+        "type": "select",
+        "options": [
+          "GET",
+          "POST",
+          "PUT",
+          "DELETE"
+        ],
+        "required": true
+      },
+      {
+        "name": "routeType",
+        "label": "Route Type",
+        "type": "select",
+        "options": [
+          "api",
+          "server"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Generate GET API route",
+        "input": {
+          "routeName": "users",
+          "method": "GET",
+          "routeType": "api"
+        },
+        "expected_output": "export default defineEventHandler(async (event) => {\n  return { data: [] };\n});"
+      },
+      {
+        "label": "Generate POST server route",
+        "input": {
+          "routeName": "submit",
+          "method": "POST",
+          "routeType": "server"
+        },
+        "expected_output": "export default defineEventHandler(async (event) => {\n  const body = await readBody(event);\n  return { status: 201 };\n});"
+      }
+    ],
+    "how_it_works": "Inputs determine the route type (API/server) and HTTP method. The tool generates a file in /server/api or /server/routes with the correct exports and event handler structure for Nuxt 3.",
+    "related_tools": [
+      "nuxt",
+      "vercel",
+      "netlify",
+      "pinia"
+    ]
+  }
+}

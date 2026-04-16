@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "api-products",
+    "generated_at": "2026-04-16T20:24:40.004Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building API design and documentation with FastAPI and Ex...",
+    "description": "A step-by-step implementation guide for API design and documentation with FastAPI and Express.",
+    "keywords": [
+      "api-products",
+      "api-first products",
+      "guide",
+      "FastAPI",
+      "Express",
+      "Hono"
+    ],
+    "slug": "api-products-guide-building-api-design-and-documentation-with-fastapi-and-ex"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building API-first products with focus on implementation, tooling, and production considerations. Follow these steps to create a scalable, well-documented API product that addresses common developer pain points.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Python 3.10+ with pip",
+      "FastAPI or Express.js installation",
+      "Swagger/OpenAPI documentation tooling",
+      "Stripe Billing account",
+      "Unkey or equivalent API key management service"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define API endpoints with OpenAPI specification",
+        "explanation": "Create a formal OpenAPI 3.1 document that defines all endpoints, request/response formats, and security requirements. Use this as the single source of truth for implementation.",
+        "code": {
+          "language": "yaml",
+          "content": "openapi: 3.1.0\ninfo:\n  title: Product API\n  version: 1.0.0\npaths:\n  /products:\n    get:\n      summary: List products\n      responses:\n        '200':\n          description: Successful response\n          content:\n            application/json:\n              schema:\n                type: array\n                items:\n                  type: object\n                  properties:\n                    id: { type: string }\n                    name: { type: string }",
+          "filename": "openapi.yaml"
+        },
+        "pitfalls": [
+          "Not updating the spec after implementation changes",
+          "Using inconsistent data types between spec and code"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement authentication and rate limiting",
+        "explanation": "Integrate Unkey for API key management and configure rate limits using middleware. Apply these to all endpoints with proper error responses for unauthorized/overaged requests.",
+        "code": {
+          "language": "python",
+          "content": "from unkey import Unkey\n\nunkey = Unkey(api_key=\"YOUR_API_KEY\")\n\n@app.middleware(\"http\")\ndef rate_limit(request, call_next):\n    key = request.headers.get(\"Authorization\")\n    if not unkey.verify_key(key):\n        return JSONResponse(status_code=401, content={\"error\": \"Invalid API key\"})\n    if unkey.rate_limit(key, \"products.get\", 100):\n        return JSONResponse(status_code=429, content={\"error\": \"Rate limit exceeded\"})\n    return call_next(request)"
+        },
+        "pitfalls": [
+          "Not handling rate limit exhaustion gracefully",
+          "Using weak authentication mechanisms without rotation"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement versioning strategy",
+        "explanation": "Use URL versioning (e.g., /v1/products) and maintain backward compatibility. Document deprecation schedules for outdated versions.",
+        "code": {
+          "language": "python",
+          "content": "from fastapi import APIRouter\n\nrouter = APIRouter(prefix=\"/v1\")\n\n@router.get(\"/products\")\ndef get_products():\n    return {\"version\": \"v1\", \"data\": [...]}"
+        },
+        "pitfalls": [
+          "Changing request/response formats without deprecation warnings",
+          "Not maintaining multiple versions in parallel"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Generate and maintain documentation",
+        "explanation": "Use Swagger UI or ReDoc to auto-generate documentation from the OpenAPI spec. Set up CI/CD to validate spec consistency with implementation.",
+        "code": {
+          "language": "bash",
+          "content": "npx @openapitools/openapi-generator-cli generate -i openapi.yaml -g html -o ./docs"
+        },
+        "pitfalls": [
+          "Allowing documentation to become outdated",
+          "Not testing documentation against actual endpoints"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Implement usage-based pricing",
+        "explanation": "Integrate Stripe Billing to track API usage metrics. Create pricing tiers that align with your monetization strategy.",
+        "code": {
+          "language": "python",
+          "content": "import stripe\n\nstripe.api_key = \"sk_test_...\"\n\ndef calculate_cost(usage):\n    return stripe.Price.create(\n        unit_amount=1000 * usage,\n        currency=\"usd\",\n        product=\"prod_123\",\n        tiers=[\n            {\"up_to\": 1000, \"unit_amount\": 1000},\n            {\"up_to\": 5000, \"unit_amount\": 800}\n        ]\n    )"
+        },
+        "pitfalls": [
+          "Not tracking usage metrics accurately",
+          "Ignoring proration rules for tiered pricing"
+        ]
+      }
+    ],
+    "conclusion": "By following this implementation sequence, you'll create a production-ready API product that balances developer experience with business requirements. Ensure all components are tested in staging environments before public deployment."
+  }
+}

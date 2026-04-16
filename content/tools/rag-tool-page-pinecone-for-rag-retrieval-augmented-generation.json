@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "rag",
+    "generated_at": "2026-04-16T20:23:24.843Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Pinecone for RAG (Retrieval-Augmented Generation)",
+    "description": "How Pinecone fits into real RAG (Retrieval-Augmented Generation) workflows.",
+    "keywords": [
+      "rag",
+      "rag (retrieval-augmented generation)",
+      "tool-page",
+      "Pinecone",
+      "Weaviate",
+      "Qdrant"
+    ],
+    "slug": "rag-tool-page-pinecone-for-rag-retrieval-augmented-generation"
+  },
+  "content": {
+    "headline": "Chunk Size & Overlap Calculator for RAG",
+    "description": "Determines optimal text chunk size and overlap parameters based on document characteristics, embedding model constraints, and retrieval accuracy requirements",
+    "tool_type": "calculator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Optimal chunk parameters"
+      }
+    },
+    "inputs": [
+      {
+        "name": "document_length",
+        "label": "Document length (words)",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "embedding_model",
+        "label": "Embedding model",
+        "type": "select",
+        "options": [
+          "text-embedding-ada-002",
+          "text-embedding-3-small",
+          "text-embedding-3-large"
+        ],
+        "required": true
+      },
+      {
+        "name": "desired_recall",
+        "label": "Desired recall rate (%)",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "desired_precision",
+        "label": "Desired precision rate (%)",
+        "type": "number",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Medium document with high recall",
+        "input": {
+          "document_length": "15000",
+          "embedding_model": "text-embedding-3-small",
+          "desired_recall": "85"
+        },
+        "expected_output": "{\"chunk_size\": 1024, \"overlap\": 256}"
+      },
+      {
+        "label": "Large document with balanced metrics",
+        "input": {
+          "document_length": "50000",
+          "embedding_model": "text-embedding-3-large",
+          "desired_recall": "75",
+          "desired_precision": "80"
+        },
+        "expected_output": "{\"chunk_size\": 2048, \"overlap\": 512}"
+      }
+    ],
+    "how_it_works": "Calculates optimal chunk size using document length and embedding model context limits. Determines overlap based on inverse relationship between chunk size and retrieval precision requirements. Prioritizes model-specific constraints from the selected embedding model.",
+    "related_tools": [
+      "LangChain",
+      "LlamaIndex",
+      "Pinecone"
+    ]
+  }
+}

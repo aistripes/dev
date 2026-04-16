@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "astro",
+    "generated_at": "2026-04-16T20:20:20.409Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Cloudflare Pages for Astro",
+    "description": "How Cloudflare Pages fits into real Astro workflows.",
+    "keywords": [
+      "astro",
+      "tool-page",
+      "Cloudflare Pages",
+      "Netlify",
+      "Vercel"
+    ],
+    "slug": "astro-tool-page-cloudflare-pages-for-astro"
+  },
+  "content": {
+    "headline": "Zod Schema Generator for Astro Content Collections",
+    "description": "Generates type-safe Zod schemas for Astro content collections based on input configurations",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated Zod Schema"
+      }
+    },
+    "inputs": [
+      {
+        "name": "contentTypeName",
+        "label": "Content Type Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "fields",
+        "label": "Fields (one per line: name:type)",
+        "type": "textarea",
+        "placeholder": "title:string\ncontent:markdown\ndate:date",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Blog Post Schema",
+        "input": {
+          "contentTypeName": "blogPost",
+          "fields": "title:string\ncontent:markdown\ndate:date"
+        },
+        "expected_output": "z.object({\n  title: z.string(),\n  content: z.string(),\n  date: z.date(),\n})"
+      },
+      {
+        "label": "Project Listing Schema",
+        "input": {
+          "contentTypeName": "project",
+          "fields": "title:string\ndescription:string\nstatus:enum[active, archived]\nlinks:url[]"
+        },
+        "expected_output": "z.object({\n  title: z.string(),\n  description: z.string(),\n  status: z.enum(['active', 'archived']),\n  links: z.array(z.string().url()),\n})"
+      }
+    ],
+    "how_it_works": "Enter a content type name and define fields with their types. The tool generates a Zod schema object with type validation rules suitable for Astro content collections.",
+    "related_tools": [
+      "Zod",
+      "Astro Content Collections Docs",
+      "MDX"
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-04-16T20:24:11.743Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Cookie consent implementation with Plausible Ana...",
+    "description": "A step-by-step implementation guide for Cookie consent implementation with Plausible Analytics and Fathom.",
+    "keywords": [
+      "gdpr-compliance",
+      "gdpr compliance",
+      "guide",
+      "Plausible Analytics",
+      "Fathom",
+      "Umami"
+    ],
+    "slug": "gdpr-compliance-guide-building-cookie-consent-implementation-with-plausible-ana"
+  },
+  "content": {
+    "intro": "This guide provides actionable steps to implement GDPR compliance for European SaaS infrastructure. Focuses on data mapping, consent mechanisms, privacy-first analytics, and cross-border data transfers. Designed for developers handling EU user data with practical implementation checks.",
+    "estimated_time": "3-5 hours",
+    "prerequisites": [
+      "Inventory of all user data types processed",
+      "Access to Cookiebot/Termly for consent management",
+      "Backend system with PostgreSQL/Supabase integration",
+      "Analytics tool configured (Plausible/Fathom)",
+      "Legal review process for policy documentation"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Map data processing flows",
+        "explanation": "Document all user data types (identifiers, IP addresses, cookies) and processing purposes. Use tools like PostHog to visualize data movement between systems.",
+        "code": {
+          "language": "text",
+          "content": "Data Flow Diagram:\n1. User Signup → [Email, IP] → Supabase\n2. Session Tracking → [Cookie] → Cookiebot\n3. Analytics → [Event Data] → Plausible",
+          "filename": "data_flow.txt"
+        },
+        "pitfalls": [
+          "Missing third-party data handlers in inventory",
+          "Not distinguishing between 'explicit consent' and 'legitimate interest' data"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement consent management",
+        "explanation": "Integrate Cookiebot or Termly to manage consent for non-essential cookies. Configure separate toggles for analytics, marketing, and functional cookies.",
+        "code": {
+          "language": "html",
+          "content": "<script src=\"https://cdn.cookiebot.com/script.js\" data-cbid=\"YOUR-CB-ID\" data-blocking-mode=\"auto\"></script>",
+          "filename": "consent.html"
+        },
+        "pitfalls": [
+          "Using single-checkbox consent for multiple purposes",
+          "Not logging consent timestamps in GDPR-compliant format"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure cookie consent banner",
+        "explanation": "Deploy a cookie consent banner that allows granular control. Use Cookiebot's configuration to set default states for different cookie categories.",
+        "code": {
+          "language": "javascript",
+          "content": "cookiebot.init({\n  domain: 'yourdomain.com',\n  categories: {\n    necessary: true,\n    analytics: false\n  }\n});",
+          "filename": "cookiebot-config.js"
+        },
+        "pitfalls": [
+          "Not providing an 'Accept All' option for functional cookies",
+          "Failing to refresh banner after consent changes"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Set up privacy-first analytics",
+        "explanation": "Replace Google Analytics with Plausible/Fathom. Configure tracking to exclude PII and use anonymized IP addresses.",
+        "code": {
+          "language": "html",
+          "content": "<script src=\"https://plausible.io/js/plausible.js\" data-domain=\"yourdomain.com\"></script>",
+          "filename": "analytics.html"
+        },
+        "pitfalls": [
+          "Using analytics tools that require consent banners",
+          "Not disabling tracking for EU users in non-EU regions"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Create data deletion workflows",
+        "explanation": "Implement /delete-account endpoints that permanently remove user data from databases and backups. Use Supabase's row-level security to enforce deletion.",
+        "code": {
+          "language": "sql",
+          "content": "DELETE FROM users WHERE id = 'USER_ID';\nDELETE FROM sessions WHERE user_id = 'USER_ID';",
+          "filename": "delete_user.sql"
+        },
+        "pitfalls": [
+          "Not purging data from backups or third-party systems",
+          "Leaving data in read replicas after deletion"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Handle cross-border data transfers",
+        "explanation": "Use EU-approved SCCs or data localization. Configure PostgreSQL to block transfers to non-EU regions using IP geolocation checks.",
+        "code": {
+          "language": "python",
+          "content": "def is_eu_region(ip):\n    response = requests.get(f'https://ipapi.co/{ip}/json/')\n    return response.json().get('country') in ['DE', 'FR', 'ES']",
+          "filename": "data_transfer.py"
+        },
+        "pitfalls": [
+          "Transferring data to cloud providers without SCCs",
+          "Not auditing third-party data handlers annually"
+        ]
+      }
+    ],
+    "conclusion": "Verify all steps through technical implementation checks and legal review. Regularly audit data flows, update consent mechanisms when processing changes, and maintain records of processing activities for 3 years."
+  }
+}

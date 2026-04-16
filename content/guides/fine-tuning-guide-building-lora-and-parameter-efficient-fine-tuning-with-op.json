@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "fine-tuning",
+    "generated_at": "2026-04-16T20:20:23.149Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building LoRA and parameter-efficient fine-tuning with Op...",
+    "description": "A step-by-step implementation guide for LoRA and parameter-efficient fine-tuning with OpenAI Fine-Tuning API and Hugging Face.",
+    "keywords": [
+      "fine-tuning",
+      "fine-tuning & custom models",
+      "guide",
+      "OpenAI Fine-Tuning API",
+      "Hugging Face",
+      "LoRA"
+    ],
+    "slug": "fine-tuning-guide-building-lora-and-parameter-efficient-fine-tuning-with-op"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to fine-tuning foundation models for domain-specific tasks, focusing on dataset preparation, model selection, evaluation, and deployment. Each step includes actionable checks and integration notes for production workflows.",
+    "estimated_time": "3-5 hours",
+    "prerequisites": [
+      "Python 3.8+ with virtual environment",
+      "Hugging Face CLI and account",
+      "Dataset in JSONL or CSV format",
+      "Access to model hub (e.g., Hugging Face, OpenAI)",
+      "Basic understanding of model architectures"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Prepare and validate training data",
+        "explanation": "Clean data by removing duplicates, irrelevant content, and inconsistent formatting. Split into training/validation/test sets (80/10/10). Use pandas or datasets library for validation. Ensure domain-specific edge cases are included.",
+        "code": {
+          "language": "python",
+          "content": "from datasets import load_dataset\nraw_data = load_dataset('json', data_files='training.jsonl')\nprint(raw_data['train'][:5])",
+          "filename": "data_validation.py"
+        },
+        "pitfalls": [
+          "Ignoring class imbalance in labeled datasets",
+          "Using unverified data sources without sanitization"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Select fine-tuning approach and base model",
+        "explanation": "Choose between full fine-tuning, LoRA, or QLoRA based on hardware constraints. Select a base model from Hugging Face that matches your task (e.g., 'meta-llama/Llama-2-7b-hf' for general tasks). Document model card metadata.",
+        "code": {
+          "language": "bash",
+          "content": "export MODEL_NAME='meta-llama/Llama-2-7b-hf'\nexport PEFT_METHOD='lora'"
+        },
+        "pitfalls": [
+          "Selecting models without compatible inference frameworks",
+          "Overlooking quantization requirements for QLoRA"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Configure training parameters",
+        "explanation": "Set learning rate (2e-5 to 5e-5), batch size (per GPU 1-4), and epochs (3-10). Use W&B or MLflow for experiment tracking. Define evaluation metrics (e.g., perplexity, accuracy) in trainer configuration.",
+        "code": {
+          "language": "python",
+          "content": "from transformers import TrainingArguments\ntraining_args = TrainingArguments(\n    output_dir='./results',\n    learning_rate=2e-5,\n    per_device_train_batch_size=4,\n    num_train_epochs=5,\n    evaluation_strategy='epoch'\n)"
+        },
+        "pitfalls": [
+          "Using default parameters without domain adaptation",
+          "Ignoring gradient checkpointing for memory optimization"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Execute training with parameter-efficient methods",
+        "explanation": "Implement LoRA/QLoRA with peft library. Monitor loss curves and validation metrics. Save checkpoints at regular intervals. Use mixed precision training where supported.",
+        "code": {
+          "language": "python",
+          "content": "from peft import LoraConfig\nlora_config = LoraConfig(\n    r=64,\n    lora_alpha=128,\n    lora_dropout=0.1,\n    task_type='CAUSAL_LM'\n)"
+        },
+        "pitfalls": [
+          "Failing to freeze base model weights correctly",
+          "Not validating memory usage during training"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Evaluate and compare model versions",
+        "explanation": "Test against baseline models using standardized benchmarks. Measure inference latency and token throughput. Use model card templates to document performance metrics and limitations.",
+        "code": {
+          "language": "python",
+          "content": "from evaluate import load\nmetric = load('accuracy')\nresults = metric.compute(predictions=outputs, references=labels)\nprint(results)"
+        },
+        "pitfalls": [
+          "Evaluating on training data without fresh test sets",
+          "Ignoring latency requirements for production use"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Optimize for production deployment",
+        "explanation": "Quantize models using transformers' quantization tools. Containerize with Docker. Use vLLM or Ollama for efficient serving. Set up health checks and auto-scaling configurations.",
+        "code": {
+          "language": "bash",
+          "content": "ollama create my-model -f ./model.tar.gz\nollama run my-model"
+        },
+        "pitfalls": [
+          "Deploying unquantized models to GPU instances",
+          "Neglecting model versioning in production"
+        ]
+      }
+    ],
+    "conclusion": "Successful fine-tuning requires rigorous data validation, parameter optimization, and production-aware deployment. Regularly audit model performance and update training pipelines to maintain quality as data distributions shift."
+  }
+}

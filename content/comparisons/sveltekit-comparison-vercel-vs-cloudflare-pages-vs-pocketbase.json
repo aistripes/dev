@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "sveltekit",
+    "generated_at": "2026-04-16T20:27:33.630Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Vercel vs Cloudflare Pages vs PocketBase",
+    "description": "A practical comparison of Vercel, Cloudflare Pages, and PocketBase for SvelteKit.",
+    "keywords": [
+      "sveltekit",
+      "comparison",
+      "Vercel",
+      "Cloudflare Pages",
+      "PocketBase"
+    ],
+    "slug": "sveltekit-comparison-vercel-vs-cloudflare-pages-vs-pocketbase"
+  },
+  "content": {
+    "intro": "Choosing a deployment target for SvelteKit involves weighing the trade-offs between developer experience (DX), infrastructure costs, and runtime constraints. While SvelteKit's adapter system allows for flexibility, each runtime—Serverless, Edge, and Persistent Node—imposes different limits on cold starts, streaming capabilities, and state management.",
+    "options": [
+      {
+        "name": "Vercel (adapter-vercel)",
+        "tagline": "The optimized serverless path for rapid iteration and integrated SvelteKit features.",
+        "url": "https://vercel.com/docs/frameworks/sveltekit",
+        "best_for": "Indie hackers and startups requiring high DX, preview deployments, and integrated storage/analytics."
+      },
+      {
+        "name": "Cloudflare Pages (adapter-cloudflare)",
+        "tagline": "Edge-first deployment with global distribution and zero-cold-start potential.",
+        "url": "https://developers.cloudflare.com/pages/framework-guides/deploy-a-svelte-site/",
+        "best_for": "Latency-sensitive applications and builders wanting to avoid high bandwidth costs."
+      },
+      {
+        "name": "Node.js (adapter-node)",
+        "tagline": "Traditional persistent server environments for maximum control and no serverless timeouts.",
+        "url": "https://kit.svelte.dev/docs/adapter-node",
+        "best_for": "Enterprise applications with long-running tasks, legacy database connections, or high-volume persistent traffic."
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Cold Start Latency",
+        "description": "The delay experienced when a function is invoked after being idle.",
+        "values": {
+          "Vercel (adapter-vercel)": "Moderate (50ms - 300ms) for standard serverless functions.",
+          "Cloudflare Pages (adapter-cloudflare)": "Near-zero; utilizes V8 isolates for instant invocation.",
+          "Node.js (adapter-node)": "Zero; the server process is always running."
+        },
+        "winner": "Node.js (adapter-node)"
+      },
+      {
+        "name": "AI Streaming (Server-Sent Events)",
+        "description": "Reliability and timeout limits when streaming LLM responses via SvelteKit load functions.",
+        "values": {
+          "Vercel (adapter-vercel)": "Supported; defaults to 10s timeout on Hobby, up to 900s on Pro.",
+          "Cloudflare Pages (adapter-cloudflare)": "Native support via TransformStream; strict 30s CPU time limit.",
+          "Node.js (adapter-node)": "Unlimited; constrained only by server hardware and client connection."
+        },
+        "winner": "Node.js (adapter-node)"
+      },
+      {
+        "name": "Infrastructure Lock-in",
+        "description": "The difficulty of migrating the application to a different provider.",
+        "values": {
+          "Vercel (adapter-vercel)": "High; relies on Vercel-specific features like OGB images, KV, and Blob storage.",
+          "Cloudflare Pages (adapter-cloudflare)": "Moderate; requires Cloudflare-specific KV/D1 bindings or the 'platform' object.",
+          "Node.js (adapter-node)": "Low; runs on any VPS, Docker container, or cloud provider."
+        },
+        "winner": "Node.js (adapter-node)"
+      },
+      {
+        "name": "Bandwidth & Data Costs",
+        "description": "The cost profile for high-traffic or asset-heavy applications.",
+        "values": {
+          "Vercel (adapter-vercel)": "High; bandwidth costs significantly exceed raw cloud rates after free tier.",
+          "Cloudflare Pages (adapter-cloudflare)": "Low; includes generous free egress and predictable pricing.",
+          "Node.js (adapter-node)": "Variable; depends on VPS provider (e.g., Hetzner/DigitalOcean), usually very low."
+        },
+        "winner": "Cloudflare Pages (adapter-cloudflare)"
+      },
+      {
+        "name": "Form Action Reliability",
+        "description": "Handling multi-part form data and large file uploads in SvelteKit actions.",
+        "values": {
+          "Vercel (adapter-vercel)": "Reliable, but limited by standard serverless request body sizes (4.5MB).",
+          "Cloudflare Pages (adapter-cloudflare)": "Highly reliable; handles streaming uploads well within worker limits.",
+          "Node.js (adapter-node)": "Maximum reliability; no platform-imposed request size limits."
+        }
+      },
+      {
+        "name": "Edge Middleware",
+        "description": "Ability to run logic (auth, redirects) geographically close to the user.",
+        "values": {
+          "Vercel (adapter-vercel)": "Excellent; separate Edge Runtime available for middleware.",
+          "Cloudflare Pages (adapter-cloudflare)": "Native; the entire application runs at the edge by default.",
+          "Node.js (adapter-node)": "N/A; logic runs on the central server location."
+        },
+        "winner": "Cloudflare Pages (adapter-cloudflare)"
+      },
+      {
+        "name": "Database Connectivity",
+        "description": "Handling connection pooling for traditional SQL databases (Postgres/MySQL).",
+        "values": {
+          "Vercel (adapter-vercel)": "Requires connection pooling (e.g., Prisma Accelerate or Neon) to avoid socket exhaustion.",
+          "Cloudflare Pages (adapter-cloudflare)": "Requires HTTP-based drivers or Cloudflare Hyperdrive for TCP connections.",
+          "Node.js (adapter-node)": "Native; supports standard persistent TCP connection pools."
+        },
+        "winner": "Node.js (adapter-node)"
+      },
+      {
+        "name": "Deployment Complexity",
+        "description": "Effort required to set up CI/CD and production environments.",
+        "values": {
+          "Vercel (adapter-vercel)": "Zero-config; git-push to deploy with automatic environment detection.",
+          "Cloudflare Pages (adapter-cloudflare)": "Low-config; integrated with GitHub/GitLab with minor wrangler setup.",
+          "Node.js (adapter-node)": "Moderate; requires Docker, PM2, or systemd management and manual SSL setup."
+        },
+        "winner": "Vercel (adapter-vercel)"
+      }
+    ],
+    "verdict": {
+      "summary": "Vercel offers the most seamless SvelteKit experience but carries a premium price and higher lock-in. Cloudflare Pages is the superior choice for global performance and cost-efficiency, provided the application fits within V8 isolate constraints. Node.js via adapter-node is the only viable path for applications requiring persistent connections, large file processing, or absolute infrastructure independence.",
+      "use_cases": [
+        {
+          "scenario": "A solo developer building a SaaS MVP with Svelte 5 and Stripe.",
+          "recommendation": "Vercel (adapter-vercel)",
+          "reason": "The speed of deployment and integrated features like Vercel KV and Analytics allow focusing on product over infrastructure."
+        },
+        {
+          "scenario": "A high-traffic content site or documentation portal with global users.",
+          "recommendation": "Cloudflare Pages (adapter-cloudflare)",
+          "reason": "Zero cold starts and free egress bandwidth provide a better user experience and lower costs at scale."
+        },
+        {
+          "scenario": "A specialized tool requiring long-lived AI streaming or heavy image processing.",
+          "recommendation": "Node.js (adapter-node)",
+          "reason": "Serverless timeouts and memory limits are too restrictive for long-running streams or high-memory tasks."
+        }
+      ]
+    }
+  }
+}

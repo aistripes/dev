@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "content-platforms",
+    "generated_at": "2026-04-16T20:24:47.700Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Headless CMS comparison and selection with Conte...",
+    "description": "A step-by-step implementation guide for Headless CMS comparison and selection with Contentful and Sanity.",
+    "keywords": [
+      "content-platforms",
+      "content platforms & cms",
+      "guide",
+      "Contentful",
+      "Sanity",
+      "Strapi"
+    ],
+    "slug": "content-platforms-guide-building-headless-cms-comparison-and-selection-with-conte"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to implementing a headless CMS solution for content-heavy sites, focusing on practical decisions for Contentful, Sanity, Strapi, or Payload. Emphasizes content modeling, AI integration, and performance considerations.",
+    "estimated_time": "2-4 hours",
+    "prerequisites": [
+      "CMS account (Contentful/Sanity/Strapi/Payload)",
+      "Basic dev environment (Node.js, CLI tools)",
+      "Understanding of static site generator workflows",
+      "API integration experience"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define content modeling requirements",
+        "explanation": "Create a content type matrix mapping required fields, relationships, and validation rules. Use JSON schema for complex structures. Example: Articles require title (text), author (reference), and content (rich text).",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"type\": \"content_type\",\n  \"fields\": [\n    {\"name\": \"title\", \"type\": \"text\"},\n    {\"name\": \"author\", \"type\": \"reference\", \"target\": \"users\"},\n    {\"name\": \"content\", \"type\": \"rich_text\"}\n  ]\n}"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Set up CMS environment",
+        "explanation": "Provision CMS instance with API keys. Configure content delivery API endpoints. Use Sanity's CLI or Contentful's API explorer for initial setup.",
+        "code": {
+          "language": "bash",
+          "content": "sanity init my-project --dataset=production\nnpm install @sanity/client"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Integrate with static site generator",
+        "explanation": "Configure SSG (Next.js/Astro) to pull content via CMS API. Use GraphQL for Sanity or REST for Contentful. Implement incremental static regeneration for updates.",
+        "code": {
+          "language": "javascript",
+          "content": "export async function getStaticProps() {\n  const data = await client.fetch(`*[_type == \"article\"]`);\n  return { props: { articles: data } };\n}"
+        },
+        "pitfalls": [
+          "Forgetting to set up proper API access controls",
+          "Overloading single query with too many nested relationships"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement AI content generation",
+        "explanation": "Add AI-powered content suggestions via CMS. Use OpenAI's API for draft generation. Store generated content in CMS with review workflow.",
+        "code": {
+          "language": "python",
+          "content": "import openai\nresponse = openai.Completion.create(engine=\"davinci\", prompt=\"Write an article about CMS\")"
+        },
+        "pitfalls": [
+          "Not validating AI-generated content before publishing",
+          "Ignoring token cost limits in production"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Optimize performance for scale",
+        "explanation": "Implement caching layers (Vercel/Netlify edge functions). Use CDN for static assets. Monitor query performance with CMS analytics tools.",
+        "pitfalls": [
+          "Not setting up proper cache headers",
+          "Ignoring database indexing for frequently queried fields"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Plan CMS migration strategy",
+        "explanation": "Export content via CMS API or CLI. Map old structure to new content model. Use JSON or CSV for data transfer. Test SEO slugs and redirects.",
+        "code": {
+          "language": "bash",
+          "content": "curl -X GET https://api.contentful.com/spaces/.../entries --header \"Authorization: Bearer ...\" > content.json"
+        }
+      }
+    ],
+    "conclusion": "Follow these steps to implement a scalable CMS solution. Focus on content modeling consistency, API performance, and migration testing. Regularly audit content structures as requirements evolve."
+  }
+}

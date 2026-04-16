@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "content-strategy",
+    "generated_at": "2026-04-16T20:24:25.375Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Ahrefs for AI Content Strategy",
+    "description": "How Ahrefs fits into real AI Content Strategy workflows.",
+    "keywords": [
+      "content-strategy",
+      "ai content strategy",
+      "tool-page",
+      "Ahrefs",
+      "SEMrush",
+      "Google Search Console"
+    ],
+    "slug": "content-strategy-tool-page-ahrefs-for-ai-content-strategy"
+  },
+  "content": {
+    "headline": "Keyword Difficulty Analyzer",
+    "description": "Calculates keyword difficulty scores using search volume, competition level, and content quality factors to prioritize content topics",
+    "tool_type": "analyzer",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "score",
+        "label": "Difficulty Score (1-10)"
+      }
+    },
+    "inputs": [
+      {
+        "name": "keyword",
+        "label": "Target Keyword",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "search_volume",
+        "label": "Monthly Search Volume",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "competition_level",
+        "label": "Keyword Competition",
+        "type": "select",
+        "options": [
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Example 1: High Volume Low Competition",
+        "input": {
+          "keyword": "ai content tools",
+          "search_volume": 12000,
+          "competition_level": "Low"
+        },
+        "expected_output": "6"
+      },
+      {
+        "label": "Example 2: Medium Volume High Competition",
+        "input": {
+          "keyword": "technical SEO audit",
+          "search_volume": 2500,
+          "competition_level": "High"
+        },
+        "expected_output": "8"
+      }
+    ],
+    "how_it_works": "The tool calculates difficulty using: (Search Volume * 0.4) + (Competition Multiplier * 0.6). Competition Multiplier converts 'Low/Medium/High' to 1.0/1.5/2.0. Scores above 7 require advanced content strategies.",
+    "related_tools": [
+      "Ahrefs Keyword Explorer",
+      "SEMrush Keyword Analyzer",
+      "SurferSEO Keyword Tool"
+    ]
+  }
+}

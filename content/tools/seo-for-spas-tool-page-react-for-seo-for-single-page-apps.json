@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "seo-for-spas",
+    "generated_at": "2026-04-16T20:24:34.248Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "React for SEO for Single-Page Apps",
+    "description": "How React fits into real SEO for Single-Page Apps workflows.",
+    "keywords": [
+      "seo-for-spas",
+      "seo for single-page apps",
+      "tool-page",
+      "React",
+      "Vue",
+      "Angular"
+    ],
+    "slug": "seo-for-spas-tool-page-react-for-seo-for-single-page-apps"
+  },
+  "content": {
+    "headline": "SPA SEO Meta Tag Validator",
+    "description": "Checks dynamic meta tags in SPAs to ensure proper Open Graph and Twitter Card implementation for social media and search engines",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "json",
+        "label": "Validation Results"
+      }
+    },
+    "inputs": [
+      {
+        "name": "framework",
+        "label": "Framework",
+        "type": "select",
+        "options": [
+          "React",
+          "Vue",
+          "Angular"
+        ],
+        "required": true
+      },
+      {
+        "name": "metaConfig",
+        "label": "Meta Tag Config (JSON)",
+        "type": "textarea",
+        "required": true
+      },
+      {
+        "name": "isDynamic",
+        "label": "Dynamic Content",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "React Homepage Validation",
+        "input": {
+          "framework": "React",
+          "metaConfig": "{ \"og:title\": \"Welcome\", \"og:description\": \"Spa services\", \"twitter:card\": \"summary\" }",
+          "isDynamic": true
+        },
+        "expected_output": "{ \"errors\": [], \"warnings\": [\"Missing twitter:image\"], \"status\": \"success\" }"
+      },
+      {
+        "label": "Vue Product Page Check",
+        "input": {
+          "framework": "Vue",
+          "metaConfig": "{ \"og:title\": \"Luxury Massage\", \"twitter:card\": \"summary_large_image\" }",
+          "isDynamic": true
+        },
+        "expected_output": "{ \"errors\": [\"Missing og:description\"], \"status\": \"failed\" }"
+      }
+    ],
+    "how_it_works": "Parses framework-specific meta configurations, validates required Open Graph/Twitter Card properties, checks for common implementation patterns in client-rendered applications, and returns structured validation results",
+    "related_tools": [
+      "React Helmet",
+      "vue-meta",
+      "Google Search Console"
+    ]
+  }
+}

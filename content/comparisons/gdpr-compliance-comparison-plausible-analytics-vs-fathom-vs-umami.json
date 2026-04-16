@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-04-16T20:24:13.193Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Plausible Analytics vs Fathom vs Umami",
+    "description": "A practical comparison of Plausible Analytics, Fathom, and Umami for GDPR Compliance.",
+    "keywords": [
+      "gdpr-compliance",
+      "gdpr compliance",
+      "comparison",
+      "Plausible Analytics",
+      "Fathom",
+      "Umami"
+    ],
+    "slug": "gdpr-compliance-comparison-plausible-analytics-vs-fathom-vs-umami"
+  },
+  "content": {
+    "intro": "Compare privacy-focused analytics tools for GDPR compliance, focusing on implementation effort, data control, and regulatory alignment.",
+    "options": [
+      {
+        "name": "Plausible Analytics",
+        "tagline": "Simple, privacy-first analytics for small teams",
+        "url": "https://plausible.io",
+        "best_for": "Teams prioritizing minimal setup and compliance with explicit consent requirements"
+      },
+      {
+        "name": "Fathom Analytics",
+        "tagline": "Lightweight, self-hosted analytics for developers",
+        "url": "https://usefathom.com",
+        "best_for": "Developers needing full control over data storage and processing"
+      },
+      {
+        "name": "PostHog",
+        "tagline": "Feature-rich, self-hosted analytics for growth teams",
+        "url": "https://posthog.com",
+        "best_for": "Organizations requiring advanced segmentation and event tracking"
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Implementation Effort",
+        "description": "Complexity of integrating tracking code and configuring compliance settings",
+        "values": {
+          "Plausible Analytics": "Low (single script tag)",
+          "Fathom Analytics": "Medium (self-hosting setup)",
+          "PostHog": "High (custom event definitions)"
+        }
+      },
+      {
+        "name": "Lock-in Risk",
+        "description": "Difficulty of migrating data or switching platforms",
+        "values": {
+          "Plausible Analytics": "High (closed-source API)",
+          "Fathom Analytics": "Low (open-source codebase)",
+          "PostHog": "Medium (proprietary data format)"
+        }
+      },
+      {
+        "name": "Data Control",
+        "description": "Ability to host, delete, or audit user data",
+        "values": {
+          "Plausible Analytics": "Limited (cloud-hosted)",
+          "Fathom Analytics": "Full (self-hosted)",
+          "PostHog": "Full (self-hosted)"
+        }
+      },
+      {
+        "name": "Compliance Features",
+        "description": "Built-in tools for consent management and data deletion",
+        "values": {
+          "Plausible Analytics": "Basic (no consent UI)",
+          "Fathom Analytics": "None (developer responsibility)",
+          "PostHog": "Advanced (data deletion API)"
+        }
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Pricing model and scalability limits",
+        "values": {
+          "Plausible Analytics": "Flat $10/month (unlimited sites)",
+          "Fathom Analytics": "Flat $15/month (unlimited sites)",
+          "PostHog": "Free tier available (paid plans for enterprise)"
+        }
+      },
+      {
+        "name": "Reliability",
+        "description": "Uptime guarantees and data accuracy",
+        "values": {
+          "Plausible Analytics": "99.9% SLA (cloud-hosted)",
+          "Fathom Analytics": "Varies (self-hosted infrastructure)",
+          "PostHog": "99.9% SLA (cloud-hosted)"
+        }
+      },
+      {
+        "name": "User Privacy",
+        "description": "Data anonymization and tracking limitations",
+        "values": {
+          "Plausible Analytics": "IP anonymization, no cookies",
+          "Fathom Analytics": "IP anonymization, no cookies",
+          "PostHog": "Optional IP anonymization, cookie-based tracking"
+        }
+      },
+      {
+        "name": "Self-Hosting Support",
+        "description": "Availability of on-premise deployment options",
+        "values": {
+          "Plausible Analytics": "No",
+          "Fathom Analytics": "Yes",
+          "PostHog": "Yes"
+        }
+      }
+    ],
+    "verdict": {
+      "summary": "Plausible offers the simplest setup but lacks advanced compliance features. Fathom provides maximum control for developers comfortable with self-hosting. PostHog balances flexibility with enterprise-grade tools but requires more configuration.",
+      "use_cases": [
+        {
+          "scenario": "Startup needing quick deployment with minimal compliance overhead",
+          "recommendation": "Plausible Analytics",
+          "reason": "Low implementation effort and transparent pricing align with rapid development cycles"
+        },
+        {
+          "scenario": "Developer team requiring full data sovereignty",
+          "recommendation": "Fathom Analytics",
+          "reason": "Open-source architecture enables complete control over data handling and storage"
+        },
+        {
+          "scenario": "Growth-focused SaaS with complex tracking needs",
+          "recommendation": "PostHog",
+          "reason": "Advanced segmentation and data deletion capabilities support evolving compliance requirements"
+        }
+      ]
+    }
+  }
+}

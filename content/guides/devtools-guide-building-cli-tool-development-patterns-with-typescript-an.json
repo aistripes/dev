@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "devtools",
+    "generated_at": "2026-04-16T20:24:48.197Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building CLI tool development patterns with TypeScript an...",
+    "description": "A step-by-step implementation guide for CLI tool development patterns with TypeScript and Rust.",
+    "keywords": [
+      "devtools",
+      "developer tools",
+      "guide",
+      "TypeScript",
+      "Rust",
+      "Go"
+    ],
+    "slug": "devtools-guide-building-cli-tool-development-patterns-with-typescript-an"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building a CLI tool with TypeScript, focusing on cross-platform compatibility, error handling, and integration patterns. Follow these steps to implement a production-ready developer tool.",
+    "estimated_time": "3-5 hours",
+    "prerequisites": [
+      "Node.js (18+)",
+      "npm/yarn",
+      "TypeScript",
+      "Commander.js",
+      "Basic CLI usage knowledge"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize project structure",
+        "explanation": "Create a new project directory and configure TypeScript with a tsconfig.json file. Install required dependencies including commander and cross-env for platform-specific commands.",
+        "code": {
+          "language": "bash",
+          "content": "mkdir devtool-cli && cd $_\nnpm init -y\ntsconfig.json\nnpm install --save commander cross-env",
+          "filename": "setup.sh"
+        },
+        "pitfalls": [
+          "Forgetting to add 'type': 'module' in package.json for ES modules",
+          "Incorrect TypeScript target configuration causing runtime errors"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Define CLI command structure",
+        "explanation": "Create a main.ts file that initializes the CLI with commander. Define base commands and subcommands with appropriate options and descriptions.",
+        "code": {
+          "language": "typescript",
+          "content": "import { Command } from 'commander';\nconst program = new Command();\nprogram.command('init <project-name>').description('Initialize new project').action((name) => {\n  console.log(`Initializing project: ${name}`);\n});\nprogram.parse(process.argv);"
+        },
+        "pitfalls": [
+          "Not using .parse() to trigger command execution",
+          "Missing required options in subcommands"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement platform-specific logic",
+        "explanation": "Use the os and path modules to handle platform-specific file paths and command execution. Add environment checks for Windows/MacOS/Linux.",
+        "code": {
+          "language": "typescript",
+          "content": "import * as os from 'os';\nimport * as path from 'path';\nconst configPath = os.platform() === 'win32' \n  ? path.join(process.env.APPDATA || '', 'devtool')\n  : path.join(os.homedir(), '.devtool');"
+        },
+        "pitfalls": [
+          "Hardcoding file paths instead of using platform-aware modules",
+          "Ignoring environment variable differences between OSes"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Add error handling patterns",
+        "explanation": "Implement centralized error handling with try/catch blocks. Create custom error classes for different failure scenarios.",
+        "code": {
+          "language": "typescript",
+          "content": "class CLIError extends Error {\n  constructor(public code: number, message: string) {\n    super(message);\n  }\n}\ntry {\n  // command logic\n} catch (err) {\n  console.error(new CLIError(1, err.message));\n  process.exit(1);\n}"
+        },
+        "pitfalls": [
+          "Not differentiating between user errors and system errors",
+          "Ignoring unhandled promise rejections"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Create test suite",
+        "explanation": "Write unit tests for core commands using Jest. Test command parsing, error conditions, and platform-specific behavior.",
+        "code": {
+          "language": "typescript",
+          "content": "import { execSync } from 'child_process';\ntest('version command', () => {\n  const output = execSync('devtool --version').toString();\n  expect(output).toMatch(/v\\d+\\.\\d+\\.\\d+/);\n});"
+        },
+        "pitfalls": [
+          "Not mocking process.exit() in tests",
+          "Missing edge case testing for invalid inputs"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Package for distribution",
+        "explanation": "Configure npm scripts for building and publishing. Create a .npmignore file to exclude development files.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"scripts\": {\n    \"build\": \"tsc\",\n    \"publish\": \"npm publish --access public\"\n  },\n  \"files\": [\"dist\"]\n}"
+        },
+        "pitfalls": [
+          "Including source files in the published package",
+          "Forgetting to update the version field before publishing"
+        ]
+      }
+    ],
+    "conclusion": "By following these steps, you've created a CLI tool with robust error handling, cross-platform support, and test coverage. Focus on maintaining clear command hierarchies and consistent error messaging to improve developer experience."
+  }
+}

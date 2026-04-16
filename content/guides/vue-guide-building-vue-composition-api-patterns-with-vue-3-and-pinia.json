@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "vue",
+    "generated_at": "2026-04-16T20:22:46.041Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Vue Composition API patterns with Vue 3 and Pinia",
+    "description": "A step-by-step implementation guide for Vue Composition API patterns with Vue 3 and Pinia.",
+    "keywords": [
+      "vue",
+      "vue (general)",
+      "guide",
+      "Vue 3",
+      "Pinia",
+      "Vue Router"
+    ],
+    "slug": "vue-guide-building-vue-composition-api-patterns-with-vue-3-and-pinia"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to migrating Vue 2 projects to Vue 3 with Composition API, integrating TypeScript, and setting up production-ready tooling. Focuses on actionable steps for enterprise Vue workflows.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Vue 2 project with existing components",
+      "Node.js 16+ and npm/yarn",
+      "Code editor with Vue 3 plugin support",
+      "Basic understanding of Vue 2 Options API"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Set up Vue 3 project with Vite",
+        "explanation": "Create a new Vue 3 project using Vite to establish a modern build pipeline. This provides faster development server startup and better TypeScript integration compared to Vue CLI.",
+        "code": {
+          "language": "bash",
+          "content": "npm create vite@latest my-vue3-app -- --template vue",
+          "filename": "setup.sh"
+        }
+      },
+      {
+        "number": 2,
+        "title": "Create migration plan",
+        "explanation": "Audit existing Vue 2 components to identify deprecated features (e.g., $dispatch, filters) and create a component-by-component migration checklist. Use vue-migration plugin for automated warnings.",
+        "code": {
+          "language": "javascript",
+          "content": "npm install -D vue-migration\nnpx vue-migration --check"
+        }
+      },
+      {
+        "number": 3,
+        "title": "Convert Options API to Composition API",
+        "explanation": "Replace data() and methods{} with setup() and reactive/ref() patterns. Use Vue 3's reactivity system to manage component state and lifecycle hooks.",
+        "code": {
+          "language": "vue",
+          "content": "<script>\nimport { ref, onMounted } from 'vue';\nexport default {\n  setup() {\n    const count = ref(0);\n    onMounted(() => {\n      console.log('Component mounted');\n    });\n    return { count };\n  }\n}\n</script>"
+        },
+        "pitfalls": [
+          "Forgetting to return reactive properties from setup()",
+          "Incorrectly using this in composition functions"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate TypeScript",
+        "explanation": "Configure tsconfig.json for Vue 3 and add type definitions for components. Use defineComponent() with explicit prop types and interface-based component definitions.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"compilerOptions\": {\n    \"module\": \"ESNext\",\n    \"target\": \"ES2015\",\n    \"strict\": true,\n    \"moduleResolution\": \"node\",\n    \"esModuleInterop\": true,\n    \"skipLibCheck\": true\n  }\n}"
+        }
+      },
+      {
+        "number": 5,
+        "title": "Setup Pinia for state management",
+        "explanation": "Replace Vuex with Pinia by creating stores with defineStore(). Migrate mutation patterns to actions and ensure proper module organization for large applications.",
+        "code": {
+          "language": "javascript",
+          "content": "import { defineStore } from 'pinia';\nexport const useCounterStore = defineStore('counter', {\n  state: () => ({ count: 0 }),\n  actions: {\n    increment() {\n      this.count++;\n    }\n  }\n});"
+        }
+      },
+      {
+        "number": 6,
+        "title": "Implement testing with Vitest",
+        "explanation": "Configure Vitest for unit testing components and composables. Use Vue Test Utils for shallow rendering and mock dependencies in test cases.",
+        "code": {
+          "language": "bash",
+          "content": "npm install -D vitest\nnpx vitest init"
+        }
+      }
+    ],
+    "conclusion": "This migration workflow establishes a Vue 3 foundation with modern tooling. Verify all components pass tests, ensure type safety, and validate performance with Vue DevTools before deployment."
+  }
+}

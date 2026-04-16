@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "marketplaces",
+    "generated_at": "2026-04-16T20:25:37.685Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Stripe Connect vs PayPal for Marketplaces vs Sharetribe",
+    "description": "A practical comparison of Stripe Connect, PayPal for Marketplaces, and Sharetribe for Marketplaces.",
+    "keywords": [
+      "marketplaces",
+      "comparison",
+      "Stripe Connect",
+      "PayPal for Marketplaces",
+      "Sharetribe"
+    ],
+    "slug": "marketplaces-comparison-stripe-connect-vs-paypal-for-marketplaces-vs-sharetribe"
+  },
+  "content": {
+    "intro": "Developers building marketplace platforms evaluate tools for payment handling, search, trust systems, and scalability. This comparison focuses on implementation trade-offs for core marketplace requirements.",
+    "options": [
+      {
+        "name": "Stripe Connect",
+        "tagline": "Scalable payment infrastructure for multi-party transactions",
+        "url": "https://stripe.com/connect",
+        "best_for": "Complex payment splitting, escrow, and compliance requirements"
+      },
+      {
+        "name": "Sharetribe",
+        "tagline": "Fully hosted marketplace platform with built-in matching logic",
+        "url": "https://www.sharetribe.com",
+        "best_for": "Rapid prototyping and minimum viable product development"
+      },
+      {
+        "name": "Supabase",
+        "tagline": "Open-source Firebase alternative with real-time database",
+        "url": "https://supabase.com",
+        "best_for": "Custom backend development with PostgreSQL flexibility"
+      },
+      {
+        "name": "Algolia",
+        "tagline": "Search and discovery API with ranking customization",
+        "url": "https://www.algolia.com",
+        "best_for": "Advanced product matching and search relevance optimization"
+      },
+      {
+        "name": "PayPal for Marketplaces",
+        "tagline": "Legacy payment solution with marketplace-specific features",
+        "url": "https://developer.paypal.com/docs/marketplaces/",
+        "best_for": "Existing PayPal ecosystems requiring multi-party transactions"
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Implementation Effort",
+        "description": "Time required to integrate core marketplace functionality",
+        "values": {
+          "Stripe Connect": "Moderate",
+          "Sharetribe": "Low",
+          "Supabase": "High",
+          "Algolia": "Moderate",
+          "PayPal for Marketplaces": "High"
+        }
+      },
+      {
+        "name": "Lock-in Risk",
+        "description": "Technical and contractual constraints limiting future migration",
+        "values": {
+          "Stripe Connect": "High",
+          "Sharetribe": "Very High",
+          "Supabase": "Low",
+          "Algolia": "High",
+          "PayPal for Marketplaces": "Very High"
+        }
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Predictability of pricing model for scaling operations",
+        "values": {
+          "Stripe Connect": "Variable (transaction-based)",
+          "Sharetribe": "Fixed monthly fees",
+          "Supabase": "Cost-effective scaling",
+          "Algolia": "Usage-based pricing",
+          "PayPal for Marketplaces": "Transaction fees with setup costs"
+        }
+      },
+      {
+        "name": "Reliability",
+        "description": "Uptime guarantees and error handling for critical operations",
+        "values": {
+          "Stripe Connect": "High (SLA 99.9%)",
+          "Sharetribe": "High (managed service)",
+          "Supabase": "High (self-hosted reliability)",
+          "Algolia": "High (SLA 99.9%)",
+          "PayPal for Marketplaces": "High (enterprise-grade)"
+        }
+      },
+      {
+        "name": "Scalability",
+        "description": "Ability to handle growing user bases and transaction volumes",
+        "values": {
+          "Stripe Connect": "High (global infrastructure)",
+          "Sharetribe": "High (auto-scaling)",
+          "Supabase": "High (PostgreSQL-based)",
+          "Algolia": "High (distributed indexing)",
+          "PayPal for Marketplaces": "High (enterprise scaling)"
+        }
+      },
+      {
+        "name": "Customization",
+        "description": "Flexibility to modify core marketplace logic and workflows",
+        "values": {
+          "Stripe Connect": "Moderate",
+          "Sharetribe": "Low",
+          "Supabase": "High",
+          "Algolia": "High",
+          "PayPal for Marketplaces": "Moderate"
+        }
+      },
+      {
+        "name": "Ease of Integration",
+        "description": "Compatibility with existing tech stacks and frameworks",
+        "values": {
+          "Stripe Connect": "High (JavaScript/REST)",
+          "Sharetribe": "High (API-first)",
+          "Supabase": "High (PostgreSQL/GraphQL)",
+          "Algolia": "High (JavaScript/REST)",
+          "PayPal for Marketplaces": "Moderate (legacy APIs)"
+        }
+      },
+      {
+        "name": "Support Ecosystem",
+        "description": "Availability of documentation, community, and enterprise support",
+        "values": {
+          "Stripe Connect": "Excellent",
+          "Sharetribe": "Good (managed service)",
+          "Supabase": "Excellent (open-source)",
+          "Algolia": "Excellent",
+          "PayPal for Marketplaces": "Good (enterprise)"
+        }
+      }
+    ],
+    "verdict": {
+      "summary": "Stripe Connect offers robust payment handling with higher implementation complexity, while Sharetribe provides rapid deployment at the cost of flexibility. Supabase and Algolia excel in customization but require more development effort. PayPal for Marketplaces remains viable for legacy systems but shows signs of aging infrastructure.",
+      "use_cases": [
+        {
+          "scenario": "Startup needing rapid MVP development",
+          "recommendation": "Sharetribe",
+          "reason": "Low implementation effort and built-in marketplace logic"
+        },
+        {
+          "scenario": "Enterprise platform requiring custom workflows",
+          "recommendation": "Supabase + Algolia",
+          "reason": "High customization and integration flexibility"
+        },
+        {
+          "scenario": "Global marketplace with complex payment needs",
+          "recommendation": "Stripe Connect",
+          "reason": "Reliable payment splitting and compliance features"
+        },
+        {
+          "scenario": "Legacy system modernization",
+          "recommendation": "Stripe Connect",
+          "reason": "Better long-term support than PayPal for Marketplaces"
+        }
+      ]
+    }
+  }
+}

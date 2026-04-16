@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "gdpr-compliance",
+    "generated_at": "2026-04-16T20:25:15.032Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Plausible Analytics for GDPR Compliance",
+    "description": "How Plausible Analytics fits into real GDPR Compliance workflows.",
+    "keywords": [
+      "gdpr-compliance",
+      "gdpr compliance",
+      "tool-page",
+      "Plausible Analytics",
+      "Fathom",
+      "Umami"
+    ],
+    "slug": "gdpr-compliance-tool-page-plausible-analytics-for-gdpr-compliance"
+  },
+  "content": {
+    "headline": "GDPR Consent Requirement Checker",
+    "description": "Determines whether user data processing requires explicit consent under GDPR based on data type and purpose.",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Consent Requirement Summary"
+      }
+    },
+    "inputs": [
+      {
+        "name": "data_type",
+        "label": "Type of User Data",
+        "type": "select",
+        "options": [
+          "Personal",
+          "Sensitive",
+          "Technical"
+        ],
+        "required": true
+      },
+      {
+        "name": "processing_purpose",
+        "label": "Purpose of Processing",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "legal_basis",
+        "label": "Legal Basis for Processing",
+        "type": "select",
+        "options": [
+          "Consent",
+          "Legitimate Interest",
+          "Contract",
+          "Legal Obligation"
+        ],
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Marketing with Personal Data",
+        "input": {
+          "data_type": "Personal",
+          "processing_purpose": "Marketing",
+          "legal_basis": "Consent"
+        },
+        "expected_output": "Explicit consent required for marketing with personal data."
+      },
+      {
+        "label": "Security with Technical Data",
+        "input": {
+          "data_type": "Technical",
+          "processing_purpose": "Security",
+          "legal_basis": "Legitimate Interest"
+        },
+        "expected_output": "Consent not required for security purposes with technical data."
+      }
+    ],
+    "how_it_works": "This tool evaluates data processing scenarios against GDPR's Article 6 and 7 to determine if explicit consent is required. Strengths include quick decision-making for common use cases. Limitations apply to complex legal scenarios. Ideal for SaaS teams needing initial compliance checks.",
+    "related_tools": [
+      "Cookiebot",
+      "Termly"
+    ]
+  }
+}

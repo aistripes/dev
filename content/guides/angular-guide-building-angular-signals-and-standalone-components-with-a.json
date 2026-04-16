@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "angular",
+    "generated_at": "2026-04-16T20:20:14.126Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Angular signals and standalone components with A...",
+    "description": "A step-by-step implementation guide for Angular signals and standalone components with Angular CLI and RxJS.",
+    "keywords": [
+      "angular",
+      "guide",
+      "Angular CLI",
+      "RxJS",
+      "NgRx"
+    ],
+    "slug": "angular-guide-building-angular-signals-and-standalone-components-with-a"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to integrating Angular standalone components and signals into existing module-based applications. Focuses on architectural decisions, dependency management, and migration patterns for enterprise environments.",
+    "estimated_time": "3-5 hours depending on application size",
+    "prerequisites": [
+      "Angular CLI 15+",
+      "TypeScript 4.9+",
+      "Existing Angular application with NgModule-based architecture",
+      "Angular Material or equivalent component library",
+      "Karma/Jasmine test framework"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Audit existing NgModule dependencies",
+        "explanation": "Identify all NgModule imports, declarations, and providers. Use ng generate module --dry-run to list module dependencies. Check for circular dependencies and shared service providers.",
+        "code": {
+          "language": "shell",
+          "content": "ng generate module --dry-run shared --flat\nng generate module --dry-run feature --flat"
+        },
+        "pitfalls": [
+          "Missing transitive dependencies in lazy-loaded modules",
+          "Shared services with module-level providers instead of root"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Enable standalone component support",
+        "explanation": "Update angular.json to include standalone: true in the build configuration. Modify main.ts to use bootstrapApplication() instead of platformBrowser().",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"projects\": {\n    \"your-app\": {\n      \"architect\": {\n        \"build\": {\n          \"options\": {\n            \"standalone\": true\n          }\n        }\n      }\n    }\n  }\n}"
+        },
+        "pitfalls": [
+          "Forgetting to update all module entry points",
+          "Incorrectly configuring BrowserModule imports"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Convert components to standalone",
+        "explanation": "Use ng generate component --standalone to create new components. For existing components, manually update metadata to remove NgModule declarations and add imports for dependencies.",
+        "code": {
+          "language": "typescript",
+          "content": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'app-example',\n  template: '<p>Standalone component</p>',\n  standalone: true,\n  imports: [CommonModule]\n})\nexport class ExampleComponent {}"
+        },
+        "pitfalls": [
+          "Forgetting to add required imports for component dependencies",
+          "Mixing standalone and NgModule components in the same module"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Implement signal-based state management",
+        "explanation": "Replace @Input() properties with signals using signal() and effect(). Update templates to use signal values directly. Refactor service state management to use signal-based patterns.",
+        "code": {
+          "language": "typescript",
+          "content": "import { signal } from '@angular/core';\n\nconst count = signal(0);\n\nfunction increment() {\n  count.update(val => val + 1);\n}"
+        },
+        "pitfalls": [
+          "Not using the correct signal update syntax",
+          "Forgetting to add dependencies to effect() triggers"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Refactor module providers to root",
+        "explanation": "Update service providers from NgModule providers to providedIn: 'root'. Use Angular CLI to generate services with root injection. Verify dependency resolution in component constructors.",
+        "code": {
+          "language": "typescript",
+          "content": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class DataService { ... }"
+        },
+        "pitfalls": [
+          "Legacy services with module-level providers causing multiple instances",
+          "Incorrect provider configuration in lazy-loaded modules"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Implement lazy loading for feature modules",
+        "explanation": "Configure route loadChildren with function expressions. Use Angular CLI to generate lazy modules. Update app routing module to use loadChildren syntax.",
+        "code": {
+          "language": "typescript",
+          "content": "const routes: Routes = [\n  {\n    path: 'feature',\n    loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule)\n  }\n];"
+        },
+        "pitfalls": [
+          "Incorrect path resolution in loadChildren",
+          "Missing route configuration in parent modules"
+        ]
+      }
+    ],
+    "conclusion": "After implementing standalone components and signals, verify all dependencies through e2e tests. Monitor bundle size with Angular CLI build analytics. Maintain backward compatibility during phased migration."
+  }
+}

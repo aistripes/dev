@@ -3,13 +3,13 @@
   "name": "Edge Deployment",
   "category": "infrastructure",
   "context": {
-    "audience": "Full-stack developers deploying to edge runtimes, teams optimizing latency for global audiences, developers building serverless applications on Cloudflare Workers or Deno Deploy",
+    "audience": "Full-stack developers deploying latency-sensitive apps to edge runtimes, platform teams moving APIs to regional execution, and AI builders running inference and orchestration close to users",
     "pain_points": [
-      "Working within edge runtime limitations like no Node.js APIs and limited execution time",
-      "Database access from edge functions with connection pooling and latency",
+      "Working within edge runtime limitations like restricted Node APIs and CPU time budgets",
+      "Database access from edge functions with replication, connection limits, and tail latency",
       "Debugging and testing edge functions locally before deployment",
-      "Managing cold starts and execution time limits for complex logic",
-      "Choosing between edge platforms and understanding their trade-offs"
+      "Handling vendor lock-in concerns when adopting platform-specific edge features",
+      "Choosing where to run LLM workloads between Workers AI, serverless regions, and dedicated GPUs"
     ],
     "monetization": [
       "Edge-first SaaS products",
@@ -20,21 +20,23 @@
     "tools_and_stack": [
       "Cloudflare Workers", "Cloudflare Pages", "Vercel Edge Functions",
       "Deno Deploy", "Netlify Edge Functions", "Fastly Compute",
-      "D1", "Turso", "PlanetScale", "Miniflare"
+      "D1", "Turso", "PlanetScale", "Miniflare", "Cloudflare Workers AI", "Cloudflare AI Gateway"
     ],
     "content_that_works": [
       "Edge platform comparison articles",
       "Edge function implementation tutorials",
       "Database at the edge guides",
-      "Edge deployment migration guides"
+      "Edge deployment migration guides",
+      "LLM at the edge architecture breakdowns"
     ],
     "subtopics": [
       "Cloudflare Workers development",
       "Edge database strategies",
       "Edge platform comparison",
       "Edge caching patterns",
-      "Edge function testing and debugging"
+      "Edge function testing and debugging",
+      "Workers AI inference routing and failover"
     ],
-    "adjacent_niches": ["self-hosting", "nextjs", "sveltekit", "caching"]
+    "adjacent_niches": ["self-hosting", "nextjs", "caching", "structured-output"]
   }
 }

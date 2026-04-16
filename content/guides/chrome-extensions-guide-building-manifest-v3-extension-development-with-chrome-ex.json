@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "chrome-extensions",
+    "generated_at": "2026-04-16T20:24:39.914Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Manifest V3 extension development with Chrome Ex...",
+    "description": "A step-by-step implementation guide for Manifest V3 extension development with Chrome Extension API and Manifest V3.",
+    "keywords": [
+      "chrome-extensions",
+      "browser extensions",
+      "guide",
+      "Chrome Extension API",
+      "Manifest V3",
+      "Plasmo"
+    ],
+    "slug": "chrome-extensions-guide-building-manifest-v3-extension-development-with-chrome-ex"
+  },
+  "content": {
+    "intro": "This guide provides a structured approach to building Chrome extensions with Manifest V3, secure AI integration, and cross-browser compatibility. Focuses on practical implementation steps, security patterns, and deployment workflows for developers working on productivity tools, AI-powered features, and SaaS integrations.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Node.js (16+)",
+      "Chrome Developer account",
+      "Basic JavaScript/TypeScript knowledge",
+      "Vite or Plasmo/WXT setup",
+      "AI API key (e.g., OpenAI, Anthropic)"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Initialize project with Vite and React",
+        "explanation": "Create a new project using Vite with React and TypeScript template. Configure project to use Chrome Extension API by adding necessary devDependencies (e.g., @types/chrome).",
+        "code": {
+          "language": "bash",
+          "content": "npm create vite@latest my-extension --template react-ts\ncd my-extension\nnpm install -D @types/chrome",
+          "filename": "setup.sh"
+        },
+        "pitfalls": [
+          "Forgetting to add @types/chrome for TS type support",
+          "Using incompatible Vite plugins for extension builds"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Configure Manifest V3 structure",
+        "explanation": "Create manifest.json with required fields. Replace background page with service worker, define host permissions, and set content security policy.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"manifest_version\": 3,\n  \"name\": \"AI Assistant Extension\",\n  \"version\": \"1.0\",\n  \"permissions\": [\"activeTab\", \"scripting\"],\n  \"background\": {\n    \"service_worker\": \"background.js\"\n  },\n  \"content_security_policy\": {\n    \"extension_pages\": \"script-src 'self' 'unsafe-eval'; object-src 'self'\"\n  }\n}"
+        },
+        "pitfalls": [
+          "Using deprecated manifest_version 2",
+          "Missing required permissions for API calls"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Implement secure API key management",
+        "explanation": "Store API keys in chrome.storage.local instead of client code. Create a utility function to retrieve credentials securely.",
+        "code": {
+          "language": "typescript",
+          "content": "async function getApiKey(): Promise<string> {\n  const { apiKey } = await chrome.storage.local.get(['apiKey']);\n  return apiKey;\n}\n\n// Usage in service worker\nconst key = await getApiKey();"
+        },
+        "pitfalls": [
+          "Hardcoding API keys in client code",
+          "Not handling storage errors"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Integrate AI API in service worker",
+        "explanation": "Create a service worker that handles API requests. Use fetch() with proper headers and error handling for AI API interactions.",
+        "code": {
+          "language": "javascript",
+          "content": "chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {\n  if (request.action === 'callAI') {\n    const apiKey = await getApiKey();\n    const response = await fetch('https://api.example.com/ai', {\n      method: 'POST',\n      headers: { 'Authorization': `Bearer ${apiKey}` },\n      body: JSON.stringify({ prompt: request.prompt })\n    });\n    sendResponse(await response.json());\n  }\n});"
+        },
+        "pitfalls": [
+          "Forgetting to handle CORS in service workers",
+          "Not validating API responses"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Add cross-browser compatibility",
+        "explanation": "Use WebExtension APIs instead of Chrome-specific APIs. Test in Firefox and Safari using browser-specific developer tools.",
+        "code": {
+          "language": "javascript",
+          "content": "// Use standard WebExtension APIs\nchrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {\n  chrome.scripting.executeScript({\n    target: { tabId: tabs[0].id! },\n    func: injectContent\n  });\n});"
+        },
+        "pitfalls": [
+          "Using chrome-specific APIs without polyfills",
+          "Not testing in Firefox/Safari"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Implement content security policy",
+        "explanation": "Configure content_security_policy in manifest to prevent XSS. Use strict rules for script and object loading.",
+        "code": {
+          "language": "json",
+          "content": "\"content_security_policy\": {\n  \"extension_pages\": \"script-src 'self' 'unsafe-eval'; object-src 'self'\"\n}"
+        },
+        "pitfalls": [
+          "Overly permissive CSP rules",
+          "Forgetting to update CSP when adding new assets"
+        ]
+      }
+    ],
+    "conclusion": "Follow these steps to create a secure, cross-browser Chrome extension with AI integration. Validate each component through testing and ensure compliance with Chrome Web Store policies before publishing."
+  }
+}

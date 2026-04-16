@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "laravel",
+    "generated_at": "2026-04-16T20:23:19.326Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Laravel for Laravel",
+    "description": "How Laravel fits into real Laravel workflows.",
+    "keywords": [
+      "laravel",
+      "tool-page",
+      "Laravel",
+      "Livewire",
+      "Inertia.js"
+    ],
+    "slug": "laravel-tool-page-laravel-for-laravel"
+  },
+  "content": {
+    "headline": "Laravel Deployment Method Selector",
+    "description": "Analyzes project requirements to recommend the optimal deployment method (Forge, Vapor, or self-hosted).",
+    "tool_type": "analyzer",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Recommended Deployment Method"
+      }
+    },
+    "inputs": [
+      {
+        "name": "project_size",
+        "label": "Project Size",
+        "type": "select",
+        "options": [
+          "small",
+          "medium",
+          "large"
+        ],
+        "required": true
+      },
+      {
+        "name": "team_expertise",
+        "label": "Team Expertise",
+        "type": "select",
+        "options": [
+          "beginner",
+          "intermediate",
+          "advanced"
+        ],
+        "required": true
+      },
+      {
+        "name": "budget",
+        "label": "Budget Level",
+        "type": "select",
+        "options": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "required": true
+      },
+      {
+        "name": "scalability_needed",
+        "label": "Requires Horizontal Scaling?",
+        "type": "checkbox",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Small project with intermediate team",
+        "input": {
+          "project_size": "small",
+          "team_expertise": "intermediate",
+          "budget": "medium",
+          "scalability_needed": false
+        },
+        "expected_output": "Recommended deployment: Laravel Forge"
+      },
+      {
+        "label": "Large enterprise project",
+        "input": {
+          "project_size": "large",
+          "team_expertise": "advanced",
+          "budget": "high",
+          "scalability_needed": true
+        },
+        "expected_output": "Recommended deployment: Self-hosted with Laravel Vapor"
+      }
+    ],
+    "how_it_works": "Evaluates project size, team expertise, budget constraints, and scaling requirements against standard deployment scenarios. Recommends Laravel Forge for small/medium projects with moderate complexity, Laravel Vapor for scalable enterprise needs, and self-hosting for custom infrastructure requirements.",
+    "related_tools": [
+      "Laravel Forge",
+      "Laravel Vapor",
+      "Docker"
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "nuxt",
+    "generated_at": "2026-04-16T20:20:46.333Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Building Nuxt 3 server routes and API layers with Vercel...",
+    "description": "A step-by-step implementation guide for Nuxt 3 server routes and API layers with Vercel and Netlify.",
+    "keywords": [
+      "nuxt",
+      "guide",
+      "Vercel",
+      "Netlify",
+      "Pinia"
+    ],
+    "slug": "nuxt-guide-building-nuxt-3-server-routes-and-api-layers-with-vercel"
+  },
+  "content": {
+    "intro": "This guide provides a step-by-step implementation strategy for building a performant Nuxt 3 application with server-side rendering, state management, and AI integration, addressing common pain points for European Vue.js teams.",
+    "estimated_time": "2-3 hours",
+    "prerequisites": [
+      "Node.js 18+ with npm/yarn",
+      "Nuxt 3 project setup",
+      "Pinia state management installation",
+      "Vercel/Netlify account"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Configure SSR and API Routes",
+        "explanation": "Set up server-side rendering and create API routes in /server/api. Use useAsyncData for data fetching and ensure proper SSR hydration.",
+        "code": {
+          "language": "typescript",
+          "content": "export default defineNuxtConfig({\n  ssr: true,\n  modules: ['@nuxtjs/tailwindcss'],\n  devtools: { enabled: true }\n})",
+          "filename": "nuxt.config.ts"
+        },
+        "pitfalls": [
+          "Forgetting to set ssr: true for SSR-optimized routes",
+          "Not handling loading states in useAsyncData"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Implement Pinia with Server-Side State",
+        "explanation": "Create a Pinia store with server-side data persistence. Use $fetch for API calls and ensure state hydration between client and server.",
+        "code": {
+          "language": "typescript",
+          "content": "import { defineStore } from 'pinia';\n\nexport const useAppStore = defineStore('app', {\n  state: () => ({\n    config: null as any,\n    loading: false\n  }),\n  actions: {\n    async fetchConfig() {\n      this.loading = true;\n      this.config = await $fetch('/api/config');\n      this.loading = false;\n    }\n  }\n});",
+          "filename": "stores/app.ts"
+        },
+        "pitfalls": [
+          "Storing sensitive data in client-side stores",
+          "Not using $fetch for server-side API calls"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Integrate AI Features with Edge Functions",
+        "explanation": "Create edge functions for AI processing. Use Nuxt 3's server routes with AI SDKs and ensure proper environment variable management.",
+        "code": {
+          "language": "typescript",
+          "content": "import { defineEventHandler } from 'h3';\nimport OpenAI from 'openai';\n\nconst openai = new OpenAI({\n  apiKey: process.env.AI_API_KEY\n});\n\nexport default defineEventHandler(async (event) => {\n  const { prompt } = await readBody(event);\n  const response = await openai.chat.completions.create({\n    model: 'gpt-3.5-turbo',\n    messages: [{ role: 'user', content: prompt }]\n  });\n  return response.choices[0].message;\n});",
+          "filename": "server/api/ai.ts"
+        },
+        "pitfalls": [
+          "Exposing AI API keys in client-side code",
+          "Not setting up proper CORS for edge functions"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Optimize Bundle Size",
+        "explanation": "Implement code splitting with Nuxt's auto-imports and use tree-shaking for AI SDKs. Analyze bundles with webpack-bundle-analyzer.",
+        "code": {
+          "language": "typescript",
+          "content": "export default defineNuxtConfig({\n  imports: {\n    dirs: ['stores', 'composables']\n  },\n  build: {\n    analyze: true\n  }\n})",
+          "filename": "nuxt.config.ts"
+        },
+        "pitfalls": [
+          "Including full AI SDK bundles in client-side code",
+          "Missing tree-shaking configuration"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Deploy with Vercel Edge",
+        "explanation": "Configure Vercel for edge deployment. Set environment variables and optimize build settings for Nuxt 3 SSR.",
+        "code": {
+          "language": "json",
+          "content": "{\n  \"name\": \"nuxt-app\",\n  \"version\": \"1.0.0\",\n  \"scripts\": {\n    \"dev\": \"nuxt dev\",\n    \"build\": \"nuxt build\",\n    \"start\": \"nuxt start\"\n  },\n  \"vercel\": {\n    \"builds\": [\n      {\n        \"src\": \"./\",\n        \"use\": \"@vercel/nuxt\"\n      }\n    ],\n    \"env\": {\n      \"AI_API_KEY\": \"your-key\"\n    }\n  }\n}",
+          "filename": "package.json"
+        },
+        "pitfalls": [
+          "Incorrect Vercel build configuration",
+          "Missing environment variables in production"
+        ]
+      }
+    ],
+    "conclusion": "By following these steps, developers can create scalable Nuxt 3 applications with optimized SSR, proper state management, and secure AI integration. Validate each stage with performance audits and ensure environment variables are properly managed for production deployment."
+  }
+}

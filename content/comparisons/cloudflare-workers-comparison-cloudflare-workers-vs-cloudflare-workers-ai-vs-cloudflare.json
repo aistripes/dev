@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "cloudflare-workers",
+    "generated_at": "2026-04-16T20:24:45.937Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Cloudflare Workers vs Cloudflare Workers AI vs Cloudflare...",
+    "description": "A practical comparison of Cloudflare Workers, Cloudflare Workers AI, and Cloudflare AI Gateway for Cloudflare Workers.",
+    "keywords": [
+      "cloudflare-workers",
+      "cloudflare workers",
+      "comparison",
+      "Cloudflare Workers",
+      "Cloudflare Workers AI",
+      "Cloudflare AI Gateway"
+    ],
+    "slug": "cloudflare-workers-comparison-cloudflare-workers-vs-cloudflare-workers-ai-vs-cloudflare"
+  },
+  "content": {
+    "intro": "Compare Cloudflare Workers, Durable Objects, and Pages Functions for edge-native application architecture. Evaluate trade-offs in implementation, scalability, and cost for API, SaaS, and AI workloads.",
+    "options": [
+      {
+        "name": "Cloudflare Workers",
+        "tagline": "Edge computing runtime for HTTP request handling and API proxies",
+        "url": "https://developers.cloudflare.com/workers/",
+        "best_for": "Low-latency API routing, request transformation, and edge-side computation"
+      },
+      {
+        "name": "Durable Objects",
+        "tagline": "Stateful object storage with distributed consistency",
+        "url": "https://developers.cloudflare.com/durable-objects/",
+        "best_for": "Coordination, rate limiting, and persistent state management"
+      },
+      {
+        "name": "Pages Functions",
+        "tagline": "Serverless functions for static site backends",
+        "url": "https://developers.cloudflare.com/pages/functions/",
+        "best_for": "Simple API endpoints with minimal infrastructure overhead"
+      }
+    ],
+    "criteria": [
+      {
+        "name": "Implementation Complexity",
+        "description": "Effort required to implement and debug logic",
+        "values": {
+          "Cloudflare Workers": "Medium (event-driven model with JS/WASM)",
+          "Durable Objects": "High (distributed state management)",
+          "Pages Functions": "Low (standard serverless pattern)"
+        }
+      },
+      {
+        "name": "Lock-in Risk",
+        "description": "Dependency on Cloudflare-specific APIs and patterns",
+        "values": {
+          "Cloudflare Workers": "Low (standard JS runtime)",
+          "Durable Objects": "High (proprietary state management)",
+          "Pages Functions": "Medium (Cloudflare-specific deployment)"
+        }
+      },
+      {
+        "name": "Cost Profile",
+        "description": "Billing model and cost predictability",
+        "values": {
+          "Cloudflare Workers": "Per-request + GB-second billing",
+          "Durable Objects": "Per-object storage + API calls",
+          "Pages Functions": "Per-request + GB-second billing"
+        }
+      },
+      {
+        "name": "Reliability",
+        "description": "Uptime guarantees and error handling capabilities",
+        "values": {
+          "Cloudflare Workers": "High (global edge network)",
+          "Durable Objects": "Very High (distributed consensus)",
+          "Pages Functions": "High (managed service)"
+        }
+      },
+      {
+        "name": "Latency Handling",
+        "description": "Performance for cold starts and external dependencies",
+        "values": {
+          "Cloudflare Workers": "Low (edge proximity)",
+          "Durable Objects": "Medium (network latency for state)",
+          "Pages Functions": "High (cold starts on first request)"
+        }
+      },
+      {
+        "name": "Secret Management",
+        "description": "Integration with secure credential storage",
+        "values": {
+          "Cloudflare Workers": "KV/Secrets API integration",
+          "Durable Objects": "KV/Secrets API integration",
+          "Pages Functions": "Cloudflare Secrets API"
+        }
+      },
+      {
+        "name": "AI Integration",
+        "description": "Support for AI model inference and orchestration",
+        "values": {
+          "Cloudflare Workers": "Workers AI with model routing",
+          "Durable Objects": "Limited (stateful coordination)",
+          "Pages Functions": "Limited (no native AI support)"
+        }
+      },
+      {
+        "name": "Scalability",
+        "description": "Handling of concurrent requests and state",
+        "values": {
+          "Cloudflare Workers": "High (distributed execution)",
+          "Durable Objects": "Very High (partitioned storage)",
+          "Pages Functions": "High (auto-scaling)"
+        }
+      }
+    ],
+    "verdict": {
+      "summary": "Workers excel at low-latency API manipulation, Durable Objects provide reliable state management, and Pages Functions offer simple serverless endpoints. Choose Workers for edge compute, Durable Objects for coordination, and Pages Functions for static site APIs.",
+      "use_cases": [
+        {
+          "scenario": "Building a globally distributed API gateway",
+          "recommendation": "Cloudflare Workers",
+          "reason": "Leverages edge network for low-latency request routing and transformation"
+        },
+        {
+          "scenario": "Implementing rate limiting with shared state",
+          "recommendation": "Durable Objects",
+          "reason": "Provides consistent state management across distributed edges"
+        },
+        {
+          "scenario": "Creating simple backend APIs for static sites",
+          "recommendation": "Pages Functions",
+          "reason": "Minimal setup with direct integration to site deployment"
+        },
+        {
+          "scenario": "Running AI inference with retries",
+          "recommendation": "Workers AI with Queues",
+          "reason": "Combines edge execution with reliable async processing"
+        }
+      ]
+    }
+  }
+}

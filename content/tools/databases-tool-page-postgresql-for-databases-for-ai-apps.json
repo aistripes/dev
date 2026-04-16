@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "databases",
+    "generated_at": "2026-04-16T20:23:49.561Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "PostgreSQL for Databases for AI Apps",
+    "description": "How PostgreSQL fits into real Databases for AI Apps workflows.",
+    "keywords": [
+      "databases",
+      "databases for ai apps",
+      "tool-page",
+      "PostgreSQL",
+      "pgvector",
+      "Supabase"
+    ],
+    "slug": "databases-tool-page-postgresql-for-databases-for-ai-apps"
+  },
+  "content": {
+    "headline": "Vector Database Schema Generator",
+    "description": "Generates optimized database schema snippets for AI workloads, focusing on embedding storage, conversation history, and metadata with explicit support for pgvector, Redis, or MongoDB",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated SQL/DSL code"
+      }
+    },
+    "inputs": [
+      {
+        "name": "database_type",
+        "label": "Database Type",
+        "type": "select",
+        "options": [
+          "PostgreSQL",
+          "MongoDB",
+          "Redis",
+          "DynamoDB"
+        ],
+        "required": true
+      },
+      {
+        "name": "embedding_dim",
+        "label": "Embedding Dimension",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "vector_search",
+        "label": "Enable Vector Search",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "conversation_history",
+        "label": "Store Conversation History",
+        "type": "checkbox",
+        "required": false
+      },
+      {
+        "name": "metadata_fields",
+        "label": "Metadata Fields (comma-separated)",
+        "type": "textarea",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "PostgreSQL with embeddings",
+        "input": {
+          "database_type": "PostgreSQL",
+          "embedding_dim": "768",
+          "vector_search": true,
+          "conversation_history": true,
+          "metadata_fields": "user_id,timestamp"
+        },
+        "expected_output": "CREATE TABLE embeddings (id UUID PRIMARY KEY, vector VECTOR(768), metadata JSONB, created_at TIMESTAMP); CREATE INDEX idx_vector ON embeddings USING ivfflat (vector);"
+      },
+      {
+        "label": "Redis with metadata",
+        "input": {
+          "database_type": "Redis",
+          "embedding_dim": "128",
+          "vector_search": false,
+          "conversation_history": false,
+          "metadata_fields": "session_id,device_type"
+        },
+        "expected_output": "SET embeddings:123 {\"metadata\": {\"session_id\": \"abc\", \"device_type\": \"mobile\"}}"
+      }
+    ],
+    "how_it_works": "Analyzes database type, embedding dimensions, and storage requirements to generate tailored schema definitions with appropriate indexing strategies and data modeling patterns for AI workloads",
+    "related_tools": [
+      "pgvector",
+      "Supabase",
+      "Drizzle"
+    ]
+  }
+}

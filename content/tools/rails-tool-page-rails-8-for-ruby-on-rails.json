@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "rails",
+    "generated_at": "2026-04-16T20:23:54.894Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Rails 8 for Ruby on Rails",
+    "description": "How Rails 8 fits into real Ruby on Rails workflows.",
+    "keywords": [
+      "rails",
+      "ruby on rails",
+      "tool-page",
+      "Rails 8",
+      "Hotwire",
+      "Turbo"
+    ],
+    "slug": "rails-tool-page-rails-8-for-ruby-on-rails"
+  },
+  "content": {
+    "headline": "Rails Turbo Stream Generator",
+    "description": "Generates Turbo Stream XML templates for real-time DOM updates in Rails applications",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated Turbo Stream XML"
+      }
+    },
+    "inputs": [
+      {
+        "name": "component_name",
+        "label": "Component Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "action",
+        "label": "Action Type",
+        "type": "select",
+        "options": [
+          "update",
+          "replace",
+          "remove",
+          "prepend",
+          "append"
+        ],
+        "required": true
+      },
+      {
+        "name": "selector",
+        "label": "DOM Selector",
+        "type": "text",
+        "placeholder": "e.g. #item-123",
+        "required": true
+      }
+    ],
+    "examples": [
+      {
+        "label": "Update item partial",
+        "input": {
+          "component_name": "item",
+          "action": "update",
+          "selector": "#item-456"
+        },
+        "expected_output": "<turbo-stream action=\"update\" target=\"item-456\"><template><div id=\"item-456\">Updated content</div></template></turbo-stream>"
+      },
+      {
+        "label": "Append new comment",
+        "input": {
+          "component_name": "comment",
+          "action": "append",
+          "selector": "#comments"
+        },
+        "expected_output": "<turbo-stream action=\"append\" target=\"comments\"><template><div id=\"comment-789\">New comment</div></template></turbo-stream>"
+      }
+    ],
+    "how_it_works": "Inputs define the DOM element and update method. The tool generates valid Turbo Stream XML that Rails can process via Hotwire. Use in controller responses to update specific page elements without full reloads.",
+    "related_tools": [
+      "Rails Hotwire Documentation",
+      "Turbo.js API Reference",
+      "Stimulus Controller Generator"
+    ]
+  }
+}

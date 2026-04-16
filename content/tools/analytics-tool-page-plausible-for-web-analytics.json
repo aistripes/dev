@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "analytics",
+    "generated_at": "2026-04-16T20:23:06.601Z",
+    "schema_version": "1.0"
+  },
+  "seo": {
+    "title": "Plausible for Web Analytics",
+    "description": "How Plausible fits into real Web Analytics workflows.",
+    "keywords": [
+      "analytics",
+      "web analytics",
+      "tool-page",
+      "Plausible",
+      "Fathom",
+      "Umami"
+    ],
+    "slug": "analytics-tool-page-plausible-for-web-analytics"
+  },
+  "content": {
+    "headline": "Privacy-First Tracking Code Generator",
+    "description": "Generates minimal tracking code snippets for analytics tools that avoid cookies and comply with GDPR/CCPA regulations.",
+    "tool_type": "generator",
+    "delivery": {
+      "mode": "run",
+      "runner": "client",
+      "output": {
+        "type": "text",
+        "label": "Generated tracking code"
+      }
+    },
+    "inputs": [
+      {
+        "name": "tool",
+        "label": "Analytics Tool",
+        "type": "select",
+        "options": [
+          "Plausible",
+          "Fathom",
+          "PostHog",
+          "Simple Analytics",
+          "Pirsch"
+        ],
+        "required": false
+      },
+      {
+        "name": "event_type",
+        "label": "Event Type",
+        "type": "text",
+        "placeholder": "e.g. 'button_click', 'form_submission'",
+        "required": false
+      },
+      {
+        "name": "is_custom",
+        "label": "Custom Event",
+        "type": "checkbox",
+        "required": false
+      }
+    ],
+    "examples": [
+      {
+        "label": "Generate Plausible page view code",
+        "input": {
+          "tool": "Plausible",
+          "event_type": "page_view",
+          "is_custom": false
+        },
+        "expected_output": "<!-- Plausible Analytics -->\n<script>document.addEventListener('DOMContentLoaded', function () {\n  fetch('https://plausible.io/api/event', {\n    method: 'POST',\n    headers: {'Content-Type': 'application/json'},\n    body: JSON.stringify({\n      domain: 'yourdomain.com',\n      url: window.location.href,\n      referrer: document.referrer\n    })\n  });\n});</script>"
+      },
+      {
+        "label": "Generate PostHog custom event",
+        "input": {
+          "tool": "PostHog",
+          "event_type": "ai_interaction",
+          "is_custom": true
+        },
+        "expected_output": "<!-- PostHog Custom Event -->\n<script>\n  posthog.identify('user_id');\n  posthog.capture('ai_interaction', {\n    feature: 'chatbot',\n    duration: 12.5\n  });\n</script>"
+      }
+    ],
+    "how_it_works": "Select your analytics tool and event type. The generator creates minimal code that tracks user interactions without cookies, using each tool's API-based tracking method. Custom events include parameters for AI features like chatbots or recommendation engines.",
+    "related_tools": [
+      "PostHog",
+      "Plausible",
+      "Fathom",
+      "Matomo"
+    ]
+  }
+}

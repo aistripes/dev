@@ -1,0 +1,52 @@
+{
+  "slug": "cloudflare-workers",
+  "name": "Cloudflare Workers",
+  "category": "infrastructure",
+  "context": {
+    "audience": "Web platform engineers shipping APIs on the edge, startup developers building globally distributed SaaS backends, and AI developers running inference and orchestration in Cloudflare's runtime",
+    "pain_points": [
+      "Adapting Node.js-centric codebases to Workers runtime constraints",
+      "Choosing between Workers, Pages Functions, and Durable Objects for stateful logic",
+      "Managing cold path latency when combining Workers with external APIs and databases",
+      "Securing and rotating secrets across environments without leaking credentials",
+      "Designing reliable AI inference flows with Workers AI, queues, and retries"
+    ],
+    "monetization": [
+      "Edge-native SaaS products",
+      "Developer tooling and infrastructure consulting",
+      "Managed API and webhook platforms",
+      "AI feature subscriptions"
+    ],
+    "tools_and_stack": [
+      "Cloudflare Workers",
+      "Cloudflare Workers AI",
+      "Cloudflare AI Gateway",
+      "Durable Objects",
+      "R2",
+      "D1",
+      "Queues",
+      "KV",
+      "Wrangler",
+      "Miniflare"
+    ],
+    "content_that_works": [
+      "Step-by-step Workers architecture guides",
+      "Workers AI model and routing comparisons",
+      "Durable Objects and queues implementation tutorials",
+      "Cloudflare cost optimization checklists"
+    ],
+    "subtopics": [
+      "Workers API and route design patterns",
+      "Workers AI structured output workflows",
+      "Durable Objects for coordination and rate limiting",
+      "Queues-based async processing pipelines",
+      "Observability and incident response on Cloudflare"
+    ],
+    "adjacent_niches": [
+      "edge-deployment",
+      "structured-output",
+      "nextjs",
+      "cost-optimization"
+    ]
+  }
+}
