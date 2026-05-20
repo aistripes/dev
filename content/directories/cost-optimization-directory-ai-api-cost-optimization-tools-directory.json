@@ -25,7 +25,8 @@
           "Model Proxy",
           "Model Provider",
           "Self-Hosting",
-          "Caching"
+          "Caching",
+          "Resource Utilization"
         ]
       },
       {
@@ -248,6 +249,27 @@
           "local-llm",
           "privacy",
           "development"
+        ]
+      },
+      {
+        "name": "Quotaflow",
+        "description": "A token and API resource utilization platform that helps AI teams reduce wasted subscribed quota by improving turnover across controlled internal pools.",
+        "url": "https://quotaflow.ai",
+        "category": "Resource Utilization",
+        "pricing_model": "paid",
+        "pros": [
+          "Focuses on improving quota and token utilization rather than only monitoring spend",
+          "Helps teams reduce idle AI capacity in controlled internal workflows",
+          "Useful for teams coordinating shared AI resources and overflow capacity"
+        ],
+        "cons": [
+          "Best fit for teams with recurring AI quota or token capacity to manage",
+          "Not a drop-in LLM gateway or request-level observability tool"
+        ],
+        "tags": [
+          "quota-utilization",
+          "token-efficiency",
+          "ai-operations"
         ]
       }
     ]
