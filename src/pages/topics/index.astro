@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllContentWithPaths } from '../../lib/content';
+import { getAllNiches } from '../../lib/taxonomy';
+
+const content = getAllContentWithPaths();
+const niches = getAllNiches();
+const categoryNames: Record<string, string> = {
+  frameworks: 'Frameworks',
+  'ai-patterns': 'AI patterns',
+  infrastructure: 'Infrastructure & operations',
+  verticals: 'Products & use cases',
+  'seo-content': 'SEO & content strategy',
+};
+const categories = Object.entries(categoryNames).map(([slug, name]) => ({
+  slug,
+  name,
+  niches: niches.filter((niche) => niche.category === slug),
+}));
+---
+
+<Base title="AI Development Topics" description="Explore practical AI development guides, tools, checklists, comparisons, and resources organized by technology and use case.">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="max-w-3xl mb-12">
+      <p class="text-sm font-semibold uppercase tracking-wide text-blue-600 mb-2">Topic library</p>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">AI development topics</h1>
+      <p class="text-lg text-gray-600">Find every guide, checklist, comparison, tool, and directory for the technologies and problems you work with.</p>
+    </header>
+    <div class="space-y-12">
+      {categories.map(({ name, niches: categoryNiches }) => (
+        <section>
+          <h2 class="text-2xl font-bold text-gray-900 mb-5">{name}</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {categoryNiches.map((niche) => {
+              const count = content.filter(({ content: item }) => item.meta.niche === niche.slug).length;
+              return (
+                <a href={`/topics/${niche.slug}/`} class="block rounded-xl border border-gray-200 p-5 hover:border-blue-300 hover:shadow-sm transition-all">
+                  <h3 class="font-semibold text-gray-900 mb-1">{niche.name}</h3>
+                  <p class="text-sm text-gray-500">{count} {count === 1 ? 'resource' : 'resources'}</p>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</Base>

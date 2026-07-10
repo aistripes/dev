@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllContentWithPaths } from '../../lib/content';
+import { getAllNiches } from '../../lib/taxonomy';
+
+export function getStaticPaths() {
+  return getAllNiches().map((niche) => ({ params: { slug: niche.slug }, props: { niche } }));
+}
+
+const { niche } = Astro.props;
+const allNiches = getAllNiches();
+const items = getAllContentWithPaths().filter(({ content }) => content.meta.niche === niche.slug);
+const related = niche.context.adjacent_niches
+  .map((slug: string) => allNiches.find((candidate) => candidate.slug === slug))
+  .filter(Boolean);
+const labels: Record<string, string> = {
+  resources: 'Resources', checklists: 'Checklists', comparisons: 'Comparisons', guides: 'Guides', tools: 'Tools', directories: 'Directories',
+};
+const sections = Object.entries(labels)
+  .map(([prefix, label]) => ({ prefix, label, items: items.filter((item) => item.urlPrefix === prefix) }))
+  .filter((section) => section.items.length > 0);
+
+const searchIntents: Record<string, { title: string; heading: string; description: string }> = {
+  'self-hosting': {
+    title: 'Self-Hosted AI & LLM Guides, Tools and Comparisons',
+    heading: 'Self-hosted AI and LLM resources',
+    description: 'Practical self-hosted AI and LLM guides, deployment checklists, open-source tools, privacy patterns, and infrastructure comparisons.',
+  },
+  agents: {
+    title: 'AI Agent Frameworks, Guides and Comparisons',
+    heading: 'AI agent frameworks, guides, and tools',
+    description: 'Compare AI agent frameworks and learn production patterns for tool calling, orchestration, observability, safety, and cost control.',
+  },
+  embeddings: {
+    title: 'Vector Database Comparisons & Embeddings Guides',
+    heading: 'Vector database comparisons and embeddings guides',
+    description: 'Compare vector databases and learn practical embeddings, semantic search, indexing, retrieval, and production deployment patterns.',
+  },
+  devtools: {
+    title: 'Open-Source AI Tools for Developers',
+    heading: 'Open-source AI tools for developers',
+    description: 'Discover open-source AI developer tools, implementation guides, comparisons, checklists, and practical production workflows.',
+  },
+  'cost-optimization': {
+    title: 'LLM API Pricing, Cost Calculators & Optimization',
+    heading: 'LLM API pricing and cost optimization',
+    description: 'Compare LLM API pricing, estimate usage costs, and learn practical techniques for reducing model, token, caching, and infrastructure spend.',
+  },
+  rag: {
+    title: 'RAG Pipeline Architecture, Tutorials & Tools',
+    heading: 'RAG pipeline architecture and implementation',
+    description: 'Build production RAG pipelines with practical architecture guides, retrieval checklists, vector search comparisons, evaluation patterns, and tools.',
+  },
+  monitoring: {
+    title: 'LLM Observability & Monitoring Guides',
+    heading: 'LLM observability and monitoring',
+    description: 'Monitor production LLM applications with practical guidance on tracing, evaluation, costs, latency, errors, alerts, and observability tools.',
+  },
+  'programmatic-seo': {
+    title: 'Programmatic SEO Guides, Tools & Checklists',
+    heading: 'Programmatic SEO guides and tools',
+    description: 'Build schema-driven programmatic SEO systems with practical architecture guides, validation checklists, scalable templates, and technical tools.',
+  },
+  'technical-seo': {
+    title: 'Technical SEO Checklists, Tools & Guides',
+    heading: 'Technical SEO checklists and tools',
+    description: 'Audit and improve crawlability, indexing, structured data, rendering, performance, and metadata with practical technical SEO resources.',
+  },
+  'gdpr-compliance': {
+    title: 'GDPR Compliance Checklists & Developer Guides',
+    heading: 'GDPR compliance checklists for developers',
+    description: 'Implement GDPR-compliant applications with practical developer checklists, privacy tooling comparisons, consent guidance, and architecture patterns.',
+  },
+};
+const intent = searchIntents[niche.slug];
+const pageTitle = intent?.title ?? `${niche.name} Guides, Tools & Resources`;
+const pageHeading = intent?.heading ?? `${niche.name} guides, tools, and resources`;
+const pageDescription = intent?.description ?? `Practical ${niche.name} guides, tools, checklists, comparisons, and curated resources for ${niche.context.audience.toLowerCase()}.`;
+---
+
+<Base title={pageTitle} description={pageDescription} keywords={[niche.name, ...niche.context.subtopics]}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <nav aria-label="Breadcrumb" class="text-sm text-gray-500 mb-7"><a href="/topics/" class="hover:text-blue-600">Topics</a> <span aria-hidden="true">/</span> <span>{niche.name}</span></nav>
+    <header class="max-w-3xl mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{pageHeading}</h1>
+      <p class="text-lg text-gray-600 leading-relaxed">{pageDescription}</p>
+    </header>
+    <div class="space-y-12">
+      {sections.map((section) => (
+        <section>
+          <div class="flex items-baseline justify-between mb-5"><h2 class="text-2xl font-bold text-gray-900">{section.label}</h2><span class="text-sm text-gray-500">{section.items.length} items</span></div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {section.items.map(({ content, urlPrefix, slug }) => (
+              <a href={`/${urlPrefix}/${slug}/`} class="block rounded-xl border border-gray-200 p-5 hover:border-blue-300 hover:shadow-sm transition-all">
+                <h3 class="font-semibold text-gray-900 mb-2">{content.seo.title}</h3>
+                <p class="text-sm text-gray-500 line-clamp-2">{content.seo.description}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+    {related.length > 0 && (
+      <aside class="mt-14 pt-8 border-t border-gray-200">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Related topics</h2>
+        <div class="flex flex-wrap gap-2">{related.map((item: any) => <a href={`/topics/${item.slug}/`} class="px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-sm hover:bg-blue-100">{item.name}</a>)}</div>
+      </aside>
+    )}
+  </div>
+</Base>

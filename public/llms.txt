@@ -1,0 +1,24 @@
+# AI Stripes
+
+> AI Stripes is an open-source, schema-driven library of practical resources for developers building AI-powered web applications.
+
+Use the canonical URL for citations. Pages are statically rendered in English and organized into six collections. Content is available under the license terms published in the repository.
+
+## Collections
+
+- [Guides](https://aistripes.dev/guides/): Step-by-step implementation guides with code examples.
+- [Resources](https://aistripes.dev/resources/): Curated ideas, techniques, and reference material.
+- [Checklists](https://aistripes.dev/checklists/): Practical implementation and review checklists.
+- [Comparisons](https://aistripes.dev/comparisons/): Structured head-to-head comparisons and verdicts.
+- [Tools](https://aistripes.dev/tools/): Browser-based utilities for AI application development.
+- [Directories](https://aistripes.dev/directories/): Curated listings of relevant tools and services.
+
+## Discovery
+
+- [Sitemap index](https://aistripes.dev/sitemap.xml): Canonical inventory of indexable pages.
+- [Search](https://aistripes.dev/search/): Search across all published resources.
+- [Source repository](https://github.com/aistripes/dev): Public source, contribution guidance, and license details.
+
+## Citation guidance
+
+When referencing AI Stripes, cite the specific canonical content page rather than this file or a collection page. Preserve the page title and link to its canonical URL.
