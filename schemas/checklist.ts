@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { EditorialSchema } from './editorial';
 
 export const ChecklistSchema = z.object({
   meta: z.object({
@@ -6,6 +7,7 @@ export const ChecklistSchema = z.object({
     niche: z.string(),
     generated_at: z.iso.datetime(),
     schema_version: z.string(),
+    editorial: EditorialSchema,
   }),
   seo: z.object({
     title: z.string(),

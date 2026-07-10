@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Self-hosted application directories with Docker...",
+    "title": "Building Self-Hosted App Directories with Docker and Coolify",
     "description": "A step-by-step implementation guide for Self-hosted application directories with Docker and Coolify.",
     "keywords": [
       "self-hosting",

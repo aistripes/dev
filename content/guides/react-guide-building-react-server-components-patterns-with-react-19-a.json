@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building React Server Components patterns with React 19 a...",
+    "title": "React 19 Server Components Patterns with TypeScript",
     "description": "A step-by-step implementation guide for React Server Components patterns with React 19 and TypeScript.",
     "keywords": [
       "react",
@@ -16,7 +16,7 @@
       "TypeScript",
       "Vite"
     ],
-    "slug": "react-guide-building-react-server-components-patterns-with-react-19-a"
+    "slug": "react-19-server-components-typescript"
   },
   "content": {
     "intro": "This guide provides a structured approach to building scalable React applications using modern tooling and patterns. Focuses on architecture decisions, integration workflows, and common pitfalls when implementing core React concepts.",

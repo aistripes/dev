@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Hybrid search (keyword + vector) with Pinecone a...",
+    "title": "Hybrid Keyword and Vector Search with Pinecone and Weaviate",
     "description": "A step-by-step implementation guide for Hybrid search (keyword + vector) with Pinecone and Weaviate.",
     "keywords": [
       "rag",
@@ -16,7 +16,7 @@
       "Weaviate",
       "Qdrant"
     ],
-    "slug": "rag-guide-building-hybrid-search-keyword-vector-with-pinecone-a"
+    "slug": "hybrid-search-keyword-vector-pinecone-weaviate"
   },
   "content": {
     "intro": "This guide provides a structured approach to implementing RAG systems, focusing on production considerations for developers working with knowledge bases, enterprise data, and AI-powered search tools. Each step includes actionable implementation details and mitigation strategies for common challenges.",

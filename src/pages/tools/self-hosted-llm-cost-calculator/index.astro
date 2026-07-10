@@ -1,0 +1,16 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SelfHostedLlmCostCalculator from '../../../components/SelfHostedLlmCostCalculator';
+const canonical = 'https://aistripes.dev/tools/self-hosted-llm-cost-calculator/';
+const schema = { '@context':'https://schema.org', '@type':'SoftwareApplication', name:'Self-Hosted LLM Cost Calculator', applicationCategory:'DeveloperApplication', operatingSystem:'Web', url:canonical, offers:{'@type':'Offer',price:'0',priceCurrency:'USD'}, description:'Compare user-supplied self-hosting costs with separate API input, output, and cached-token rates.' };
+---
+<Base title="Self-Hosted LLM Cost Calculator" description="Compare fully loaded self-hosted LLM cost with separate API input, output, and cached-token rates. Free, private, client-side calculator." canonicalUrl={canonical} pageKind="content" contentType="tool-page" topic="self-hosting">
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <article class="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:py-16">
+    <nav aria-label="Breadcrumb" class="text-sm text-gray-500"><a href="/tools/" class="hover:text-blue-700">Tools</a> / <a href="/topics/self-hosting/" class="hover:text-blue-700">Self-hosting</a></nav>
+    <header class="mt-7 max-w-3xl"><p class="text-sm font-semibold uppercase tracking-wider text-blue-700">Free client-side tool</p><h1 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">Self-hosted LLM cost calculator</h1><p class="mt-5 text-xl leading-8 text-gray-600">Compare the fully loaded monthly cost of running inference yourself with API pricing for your exact input, output, and cached-token mix.</p></header>
+    <div class="mt-10"><SelfHostedLlmCostCalculator client:load /></div>
+    <section class="mt-12 grid gap-6 md:grid-cols-2"><div class="rounded-xl border p-6"><h2 class="text-xl font-bold">No embedded vendor prices</h2><p class="mt-3 leading-7 text-gray-700">Rates change by model, tier, cache state, region, and contract. Enter rates from a dated official price sheet or your invoice. Nothing is sent to a server.</p></div><div class="rounded-xl border p-6"><h2 class="text-xl font-bold">Interpret breakeven carefully</h2><p class="mt-3 leading-7 text-gray-700">The result is valid only if output quality and workload mix are comparable. Add monitoring, maintenance, idle capacity, support, and financing to the cost fields when they apply.</p></div></section>
+    <section class="mt-12 rounded-2xl bg-gray-950 p-7 text-gray-100"><h2 class="text-2xl font-bold">Need the deployment decision too?</h2><p class="mt-3 max-w-2xl leading-7 text-gray-300">The flagship guide covers hardware sizing, Ollama vs vLLM vs llama.cpp, production security, and the measurements to collect before trusting this comparison.</p><a href="/guides/self-hosted-llm/" class="mt-5 inline-block font-semibold text-blue-300 underline">Read the self-hosted LLM guide →</a></section>
+  </article>
+</Base>

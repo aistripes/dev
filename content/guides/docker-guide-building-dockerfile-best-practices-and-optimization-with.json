@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Dockerfile best practices and optimization with...",
+    "title": "Dockerfile Best Practices and Optimization",
     "description": "A step-by-step implementation guide for Dockerfile best practices and optimization with Docker and Docker Compose.",
     "keywords": [
       "docker",
@@ -16,7 +16,7 @@
       "Docker Compose",
       "Podman"
     ],
-    "slug": "docker-guide-building-dockerfile-best-practices-and-optimization-with"
+    "slug": "dockerfile-best-practices-optimization"
   },
   "content": {
     "intro": "This guide provides a structured approach to building secure, optimized Docker workflows for web applications. Focuses on practical implementation patterns for development, security, and CI/CD integration.",

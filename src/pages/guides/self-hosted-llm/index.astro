@@ -1,0 +1,196 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SelfHostedLlmCostCalculator from '../../../components/SelfHostedLlmCostCalculator';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+
+const canonical = 'https://aistripes.dev/guides/self-hosted-llm/';
+const updated = '2026-07-10';
+const faqs = [
+  ['Can I self-host an LLM?', 'Yes. Tools such as Ollama, llama.cpp, and vLLM can run openly licensed or otherwise downloadable models on hardware you control. The model license, memory requirement, throughput, and operational burden determine whether a particular setup is practical.'],
+  ['Do I need a GPU?', 'Not always. Quantized models can run on CPUs, but interactive latency and concurrency are usually better with suitable GPU acceleration. Measure your own workload before buying hardware.'],
+  ['Is self-hosting cheaper than an API?', 'Sometimes. It depends on utilization, hardware or rental cost, power, engineering time, and the API price you are replacing. Low or bursty traffic often favors APIs; steady, high utilization can favor owned or reserved capacity.'],
+  ['Which server should I use?', 'Ollama is a convenient local starting point, llama.cpp is a flexible choice for GGUF models and CPU or mixed hardware, and vLLM is designed for higher-throughput GPU serving. Validate the current hardware and model support in each project’s official documentation.'],
+  ['Is a local model automatically private?', 'No. Self-hosting removes one external inference provider, but prompts can still leak through logs, traces, backups, analytics, dependencies, or an exposed endpoint. Privacy requires explicit network, access, retention, and telemetry controls.'],
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'How to Self-Host an LLM: A Practical 2026 Guide',
+  description: 'An evidence-linked guide to choosing models, hardware and serving software for a self-hosted LLM, including security and breakeven methods.',
+  dateModified: updated,
+  datePublished: updated,
+  mainEntityOfPage: canonical,
+  author: { '@type': 'Organization', name: 'AI Stripes', url: 'https://aistripes.dev/' },
+  publisher: { '@id': 'https://aistripes.dev/#organization' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(([question, answer]) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer },
+  })),
+};
+---
+
+<Base
+  title="Self-Hosted LLM Guide: Models, Hardware, Costs & Deployment (2026)"
+  description="Choose and deploy a self-hosted LLM with an honest software matrix, hardware sizing method, security checklist, production metrics, and breakeven calculator."
+  keywords={['self hosted LLM', 'self hosted AI', 'Ollama vs vLLM', 'LLM hardware requirements', 'local LLM server']}
+  canonicalUrl={canonical}
+  pageKind="content"
+  contentType="flagship-guide"
+  topic="self-hosting"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <article class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:py-16">
+    <header class="max-w-4xl">
+      <Breadcrumbs class="mb-6 text-sm text-gray-500" items={[{ name: 'Guides', href: '/guides/' }, { name: 'Self-hosting', href: '/topics/self-hosting/' }, { name: 'Self-hosted LLM' }]} />
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-blue-700">Field guide · Reviewed July 10, 2026</p>
+      <h1 class="text-4xl font-bold tracking-tight text-gray-950 sm:text-6xl">How to self-host an LLM</h1>
+      <p class="mt-6 max-w-3xl text-xl leading-8 text-gray-600">A practical decision guide for choosing a model, sizing memory, exposing an API, and deciding whether operating it yourself is actually worth it.</p>
+      <div class="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-950">
+        <strong>Evidence policy:</strong> this page contains no fabricated performance numbers. Hardware capacity examples are estimates, not benchmarks. Commands are copyable starting points checked against the linked official documentation, but they were not executed on every hardware and model combination.
+      </div>
+    </header>
+
+    <div class="mt-12 grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)]">
+      <aside class="lg:sticky lg:top-20 lg:self-start">
+        <h2 class="text-sm font-semibold text-gray-900">On this page</h2>
+        <ol class="mt-3 space-y-2 text-sm text-gray-600">
+          <li><a href="#decision">1. Decide first</a></li><li><a href="#stack">2. Choose a server</a></li><li><a href="#hardware">3. Size hardware</a></li><li><a href="#deploy">4. Deploy</a></li><li><a href="#production">5. Production controls</a></li><li><a href="#metrics">6. Measure</a></li><li><a href="#cost">7. Calculate cost</a></li><li><a href="#faq">8. FAQs</a></li><li><a href="#sources">Sources</a></li>
+        </ol>
+      </aside>
+
+      <div class="min-w-0 space-y-16">
+        <section id="decision" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">1. Decide whether to self-host first</h2>
+          <p class="mt-4 text-lg leading-8 text-gray-700">Self-hosting is an infrastructure choice, not a privacy or savings guarantee. Start from workload constraints and compare the complete operating cost.</p>
+          <div class="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+            <table class="w-full min-w-[680px] text-left text-sm">
+              <thead class="bg-gray-50 text-gray-900"><tr><th class="p-4">Constraint</th><th class="p-4">Self-hosting is promising when…</th><th class="p-4">A managed API is promising when…</th></tr></thead>
+              <tbody class="divide-y divide-gray-200 text-gray-700">
+                <tr><th class="p-4 font-medium">Demand</th><td class="p-4">Traffic is steady and capacity stays usefully occupied.</td><td class="p-4">Traffic is low, uncertain, or highly bursty.</td></tr>
+                <tr><th class="p-4 font-medium">Control</th><td class="p-4">You need pinned weights, local inference, or deployment isolation.</td><td class="p-4">Provider controls and region choices satisfy requirements.</td></tr>
+                <tr><th class="p-4 font-medium">Capability</th><td class="p-4">A downloadable model passes your own quality evaluation.</td><td class="p-4">You need a capability available only through a hosted model.</td></tr>
+                <tr><th class="p-4 font-medium">Operations</th><td class="p-4">Your team can own patching, scaling, monitoring, and incidents.</td><td class="p-4">Engineering time is scarcer than inference spend.</td></tr>
+                <tr><th class="p-4 font-medium">Economics</th><td class="p-4">Measured utilization beats the full API-equivalent cost.</td><td class="p-4">Pay-per-use remains below fully loaded capacity cost.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-4 text-sm text-gray-600"><strong>Go/no-go gate:</strong> do not choose hardware until one candidate model passes a representative, versioned evaluation set. A cheap model that fails the task is not cheaper.</p>
+        </section>
+
+        <section id="stack" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">2. Ollama vs vLLM vs llama.cpp</h2>
+          <p class="mt-4 leading-7 text-gray-700">These projects overlap, but their useful defaults differ. Treat this as a routing guide—not a permanent feature scoreboard. Compatibility changes quickly; verify the linked docs before committing.</p>
+          <div class="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+            <table class="w-full min-w-[760px] text-left text-sm">
+              <thead class="bg-gray-50"><tr><th class="p-4">Project</th><th class="p-4">Good starting fit</th><th class="p-4">Model packaging</th><th class="p-4">API</th><th class="p-4">Check before choosing</th></tr></thead>
+              <tbody class="divide-y divide-gray-200 align-top text-gray-700">
+                <tr><th class="p-4"><a class="font-semibold text-blue-700" href="https://docs.ollama.com/" rel="noreferrer">Ollama ↗</a></th><td class="p-4">Local development and a low-friction single-node start.</td><td class="p-4">Ollama models and Modelfiles.</td><td class="p-4">Native API plus documented OpenAI compatibility.</td><td class="p-4">Supported hardware, model availability, concurrency behavior, and production controls.</td></tr>
+                <tr><th class="p-4"><a class="font-semibold text-blue-700" href="https://docs.vllm.ai/en/latest/serving/online_serving/openai_compatible_server/" rel="noreferrer">vLLM ↗</a></th><td class="p-4">Throughput-oriented serving on supported accelerators.</td><td class="p-4">Commonly Hugging Face model repositories.</td><td class="p-4">OpenAI-compatible HTTP server covering multiple APIs.</td><td class="p-4">GPU support, distributed setup, quantization compatibility, model chat template, and memory settings.</td></tr>
+                <tr><th class="p-4"><a class="font-semibold text-blue-700" href="https://github.com/ggml-org/llama.cpp" rel="noreferrer">llama.cpp ↗</a></th><td class="p-4">GGUF models, CPU inference, and mixed or resource-constrained hardware.</td><td class="p-4">GGUF.</td><td class="p-4"><code>llama-server</code> exposes an OpenAI-compatible server.</td><td class="p-4">Backend support, quantization quality, context memory, and platform-specific build options.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="hardware" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">3. Size memory before shopping for hardware</h2>
+          <p class="mt-4 leading-7 text-gray-700">A useful first-pass lower bound for model weights is <code>parameters × bits per weight ÷ 8</code>. It is not total runtime memory. Add headroom for quantization metadata, runtime buffers, KV cache, context length, batching, and the serving process.</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            <div class="rounded-xl border p-5"><h3 class="font-semibold">Laptop / CPU tier</h3><p class="mt-2 text-sm leading-6 text-gray-600">Useful for private experiments, evaluation-set creation, and small quantized models. Optimize for correctness first; measure latency locally.</p></div>
+            <div class="rounded-xl border p-5"><h3 class="font-semibold">Single-accelerator tier</h3><p class="mt-2 text-sm leading-6 text-gray-600">A practical service tier when the complete model plus runtime state fits one device. Avoid assuming advertised memory equals usable model capacity.</p></div>
+            <div class="rounded-xl border p-5"><h3 class="font-semibold">Multi-accelerator tier</h3><p class="mt-2 text-sm leading-6 text-gray-600">For models or concurrency beyond one device. Interconnect, parallelism, failure handling, and idle capacity become first-order costs.</p></div>
+          </div>
+          <div class="mt-6 rounded-xl bg-gray-950 p-6 text-gray-100">
+            <h3 class="text-lg font-semibold">Capacity worksheet—not a benchmark</h3>
+            <p class="mt-2 text-sm text-gray-300">Illustrative weight-only lower bounds: 8B at 4-bit ≈ 4 GB; 14B at 4-bit ≈ 7 GB; 32B at 4-bit ≈ 16 GB. Runtime memory will be higher. Use the exact model card and serving engine estimator, then load-test the intended context and concurrency.</p>
+          </div>
+          <p class="mt-4 text-sm text-gray-600">For a dated hardware reference, NVIDIA lists 24 GB of GDDR6X for the <a class="text-blue-700 underline" href="https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/" rel="noreferrer">GeForce RTX 4090</a>. This is a specification link, not a recommendation or throughput claim. Cloud GPUs, newer devices, and regional prices may produce a better result.</p>
+        </section>
+
+        <section id="deploy" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">4. Start locally, then preserve the API boundary</h2>
+          <p class="mt-4 leading-7 text-gray-700">The commands below are copyable starting points from official project patterns. Pin image and model versions for repeatable production deployments; floating tags are shown only to keep the examples readable.</p>
+          <h3 class="mt-7 text-xl font-semibold">Ollama with Docker</h3>
+          <pre class="mt-3 overflow-x-auto rounded-xl bg-gray-950 p-5 text-sm text-gray-100"><code>docker run -d \
+  -v ollama:/root/.ollama \
+  -p 127.0.0.1:11434:11434 \
+  --name ollama \
+  ollama/ollama
+
+# Choose a model from the official library, review its license, then:
+docker exec -it ollama ollama run &lt;model-name&gt;</code></pre>
+          <p class="mt-2 text-sm text-gray-600">Binding to <code>127.0.0.1</code> avoids exposing the service on every interface. See the official <a class="text-blue-700 underline" href="https://docs.ollama.com/docker" rel="noreferrer">Ollama Docker instructions</a> for GPU-specific options.</p>
+
+          <h3 class="mt-8 text-xl font-semibold">vLLM OpenAI-compatible server</h3>
+          <pre class="mt-3 overflow-x-auto rounded-xl bg-gray-950 p-5 text-sm text-gray-100"><code>vllm serve &lt;model-repository&gt; \
+  --api-key "$LLM_API_KEY" \
+  --generation-config vllm</code></pre>
+          <p class="mt-2 text-sm text-gray-600">The vLLM docs note that a model repository’s <code>generation_config.json</code> may otherwise override sampling defaults. Store the key in a secret manager, not source control.</p>
+
+          <h3 class="mt-8 text-xl font-semibold">llama.cpp server with a reviewed GGUF</h3>
+          <pre class="mt-3 overflow-x-auto rounded-xl bg-gray-950 p-5 text-sm text-gray-100"><code>llama-server \
+  -m /models/&lt;reviewed-model&gt;.gguf \
+  --host 127.0.0.1 \
+  --port 8080</code></pre>
+          <p class="mt-2 text-sm text-gray-600">Build and acceleration flags are platform-specific. Follow the current <a class="text-blue-700 underline" href="https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md" rel="noreferrer">official build guide</a>.</p>
+        </section>
+
+        <section id="production" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">5. Production controls the demo leaves out</h2>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            {[
+              ['Network boundary', 'Keep the inference port private. Put authenticated, rate-limited application infrastructure in front of it; restrict outbound access and administrative paths.'],
+              ['Identity and authorization', 'Use short-lived service identity where possible. Separate inference users from operators and rotate credentials without rebuilding images.'],
+              ['Model supply chain', 'Pin model revision, image digest, dependencies, tokenizer, and chat template. Review the model license and repository files before deployment.'],
+              ['Data handling', 'Define whether prompts, retrieved documents, outputs, and embeddings may be stored. Redact before telemetry and set explicit retention.'],
+              ['Abuse resistance', 'Set request-size, context, concurrency, and output limits. Validate tool calls outside the model and isolate executable tools.'],
+              ['Reliability', 'Use health checks, bounded queues, timeouts, overload responses, rollback, and a tested fallback. Do not let retries multiply an outage.'],
+            ].map(([title, text]) => <div class="rounded-xl border border-gray-200 p-5"><h3 class="font-semibold">{title}</h3><p class="mt-2 text-sm leading-6 text-gray-600">{text}</p></div>)}
+          </div>
+          <p class="mt-5 text-sm text-gray-600">Continue with the site’s <a class="text-blue-700 underline" href="/checklists/security-checklist-security-for-ai-apps-implementation-checklist/">AI application security checklist</a> and <a class="text-blue-700 underline" href="/checklists/privacy-checklist-privacy-first-architecture-implementation-checklist/">privacy architecture checklist</a>.</p>
+        </section>
+
+        <section id="metrics" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">6. Measure the service and the answer</h2>
+          <div class="mt-6 overflow-x-auto rounded-xl border border-gray-200"><table class="w-full min-w-[660px] text-left text-sm"><thead class="bg-gray-50"><tr><th class="p-4">Layer</th><th class="p-4">Measure</th><th class="p-4">Why</th></tr></thead><tbody class="divide-y divide-gray-200 text-gray-700"><tr><th class="p-4">User</th><td class="p-4">Task success, correction/abandonment, evaluated quality</td><td class="p-4">Fast wrong answers still fail.</td></tr><tr><th class="p-4">Request</th><td class="p-4">Time to first token, end-to-end latency, errors, queue time</td><td class="p-4">Separates responsiveness from total generation time.</td></tr><tr><th class="p-4">Inference</th><td class="p-4">Input/output tokens, output tokens per second, batch/concurrency, finish reason</td><td class="p-4">Explains capacity and cost changes.</td></tr><tr><th class="p-4">System</th><td class="p-4">Accelerator/CPU utilization, memory, temperature, power, restarts</td><td class="p-4">Finds saturation and instability.</td></tr><tr><th class="p-4">Version</th><td class="p-4">Model revision, quantization, engine, prompt, tokenizer, parameters</td><td class="p-4">Makes regressions reproducible.</td></tr></tbody></table></div>
+          <p class="mt-4 text-sm text-gray-600">Record distributions such as p50/p95 rather than a single average. Keep sensitive prompt/output content out of telemetry by default. See the <a class="text-blue-700 underline" href="/checklists/monitoring-checklist-monitoring-observability-implementation-checklist/">monitoring and observability checklist</a>.</p>
+        </section>
+
+        <section id="cost" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">7. Breakeven calculator</h2>
+          <p class="mt-4 leading-7 text-gray-700">Compare monthly fully loaded self-hosting cost with the API cost of the same measured workload. This calculator deliberately asks for your numbers; it does not hide speculative prices in the page.</p>
+          <div class="mt-6"><SelfHostedLlmCostCalculator client:load /></div>
+          <p class="mt-4 text-sm"><a class="font-semibold text-blue-700 underline" href="/tools/self-hosted-llm-cost-calculator/">Open and share the standalone calculator →</a></p>
+        </section>
+
+        <section id="faq" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">8. Frequently asked questions</h2>
+          <div class="mt-6 divide-y divide-gray-200 border-y border-gray-200">{faqs.map(([question, answer]) => <details class="py-5"><summary class="cursor-pointer font-semibold">{question}</summary><p class="mt-3 max-w-3xl leading-7 text-gray-700">{answer}</p></details>)}</div>
+        </section>
+
+        <section id="sources" class="scroll-mt-20">
+          <h2 class="text-3xl font-bold tracking-tight">Primary sources and review scope</h2>
+          <p class="mt-4 leading-7 text-gray-700">Technical claims were constrained to first-party project and hardware documentation reviewed July 10, 2026. Model-specific recommendations were intentionally omitted because model availability, licenses, and quality change faster than this guide can promise.</p>
+          <ul class="mt-5 list-disc space-y-3 pl-6 text-gray-700">
+            <li><a class="text-blue-700 underline" href="https://docs.ollama.com/" rel="noreferrer">Ollama documentation</a> and <a class="text-blue-700 underline" href="https://docs.ollama.com/docker" rel="noreferrer">Docker instructions</a></li>
+            <li><a class="text-blue-700 underline" href="https://docs.vllm.ai/en/latest/serving/online_serving/openai_compatible_server/" rel="noreferrer">vLLM OpenAI-compatible server documentation</a></li>
+            <li><a class="text-blue-700 underline" href="https://github.com/ggml-org/llama.cpp" rel="noreferrer">llama.cpp official repository</a> and <a class="text-blue-700 underline" href="https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md" rel="noreferrer">build documentation</a></li>
+            <li><a class="text-blue-700 underline" href="https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/" rel="noreferrer">NVIDIA GeForce RTX 4090 specifications</a></li>
+            <li><a class="text-blue-700 underline" href="https://docs.docker.com/engine/security/" rel="noreferrer">Docker Engine security documentation</a></li>
+          </ul>
+          <div class="mt-8 rounded-xl border border-gray-200 p-5"><h3 class="font-semibold">Continue exploring</h3><p class="mt-2 text-sm leading-6 text-gray-600"><a class="text-blue-700 underline" href="/topics/self-hosting/">Self-hosting topic hub</a> · <a class="text-blue-700 underline" href="/directories/self-hosting-directory-self-hosting-tools-directory/">Self-hosting tools directory</a> · <a class="text-blue-700 underline" href="/checklists/cost-optimization-checklist-ai-api-cost-optimization-implementation-checklist/">AI API cost checklist</a> · <a class="text-blue-700 underline" href="/directories/docker-directory-docker-containers-tools-directory/">Docker tools</a></p></div>
+        </section>
+      </div>
+    </div>
+  </article>
+
+</Base>

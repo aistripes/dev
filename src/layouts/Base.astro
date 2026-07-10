@@ -10,15 +10,19 @@ export interface Props {
   ogTitle?: string;
   canonicalUrl?: string;
   noindex?: boolean;
+  pageKind?: 'home' | 'collection' | 'content' | 'topic' | 'search' | 'other';
+  contentType?: string;
+  topic?: string;
 }
 
 const props = Astro.props;
+const { pageKind = 'other', contentType, topic } = props;
 ---
 
 <!doctype html>
 <html lang="en">
   <SEOHead {...props} />
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col" data-page-kind={pageKind} data-content-type={contentType} data-topic={topic}>
     <Navigation />
     <main class="flex-1">
       <slot />

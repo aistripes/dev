@@ -42,6 +42,22 @@ export function getSitemapEntries(site: URL, section: SitemapSection): SitemapEn
         loc: absoluteUrl(site, '/topics/'),
         lastmod: getLatestLastmod(allContent),
       },
+      {
+        loc: absoluteUrl(site, '/guides/llm-observability/'),
+        lastmod: '2026-07-10',
+      },
+      {
+        loc: absoluteUrl(site, '/guides/self-hosted-llm/'),
+        lastmod: '2026-07-10',
+      },
+      {
+        loc: absoluteUrl(site, '/tools/self-hosted-llm-cost-calculator/'),
+        lastmod: '2026-07-10',
+      },
+      {
+        loc: absoluteUrl(site, '/guides/rag-pipeline/'),
+        lastmod: '2026-07-10',
+      },
       ...getAllNiches().map((niche) => ({
         loc: absoluteUrl(site, `/topics/${niche.slug}/`),
         lastmod: getLatestLastmod(

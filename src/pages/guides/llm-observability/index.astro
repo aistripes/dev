@@ -1,0 +1,191 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+const otel = 'https://opentelemetry.io/docs/specs/semconv/';
+---
+
+<Base title="LLM Observability with OpenTelemetry: A Vendor-Neutral Field Guide" description="Instrument LLM calls, RAG pipelines, and agents with vendor-neutral OpenTelemetry spans, events, privacy controls, dashboards, and SLOs." pageKind="content" contentType="guide" topic="monitoring">
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <Breadcrumbs class="text-sm text-gray-500 mb-8" items={[{ name: 'Guides', href: '/guides/' }, { name: 'LLM observability' }]} />
+    <header class="mb-12">
+      <p class="font-semibold text-blue-700 mb-3">Vendor-neutral implementation field guide</p>
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-5">LLM observability with OpenTelemetry</h1>
+      <p class="text-xl text-gray-600 leading-relaxed">A durable telemetry model for model calls, retrieval, and agent tools—without making prompts and responses your default logging payload.</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="/downloads/llm-observability-telemetry-schema.json" download class="rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">Download JSON Schema</a>
+        <a href={otel} rel="noopener" class="rounded-lg border border-gray-300 px-5 py-3 font-semibold hover:border-blue-400">OpenTelemetry SemConv 1.43.0 ↗</a>
+      </div>
+      <p class="text-sm text-gray-500 mt-4">Standards snapshot: OpenTelemetry Semantic Conventions 1.43.0. Reviewed July 10, 2026. GenAI conventions include development-status fields, so pin versions and test migrations.</p>
+    </header>
+
+    <div class="prose prose-gray prose-lg max-w-none">
+      <h2>Start with two different questions</h2>
+      <p><strong>Operational telemetry</strong> asks whether the system is available, fast, error-free, and within its resource envelope. It comes from traces and metrics: duration, error type, token usage, retries, and tool or retrieval boundaries.</p>
+      <p><strong>Probabilistic evaluation</strong> asks whether an answer is useful, grounded, safe, or correct. These are sampled or labeled measurements with a named evaluator, rubric, dataset, and version. Never present an evaluator score as an operational fact, and never average unlike rubrics into one “quality” number.</p>
+
+      <h2>Trace topology</h2>
+      <pre><code>request span
+└── workflow span: support_rag
+    ├── retrieval span: product_docs
+    ├── model span: chat model-name
+    ├── tool span: execute_tool account_lookup
+    └── model span: chat model-name</code></pre>
+      <p>Use a span for work with duration and a boundary. Use an event for a point-in-time occurrence inside that work—for example a retry decision, evaluation result, or retrieval checkpoint. OpenTelemetry’s event guidance explicitly separates occurrences from duration-bearing operations.</p>
+
+      <h2>Minimum span contract</h2>
+      <table><thead><tr><th>Field</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>service.name</code>, <code>service.version</code></td><td>Ownership and release correlation.</td></tr>
+        <tr><td><code>gen_ai.operation.name</code></td><td>Operation such as chat, retrieval, or agent invocation.</td></tr>
+        <tr><td><code>gen_ai.provider.name</code></td><td>Provider discriminator when known.</td></tr>
+        <tr><td><code>gen_ai.request.model</code>, <code>gen_ai.response.model</code></td><td>Requested and actual model identity.</td></tr>
+        <tr><td><code>gen_ai.usage.input_tokens</code>, <code>gen_ai.usage.output_tokens</code></td><td>Provider-reported usage when available.</td></tr>
+        <tr><td><code>error.type</code> and span status</td><td>Queryable failure classification.</td></tr>
+      </tbody></table>
+      <p>Keep prompt template identity in application-owned fields such as <code>app.prompt.template_id</code> and <code>app.prompt.template_version</code>. This makes experiments debuggable without claiming those extensions are OpenTelemetry standard attributes.</p>
+
+      <h2>Events: occurrences, not payload dumps</h2>
+      <pre><code>{`{
+  "name": "app.evaluation.recorded",
+  "time": "2026-07-10T12:00:00Z",
+  "attributes": {
+    "app.evaluation.name": "groundedness",
+    "app.evaluation.evaluator_version": "rubric-3",
+    "app.evaluation.dataset": "support-golden-v2",
+    "app.evaluation.score": 0.82
+  }
+}`}</code></pre>
+      <p>The score has meaning only alongside its evaluator, rubric version, and dataset. Store human labels separately from model-judge labels so dashboards do not imply equivalence.</p>
+
+      <h2>Privacy and redaction defaults</h2>
+      <ol>
+        <li>Do not record input messages, output messages, system instructions, retrieval query text, tool arguments, or tool results by default.</li>
+        <li>Prefer template IDs, document IDs, counts, and low-cardinality outcome labels.</li>
+        <li>Allowlist attributes at the Collector; delete secrets and direct identifiers before export.</li>
+        <li>If content capture is approved for a bounded debugging sample, apply access controls, short retention, regional requirements, and an auditable kill switch.</li>
+      </ol>
+      <p>Hashing is not automatically anonymization: small or predictable identifier spaces can be reversed. OpenTelemetry recommends data minimization and provides attribute, filter, redaction, and transform processors.</p>
+
+      <h2>RAG example</h2>
+      <p>Create a retrieval child span with <code>gen_ai.data_source.id</code>, result count, and duration. Record document IDs only when policy permits; exclude document bodies and raw queries by default. Correlate the following model span through trace context. Evaluate retrieval recall on a versioned test set separately from live latency and errors.</p>
+
+      <h2>Agent example</h2>
+      <p>Use a workflow or agent span as the parent, then one child span per model invocation and tool execution. Add low-cardinality tool name, outcome, and error type. Do not attach tool arguments or results unless explicitly reviewed. A loop-limit event can mark the occurrence; total steps can be a parent-span attribute.</p>
+
+      <h2>Dashboards that lead to action</h2>
+      <ul>
+        <li><strong>Reliability:</strong> request rate, error rate by <code>error.type</code>, and duration percentiles by operation/model.</li>
+        <li><strong>Resources:</strong> input/output tokens, cache usage when reported, and provider/model mix. Calculate money only from a versioned price table outside telemetry.</li>
+        <li><strong>RAG:</strong> retrieval duration, empty-result rate, result counts, and separately labeled offline retrieval evaluations.</li>
+        <li><strong>Agents:</strong> steps per run, tool failures, loop-limit outcomes, and end-to-end completion status.</li>
+        <li><strong>Quality:</strong> evaluator-specific score distributions, human-review agreement, sample size, dataset, and version.</li>
+      </ul>
+
+      <h2>SLO design without fake benchmarks</h2>
+      <p>Choose service-level indicators from user journeys, then set targets from your requirements and observed baseline. Example only: “99% of eligible support requests complete without an unhandled system error over 28 days.” Example only: “95% of eligible streaming requests produce the first user-visible output inside the product’s documented latency objective.” Replace these with owned targets; they are not industry benchmarks.</p>
+      <p>Define eligibility, success, window, data source, exclusions, and alert burn rates for every SLO. Keep quality evaluation objectives separate unless the evaluator and sampling design are stable enough to support an operational commitment.</p>
+
+      <h2>Minimal Node.js + Collector example</h2>
+      <p>This CommonJS example uses OTLP/HTTP and manual spans so the emitted contract is obvious. Install compatible current packages, commit the resulting lockfile, and record the resolved versions:</p>
+      <pre><code>npm install @opentelemetry/api @opentelemetry/sdk-node \
+  @opentelemetry/exporter-trace-otlp-proto
+npm ls @opentelemetry/api @opentelemetry/sdk-node \
+  @opentelemetry/exporter-trace-otlp-proto
+# Re-run npm ls in CI; review release notes before lockfile upgrades.</code></pre>
+      <p>Create <code>instrumentation.cjs</code> and load it before application modules with <code>node --require ./instrumentation.cjs app.cjs</code>:</p>
+      <pre><code>{`const { NodeSDK } = require('@opentelemetry/sdk-node');
+const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-proto');
+
+const sdk = new NodeSDK({
+  serviceName: 'support-api',
+  traceExporter: new OTLPTraceExporter({
+    url: process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT ||
+      'http://localhost:4318/v1/traces',
+  }),
+});
+
+sdk.start();
+process.on('SIGTERM', () => sdk.shutdown());`}</code></pre>
+      <p>Wrap the provider call. Values shown here should come from the provider response; no prompt or response content is attached:</p>
+      <pre><code>{`const { trace, SpanStatusCode } = require('@opentelemetry/api');
+const tracer = trace.getTracer('support-ai', '1.0.0');
+
+async function callModel(client, messages) {
+  return tracer.startActiveSpan('chat model-name', {
+    attributes: {
+      'gen_ai.operation.name': 'chat',
+      'gen_ai.provider.name': 'example.provider',
+      'gen_ai.request.model': 'model-name',
+      'app.prompt.template_id': 'support-answer',
+      'app.prompt.template_version': '3',
+      'app.privacy.content_recorded': false,
+    },
+  }, async (span) => {
+    try {
+      const response = await client.generate({ messages });
+      span.setAttributes({
+        'gen_ai.response.model': response.model,
+        'gen_ai.response.id': response.id,
+        'gen_ai.usage.input_tokens': response.usage.inputTokens,
+        'gen_ai.usage.output_tokens': response.usage.outputTokens,
+      });
+      return response;
+    } catch (error) {
+      span.setAttribute('error.type', error?.name || 'Error');
+      span.setStatus({ code: SpanStatusCode.ERROR });
+      throw error;
+    } finally {
+      span.end();
+    }
+  });
+}`}</code></pre>
+      <p>Use this local <code>collector-config.yaml</code> to verify the output. The pinned Collector image makes the demo repeatable; upgrade it deliberately. The debug exporter is for local verification, not a production destination.</p>
+      <pre><code>{`receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+processors:
+  batch: {}
+exporters:
+  debug:
+    verbosity: detailed
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]`}</code></pre>
+      <pre><code>docker run --rm -p 4318:4318 \
+  -v "$PWD/collector-config.yaml:/etc/otelcol/config.yaml:ro" \
+  otel/opentelemetry-collector:0.156.0 \
+  --config=/etc/otelcol/config.yaml</code></pre>
+      <p>Before production, replace <code>debug</code> with an authenticated OTLP backend, use TLS, and enforce an attribute allowlist or redaction policy at the Collector. Confirm the debug output contains the core fields in the downloadable schema and contains none of the original message text.</p>
+
+      <h2>Implementation checklist</h2>
+      <ol>
+        <li>Pin semantic-convention and instrumentation versions.</li><li>Draw the trace topology before adding attributes.</li><li>Ship the minimal allowlisted contract.</li><li>Test redaction with adversarial prompts and tool inputs.</li><li>Validate trace continuity across queues and tools.</li><li>Build operations dashboards before evaluation dashboards.</li><li>Version rubrics, datasets, prompts, and price tables.</li><li>Review cardinality, retention, access, and cost after real traffic.</li>
+      </ol>
+
+      <h2>Frequently asked questions</h2>
+      <h3>Which metrics matter for LLM applications?</h3>
+      <p>Start with request rate, errors by type, latency distributions, input/output token usage, and workflow-specific outcomes. Add retrieval empty-result rate and agent step/tool outcomes where applicable. Keep cardinality bounded and calculate monetary cost from a separately versioned price table.</p>
+      <h3>How do I monitor hallucinations or answer quality?</h3>
+      <p>There is no universal hallucination metric. Use task-specific evaluations with a documented rubric, versioned dataset, evaluator identity, sampling method, and human calibration. Report evaluation uncertainty and sample size; do not mix these scores with availability metrics.</p>
+      <h3>How should I trace RAG and agents?</h3>
+      <p>Use one end-to-end workflow span with child spans for retrieval, each model invocation, and each tool execution. Propagate trace context across queues. Prefer data-source and document identifiers over query text or document bodies, subject to policy.</p>
+      <h3>How do I prevent PII and secrets entering telemetry?</h3>
+      <p>Do not capture content by default. Allowlist low-risk attributes, test with adversarial inputs, redact before export, restrict access and retention, and maintain an emergency kill switch. Treat hashes of predictable identifiers as potentially re-identifiable.</p>
+      <h3>Which observability vendor should I choose?</h3>
+      <p>Instrument with OpenTelemetry and export through OTLP so collection is portable. Evaluate tools against required signals, query workflow, retention, regional/privacy controls, sampling, support, and total cost using your own trace volume. The schema in this guide is intentionally vendor-neutral.</p>
+
+      <h2>Primary references</h2>
+      <ul>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/">OpenTelemetry Semantic Conventions 1.43.0</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/">OpenTelemetry GenAI attribute registry and stability notes</a></li>
+        <li><a href="https://opentelemetry.io/docs/specs/semconv/general/events/">OpenTelemetry event modeling guidance</a></li>
+        <li><a href="https://opentelemetry.io/docs/security/handling-sensitive-data/">OpenTelemetry sensitive-data guidance</a></li>
+      </ul>
+    </div>
+    <aside class="mt-12 rounded-2xl bg-gray-50 p-6"><h2 class="font-bold text-xl mb-3">Continue exploring</h2><div class="flex flex-wrap gap-3"><a class="text-blue-700" href="/topics/monitoring/">Monitoring & observability</a><a class="text-blue-700" href="/topics/rag/">RAG</a><a class="text-blue-700" href="/topics/agents/">AI agents</a><a class="text-blue-700" href="/checklists/monitoring-checklist-monitoring-observability-implementation-checklist/">Observability checklist</a></div></aside>
+  </article>
+</Base>

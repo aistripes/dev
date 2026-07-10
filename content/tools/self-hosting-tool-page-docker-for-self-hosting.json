@@ -7,7 +7,7 @@
   },
   "seo": {
     "title": "Docker for Self-Hosting",
-    "description": "How Docker fits into real Self-Hosting workflows.",
+    "description": "Generate secure Traefik configuration for Docker-based self-hosted services with HTTPS, reverse proxy routing, and practical deployment defaults.",
     "keywords": [
       "self-hosting",
       "tool-page",

@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Hybrid keyword and vector search with Algolia an...",
+    "title": "Hybrid Keyword and Vector Search with Algolia and Typesense",
     "description": "A step-by-step implementation guide for Hybrid keyword and vector search with Algolia and Typesense.",
     "keywords": [
       "ai-search",
@@ -16,7 +16,7 @@
       "Typesense",
       "Meilisearch"
     ],
-    "slug": "ai-search-guide-building-hybrid-keyword-and-vector-search-with-algolia-an"
+    "slug": "ai-search-guide-hybrid-keyword-vector-search-algolia-typesense"
   },
   "content": {
     "intro": "This guide provides a structured approach to implementing an AI-powered search system, focusing on hybrid keyword-vector search, reranking, and UI integration. Steps address latency, indexing, and ranking challenges specific to AI search workflows.",

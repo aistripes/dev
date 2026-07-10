@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Error tracking and alerting setup with Sentry an...",
+    "title": "Error Tracking and Alerting with Sentry and Grafana",
     "description": "A step-by-step implementation guide for Error tracking and alerting setup with Sentry and Grafana.",
     "keywords": [
       "monitoring",
@@ -16,7 +16,7 @@
       "Grafana",
       "Prometheus"
     ],
-    "slug": "monitoring-guide-building-error-tracking-and-alerting-setup-with-sentry-an"
+    "slug": "error-tracking-alerting-sentry-grafana"
   },
   "content": {
     "intro": "This guide provides a structured approach to implementing a monitoring and observability stack for backend systems, focusing on production reliability, LLM API tracking, and distributed tracing. It emphasizes actionable steps for setting up metrics, alerts, and distributed tracing with open-source and commercial tools.",

@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building PostgreSQL for AI applications with PostgreSQL a...",
+    "title": "PostgreSQL for AI Applications with pgvector",
     "description": "A step-by-step implementation guide for PostgreSQL for AI applications with PostgreSQL and pgvector.",
     "keywords": [
       "databases",
@@ -16,7 +16,7 @@
       "pgvector",
       "Supabase"
     ],
-    "slug": "databases-guide-building-postgresql-for-ai-applications-with-postgresql-a"
+    "slug": "postgresql-ai-applications-pgvector"
   },
   "content": {
     "intro": "This guide provides a structured approach to implementing databases for AI applications using PostgreSQL with pgvector, focusing on vector search integration, schema management, and scalability. Steps include setup, migration, optimization, and deployment considerations.",

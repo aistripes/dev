@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Angular signals and standalone components with A...",
+    "title": "Angular Signals and Standalone Components with Angular CLI",
     "description": "A step-by-step implementation guide for Angular signals and standalone components with Angular CLI and RxJS.",
     "keywords": [
       "angular",
@@ -15,7 +15,7 @@
       "RxJS",
       "NgRx"
     ],
-    "slug": "angular-guide-building-angular-signals-and-standalone-components-with-a"
+    "slug": "angular-signals-standalone-components-angular-cli-rxjs"
   },
   "content": {
     "intro": "This guide provides a structured approach to integrating Angular standalone components and signals into existing module-based applications. Focuses on architectural decisions, dependency management, and migration patterns for enterprise environments.",

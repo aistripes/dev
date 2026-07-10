@@ -7,7 +7,7 @@
   },
   "seo": {
     "title": "Self-Hosting implementation checklist",
-    "description": "A practical checklist for shipping Self-Hosting projects safely.",
+    "description": "A production self-hosting checklist covering infrastructure security, durable storage, monitoring, backups, and operational readiness.",
     "keywords": [
       "self-hosting",
       "checklist"

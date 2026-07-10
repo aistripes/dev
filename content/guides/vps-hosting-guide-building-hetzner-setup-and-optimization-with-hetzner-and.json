@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Hetzner setup and optimization with Hetzner and...",
+    "title": "Hetzner Setup and Optimization with Contabo Alternatives",
     "description": "A step-by-step implementation guide for Hetzner setup and optimization with Hetzner and Contabo.",
     "keywords": [
       "vps-hosting",
@@ -16,7 +16,7 @@
       "Contabo",
       "OVH"
     ],
-    "slug": "vps-hosting-guide-building-hetzner-setup-and-optimization-with-hetzner-and"
+    "slug": "hetzner-setup-optimization-contabo"
   },
   "content": {
     "intro": "This guide provides a structured approach to deploying and securing a VPS using European providers like Hetzner. Focuses on production-ready setup, automation, and scaling considerations for developers prioritizing control and compliance.",

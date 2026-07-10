@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Vision model integration patterns with GPT-4o an...",
+    "title": "Vision Model Integration Patterns with GPT-4o and Gemini",
     "description": "A step-by-step implementation guide for Vision model integration patterns with GPT-4o and Gemini Pro Vision.",
     "keywords": [
       "multimodal",
@@ -16,7 +16,7 @@
       "Gemini Pro Vision",
       "Claude Vision"
     ],
-    "slug": "multimodal-guide-building-vision-model-integration-patterns-with-gpt-4o-an"
+    "slug": "vision-model-integration-gpt-4o-gemini"
   },
   "content": {
     "intro": "This guide provides a production-focused workflow for integrating vision and audio processing with multimodal AI models. Covers pipeline design, cost controls, and reliability patterns for developers building document analysis, voice-enabled interfaces, or creative tools.",

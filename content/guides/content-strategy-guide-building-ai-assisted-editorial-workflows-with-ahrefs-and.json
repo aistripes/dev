@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building AI-assisted editorial workflows with Ahrefs and...",
+    "title": "AI-Assisted Editorial Workflows with Ahrefs and Semrush",
     "description": "A step-by-step implementation guide for AI-assisted editorial workflows with Ahrefs and SEMrush.",
     "keywords": [
       "content-strategy",
@@ -16,7 +16,7 @@
       "SEMrush",
       "Google Search Console"
     ],
-    "slug": "content-strategy-guide-building-ai-assisted-editorial-workflows-with-ahrefs-and"
+    "slug": "ai-assisted-editorial-workflows-ahrefs-semrush"
   },
   "content": {
     "intro": "This guide provides a structured approach to implementing an AI-assisted content strategy focused on technical SEO and developer audiences. It emphasizes workflow integration, keyword alignment, and performance validation.",

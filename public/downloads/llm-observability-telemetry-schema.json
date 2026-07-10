@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aistripes.dev/downloads/llm-observability-telemetry-schema.json",
+  "title": "Vendor-neutral LLM telemetry envelope",
+  "description": "Application export contract aligned with OpenTelemetry GenAI semantic conventions. Prompt and response content are excluded by default.",
+  "version": "1.0.0",
+  "aligned_with": { "opentelemetry_semantic_conventions": "1.43.0", "reviewed_on": "2026-07-10", "note": "GenAI fields may be development status; pin and test upgrades." },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["trace_id", "span_id", "name", "start_time", "end_time", "status", "attributes"],
+  "properties": {
+    "trace_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+    "span_id": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+    "parent_span_id": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+    "name": { "type": "string" },
+    "kind": { "enum": ["INTERNAL", "CLIENT", "SERVER", "PRODUCER", "CONSUMER"] },
+    "start_time": { "type": "string", "format": "date-time" },
+    "end_time": { "type": "string", "format": "date-time" },
+    "status": { "enum": ["UNSET", "OK", "ERROR"] },
+    "attributes": {
+      "type": "object", "additionalProperties": true,
+      "required": ["service.name", "gen_ai.operation.name", "app.privacy.content_recorded"],
+      "properties": {
+        "service.name": { "type": "string" },
+        "service.version": { "type": "string" },
+        "deployment.environment.name": { "type": "string" },
+        "gen_ai.operation.name": { "type": "string" },
+        "gen_ai.provider.name": { "type": "string" },
+        "gen_ai.request.model": { "type": "string" },
+        "gen_ai.response.model": { "type": "string" },
+        "gen_ai.response.id": { "type": "string" },
+        "gen_ai.usage.input_tokens": { "type": "integer", "minimum": 0 },
+        "gen_ai.usage.output_tokens": { "type": "integer", "minimum": 0 },
+        "gen_ai.data_source.id": { "type": "string" },
+        "error.type": { "type": "string" },
+        "app.prompt.template_id": { "type": "string" },
+        "app.prompt.template_version": { "type": "string" },
+        "app.privacy.content_recorded": { "const": false }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "time", "attributes"],
+        "properties": { "name": { "type": "string" }, "time": { "type": "string", "format": "date-time" }, "attributes": { "type": "object", "additionalProperties": true } }
+      }
+    }
+  }
+}

@@ -25,6 +25,7 @@ const contentBySection = Object.fromEntries(
 <Base
   title="AI-Powered Web Development Resources"
   description="The go-to resource for developers building AI-powered web applications. Resources, guides, checklists, and tools — all open source."
+  pageKind="home"
 >
   <!-- Hero -->
   <section class="bg-gradient-to-b from-blue-50 to-white border-b border-gray-200">
@@ -52,6 +53,15 @@ const contentBySection = Object.fromEntries(
           View on GitHub ↗
         </a>
       </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14" aria-labelledby="flagship-guides">
+    <div class="max-w-2xl mb-7"><p class="text-sm font-semibold uppercase tracking-wide text-blue-700">Implementation library</p><h2 id="flagship-guides" class="text-3xl font-bold mt-2">Build production AI systems</h2><p class="text-gray-600 mt-2">Deep, evidence-linked guides with runnable artifacts and explicit limits.</p></div>
+    <div class="grid gap-5 md:grid-cols-3">
+      <a href="/guides/rag-pipeline/" class="rounded-2xl border border-gray-200 p-6 hover:border-blue-300 hover:shadow-sm"><p class="text-xs font-semibold text-blue-700 mb-2">EXECUTABLE REFERENCE</p><h3 class="font-bold text-xl">Design a tenant-safe RAG pipeline</h3><p class="text-sm text-gray-600 mt-3">Retrieval controls, evaluation fixtures, deletion, freshness, and failure diagnosis.</p></a>
+      <a href="/guides/self-hosted-llm/" class="rounded-2xl border border-gray-200 p-6 hover:border-blue-300 hover:shadow-sm"><p class="text-xs font-semibold text-blue-700 mb-2">DECISION GUIDE</p><h3 class="font-bold text-xl">Choose a self-hosted inference stack</h3><p class="text-sm text-gray-600 mt-3">Compare serving options, size hardware, secure deployment, and calculate breakeven.</p></a>
+      <a href="/guides/llm-observability/" class="rounded-2xl border border-gray-200 p-6 hover:border-blue-300 hover:shadow-sm"><p class="text-xs font-semibold text-blue-700 mb-2">FIELD GUIDE + SCHEMA</p><h3 class="font-bold text-xl">Instrument LLM workflows with OpenTelemetry</h3><p class="text-sm text-gray-600 mt-3">Portable spans, RAG and agent traces, privacy defaults, dashboards, and SLOs.</p></a>
     </div>
   </section>
 
