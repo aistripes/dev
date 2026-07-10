@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building RAG (Retrieval-Augmented Generation) with open-s...",
+    "title": "Building RAG with Open-Source Tools",
     "description": "A step-by-step implementation guide for RAG (Retrieval-Augmented Generation) with open-source tools.",
     "keywords": [
       "rag",

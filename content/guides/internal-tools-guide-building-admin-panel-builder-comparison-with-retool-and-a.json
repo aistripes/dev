@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Admin panel builder comparison with Retool and A...",
+    "title": "Admin Panel Builder Comparison: Retool vs Appsmith",
     "description": "A step-by-step implementation guide for Admin panel builder comparison with Retool and Appsmith.",
     "keywords": [
       "internal-tools",
@@ -16,7 +16,7 @@
       "Appsmith",
       "Tooljet"
     ],
-    "slug": "internal-tools-guide-building-admin-panel-builder-comparison-with-retool-and-a"
+    "slug": "admin-panel-builders-retool-appsmith"
   },
   "content": {
     "intro": "This guide provides a structured approach to building internal tools with a focus on balancing custom development and low-code solutions. Key considerations include data integration, access control, and maintainability for startup-scale applications.",

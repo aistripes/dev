@@ -12,7 +12,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "validate": "astro check",
-    "audit:content": "node tooling/audit-content.mjs"
+    "audit:content": "node tooling/audit-content.mjs",
+    "test:rag": "node examples/rag-pipeline/test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.0",

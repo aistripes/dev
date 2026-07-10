@@ -1,0 +1,35 @@
+---
+export interface Props { niche: string }
+
+const flagships: Record<string, { href: string; eyebrow: string; title: string; description: string; anchor: string }> = {
+  'self-hosting': {
+    href: '/guides/self-hosted-llm/', eyebrow: 'Flagship self-hosting guide',
+    title: 'Plan a production self-hosted LLM stack',
+    description: 'Compare deployment shapes, calculate memory requirements, and work through security, operations, and failure recovery.',
+    anchor: 'Read the self-hosted LLM deployment guide',
+  },
+  rag: {
+    href: '/guides/rag-pipeline/', eyebrow: 'Flagship RAG guide',
+    title: 'Build and test a production RAG pipeline',
+    description: 'Run the offline reference implementation and test retrieval, tenant isolation, RBAC, deletion, and freshness paths.',
+    anchor: 'Explore the production RAG pipeline architecture',
+  },
+  monitoring: {
+    href: '/guides/llm-observability/', eyebrow: 'Flagship observability guide',
+    title: 'Instrument an LLM application end to end',
+    description: 'Use the signal map and implementation guidance to trace requests, retrieval, model calls, costs, and user-visible failures.',
+    anchor: 'Read the LLM observability implementation guide',
+  },
+};
+const item = flagships[Astro.props.niche];
+---
+{item && (
+  <aside aria-label="Related flagship guide" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+    <div class="rounded-2xl border border-blue-200 bg-blue-50 p-6 sm:p-8">
+      <p class="text-xs font-semibold uppercase tracking-wide text-blue-700 mb-2">{item.eyebrow}</p>
+      <h2 class="text-2xl font-bold text-gray-950 mb-2">{item.title}</h2>
+      <p class="text-gray-600 max-w-3xl mb-4">{item.description}</p>
+      <a href={item.href} class="font-semibold text-blue-700 hover:text-blue-900 underline underline-offset-4">{item.anchor} <span aria-hidden="true">→</span></a>
+    </div>
+  </aside>
+)}

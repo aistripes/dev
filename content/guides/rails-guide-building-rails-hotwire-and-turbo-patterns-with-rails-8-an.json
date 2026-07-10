@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building Rails Hotwire and Turbo patterns with Rails 8 an...",
+    "title": "Rails 8 Hotwire and Turbo Patterns",
     "description": "A step-by-step implementation guide for Rails Hotwire and Turbo patterns with Rails 8 and Hotwire.",
     "keywords": [
       "rails",
@@ -16,7 +16,7 @@
       "Hotwire",
       "Turbo"
     ],
-    "slug": "rails-guide-building-rails-hotwire-and-turbo-patterns-with-rails-8-an"
+    "slug": "rails-8-hotwire-turbo-patterns"
   },
   "content": {
     "intro": "This guide provides a step-by-step implementation strategy for modernizing a Rails application with Hotwire, deploying with Kamal, and integrating background job processing. Focuses on practical architecture decisions and production constraints.",

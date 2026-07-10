@@ -13,6 +13,16 @@ Use the canonical URL for citations. Pages are statically rendered in English an
 - [Tools](https://aistripes.dev/tools/): Browser-based utilities for AI application development.
 - [Directories](https://aistripes.dev/directories/): Curated listings of relevant tools and services.
 
+## Flagship implementation guides
+
+- [Production RAG pipeline](https://aistripes.dev/guides/rag-pipeline/): Executable tenant-safe retrieval architecture, evaluation fixtures, lifecycle controls, and failure diagnosis.
+- [Self-hosting an LLM](https://aistripes.dev/guides/self-hosted-llm/): Model-server selection, hardware sizing, production safeguards, and a breakeven method.
+- [LLM observability with OpenTelemetry](https://aistripes.dev/guides/llm-observability/): Vendor-neutral traces, metrics, privacy defaults, SLO design, and a downloadable telemetry schema.
+
+## Featured tool
+
+- [Self-hosted LLM cost calculator](https://aistripes.dev/tools/self-hosted-llm-cost-calculator/): Estimate infrastructure cost, utilization, and an API breakeven point using editable workload assumptions; outputs are estimates, not vendor quotes.
+
 ## Discovery
 
 - [Sitemap index](https://aistripes.dev/sitemap.xml): Canonical inventory of indexable pages.

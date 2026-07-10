@@ -8,6 +8,7 @@ import ComparisonRenderer from '../../renderers/Comparison';
 import GuideRenderer from '../../renderers/Guide';
 import ToolPageRenderer from '../../renderers/ToolPage';
 import DirectoryRenderer from '../../renderers/Directory';
+import FlagshipCTA from '../../components/FlagshipCTA.astro';
 import type { ResourceArticle } from '../../../schemas/resource-article';
 import type { Checklist } from '../../../schemas/checklist';
 import type { Comparison } from '../../../schemas/comparison';
@@ -36,6 +37,9 @@ const contentType = content.meta.content_type;
   title={content.seo.title}
   description={content.seo.description}
   keywords={content.seo.keywords}
+  pageKind="content"
+  contentType={contentType}
+  topic={content.meta.niche}
 >
   {contentType === 'resource-article' && (
     <ResourceArticleRenderer content={content as ResourceArticle} />
@@ -60,4 +64,5 @@ const contentType = content.meta.content_type;
       <p>Unknown content type: {contentType}</p>
     </div>
   )}
+  <FlagshipCTA niche={content.meta.niche} />
 </Base>

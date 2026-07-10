@@ -19,6 +19,13 @@ const labels: Record<string, string> = {
 const sections = Object.entries(labels)
   .map(([prefix, label]) => ({ prefix, label, items: items.filter((item) => item.urlPrefix === prefix) }))
   .filter((section) => section.items.length > 0);
+const flagshipByTopic: Record<string, { href: string; label: string; title: string; description: string }> = {
+  rag: { href: '/guides/rag-pipeline/', label: 'Executable reference', title: 'Production RAG pipeline architecture', description: 'Run the offline fixture, enforce tenant boundaries, and diagnose retrieval failures.' },
+  'self-hosting': { href: '/guides/self-hosted-llm/', label: 'Decision guide', title: 'Self-hosted LLM deployment', description: 'Choose a server, size hardware, secure the endpoint, and compare total cost.' },
+  monitoring: { href: '/guides/llm-observability/', label: 'Field guide + download', title: 'Vendor-neutral LLM observability', description: 'Instrument models, retrieval, and agents with OpenTelemetry and privacy-safe defaults.' },
+  agents: { href: '/guides/llm-observability/', label: 'Tracing field guide', title: 'Trace agent workflows and tools', description: 'Model agent runs as portable spans and events without logging sensitive payloads.' },
+};
+const flagship = flagshipByTopic[niche.slug];
 
 const searchIntents: Record<string, { title: string; heading: string; description: string }> = {
   'self-hosting': {
@@ -78,13 +85,14 @@ const pageHeading = intent?.heading ?? `${niche.name} guides, tools, and resourc
 const pageDescription = intent?.description ?? `Practical ${niche.name} guides, tools, checklists, comparisons, and curated resources for ${niche.context.audience.toLowerCase()}.`;
 ---
 
-<Base title={pageTitle} description={pageDescription} keywords={[niche.name, ...niche.context.subtopics]}>
+<Base title={pageTitle} description={pageDescription} keywords={[niche.name, ...niche.context.subtopics]} pageKind="topic" topic={niche.slug}>
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <nav aria-label="Breadcrumb" class="text-sm text-gray-500 mb-7"><a href="/topics/" class="hover:text-blue-600">Topics</a> <span aria-hidden="true">/</span> <span>{niche.name}</span></nav>
     <header class="max-w-3xl mb-12">
       <h1 class="text-4xl font-bold text-gray-900 mb-4">{pageHeading}</h1>
       <p class="text-lg text-gray-600 leading-relaxed">{pageDescription}</p>
     </header>
+    {flagship && <a href={flagship.href} class="block mb-10 rounded-2xl border-2 border-blue-200 bg-blue-50 p-6 hover:border-blue-400"><p class="text-xs font-bold uppercase tracking-wide text-blue-700">{flagship.label}</p><h2 class="text-2xl font-bold mt-2">{flagship.title}</h2><p class="text-gray-600 mt-2">{flagship.description}</p></a>}
     <div class="space-y-12">
       {sections.map((section) => (
         <section>

@@ -1,0 +1,15 @@
+{
+  "now": "2026-07-10T12:00:00.000Z",
+  "documents": [
+    { "id": "refunds", "tenantId": "acme", "allowedRoles": ["support"], "sourceUpdatedAt": "2026-07-09T08:00:00.000Z", "text": "Refund requests must be submitted within thirty days. Support agents verify the order number before approving a refund." },
+    { "id": "security", "tenantId": "acme", "allowedRoles": ["security"], "sourceUpdatedAt": "2026-07-08T08:00:00.000Z", "text": "Security incidents must be escalated to the incident commander. Credentials are rotated after containment." },
+    { "id": "other-tenant", "tenantId": "globex", "allowedRoles": ["support"], "sourceUpdatedAt": "2026-07-09T08:00:00.000Z", "text": "Globex allows refunds for ninety days." },
+    { "id": "expired", "tenantId": "acme", "allowedRoles": ["support"], "sourceUpdatedAt": "2025-01-01T08:00:00.000Z", "expiresAt": "2026-01-01T00:00:00.000Z", "text": "An obsolete policy allowed refunds for sixty days." }
+  ],
+  "cases": [
+    { "name": "authorized retrieval", "query": "How long can a customer request a refund?", "tenantId": "acme", "roles": ["support"], "expectedDocumentIds": ["refunds"] },
+    { "name": "RBAC denial", "query": "How are incidents escalated?", "tenantId": "acme", "roles": ["support"], "expectedDocumentIds": [] },
+    { "name": "tenant isolation", "query": "ninety day refunds", "tenantId": "acme", "roles": ["support"], "forbiddenDocumentIds": ["other-tenant"] },
+    { "name": "freshness exclusion", "query": "sixty day refund policy", "tenantId": "acme", "roles": ["support"], "forbiddenDocumentIds": ["expired"] }
+  ]
+}

@@ -33,6 +33,8 @@ for (const record of records) {
     if (value && normalized(value).split(' ').length >= 8) fields.set(key, [...(fields.get(key) ?? []), record]);
   }
   if (title.length > 65) add('warning', 'long-title', record, `${title.length} characters`);
+  // Legacy titles are reported for editorial remediation without blocking unrelated builds.
+  if (/\.\.\.$/.test(title)) add('warning', 'truncated-title', record, title);
   if (description.length < 70) add('warning', 'short-description', record, `${description.length} characters`);
   if (/\b(?:and|with|for|to|vs|the|a|an|of|in)\s*$/i.test(title)) add('error', 'truncated-title', record, title);
   if (/(?:-|\b)(?:and|with|for|to|vs|the|a|an|of|in)$/i.test(slug)) add('error', 'truncated-slug', record, slug);
@@ -51,6 +53,18 @@ for (const record of records) {
       if (entry.url) urls.add(entry.url);
     }
   }
+}
+
+const routes = new Set(records.map(({ section, data }) => `/${section}/${data.seo?.slug}/`));
+const redirectText = await readFile(new URL('../public/_redirects', import.meta.url), 'utf8').catch(() => '');
+for (const [index, line] of redirectText.split('\n').entries()) {
+  const value = line.trim();
+  if (!value || value.startsWith('#')) continue;
+  const [source, target, status, ...extra] = value.split(/\s+/);
+  const redirect = { section: '_redirects', name: `line-${index + 1}` };
+  if (!source || !target || status !== '301' || extra.length) add('error', 'invalid-redirect', redirect, value);
+  else if (!routes.has(target)) add('error', 'missing-redirect-target', redirect, target);
+  if (source === target) add('error', 'redirect-loop', redirect, source);
 }
 
 for (const [key, duplicates] of fields) {

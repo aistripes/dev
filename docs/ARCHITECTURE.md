@@ -101,6 +101,35 @@ export const ResourceArticleSchema = z.object({
 
 If a content file doesn't validate, the build fails. No malformed pages reach production.
 
+#### Editorial evidence metadata
+
+Every content schema accepts the same optional `meta.editorial` object:
+
+```json
+{
+  "editorial": {
+    "authored_by": "Person or accountable team",
+    "reviewed_by": "Person or accountable team",
+    "last_reviewed": "2026-07-10",
+    "sources": [
+      {
+        "title": "Primary source title",
+        "url": "https://example.org/primary-source",
+        "accessed_at": "2026-07-10"
+      }
+    ]
+  }
+}
+```
+
+These fields are optional so legacy content remains valid, but any supplied values are schema-validated. They must describe work that actually happened: generation time is not a review date, a model is not an author or reviewer, and sources must be pages consulted to verify the content. The generation pipeline must never synthesize these values merely to fill the schema.
+
+Run `npm run audit:content` to report scalable quality issues. CI can run `npm run audit:content -- --strict` to fail on errors while leaving editorial warnings available for prioritized remediation.
+
+#### URL corrections
+
+Published slugs are stable identifiers. When a malformed slug must change, add an explicit permanent redirect to `public/_redirects` in the same change as the corrected `seo.slug`. Cloudflare Pages copies this file into the static build and serves the old URL as a `301`. The content audit verifies that each redirect target is a generated content route.
+
 ### Deployment: Cloudflare Pages + Workers
 
 - **Cloudflare Pages** for static hosting. Git-integrated builds on push to `main`. Preview deployments on PRs.

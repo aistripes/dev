@@ -1,0 +1,91 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+
+const title = 'Production RAG Pipeline: Reference Architecture and Code';
+const description = 'Build a tenant-safe RAG pipeline with executable offline code, evaluation fixtures, RBAC, deletion, freshness controls, and a failure diagnosis matrix.';
+const canonical = 'https://aistripes.dev/guides/rag-pipeline/';
+const article = {
+  '@context': 'https://schema.org', '@type': 'TechArticle', headline: title, description,
+  dateModified: '2026-07-10', mainEntityOfPage: canonical,
+  author: { '@type': 'Organization', name: 'AI Stripes', url: 'https://aistripes.dev/' },
+  publisher: { '@type': 'Organization', name: 'AI Stripes', url: 'https://aistripes.dev/' },
+};
+const failures = [
+  ['Relevant chunk never retrieved', 'Chunk boundaries, vocabulary mismatch, stale index', 'Log candidate IDs and scores; run labeled retrieval cases', 'Adjust chunking; add hybrid retrieval; re-index changed sources'],
+  ['Correct chunk ranks too low', 'Weak embedding fit or noisy candidates', 'Measure rank of the expected document, not answer fluency', 'Add reranking; improve metadata filters; create hard-negative cases'],
+  ['Fewer results after ANN filtering', 'Filter applied after approximate index scan', 'Compare exact search and filtered ANN plans', 'Raise search breadth or use iterative scans, partial indexes, or partitioning'],
+  ['Unauthorized text appears', 'Tenant or role predicate missing before ranking', 'Run cross-tenant and denied-role fixtures on every change', 'Fail closed; enforce database RLS in addition to application filters'],
+  ['Deleted content remains answerable', 'Chunks or cache were not tombstoned', 'Query a unique phrase immediately after deletion', 'Tombstone synchronously, invalidate caches, then purge asynchronously'],
+  ['Old policy outranks current policy', 'No source version or expiry filter', 'Record sourceUpdatedAt, indexedAt, and expiresAt in traces', 'Reject expired chunks and re-index on source version changes'],
+  ['Good retrieval, unsupported answer', 'Generation ignored context or citation IDs', 'Check every answer claim against returned chunk IDs', 'Require citations; abstain when evidence is insufficient'],
+];
+---
+<Base title={title} description={description} keywords={['RAG pipeline', 'RAG architecture', 'retrieval evaluation', 'tenant-safe RAG']} canonicalUrl={canonical} pageKind="content" contentType="flagship-guide" topic="rag">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(article)} />
+  <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <Breadcrumbs class="text-sm text-gray-500 mb-7" items={[{ name: 'Guides', href: '/guides/' }, { name: 'RAG', href: '/topics/rag/' }, { name: 'Pipeline architecture' }]} />
+    <header class="max-w-4xl mb-12">
+      <p class="text-sm font-semibold uppercase tracking-wide text-blue-700 mb-3">Executable reference · No API key required</p>
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-950 mb-5">Production RAG pipeline: architecture, controls, and code</h1>
+      <p class="text-xl text-gray-600 leading-relaxed">A minimal system you can run locally, inspect, and extend. It demonstrates retrieval boundaries and lifecycle controls; it does not pretend a toy hash embedding is production search.</p>
+      <p class="mt-5 text-sm text-gray-500">Published by AI Stripes · Reference implementation last verified <time datetime="2026-07-10">July 10, 2026</time></p>
+    </header>
+
+    <section class="mb-14" aria-labelledby="architecture">
+      <h2 id="architecture" class="text-3xl font-bold mb-4">Reference architecture</h2>
+      <p class="text-gray-600 mb-6">Authorization and lifecycle predicates are part of retrieval, not a cleanup step after private text has already entered the prompt.</p>
+      <svg viewBox="0 0 980 390" role="img" aria-labelledby="diagram-title diagram-desc" class="w-full h-auto rounded-2xl border border-gray-200 bg-slate-50">
+        <title id="diagram-title">Tenant-safe RAG ingestion and query architecture</title>
+        <desc id="diagram-desc">Sources flow through parsing, chunking and embedding into a versioned index. Queries pass identity and role checks before retrieval, reranking, context assembly and generation. Evaluation observes both paths.</desc>
+        <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b" /></marker></defs>
+        <g fill="#fff" stroke="#94a3b8" stroke-width="2"><rect x="25" y="55" width="120" height="58" rx="10"/><rect x="190" y="55" width="120" height="58" rx="10"/><rect x="355" y="55" width="130" height="58" rx="10"/><rect x="530" y="55" width="145" height="58" rx="10"/><rect x="720" y="55" width="220" height="58" rx="10"/><rect x="25" y="230" width="120" height="58" rx="10"/><rect x="190" y="230" width="120" height="58" rx="10"/><rect x="355" y="230" width="130" height="58" rx="10"/><rect x="530" y="230" width="145" height="58" rx="10"/><rect x="720" y="230" width="220" height="58" rx="10"/><rect x="355" y="325" width="320" height="45" rx="10" fill="#eff6ff" stroke="#60a5fa"/></g>
+        <g font-family="system-ui" font-size="15" text-anchor="middle" fill="#0f172a"><text x="85" y="89">Sources</text><text x="250" y="80">Parse +</text><text x="250" y="99">chunk</text><text x="420" y="89">Embed</text><text x="602" y="80">Version +</text><text x="602" y="99">tombstone</text><text x="830" y="80">Tenant-scoped index</text><text x="830" y="99">metadata + vectors</text><text x="85" y="264">Query + identity</text><text x="250" y="255">Tenant / role /</text><text x="250" y="274">expiry filter</text><text x="420" y="264">Retrieve</text><text x="602" y="255">Rerank +</text><text x="602" y="274">assemble</text><text x="830" y="255">Generate with citations</text><text x="830" y="274">or abstain</text><text x="515" y="353">Evaluation fixtures, traces, and failure alerts</text></g>
+        <g stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"><path d="M145 84H185"/><path d="M310 84H350"/><path d="M485 84H525"/><path d="M675 84H715"/><path d="M145 259H185"/><path d="M310 259H350"/><path d="M485 259H525"/><path d="M675 259H715"/><path d="M830 113V225"/><path d="M515 325V294"/></g>
+      </svg>
+    </section>
+
+    <section class="prose prose-slate max-w-none mb-14">
+      <h2>Run the reference implementation</h2>
+      <p>The repository-local example uses only Node.js. Its deterministic signed-hash vectors make tests reproducible offline; they are a test double for an embedding provider, not a recommendation for semantic quality.</p>
+      <pre><code>node examples/rag-pipeline/test.mjs
+node examples/rag-pipeline/pipeline.mjs build \
+  examples/rag-pipeline/fixture.json /tmp/rag-index.json
+node examples/rag-pipeline/pipeline.mjs query \
+  /tmp/rag-index.json "refund window" acme support</code></pre>
+      <p><a href="https://github.com/aistripes/dev/tree/main/examples/rag-pipeline">Read the implementation and fixture on GitHub</a>.</p>
+      <h3>What the fixture proves</h3>
+      <ul><li>An authorized role can retrieve its tenant’s policy.</li><li>A support role cannot retrieve a security-only document.</li><li>Another tenant’s matching text cannot cross the boundary.</li><li>Expired and tombstoned chunks are excluded.</li><li>A missing tenant context fails closed.</li></ul>
+      <p>It does not measure recall, latency, model faithfulness, or production scale. Add labeled examples from your domain before choosing chunking, embedding, reranking, or index parameters.</p>
+    </section>
+
+    <section class="mb-14">
+      <h2 class="text-3xl font-bold mb-5">Evaluation contract</h2>
+      <div class="grid md:grid-cols-3 gap-4"><div class="border rounded-xl p-5"><h3 class="font-semibold mb-2">Retrieval</h3><p class="text-sm text-gray-600">Expected document in top-k, forbidden document absent, rank recorded.</p></div><div class="border rounded-xl p-5"><h3 class="font-semibold mb-2">Answer</h3><p class="text-sm text-gray-600">Claims supported by returned chunks, citation IDs valid, abstention tested.</p></div><div class="border rounded-xl p-5"><h3 class="font-semibold mb-2">Operations</h3><p class="text-sm text-gray-600">Latency and error budgets measured on your infrastructure, without invented universal targets.</p></div></div>
+    </section>
+
+    <section class="mb-14 overflow-x-auto">
+      <h2 class="text-3xl font-bold mb-5">Failure diagnosis matrix</h2>
+      <table class="w-full min-w-[850px] text-left text-sm border-collapse"><thead><tr class="bg-slate-100"><th class="p-3 border">Symptom</th><th class="p-3 border">Likely cause</th><th class="p-3 border">Prove it</th><th class="p-3 border">Response</th></tr></thead><tbody>{failures.map((row) => <tr>{row.map((cell) => <td class="p-3 border border-gray-200 align-top">{cell}</td>)}</tr>)}</tbody></table>
+    </section>
+
+    <section class="prose prose-slate max-w-none mb-14">
+      <h2>Security and lifecycle paths</h2>
+      <h3>RBAC and tenant isolation</h3><p>Carry authenticated tenant and role claims into retrieval. Apply both predicates before context assembly, and enforce the same boundary in storage. PostgreSQL row security can restrict which rows normal queries may read or modify; table owners and roles with bypass privileges need special handling.</p>
+      <h3>Deletion</h3><p>On a deletion request, synchronously mark every chunk for the tenant and source document as deleted, invalidate answer and retrieval caches, and prevent those chunks from entering new prompts. Purge vectors and derived artifacts asynchronously, then verify deletion using a unique phrase fixture. Keep an audit event, not the deleted content.</p>
+      <h3>Freshness</h3><p>Store source version, source update time, index time, and optional expiry on every chunk. A source change should enqueue idempotent re-indexing; an expiry should exclude a chunk at query time even if background cleanup is delayed. Display freshness separately from model confidence.</p>
+    </section>
+
+    <section class="prose prose-slate max-w-none mb-14">
+      <h2>Primary sources</h2>
+      <ol>
+        <li><a href="https://www.postgresql.org/docs/17/ddl-rowsecurity.html">PostgreSQL documentation: Row Security Policies</a> — storage-level read and write policies, default-deny behavior, and bypass caveats.</li>
+        <li><a href="https://github.com/pgvector/pgvector">pgvector documentation</a> — exact versus approximate search, HNSW/IVFFlat filtering, iterative scans, and tuning tradeoffs.</li>
+        <li><a href="https://platform.openai.com/docs/api-reference/embeddings">OpenAI Embeddings API reference</a> — production embedding input and dimensionality constraints when replacing the offline test double.</li>
+        <li><a href="https://doi.org/10.6028/NIST.AI.600-1">NIST AI 600-1: Generative AI Profile</a> — risk management context for data privacy, information security, and third-party GAI systems.</li>
+      </ol>
+    </section>
+
+    <aside class="rounded-2xl bg-blue-50 p-7"><h2 class="text-xl font-bold mb-3">Continue building</h2><div class="flex flex-wrap gap-3"><a class="text-blue-700 underline" href="/topics/rag/">All RAG resources</a><a class="text-blue-700 underline" href="/comparisons/rag-comparison-pinecone-vs-weaviate-vs-qdrant/">Vector database comparison</a><a class="text-blue-700 underline" href="/checklists/rag-checklist-rag-retrieval-augmented-generation-implementation-check/">RAG implementation checklist</a></div></aside>
+  </article>
+</Base>

@@ -6,7 +6,7 @@
     "schema_version": "1.0"
   },
   "seo": {
-    "title": "Building GitHub Actions for AI applications with GitHub A...",
+    "title": "GitHub Actions for AI Applications with GitLab CI",
     "description": "A step-by-step implementation guide for GitHub Actions for AI applications with GitHub Actions and GitLab CI.",
     "keywords": [
       "ci-cd",
@@ -16,7 +16,7 @@
       "GitLab CI",
       "Vercel"
     ],
-    "slug": "ci-cd-guide-building-github-actions-for-ai-applications-with-github-a"
+    "slug": "github-actions-ai-applications-gitlab-ci"
   },
   "content": {
     "intro": "This guide provides a structured approach to implementing CI/CD pipelines for AI applications, focusing on handling non-deterministic outputs, versioning, and cost optimization. Each step includes actionable configuration and mitigation strategies for common pitfalls.",
