@@ -25,6 +25,29 @@ const siteUrl = 'https://aistripes.dev';
 const resolvedCanonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
 const resolvedOgTitle = ogTitle ?? title;
 const resolvedOgDescription = ogDescription ?? description;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'AI Stripes',
+      url: `${siteUrl}/`,
+      logo: `${siteUrl}/favicon.svg`,
+      sameAs: ['https://github.com/aistripes'],
+      description: 'Open-source, schema-driven resources for developers building AI-powered web applications.',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: 'AI Stripes',
+      description: 'Resources, guides, checklists, comparisons, tools, and directories for AI application developers.',
+      publisher: { '@id': `${siteUrl}/#organization` },
+      inLanguage: 'en',
+    },
+  ],
+};
 ---
 
 <head>
@@ -34,6 +57,7 @@ const resolvedOgDescription = ogDescription ?? description;
   <meta name="description" content={description} />
   {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
   <link rel="canonical" href={resolvedCanonical} />
+  <link rel="alternate" type="application/atom+xml" title="AI Stripes" href="/feed.xml" />
   {noindex && <meta name="robots" content="noindex" />}
 
   <!-- Open Graph -->
@@ -49,6 +73,7 @@ const resolvedOgDescription = ogDescription ?? description;
   <meta name="twitter:description" content={resolvedOgDescription} />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
   <!-- Eurolytics analytics -->
   <script defer data-site-id="e3e32f8a-efdd-41d8-b13e-9682c03bcbc6" src="https://events.eurolytics.app/js/script.js"></script>

@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "validate": "astro check"
+    "validate": "astro check",
+    "audit:content": "node tooling/audit-content.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.0",

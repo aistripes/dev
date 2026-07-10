@@ -38,16 +38,16 @@ const contentType = content.meta.content_type;
   keywords={content.seo.keywords}
 >
   {contentType === 'resource-article' && (
-    <ResourceArticleRenderer client:load content={content as ResourceArticle} />
+    <ResourceArticleRenderer content={content as ResourceArticle} />
   )}
   {contentType === 'checklist' && (
     <ChecklistRenderer client:load content={content as Checklist} />
   )}
   {contentType === 'comparison' && (
-    <ComparisonRenderer client:load content={content as Comparison} />
+    <ComparisonRenderer content={content as Comparison} />
   )}
   {contentType === 'guide' && (
-    <GuideRenderer client:load content={content as Guide} />
+    <GuideRenderer content={content as Guide} />
   )}
   {contentType === 'tool-page' && (
     <ToolPageRenderer client:load content={content as ToolPage} />

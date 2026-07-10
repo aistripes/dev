@@ -1,4 +1,5 @@
 import { getAllContentWithPaths, type ContentWithPath } from './content';
+import { getAllNiches } from './taxonomy';
 
 export const collectionSitemapSections = [
   'resources',
@@ -38,8 +39,15 @@ export function getSitemapEntries(site: URL, section: SitemapSection): SitemapEn
         lastmod: getLatestLastmod(allContent),
       },
       {
-        loc: absoluteUrl(site, '/search/'),
+        loc: absoluteUrl(site, '/topics/'),
+        lastmod: getLatestLastmod(allContent),
       },
+      ...getAllNiches().map((niche) => ({
+        loc: absoluteUrl(site, `/topics/${niche.slug}/`),
+        lastmod: getLatestLastmod(
+          allContent.filter(({ content }) => content.meta.niche === niche.slug),
+        ),
+      })),
     ];
   }
 
