@@ -21,10 +21,10 @@ This repository is in planning/bootstrap mode. Use the docs below as the source 
   - Production branch: `main`
   - URL: `https://aistripes-dev.pages.dev/`
 - Primary deployment workflow:
-  - Commit and push to `main` to trigger Cloudflare Pages automatic production deploys.
-  - Prefer this auto-deploy path for normal releases.
+  - GitHub Actions builds and deploys `dist/` on pushes to `main` via `.github/workflows/deploy.yml`.
+  - Before merging the workflow migration, disconnect the Cloudflare Pages Git integration to prevent duplicate/racing production deploys.
 - To publish a build artifact directory:
-  - `npx wrangler pages deploy <directory>`
+  - `npx wrangler pages deploy dist --project-name aistripes-dev --branch=main`
   - Use manual Wrangler deploys only when explicitly requested or when auto-deploy is unavailable.
 
 ## Security for a Public Repo

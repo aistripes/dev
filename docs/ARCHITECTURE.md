@@ -25,20 +25,20 @@ The site is a statically generated content platform built from a public GitHub r
 │                                                         │
 └──────────────────────┬──────────────────────────────────┘
                        │
-                       │  git push / PR merge
+                       │  merge / push to main
                        ▼
               ┌────────────────┐
-              │ Cloudflare     │
-              │ Pages (build)  │
+              │ GitHub Actions │
               │                │
-              │ Astro SSG →    │
-              │ static HTML    │
+              │ npm ci +       │
+              │ Astro build    │
               └────────┬───────┘
                        │
+                       │  Wrangler uploads dist/
                        ▼
               ┌────────────────┐
               │ Cloudflare     │
-              │ CDN (edge)     │
+              │ Pages + CDN    │
               │                │
               │ Global serving │
               │ + Workers for  │
@@ -132,7 +132,7 @@ Published slugs are stable identifiers. When a malformed slug must change, add a
 
 ### Deployment: Cloudflare Pages + Workers
 
-- **Cloudflare Pages** for static hosting. Git-integrated builds on push to `main`. Preview deployments on PRs.
+- **Cloudflare Pages** for static hosting. GitHub Actions builds the site and deploys `dist/` to the `aistripes-dev` Pages project on pushes to `main`. The legacy Pages Git integration must remain disconnected so only one production deploy path runs.
 - **Cloudflare Workers** for dynamic functionality that can't be static:
   - Search API (lightweight full-text search over content index)
   - Newsletter signup endpoint
@@ -335,9 +335,6 @@ Contributor                    GitHub                      Cloudflare
     │                     ├── Lint + format                   │
     │                     └── Build preview                   │
     │                            │                            │
-    │                     Preview deploy ────────────────────►│
-    │                            │                     Preview URL
-    │                            │                            │
     │                     Maintainer review                   │
     │                     + merge to main                     │
     │                            │                            │
@@ -346,7 +343,9 @@ Contributor                    GitHub                      Cloudflare
     │                     → generates content                 │
     │                     → commits to repo                   │
     │                            │                            │
-    │                     Auto-deploy ──────────────────────►│
+    │                     GitHub Actions:                     │
+    │                     npm ci + build                      │
+    │                     + Wrangler deploy ────────────────►│
     │                            │                     Production
     │                            │                            │
 ```
