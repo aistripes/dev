@@ -132,7 +132,7 @@ Published slugs are stable identifiers. When a malformed slug must change, add a
 
 ### Deployment: Cloudflare Pages + Workers
 
-- **Cloudflare Pages** for static hosting. GitHub Actions builds the site and deploys `dist/` to the `aistripes-dev` Pages project on pushes to `main`. The legacy Pages Git integration must remain disconnected so only one production deploy path runs.
+- **Cloudflare Pages** for static hosting. GitHub Actions builds the site and deploys `dist/` to the `dev` Pages project on pushes to `main`. The legacy Pages Git integration must remain disconnected so only one production deploy path runs.
 - **Cloudflare Workers** for dynamic functionality that can't be static:
   - Search API (lightweight full-text search over content index)
   - Newsletter signup endpoint
