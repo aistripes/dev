@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "rag",
+    "generated_at": "2026-07-13T10:04:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "Firecrawl documentation", "url": "https://docs.firecrawl.dev/", "accessed_at": "2026-07-13" },
+        { "title": "Unstructured documentation", "url": "https://docs.unstructured.io/", "accessed_at": "2026-07-13" },
+        { "title": "LlamaParse documentation", "url": "https://developers.llamaindex.ai/python/cloud/llamaparse/", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Firecrawl vs Unstructured vs LlamaParse for RAG",
+    "description": "Compare RAG ingestion tools for websites, files, complex PDFs, structured extraction, deployment control, and production pipeline design.",
+    "keywords": ["Firecrawl vs Unstructured", "LlamaParse comparison", "RAG ingestion", "document parsing for AI"],
+    "slug": "rag-comparison-firecrawl-vs-unstructured-vs-llamaparse"
+  },
+  "content": {
+    "intro": "Retrieval quality is bounded by ingestion quality: missing navigation pages, flattened tables, repeated headers, and unstable chunk boundaries all degrade answers before the model sees a query. Firecrawl, Unstructured, and LlamaParse overlap, but their centers of gravity differ. Firecrawl acquires web content, Unstructured partitions many enterprise file types, and LlamaParse specializes in turning complex documents into LLM-ready representations.",
+    "options": [
+      { "name": "Firecrawl", "tagline": "Web crawling and extraction API for LLM-ready content", "url": "https://docs.firecrawl.dev/", "best_for": "RAG products that need to scrape, map, search, or crawl websites and return clean Markdown or structured JSON." },
+      { "name": "Unstructured", "tagline": "Document ingestion and partitioning platform", "url": "https://docs.unstructured.io/", "best_for": "Pipelines ingesting diverse office files, emails, HTML, PDFs, and connectors with configurable partitioning and enrichment." },
+      { "name": "LlamaParse", "tagline": "Document parser from LlamaIndex", "url": "https://developers.llamaindex.ai/python/cloud/llamaparse/", "best_for": "Applications where complex PDFs, tables, layouts, and document-aware extraction are the dominant challenge." }
+    ],
+    "criteria": [
+      { "name": "Primary input", "description": "The source each product handles most naturally.", "values": { "Firecrawl": "Public or authorized websites, pages, and web search results", "Unstructured": "Broad file collections and connected enterprise data sources", "LlamaParse": "Documents, especially PDFs and files with challenging layout" } },
+      { "name": "Website acquisition", "description": "Discovery and retrieval of multi-page sites.", "values": { "Firecrawl": "Built-in map, crawl, scrape, search, and browser-oriented endpoints", "Unstructured": "HTML and connectors are supported, but it is not primarily a web crawler", "LlamaParse": "Expects documents or files rather than discovering an entire site" }, "winner": "Firecrawl" },
+      { "name": "File-format breadth", "description": "Ability to normalize heterogeneous business documents.", "values": { "Firecrawl": "Web pages and supported file parsing through its API", "Unstructured": "Wide partitioning support across PDFs, Office files, email, images, HTML, and text", "LlamaParse": "Supports many document formats with emphasis on parsing quality" }, "winner": "Unstructured" },
+      { "name": "Complex PDF handling", "description": "Treatment of tables, layout, images, and reading order.", "values": { "Firecrawl": "Can parse PDFs encountered during web ingestion", "Unstructured": "Multiple partition strategies and element types expose layout structure", "LlamaParse": "Parsing modes and instructions target complex document understanding" }, "winner": "LlamaParse" },
+      { "name": "Structured extraction", "description": "Producing data that conforms to an application schema.", "values": { "Firecrawl": "JSON extraction can use a schema or prompt on known pages", "Unstructured": "Produces typed document elements and metadata for downstream transformation", "LlamaParse": "Can emit structured representations and be guided for document-specific parsing" } },
+      { "name": "Deployment control", "description": "Options for keeping processing under team control.", "values": { "Firecrawl": "Managed API with an open-source project and self-hosting path", "Unstructured": "Open-source library plus managed platform and deployable workflows", "LlamaParse": "Cloud parsing service integrated with the LlamaIndex ecosystem" }, "winner": "Unstructured" },
+      { "name": "Connector ecosystem", "description": "Breadth of ready-made sources and destinations for recurring ingestion.", "values": { "Firecrawl": "Focused on web sources and API/SDK integrations", "Unstructured": "Source and destination connectors are a major platform capability", "LlamaParse": "Pairs naturally with LlamaIndex readers and ingestion pipelines" }, "winner": "Unstructured" },
+      { "name": "Pipeline responsibility", "description": "What remains for the application to implement.", "values": { "Firecrawl": "Deduplication, chunking, embeddings, permissions, and sync semantics", "Unstructured": "Connector credentials, partition strategy, chunking, enrichment, and destination governance", "LlamaParse": "Source synchronization, permissions, indexing, and retrieval remain outside parsing" } },
+      { "name": "Key risk", "description": "The production failure mode to test first.", "values": { "Firecrawl": "Crawl scope can miss protected content or collect duplicate URL variants", "Unstructured": "A single generic partition strategy can perform unevenly across file classes", "LlamaParse": "High-quality parsing does not preserve source authorization unless the pipeline carries it forward" } }
+    ],
+    "verdict": {
+      "summary": "Use Firecrawl when the source of truth is the web, Unstructured when the source set is heterogeneous and connector-heavy, and LlamaParse when complex documents are the bottleneck. Many production systems combine them behind one normalized document contract. Always retain source URL or file ID, tenant permissions, content hash, parser version, and deletion state with every chunk.",
+      "use_cases": [
+        { "scenario": "Index a documentation website", "recommendation": "Firecrawl", "reason": "Site discovery, crawling, clean content output, and URL metadata live in one API surface." },
+        { "scenario": "Ingest SharePoint-style mixed business files", "recommendation": "Unstructured", "reason": "Its connector and partitioning model is designed for heterogeneous recurring ingestion." },
+        { "scenario": "Extract tables from difficult reports", "recommendation": "LlamaParse", "reason": "Document-aware parsing modes focus on layout, tables, and complex PDF structure." }
+      ]
+    }
+  }
+}

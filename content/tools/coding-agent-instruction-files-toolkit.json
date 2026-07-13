@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "code-generation",
+    "generated_at": "2026-07-13T10:08:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "AGENTS.md guide for Codex", "url": "https://developers.openai.com/codex/guides/agents-md", "accessed_at": "2026-07-13" },
+        { "title": "Claude Code memory documentation", "url": "https://docs.anthropic.com/en/docs/claude-code/memory", "accessed_at": "2026-07-13" },
+        { "title": "GitHub Copilot repository custom instructions", "url": "https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Coding Agent Instruction Files Toolkit",
+    "description": "Official guidance and a practical template for AGENTS.md, CLAUDE.md, and GitHub Copilot repository instructions that coding agents can follow.",
+    "keywords": ["AGENTS.md template", "CLAUDE.md instructions", "Copilot custom instructions", "coding agent context"],
+    "slug": "coding-agent-instruction-files-toolkit"
+  },
+  "content": {
+    "headline": "Give coding agents repository instructions they can verify",
+    "description": "Build concise instruction files that explain commands, boundaries, architecture, and verification without duplicating the entire README.",
+    "tool_type": "formatter",
+    "delivery": {
+      "mode": "link",
+      "links": [
+        { "label": "Codex AGENTS.md guide", "url": "https://developers.openai.com/codex/guides/agents-md", "kind": "docs" },
+        { "label": "Claude Code memory guide", "url": "https://docs.anthropic.com/en/docs/claude-code/memory", "kind": "docs" },
+        { "label": "Copilot repository instructions", "url": "https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions", "kind": "docs" },
+        { "label": "AGENTS.md community specification", "url": "https://agents.md/", "kind": "official" }
+      ]
+    },
+    "inputs": [],
+    "examples": [
+      {
+        "label": "Minimal root instruction file",
+        "input": { "template": "# Project\nAstro static site; JSON content is schema-validated.\n\n## Commands\n- Install: npm ci\n- Validate: npm run validate\n- Build: npm run build\n\n## Boundaries\n- Never commit secrets.\n- Keep content slugs stable.\n- Do not change deployment files unless requested." },
+        "expected_output": "An agent can identify the stack, run exact checks, and avoid the highest-risk changes without searching through unrelated documentation."
+      },
+      {
+        "label": "Nested instruction file",
+        "input": { "path": "src/payments/AGENTS.md", "template": "# Payments\n- Preserve webhook idempotency.\n- Verify signatures before parsing business fields.\n- Run: npm test -- payments\n- Use fixtures; never call live payment APIs from tests." },
+        "expected_output": "The narrower rules apply where payment code is edited, while root-level project rules remain available."
+      },
+      {
+        "label": "Instruction quality check",
+        "input": { "questions": "Are commands copy-pasteable? Are risky directories named? Are rules testable? Are contradictions resolved? Is stale product detail linked instead of copied?" },
+        "expected_output": "Every important instruction is specific enough for a contributor to act on and short enough to stay current."
+      }
+    ],
+    "how_it_works": "Start with the root file recognized by your coding agent, then add narrower files only where a subdirectory has genuinely different rules. State the architecture in two or three sentences, provide exact install/test/build commands, identify generated or security-sensitive paths, and describe what a completed change must verify. Prefer links to canonical design documents over copied explanations. Test the file by giving an agent a small task in a fresh session: if it cannot discover the right command or boundary, revise the instruction. If several agent products are used, keep shared rules aligned and reserve product-specific files for capabilities that truly differ.",
+    "related_tools": ["mcp-server-inspector-toolkit", "devtools-tool-page-typescript-for-developer-tools", "ci-cd-tool-page-github-actions-for-cicd-for-ai-apps"]
+  }
+}

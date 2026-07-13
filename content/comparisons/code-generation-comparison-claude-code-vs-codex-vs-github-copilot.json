@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "code-generation",
+    "generated_at": "2026-07-13T10:00:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "Claude Code documentation", "url": "https://docs.anthropic.com/en/docs/claude-code/overview", "accessed_at": "2026-07-13" },
+        { "title": "OpenAI Codex documentation", "url": "https://developers.openai.com/codex/", "accessed_at": "2026-07-13" },
+        { "title": "GitHub Copilot documentation", "url": "https://docs.github.com/en/copilot", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Claude Code vs Codex vs GitHub Copilot",
+    "description": "Compare three coding agents by workflow, execution environment, repository integration, automation, and control for shipping AI-coded web apps.",
+    "keywords": ["Claude Code vs Codex", "coding agents comparison", "GitHub Copilot agent", "AI coding tools"],
+    "slug": "code-generation-comparison-claude-code-vs-codex-vs-github-copilot"
+  },
+  "content": {
+    "intro": "Claude Code, OpenAI Codex, and GitHub Copilot can all inspect repositories, edit multiple files, and run development commands, but they enter a team's workflow from different directions. This comparison focuses on durable differences: where the agent runs, how it receives project context, how naturally it fits GitHub, and how much control a developer keeps during execution.",
+    "options": [
+      { "name": "Claude Code", "tagline": "Terminal-first coding agent from Anthropic", "url": "https://docs.anthropic.com/en/docs/claude-code/overview", "best_for": "Developers who want an interactive terminal agent with strong repository exploration and explicit command approval controls." },
+      { "name": "OpenAI Codex", "tagline": "Coding agent available across local and cloud workflows", "url": "https://developers.openai.com/codex/", "best_for": "Teams that want to move between local collaboration and delegated coding tasks in isolated environments." },
+      { "name": "GitHub Copilot", "tagline": "AI coding assistance embedded across GitHub and editors", "url": "https://docs.github.com/en/copilot", "best_for": "GitHub-centric teams that want completion, chat, review, and coding-agent workflows under one product." }
+    ],
+    "criteria": [
+      { "name": "Primary interface", "description": "The workflow each product treats as its natural home.", "values": { "Claude Code": "Interactive terminal and IDE integrations", "OpenAI Codex": "CLI, editor, app, and delegated cloud tasks", "GitHub Copilot": "IDE, CLI, GitHub website, pull requests, and agents" } },
+      { "name": "Task execution", "description": "How the agent performs multi-step repository work.", "values": { "Claude Code": "Works in the local checkout and invokes approved tools and commands", "OpenAI Codex": "Can work locally or execute delegated tasks in isolated cloud environments", "GitHub Copilot": "Offers local agent workflows and GitHub-hosted coding-agent tasks" } },
+      { "name": "GitHub workflow", "description": "How directly the product participates in issues, pull requests, and review.", "values": { "Claude Code": "Can use GitHub through its CLI and integrations, but is not tied to GitHub", "OpenAI Codex": "Can produce changes for review and connect delegated work to repositories", "GitHub Copilot": "Deep native integration with repositories, pull requests, issues, and code review" }, "winner": "GitHub Copilot" },
+      { "name": "Project instructions", "description": "How teams persist repository-specific guidance.", "values": { "Claude Code": "Uses CLAUDE.md memory and settings", "OpenAI Codex": "Uses AGENTS.md and configurable skills", "GitHub Copilot": "Uses repository custom instructions, agent files, and skills" } },
+      { "name": "Human control", "description": "The practical model for approving edits and commands.", "values": { "Claude Code": "Granular permission modes and interactive approvals", "OpenAI Codex": "Sandbox and approval policies vary by surface and task", "GitHub Copilot": "Controls vary across IDE agent mode, CLI, and cloud agent" } },
+      { "name": "Editor assistance", "description": "Support for everyday inline coding while a developer types.", "values": { "Claude Code": "Agent-focused; IDE integrations complement the terminal", "OpenAI Codex": "Agent-focused editor integration rather than a universal completion layer", "GitHub Copilot": "Mature inline completions plus chat and agent modes" }, "winner": "GitHub Copilot" },
+      { "name": "Automation fit", "description": "Suitability for scripts, repeatable jobs, and unattended tasks.", "values": { "Claude Code": "Print mode and SDK support scripted execution", "OpenAI Codex": "Supports delegated tasks, automation, and SDK-driven workflows", "GitHub Copilot": "Automations and GitHub events fit repository-centered jobs" } },
+      { "name": "Best adoption path", "description": "The least disruptive way to introduce the product.", "values": { "Claude Code": "Start with one repository and a reviewed CLAUDE.md", "OpenAI Codex": "Start locally, then delegate bounded tasks once checks are reliable", "GitHub Copilot": "Enable IDE assistance first, then add code review and coding agent" } }
+    ],
+    "verdict": {
+      "summary": "Choose based on workflow topology, not benchmark anecdotes. Claude Code is a strong terminal collaborator, Codex spans local and delegated execution, and GitHub Copilot has the broadest native GitHub and inline-assistance footprint. All three still require good repository instructions, deterministic tests, and human review.",
+      "use_cases": [
+        { "scenario": "Terminal-driven solo development", "recommendation": "Claude Code", "reason": "Its interactive terminal workflow and explicit permission model make iterative repository work easy to supervise." },
+        { "scenario": "Delegating bounded implementation tasks", "recommendation": "OpenAI Codex", "reason": "Its local-to-cloud workflow is designed for handing off tasks while retaining review gates." },
+        { "scenario": "GitHub-centered engineering organization", "recommendation": "GitHub Copilot", "reason": "It connects editor assistance, pull requests, code review, and repository agents inside the existing GitHub workflow." }
+      ]
+    }
+  }
+}

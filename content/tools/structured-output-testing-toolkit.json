@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "structured-output",
+    "generated_at": "2026-07-13T10:09:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "OpenAI Structured Outputs guide", "url": "https://developers.openai.com/api/docs/guides/structured-outputs", "accessed_at": "2026-07-13" },
+        { "title": "Anthropic structured outputs documentation", "url": "https://docs.anthropic.com/en/docs/build-with-claude/structured-outputs", "accessed_at": "2026-07-13" },
+        { "title": "Gemini structured output documentation", "url": "https://ai.google.dev/gemini-api/docs/structured-output", "accessed_at": "2026-07-13" },
+        { "title": "JSON Schema documentation", "url": "https://json-schema.org/learn/getting-started-step-by-step", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Structured Output Testing Toolkit",
+    "description": "Official references and adversarial test cases for reliable JSON Schema outputs across OpenAI, Anthropic, and Google Gemini APIs.",
+    "keywords": ["structured output testing", "JSON Schema LLM", "OpenAI structured outputs", "Gemini response schema"],
+    "slug": "structured-output-testing-toolkit"
+  },
+  "content": {
+    "headline": "Test model-generated JSON beyond the happy path",
+    "description": "Use provider constraints, portable JSON Schema patterns, and failure fixtures to keep AI-generated data safe at your application boundary.",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "link",
+      "links": [
+        { "label": "OpenAI Structured Outputs", "url": "https://developers.openai.com/api/docs/guides/structured-outputs", "kind": "docs" },
+        { "label": "Anthropic structured outputs", "url": "https://docs.anthropic.com/en/docs/build-with-claude/structured-outputs", "kind": "docs" },
+        { "label": "Gemini structured output", "url": "https://ai.google.dev/gemini-api/docs/structured-output", "kind": "docs" },
+        { "label": "Learn JSON Schema", "url": "https://json-schema.org/learn/getting-started-step-by-step", "kind": "official" }
+      ]
+    },
+    "inputs": [],
+    "examples": [
+      {
+        "label": "Portable product extraction schema",
+        "input": { "schema": "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"price_cents\":{\"type\":\"integer\",\"minimum\":0},\"currency\":{\"type\":\"string\",\"enum\":[\"EUR\",\"USD\"]}},\"required\":[\"name\",\"price_cents\",\"currency\"],\"additionalProperties\":false}" },
+        "expected_output": "Valid fixtures pass local schema validation; missing fields, negative prices, unsupported currencies, and extra properties fail before database writes."
+      },
+      {
+        "label": "Refusal and truncation test",
+        "input": { "prompt": "Request both an allowed extraction and content the provider may refuse; also test with a deliberately small output limit." },
+        "expected_output": "Application code distinguishes a refusal, an incomplete response, a provider error, and schema-valid data instead of treating every non-object as retryable JSON corruption."
+      },
+      {
+        "label": "Cross-provider portability test",
+        "input": { "checks": "unsupported schema keywords; nullable values; enums; nested arrays; additionalProperties; maximum depth; optional fields" },
+        "expected_output": "The production schema uses only the subset supported by the selected provider, or a documented adapter creates provider-specific variants from one source schema."
+      }
+    ],
+    "how_it_works": "Define one application-owned schema and validate every accepted response locally even when the provider promises schema adherence. Before sending it, transform or reject keywords unsupported by that provider. Test valid data, missing required fields, extra properties, boundary numbers, empty arrays, Unicode, refusals, safety blocks, truncation, timeouts, and schema-version changes. Log the provider, model, schema version, finish state, and validation error without storing sensitive prompts by default. Retry only failures that can plausibly change on retry; a deterministic schema incompatibility needs a code fix, not another model call.",
+    "related_tools": ["structured-output-json-schema-sanitizer", "structured-output-tool-page-google-gemini-for-structured-output-json-mode", "prompt-engineering-tool-page-openai-for-prompt-engineering"]
+  }
+}

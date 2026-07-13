@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "security",
+    "generated_at": "2026-07-13T10:02:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "Promptfoo red-team documentation", "url": "https://www.promptfoo.dev/docs/red-team/", "accessed_at": "2026-07-13" },
+        { "title": "Garak repository", "url": "https://github.com/NVIDIA/garak", "accessed_at": "2026-07-13" },
+        { "title": "PyRIT documentation", "url": "https://microsoft.github.io/PyRIT/", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Promptfoo vs Garak vs PyRIT",
+    "description": "Compare three AI red-team tools by target support, attack generation, scoring, automation, extensibility, and fit for webapp security testing.",
+    "keywords": ["Promptfoo vs Garak", "PyRIT comparison", "LLM red teaming", "prompt injection testing"],
+    "slug": "security-comparison-promptfoo-vs-garak-vs-pyrit"
+  },
+  "content": {
+    "intro": "Prompt injection and unsafe model behavior cannot be covered by a handful of hand-written prompts. Promptfoo, Garak, and PyRIT automate adversarial testing at different layers: application-level regression suites, broad model probing, and programmable multi-turn red-team scenarios. They are complementary in mature programs, but one is usually the best first fit.",
+    "options": [
+      { "name": "Promptfoo", "tagline": "Configuration-driven testing and red teaming for LLM applications", "url": "https://www.promptfoo.dev/docs/red-team/", "best_for": "Web teams that want security tests, assertions, reports, and CI gates close to existing prompt evaluations." },
+      { "name": "Garak", "tagline": "Open-source vulnerability scanner for generative AI systems", "url": "https://github.com/NVIDIA/garak", "best_for": "Security practitioners who want broad probe coverage against models and compatible endpoints." },
+      { "name": "PyRIT", "tagline": "Microsoft framework for programmable AI red teaming", "url": "https://microsoft.github.io/PyRIT/", "best_for": "Specialist teams building custom, stateful, multi-turn attack scenarios and recording detailed evidence." }
+    ],
+    "criteria": [
+      { "name": "Primary abstraction", "description": "The central unit of testing.", "values": { "Promptfoo": "Test configuration containing targets, plugins, strategies, and assertions", "Garak": "Probes and detectors executed against a generator target", "PyRIT": "Scenarios, strategies, targets, converters, scorers, and memory" } },
+      { "name": "Application testing", "description": "Fit for testing a complete webapp endpoint rather than only a base model.", "values": { "Promptfoo": "Strong support for HTTP endpoints and application-specific assertions", "Garak": "Can target supported generators and endpoints, with emphasis on scanner coverage", "PyRIT": "Flexible target adapters support custom systems but require more programming" }, "winner": "Promptfoo" },
+      { "name": "Breadth of built-in probes", "description": "Coverage available before writing custom attacks.", "values": { "Promptfoo": "Security plugins and attack strategies organized around common application risks", "Garak": "Large catalog of probes and detectors for many vulnerability classes", "PyRIT": "Reusable scenarios, datasets, converters, and attack strategies" }, "winner": "Garak" },
+      { "name": "Multi-turn attacks", "description": "Ability to run adaptive conversations rather than single prompts.", "values": { "Promptfoo": "Supports iterative attack strategies within red-team runs", "Garak": "Many probes are scanner-oriented, with scenario capabilities evolving", "PyRIT": "Designed for orchestrated, stateful, multi-turn attacks" }, "winner": "PyRIT" },
+      { "name": "Scoring", "description": "How harmful or policy-breaking outcomes are judged.", "values": { "Promptfoo": "Assertions and model-graded or deterministic checks", "Garak": "Detectors classify probe outputs and produce scan results", "PyRIT": "Composable scorers evaluate objectives, refusals, content, and custom criteria" } },
+      { "name": "CI adoption", "description": "Ease of adding repeatable checks to a normal web development pipeline.", "values": { "Promptfoo": "CLI and config files map naturally to pull-request checks", "Garak": "CLI scans fit scheduled security jobs but results need triage", "PyRIT": "Python workflows are powerful but typically need a custom harness" }, "winner": "Promptfoo" },
+      { "name": "Customization", "description": "Effort required to model a product-specific threat.", "values": { "Promptfoo": "Extend targets, providers, plugins, and assertions", "Garak": "Implement generators, probes, buffs, harnesses, or detectors", "PyRIT": "Compose or implement nearly every attack and scoring component" }, "winner": "PyRIT" },
+      { "name": "Evidence handling", "description": "How results support reproduction and review.", "values": { "Promptfoo": "Reports connect test cases, attack paths, and pass/fail outcomes", "Garak": "Scan artifacts record probe and detector results", "PyRIT": "Memory records conversations, scores, and scenario state for analysis" } },
+      { "name": "Safety requirement", "description": "The most important operational guardrail.", "values": { "Promptfoo": "Use dedicated test targets and cap generated attack volume", "Garak": "Review probes before running them against production or costly endpoints", "PyRIT": "Restrict targets, credentials, operators, and storage because scenarios can generate harmful content" } }
+    ],
+    "verdict": {
+      "summary": "Promptfoo is the most accessible starting point for product teams, Garak provides broad scanner-style coverage, and PyRIT offers the deepest programmable red-team workflow. Run these tools only against systems you are authorized to test, isolate test data, and require human review before turning noisy findings into release blockers.",
+      "use_cases": [
+        { "scenario": "Add prompt-injection regressions to CI", "recommendation": "Promptfoo", "reason": "Configuration-driven targets and assertions fit existing application test pipelines." },
+        { "scenario": "Baseline a model endpoint against many known attacks", "recommendation": "Garak", "reason": "Its probe and detector catalog is optimized for broad automated scanning." },
+        { "scenario": "Conduct a bespoke multi-turn red-team exercise", "recommendation": "PyRIT", "reason": "Its scenario, memory, converter, and scorer components support controlled custom attack programs." }
+      ]
+    }
+  }
+}

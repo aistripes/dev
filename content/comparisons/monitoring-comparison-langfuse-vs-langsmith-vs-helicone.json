@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "monitoring",
+    "generated_at": "2026-07-13T10:01:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "Langfuse observability documentation", "url": "https://langfuse.com/docs/observability/overview", "accessed_at": "2026-07-13" },
+        { "title": "LangSmith observability documentation", "url": "https://docs.langchain.com/langsmith/observability", "accessed_at": "2026-07-13" },
+        { "title": "Helicone documentation", "url": "https://docs.helicone.ai/", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Langfuse vs LangSmith vs Helicone",
+    "description": "Compare LLM observability platforms by tracing model, integration path, self-hosting, evaluations, gateway features, and operational fit.",
+    "keywords": ["Langfuse vs LangSmith", "Helicone comparison", "LLM observability", "AI tracing tools"],
+    "slug": "monitoring-comparison-langfuse-vs-langsmith-vs-helicone"
+  },
+  "content": {
+    "intro": "LLM failures hide inside prompts, retrieval steps, tool calls, provider retries, and model outputs, so ordinary HTTP metrics are rarely enough. Langfuse, LangSmith, and Helicone all expose token use, latency, and traces, but differ in data model, integration style, deployment control, and how closely observability is coupled to an orchestration ecosystem.",
+    "options": [
+      { "name": "Langfuse", "tagline": "Open-source LLM engineering and observability platform", "url": "https://langfuse.com/docs", "best_for": "Teams wanting OpenTelemetry-friendly tracing, evaluations, prompt management, and a credible self-hosting path." },
+      { "name": "LangSmith", "tagline": "Managed tracing and evaluation platform from LangChain", "url": "https://docs.langchain.com/langsmith", "best_for": "Teams building heavily with LangChain or LangGraph that want tightly integrated debugging and evaluation workflows." },
+      { "name": "Helicone", "tagline": "Open-source AI gateway and observability platform", "url": "https://docs.helicone.ai/", "best_for": "Teams that want fast proxy-based logging plus gateway controls across model providers." }
+    ],
+    "criteria": [
+      { "name": "Instrumentation model", "description": "How traces enter the platform.", "values": { "Langfuse": "SDKs, framework integrations, and OpenTelemetry ingestion", "LangSmith": "LangChain-native tracing plus SDK and OpenTelemetry paths", "Helicone": "Gateway or provider-compatible proxy, SDKs, and integrations" } },
+      { "name": "Trace structure", "description": "How multi-step application work is represented.", "values": { "Langfuse": "Sessions contain traces; traces contain nested observations", "LangSmith": "Runs form nested traces with projects, threads, and metadata", "Helicone": "Requests can be grouped into sessions and traces with custom properties" } },
+      { "name": "Fastest initial setup", "description": "The shortest route to useful request visibility.", "values": { "Langfuse": "Quick with an SDK or OpenTelemetry, but requires instrumentation choices", "LangSmith": "Very quick for LangChain or LangGraph applications", "Helicone": "Proxy base-URL changes can capture provider traffic with minimal code" }, "winner": "Helicone" },
+      { "name": "Framework neutrality", "description": "How naturally the platform works across custom stacks.", "values": { "Langfuse": "Strong through OpenTelemetry and provider/framework integrations", "LangSmith": "Supports custom code but is most natural in the LangChain ecosystem", "Helicone": "Gateway approach is largely independent of orchestration framework" } },
+      { "name": "Self-hosting", "description": "Ability to operate the platform on infrastructure you control.", "values": { "Langfuse": "Documented open-source self-hosting", "LangSmith": "Primarily managed; self-hosted options are aimed at enterprise arrangements", "Helicone": "Open-source deployment is available alongside the managed service" } },
+      { "name": "Evaluation workflow", "description": "Support for datasets, scores, experiments, and quality checks.", "values": { "Langfuse": "Scores, datasets, experiments, and evaluation integrations", "LangSmith": "Deep dataset, evaluator, experiment, and online evaluation workflow", "Helicone": "Evaluation and feedback features complement request analytics" }, "winner": "LangSmith" },
+      { "name": "Gateway controls", "description": "Runtime routing, caching, retries, and provider management.", "values": { "Langfuse": "Observability-first; gateway behavior usually lives elsewhere", "LangSmith": "Observability and evaluation first rather than an inference gateway", "Helicone": "Gateway-native routing, caching, rate controls, and provider access" }, "winner": "Helicone" },
+      { "name": "Data portability", "description": "How easily telemetry can participate in a broader observability stack.", "values": { "Langfuse": "OpenTelemetry foundation supports multi-destination telemetry", "LangSmith": "OpenTelemetry support helps connect existing instrumentation", "Helicone": "APIs and open-source components support export, with proxy data centered in Helicone" }, "winner": "Langfuse" },
+      { "name": "Operational caution", "description": "The main issue to resolve before production rollout.", "values": { "Langfuse": "Plan storage, retention, and upgrades if self-hosting", "LangSmith": "Define data handling and avoid accidental capture of sensitive prompts", "Helicone": "Treat proxy routing as critical-path infrastructure and design bypass/failure behavior" } }
+    ],
+    "verdict": {
+      "summary": "Langfuse offers the strongest open, telemetry-oriented middle ground; LangSmith is compelling for evaluation-heavy LangChain teams; Helicone is the shortest path when a gateway should provide both visibility and runtime controls. Whichever platform you choose, redact secrets and personal data before export and verify trace flushing in serverless runtimes.",
+      "use_cases": [
+        { "scenario": "Self-hosted observability with OpenTelemetry", "recommendation": "Langfuse", "reason": "Its open-source deployment and OTel-oriented data path fit teams that need infrastructure and telemetry control." },
+        { "scenario": "LangGraph debugging and systematic evaluations", "recommendation": "LangSmith", "reason": "Its native integration and experiment workflow reduce setup for teams already using the LangChain stack." },
+        { "scenario": "Multi-provider gateway with immediate request analytics", "recommendation": "Helicone", "reason": "Proxy-based capture combines a low-friction integration with gateway controls." }
+      ]
+    }
+  }
+}

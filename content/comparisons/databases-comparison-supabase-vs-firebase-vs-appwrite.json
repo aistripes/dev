@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "databases",
+    "generated_at": "2026-07-13T10:03:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "Supabase documentation", "url": "https://supabase.com/docs", "accessed_at": "2026-07-13" },
+        { "title": "Firebase documentation", "url": "https://firebase.google.com/docs", "accessed_at": "2026-07-13" },
+        { "title": "Appwrite documentation", "url": "https://appwrite.io/docs", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Supabase vs Firebase vs Appwrite for AI Web Apps",
+    "description": "Compare three backend platforms by database model, auth, functions, local development, self-hosting, vector workloads, and AI app fit.",
+    "keywords": ["Supabase vs Firebase vs Appwrite", "backend for AI app", "vibecoding backend", "BaaS comparison"],
+    "slug": "databases-comparison-supabase-vs-firebase-vs-appwrite"
+  },
+  "content": {
+    "intro": "A backend-as-a-service can turn an AI prototype into a real product by supplying authentication, data storage, file uploads, realtime updates, and server-side functions. Supabase, Firebase, and Appwrite cover that surface with different database models and ownership tradeoffs. The best choice depends less on generated SDK snippets and more on the data relationships, authorization model, deployment constraints, and exit path your application needs.",
+    "options": [
+      { "name": "Supabase", "tagline": "Postgres-centered open-source backend platform", "url": "https://supabase.com/docs", "best_for": "AI SaaS products that benefit from SQL, relational data, row-level security, and Postgres extensions." },
+      { "name": "Firebase", "tagline": "Google-managed application development platform", "url": "https://firebase.google.com/docs", "best_for": "Teams prioritizing mature client SDKs, realtime mobile/web experiences, and deep Google Cloud integration." },
+      { "name": "Appwrite", "tagline": "Open-source backend platform with cloud and self-hosted options", "url": "https://appwrite.io/docs", "best_for": "Developers wanting a cohesive API platform and a documented path to running the backend themselves." }
+    ],
+    "criteria": [
+      { "name": "Primary database model", "description": "The data model developers design around.", "values": { "Supabase": "PostgreSQL relational database with SQL and extensions", "Firebase": "Cloud Firestore document database plus Realtime Database", "Appwrite": "Document-oriented databases exposed through Appwrite APIs" } },
+      { "name": "Relational workloads", "description": "Fit for joins, constraints, reporting, and transactional SaaS data.", "values": { "Supabase": "Native Postgres relationships, constraints, views, and SQL", "Firebase": "Denormalization is common; joins live in application logic", "Appwrite": "Relationships are supported through its database APIs, without full SQL semantics" }, "winner": "Supabase" },
+      { "name": "Authorization", "description": "How access rules are enforced near stored data.", "values": { "Supabase": "JWT-based Auth integrates with PostgreSQL row-level security", "Firebase": "Security Rules protect Firestore, Storage, and Realtime Database", "Appwrite": "Document, file, and resource permissions integrate with Auth teams and users" } },
+      { "name": "Server-side functions", "description": "Where secret-bearing AI API calls can run.", "values": { "Supabase": "Edge Functions with documented auth patterns", "Firebase": "Cloud Functions with HTTP and event triggers", "Appwrite": "Containerized Functions triggered by HTTP, events, schedules, or SDK calls" } },
+      { "name": "Vector and retrieval workloads", "description": "Suitability for embedding storage and filtered semantic search.", "values": { "Supabase": "Postgres extensions such as pgvector keep vectors near relational metadata", "Firebase": "Vector search capabilities exist in Firestore, within its document model and query constraints", "Appwrite": "Typically pairs with a dedicated vector service or custom function for advanced retrieval" }, "winner": "Supabase" },
+      { "name": "Local development", "description": "Ability to test auth, data, and functions without touching production.", "values": { "Supabase": "CLI-driven local stack using containers", "Firebase": "Local Emulator Suite covers major Firebase services", "Appwrite": "Self-hosted installation and local function workflows support isolated development" } },
+      { "name": "Self-hosting", "description": "Whether the core platform can run under your operational control.", "values": { "Supabase": "Open-source self-hosting is documented, with operational responsibility on the team", "Firebase": "Managed Google service; emulators are for development, not a production self-hosting path", "Appwrite": "Open-source self-hosting is a first-class deployment option" }, "winner": "Appwrite" },
+      { "name": "Realtime data", "description": "Built-in support for live client updates.", "values": { "Supabase": "Realtime changes and channels integrate with Postgres", "Firebase": "Realtime listeners are a foundational client SDK capability", "Appwrite": "Realtime subscriptions cover database, auth, storage, and function events" }, "winner": "Firebase" },
+      { "name": "Migration posture", "description": "How to keep an eventual backend change manageable.", "values": { "Supabase": "Standard Postgres tools reduce database-level lock-in, though platform APIs still need migration", "Firebase": "Document schemas, Security Rules, and service integrations can make migration substantial", "Appwrite": "Open source improves deployment choice, but applications remain coupled to Appwrite APIs" }, "winner": "Supabase" }
+    ],
+    "verdict": {
+      "summary": "Supabase is the default when an AI webapp needs relational product data and vector search in one Postgres system. Firebase remains excellent for client-heavy realtime products and teams already committed to Google services. Appwrite is attractive when a coherent backend API and self-hosting option matter more than SQL. In every case, keep model keys in server-side functions and test authorization rules independently of the generated UI.",
+      "use_cases": [
+        { "scenario": "Multi-tenant AI SaaS with billing and RAG", "recommendation": "Supabase", "reason": "Relational constraints, row-level security, and Postgres vector extensions fit linked tenant, document, and subscription data." },
+        { "scenario": "Realtime mobile-first AI experience", "recommendation": "Firebase", "reason": "Its mature client SDKs, listeners, auth, and emulator workflow support reactive mobile and web clients." },
+        { "scenario": "Self-hostable all-in-one backend", "recommendation": "Appwrite", "reason": "It packages auth, databases, storage, realtime, and functions behind a consistent API with a self-hosted path." }
+      ]
+    }
+  }
+}

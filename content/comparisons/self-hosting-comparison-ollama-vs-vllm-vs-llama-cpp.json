@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "self-hosting",
+    "generated_at": "2026-07-13T10:06:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "Ollama documentation", "url": "https://docs.ollama.com/", "accessed_at": "2026-07-13" },
+        { "title": "vLLM documentation", "url": "https://docs.vllm.ai/", "accessed_at": "2026-07-13" },
+        { "title": "llama.cpp repository", "url": "https://github.com/ggml-org/llama.cpp", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Ollama vs vLLM vs llama.cpp for Self-Hosted AI",
+    "description": "Compare local and self-hosted LLM runtimes by setup, hardware, throughput, quantization, API compatibility, scaling, and production fit.",
+    "keywords": ["Ollama vs vLLM", "llama.cpp comparison", "self-hosted LLM", "local AI runtime"],
+    "slug": "self-hosting-comparison-ollama-vs-vllm-vs-llama-cpp"
+  },
+  "content": {
+    "intro": "Ollama, vLLM, and llama.cpp all serve open models behind application-friendly interfaces, but they optimize for different jobs. Ollama makes local model use approachable, vLLM targets high-throughput GPU serving, and llama.cpp emphasizes portable inference across consumer and edge hardware. Picking the wrong layer often produces either needless operations or a runtime that cannot meet concurrency targets.",
+    "options": [
+      { "name": "Ollama", "tagline": "Developer-friendly local model runtime and API", "url": "https://docs.ollama.com/", "best_for": "Local development, prototypes, desktop workflows, and small services that value simple model management." },
+      { "name": "vLLM", "tagline": "High-throughput engine for serving LLMs", "url": "https://docs.vllm.ai/", "best_for": "GPU-backed production endpoints where continuous batching, throughput, and multi-user serving are primary." },
+      { "name": "llama.cpp", "tagline": "Portable C/C++ inference runtime for GGUF models", "url": "https://github.com/ggml-org/llama.cpp", "best_for": "CPU, Apple Silicon, mixed CPU/GPU, edge, and highly controlled quantized deployments." }
+    ],
+    "criteria": [
+      { "name": "Setup experience", "description": "Time from installation to a local chat or API call.", "values": { "Ollama": "Install the app or binary, pull a model, and run it through CLI or API", "vLLM": "Install a compatible Python/GPU stack and launch a model server", "llama.cpp": "Use packaged binaries or compile, then obtain a compatible GGUF model" }, "winner": "Ollama" },
+      { "name": "Primary hardware", "description": "The environment each runtime most naturally targets.", "values": { "Ollama": "Developer laptops and workstations across supported operating systems", "vLLM": "Accelerator-backed Linux servers and clusters", "llama.cpp": "Wide CPU and GPU range including Apple Silicon and constrained devices" } },
+      { "name": "High-concurrency throughput", "description": "Efficiency when many users generate simultaneously.", "values": { "Ollama": "Suitable for modest serving, but not centered on fleet-scale throughput", "vLLM": "Continuous batching and serving optimizations target high throughput", "llama.cpp": "Server supports parallel decoding and batching, with performance tied closely to hardware and build" }, "winner": "vLLM" },
+      { "name": "Quantized local models", "description": "Ease and flexibility of running reduced-precision models on limited hardware.", "values": { "Ollama": "Model library and Modelfiles simplify packaged local models", "vLLM": "Supports multiple quantization approaches in GPU-serving workflows", "llama.cpp": "GGUF ecosystem and many quantization levels are core strengths" }, "winner": "llama.cpp" },
+      { "name": "API compatibility", "description": "Ease of connecting existing webapp SDKs.", "values": { "Ollama": "Native API plus OpenAI-compatible endpoints", "vLLM": "OpenAI-compatible server for common generation APIs", "llama.cpp": "llama-server exposes OpenAI-compatible and additional native endpoints" } },
+      { "name": "Model operations", "description": "How models are obtained, configured, and switched.", "values": { "Ollama": "Pullable model library and declarative Modelfiles", "vLLM": "Model identifiers and server flags fit controlled deployment manifests", "llama.cpp": "Direct GGUF file control, conversion tools, and detailed runtime flags" }, "winner": "Ollama" },
+      { "name": "Horizontal scaling", "description": "Fit for replicated or distributed production serving.", "values": { "Ollama": "Usually wrapped with external orchestration for multi-instance services", "vLLM": "Designed to participate in distributed and production serving stacks", "llama.cpp": "Replicate llama-server externally; cluster orchestration is outside the project" }, "winner": "vLLM" },
+      { "name": "Portability", "description": "Breadth of deployment targets and low-level control.", "values": { "Ollama": "Good desktop portability with an opinionated runtime", "vLLM": "Focused on supported accelerator and server environments", "llama.cpp": "Broad architectures, acceleration backends, and build-time control" }, "winner": "llama.cpp" },
+      { "name": "Production security", "description": "The minimum hardening required for a web-facing deployment.", "values": { "Ollama": "Place behind authenticated application infrastructure; do not expose a developer runtime directly", "vLLM": "Add authentication, quotas, network isolation, request limits, and capacity controls", "llama.cpp": "Bind privately, add an authenticated reverse proxy, sandbox untrusted models, and cap resources" } }
+    ],
+    "verdict": {
+      "summary": "Start with Ollama for the fastest local feedback loop, graduate to vLLM when GPU utilization and concurrent throughput dominate, and choose llama.cpp when portable quantized inference or exact runtime control matters. Benchmark your own model, context length, prompt distribution, output length, concurrency, and hardware; tokens-per-second figures from a different workload are not capacity plans.",
+      "use_cases": [
+        { "scenario": "Local development for an AI-coded webapp", "recommendation": "Ollama", "reason": "Model installation, switching, and API access require little infrastructure work." },
+        { "scenario": "Production GPU endpoint with many concurrent users", "recommendation": "vLLM", "reason": "Its scheduling and batching model is built around efficient high-throughput serving." },
+        { "scenario": "Private inference on a Mac mini or CPU-heavy edge host", "recommendation": "llama.cpp", "reason": "Portable backends and GGUF quantization make constrained and mixed hardware practical." }
+      ]
+    }
+  }
+}

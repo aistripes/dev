@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "content_type": "tool-page",
+    "niche": "agents",
+    "generated_at": "2026-07-13T10:07:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "MCP Inspector guide", "url": "https://modelcontextprotocol.io/docs/tools/inspector", "accessed_at": "2026-07-13" },
+        { "title": "MCP debugging guide", "url": "https://modelcontextprotocol.io/docs/tools/debugging", "accessed_at": "2026-07-13" },
+        { "title": "MCP Inspector repository", "url": "https://github.com/modelcontextprotocol/inspector", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "MCP Server Inspector Toolkit",
+    "description": "Official tools and repeatable test cases for connecting to, inspecting, and debugging local or remote Model Context Protocol servers.",
+    "keywords": ["MCP Inspector", "debug MCP server", "Model Context Protocol testing", "AI agent tools"],
+    "slug": "mcp-server-inspector-toolkit"
+  },
+  "content": {
+    "headline": "Inspect an MCP server before connecting an agent",
+    "description": "Use the official MCP Inspector and protocol guidance to verify connections, capabilities, schemas, errors, and side effects independently of an AI client.",
+    "tool_type": "checker",
+    "delivery": {
+      "mode": "link",
+      "links": [
+        { "label": "Open the MCP Inspector guide", "url": "https://modelcontextprotocol.io/docs/tools/inspector", "kind": "official" },
+        { "label": "Read the MCP debugging guide", "url": "https://modelcontextprotocol.io/docs/tools/debugging", "kind": "docs" },
+        { "label": "View the Inspector source", "url": "https://github.com/modelcontextprotocol/inspector", "kind": "repo" },
+        { "label": "Review the MCP specification", "url": "https://modelcontextprotocol.io/specification/latest", "kind": "docs" }
+      ]
+    },
+    "inputs": [],
+    "examples": [
+      {
+        "label": "Inspect a local Node server",
+        "input": { "command": "npx @modelcontextprotocol/inspector node dist/index.js" },
+        "expected_output": "The Inspector launches a UI and proxy, connects to the stdio server, and exposes its negotiated tools, resources, and prompts."
+      },
+      {
+        "label": "Inspect an npm-published server",
+        "input": { "command": "npx -y @modelcontextprotocol/inspector npx -y @modelcontextprotocol/server-filesystem /safe/test/fixture" },
+        "expected_output": "The server starts with access limited to the supplied fixture directory; its capabilities can be invoked without involving a production agent."
+      },
+      {
+        "label": "Negative test checklist",
+        "input": { "tests": "missing required argument; wrong type; unknown tool; denied path; oversized payload; cancelled request" },
+        "expected_output": "Each case returns a bounded protocol error, avoids unintended side effects, and leaves the server ready for the next request."
+      }
+    ],
+    "how_it_works": "Start the target server through the Inspector or connect using its supported remote transport. Confirm the initialization handshake and advertised capabilities first. Then enumerate tools, resources, and prompts; inspect every input schema; invoke read-only fixtures before mutating operations; and test invalid, cancelled, and unauthorized calls. Record the exact request, response, server logs, and side effects. Run tests with disposable credentials and least-privilege fixture data because the Inspector invokes real server capabilities—it is a debugger, not a sandbox.",
+    "related_tools": ["agents-tool-page-langchain-for-ai-agents-tool-use", "security-tool-page-owasp-llm-top-10-for-security-for-ai-apps", "coding-agent-instruction-files-toolkit"]
+  }
+}

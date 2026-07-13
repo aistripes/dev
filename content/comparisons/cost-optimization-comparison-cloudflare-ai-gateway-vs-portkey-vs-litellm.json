@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "content_type": "comparison",
+    "niche": "cost-optimization",
+    "generated_at": "2026-07-13T10:05:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "sources": [
+        { "title": "Cloudflare AI Gateway documentation", "url": "https://developers.cloudflare.com/ai-gateway/", "accessed_at": "2026-07-13" },
+        { "title": "Portkey documentation", "url": "https://portkey.ai/docs", "accessed_at": "2026-07-13" },
+        { "title": "LiteLLM proxy documentation", "url": "https://docs.litellm.ai/docs/simple_proxy", "accessed_at": "2026-07-13" }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Cloudflare AI Gateway vs Portkey vs LiteLLM",
+    "description": "Compare AI gateways by provider routing, fallbacks, caching, observability, budgets, self-hosting, and operational fit for web apps.",
+    "keywords": ["Cloudflare AI Gateway vs Portkey", "LiteLLM comparison", "LLM gateway", "AI API cost optimization"],
+    "slug": "cost-optimization-comparison-cloudflare-ai-gateway-vs-portkey-vs-litellm"
+  },
+  "content": {
+    "intro": "An AI gateway centralizes provider credentials, usage logs, routing, retries, limits, and sometimes caching behind one endpoint. That can lower cost and simplify model changes, but it also creates a new critical dependency. Cloudflare AI Gateway, Portkey, and LiteLLM differ most in operating model: edge platform service, managed AI control plane, or self-hostable proxy software.",
+    "options": [
+      { "name": "Cloudflare AI Gateway", "tagline": "Managed AI gateway integrated with Cloudflare", "url": "https://developers.cloudflare.com/ai-gateway/", "best_for": "Web teams already using Cloudflare that want provider access, logging, caching, limits, and routing near their edge stack." },
+      { "name": "Portkey", "tagline": "Managed AI gateway and observability platform", "url": "https://portkey.ai/docs", "best_for": "Teams wanting a broad managed control plane for routing, guardrails, observability, and provider governance." },
+      { "name": "LiteLLM", "tagline": "Open-source OpenAI-compatible proxy for many model providers", "url": "https://docs.litellm.ai/docs/simple_proxy", "best_for": "Teams that want to self-host a programmable gateway and standardize many providers behind familiar APIs." }
+    ],
+    "criteria": [
+      { "name": "Operating model", "description": "Who runs the gateway data plane.", "values": { "Cloudflare AI Gateway": "Managed Cloudflare service", "Portkey": "Managed platform with enterprise deployment options", "LiteLLM": "Open-source proxy commonly operated by the application team" } },
+      { "name": "Provider abstraction", "description": "How clients call multiple model vendors.", "values": { "Cloudflare AI Gateway": "Provider-specific and unified compatible endpoints, including Workers AI", "Portkey": "Unified gateway API and provider integrations", "LiteLLM": "OpenAI-compatible request and response translation across many providers" } },
+      { "name": "Routing and fallback", "description": "Runtime choice of model and recovery from provider failure.", "values": { "Cloudflare AI Gateway": "Dynamic routes support conditions, splits, limits, retries, and fallback paths", "Portkey": "Configurable routing, fallbacks, retries, load balancing, and conditional behavior", "LiteLLM": "Router and proxy support fallbacks, retries, load balancing, and deployment groups" } },
+      { "name": "Caching", "description": "Ability to avoid repeated model calls.", "values": { "Cloudflare AI Gateway": "Gateway caching with per-request controls", "Portkey": "Simple and semantic caching features", "LiteLLM": "Configurable cache backends and cache behavior" } },
+      { "name": "Observability", "description": "Visibility into latency, tokens, cost, errors, and request metadata.", "values": { "Cloudflare AI Gateway": "Built-in logs and analytics tied to gateway traffic", "Portkey": "Detailed logs, traces, analytics, and feedback-oriented features", "LiteLLM": "Proxy logs, spend tracking, callbacks, and integrations; dashboard behavior depends on deployment" }, "winner": "Portkey" },
+      { "name": "Budget controls", "description": "Guardrails against unbounded model spend.", "values": { "Cloudflare AI Gateway": "Rate and budget limit elements can participate in dynamic routes", "Portkey": "Usage limits and budgets can be applied through gateway controls", "LiteLLM": "Virtual keys, teams, users, and budgets support spend governance" } },
+      { "name": "Self-hosting and control", "description": "Ability to run and customize the core gateway yourself.", "values": { "Cloudflare AI Gateway": "Managed service rather than a self-hosted gateway", "Portkey": "Managed by default, with deployment options depending on plan", "LiteLLM": "Open-source proxy can run in your own environment" }, "winner": "LiteLLM" },
+      { "name": "Edge-stack fit", "description": "Natural integration with globally distributed web infrastructure.", "values": { "Cloudflare AI Gateway": "Native fit with Workers, Workers AI, Secrets Store, and Cloudflare operations", "Portkey": "Works across hosting environments through its gateway endpoint", "LiteLLM": "Portable, but the team owns regional deployment and scaling" }, "winner": "Cloudflare AI Gateway" },
+      { "name": "Failure planning", "description": "The resilience question teams must answer before launch.", "values": { "Cloudflare AI Gateway": "Decide whether clients fail closed, bypass the gateway, or use route fallbacks", "Portkey": "Configure fallbacks and define behavior if the managed control plane is unreachable", "LiteLLM": "Operate high availability, persistence, upgrades, and overload protection yourself" } }
+    ],
+    "verdict": {
+      "summary": "Cloudflare AI Gateway is a natural choice for Cloudflare-hosted apps, Portkey offers a feature-rich managed control plane, and LiteLLM gives engineering teams the most direct operational control. A gateway saves money only when limits, cache eligibility, model routing, and usage attribution are explicit; adding a proxy without those policies merely relocates the API endpoint.",
+      "use_cases": [
+        { "scenario": "Cloudflare Worker calling several model providers", "recommendation": "Cloudflare AI Gateway", "reason": "It integrates with the surrounding edge, secrets, logging, and Workers AI environment." },
+        { "scenario": "Managed governance across many AI product teams", "recommendation": "Portkey", "reason": "Its gateway, observability, and policy surface reduces the amount of control-plane software a team must operate." },
+        { "scenario": "Self-hosted OpenAI-compatible model gateway", "recommendation": "LiteLLM", "reason": "The open-source proxy standardizes providers while keeping deployment and customization under team control." }
+      ]
+    }
+  }
+}
