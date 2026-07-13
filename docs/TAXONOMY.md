@@ -3,8 +3,8 @@
 > **Brand:** AI Stripes
 > **Domain:** aistripes.dev
 > **GitHub:** github.com/aistripes
-> **Status:** Full taxonomy — 54 niches across 5 categories
-> **Last updated:** 2026-03-12
+> **Status:** Live taxonomy — 55 niches across 5 categories
+> **Last updated:** 2026-07-13
 
 ---
 
@@ -146,6 +146,7 @@ Where and how developers deploy and run AI-powered apps.
 | `caching` | Caching Strategies | Medium | ✅ Defined | Critical at scale with AI costs |
 | `monitoring` | Monitoring & Observability | Medium | ✅ Defined | LLM cost tracking, error rates |
 | `ci-cd` | CI/CD for AI Apps | Low | ✅ Defined | Model deployment, prompt versioning |
+| `cloudflare-workers` | Cloudflare Workers | — | ✅ Defined | Edge applications, bindings, Durable Objects, and Workers AI |
 | `security` | Security for AI Apps | Medium | ✅ Defined | Prompt injection, data leakage |
 | `cost-optimization` | AI API Cost Optimization | High | ✅ Defined | Every AI dev worries about this |
 | `privacy` | Privacy-First Architecture | High | ✅ Defined | Core positioning of the site |
@@ -192,7 +193,7 @@ Each content type has its own schema, renderer, and URL prefix.
 
 **URL prefix:** `/resources/`
 **Description:** Idea lists, tip collections, and curated resources. The highest-volume content type.
-**Schema constraints:** 3-5 sections, 15-20 items per section, each with title + description + difficulty + potential rating. Exactly 5 pro tips.
+**Schema constraints:** 3-5 sections, 10-25 items per section, each with title + description and optional difficulty + potential ratings. Exactly 5 pro tips.
 **Example pages:**
 - `100 Blog Post Ideas for SaaS Developers`
 - `50 AI Integration Ideas for E-Commerce`
@@ -231,8 +232,8 @@ Each content type has its own schema, renderer, and URL prefix.
 ### Type 5: Tools
 
 **URL prefix:** `/tools/`
-**Description:** Interactive, functional tools that run in the browser. Not just content — actual utilities. Highest engagement, strongest link magnet.
-**Schema constraints:** Tool-specific. Each tool has its own schema for configuration, examples, and niche-specific context. The React component does the heavy lifting.
+**Description:** Browser-based utilities and curated toolkits. Runnable tools use client-side inputs and output; link-mode toolkits collect official docs, repositories, examples, and playgrounds.
+**Schema constraints:** A shared tool-page schema defines generator, calculator, checker, formatter, and analyzer pages with either `run` or `link` delivery, plus inputs, examples, and niche-specific context.
 **Example pages:**
 - `Meta Tag Generator for AI-Powered Content Sites`
 - `GDPR Cookie Consent Checker`
@@ -266,42 +267,16 @@ Shows how niches × content types generate pages. Not every combination makes se
 
 ---
 
-## Expansion Strategy
+## Current Coverage
 
-### Phase 1: Foundation (Launch)
-
-- 54 niches fully defined across all 5 categories ✅
+- 55 niches across 5 categories
 - All 6 content types active
-- Target: ~500-800 initial pages
-- Focus: Frameworks + AI Patterns (highest search volume)
-- Mix of established technologies (React, Django, Docker) and emerging patterns (RAG, Agents)
-
-### Phase 2: Depth (Month 2-3)
-
-- Expand to 40-50 niches
-- Add subtopic-level pages (e.g., "Next.js App Router" as a distinct generation context, not just "Next.js")
-- Target: 2,000-3,000 pages
-- Open for community taxonomy contributions
-
-### Phase 3: Breadth (Month 4-6)
-
-- 80+ niches including long-tail verticals
-- Community-contributed niches going through PR review
-- Cross-niche content (e.g., "RAG + Next.js + SaaS" three-way intersections)
-- Target: 5,000+ pages
-
-### Phase 4: Compounding (Month 6+)
-
-- Taxonomy feedback loop: analytics data informs which niches and content types to expand
-- Community-driven growth outpaces core team generation
-- Automated re-generation with updated niche context
-- Target: 10,000+ pages
+- 356 schema-driven content pages
+- 424 generated HTML pages in the production build, including collection indexes, topic pages, search, and four flagship pages
 
 ---
 
 ## Taxonomy Contribution Guide
-
-*(To be expanded in CONTRIBUTING.md)*
 
 ### Adding a new niche
 

@@ -3,8 +3,8 @@
 > **Brand:** AI Stripes
 > **Domain:** aistripes.dev
 > **GitHub:** github.com/aistripes
-> **Status:** Planning phase
-> **Last updated:** 2026-03-12
+> **Status:** Live
+> **Last updated:** 2026-07-13
 
 ---
 
@@ -20,8 +20,8 @@ The site is a statically generated content platform built from a public GitHub r
 │  /schemas      → content type schemas (TypeScript)      │
 │  /content      → generated content files (JSON)         │
 │  /src          → site source (Astro + React)            │
-│  /renderers    → content-type-specific components       │
-│  /tools        → interactive tool components            │
+│  /src/renderers → content-type-specific components      │
+│  /tooling      → content audit scripts                  │
 │                                                         │
 └──────────────────────┬──────────────────────────────────┘
                        │
@@ -41,8 +41,6 @@ The site is a statically generated content platform built from a public GitHub r
               │ Pages + CDN    │
               │                │
               │ Global serving │
-              │ + Workers for  │
-              │   dynamic bits │
               └────────────────┘
 ```
 
@@ -52,7 +50,7 @@ The site is a statically generated content platform built from a public GitHub r
 
 Astro is the primary framework. Reasoning:
 
-- **Content-first by design.** Astro's content collections map directly to the schema-driven JSON content model. Each content type becomes a collection with a Zod schema.
+- **Content-first by design.** The build reads schema-driven JSON through `src/lib/content.ts`; each content type has a Zod schema and a renderer.
 - **Island architecture.** Most pages are static HTML. Interactive elements (tool pages, filtered lists, checklists) hydrate as React islands only where needed. This keeps pages fast and lightweight.
 - **Static generation at scale.** Astro handles thousands of static pages well. The `getStaticPaths()` pattern is built for programmatic page generation from data files.
 - **Framework-agnostic islands.** Renderers are React components, but Astro doesn't force React on every page. Static content stays as zero-JS HTML.
@@ -60,46 +58,13 @@ Astro is the primary framework. Reasoning:
 ### UI layer: React + Tailwind CSS
 
 - **React** for interactive renderers (tool pages, filterable lists, checklists). Shared across all content types as island components.
-- **Tailwind CSS v4** for styling. Utility-first, no custom CSS files to maintain at scale. Consistent design across 20+ content type renderers.
-- **shadcn/ui** as a component foundation where it makes sense (tables, cards, dialogs). Not a hard dependency — used selectively.
+- **Tailwind CSS v4** for styling, with shared global styles and utilities across the six content type renderers.
 
 ### Content validation: Zod + TypeScript
 
 Every content type has a Zod schema that mirrors the generation schema. Content files are validated at build time.
 
-```typescript
-// schemas/resource-article.ts
-import { z } from 'zod';
-
-export const ResourceArticleSchema = z.object({
-  meta: z.object({
-    content_type: z.string(),
-    niche: z.string(),
-    generated_at: z.string().datetime(),
-    schema_version: z.string(),
-  }),
-  seo: z.object({
-    title: z.string(),
-    description: z.string().max(160),
-    keywords: z.array(z.string()),
-  }),
-  content: z.object({
-    intro: z.string(),
-    sections: z.array(z.object({
-      heading: z.string(),
-      items: z.array(z.object({
-        title: z.string(),
-        description: z.string(),
-        difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
-        potential: z.enum(['high', 'medium', 'standard']).optional(),
-      })).min(10).max(25),
-    })),
-    pro_tips: z.array(z.string()).length(5),
-  }),
-});
-```
-
-If a content file doesn't validate, the build fails. No malformed pages reach production.
+The current schema definitions live in `schemas/`. During a normal build, invalid content is reported and omitted from generated routes. Run `npm run audit:content -- --strict` when invalid content must fail the check.
 
 #### Editorial evidence metadata
 
@@ -130,21 +95,14 @@ Run `npm run audit:content` to report scalable quality issues. CI can run `npm r
 
 Published slugs are stable identifiers. When a malformed slug must change, add an explicit permanent redirect to `public/_redirects` in the same change as the corrected `seo.slug`. Cloudflare Pages copies this file into the static build and serves the old URL as a `301`. The content audit verifies that each redirect target is a generated content route.
 
-### Deployment: Cloudflare Pages + Workers
+### Deployment: Cloudflare Pages
 
 - **Cloudflare Pages** for static hosting. GitHub Actions builds the site and deploys `dist/` to the `dev` Pages project on pushes to `main`. The legacy Pages Git integration must remain disconnected so only one production deploy path runs.
-- **Cloudflare Workers** for dynamic functionality that can't be static:
-  - Search API (lightweight full-text search over content index)
-  - Newsletter signup endpoint
-  - Analytics event ingestion
-  - GitHub webhook handler for contribution notifications
-- **Cloudflare R2** for any static assets that don't belong in the repo (generated OG images, etc.)
 
 Why Cloudflare over Vercel/Netlify:
 
 - Edge-first, globally distributed by default
-- Workers provide serverless compute without a separate backend
-- R2 for storage without egress fees
+- Static output requires no application server at runtime
 - Aligned with the privacy-conscious, European-friendly positioning
 - Cost-effective at scale (generous free tier, predictable pricing)
 
@@ -183,91 +141,54 @@ Key design decisions for generation:
 
 ```
 aistripes/
+├── AGENTS.md
 ├── README.md
-├── CONTRIBUTING.md
 ├── LICENSE                          # Content: CC BY-SA 4.0, Code: MIT
-│
 ├── taxonomy/
 │   ├── _schema.ts                   # Zod schema for niche definitions
-│   ├── frameworks/
-│   │   ├── nextjs.json
-│   │   ├── nuxt.json
-│   │   ├── sveltekit.json
-│   │   ├── remix.json
-│   │   └── astro.json
 │   ├── ai-patterns/
-│   │   ├── rag.json
-│   │   ├── structured-output.json
-│   │   ├── embeddings.json
-│   │   ├── agents.json
-│   │   └── fine-tuning.json
+│   ├── frameworks/
 │   ├── infrastructure/
-│   │   ├── self-hosting.json
-│   │   ├── edge-deployment.json
-│   │   ├── gdpr-compliance.json
-│   │   └── analytics.json
+│   ├── seo-content/
 │   └── verticals/
-│       ├── saas.json
-│       ├── ecommerce.json
-│       ├── content-platforms.json
-│       └── devtools.json
-│
 ├── schemas/
-│   ├── resource-article.ts
 │   ├── checklist.ts
 │   ├── comparison.ts
-│   ├── tool-page.ts
+│   ├── directory.ts
+│   ├── editorial.ts
 │   ├── guide.ts
-│   └── directory.ts
-│
+│   ├── resource-article.ts
+│   └── tool-page.ts
 ├── content/
-│   ├── resources/
-│   │   ├── nextjs-ai-blog-ideas.json
-│   │   ├── rag-implementation-checklist.json
-│   │   └── ...
-│   ├── comparisons/
-│   │   ├── analytics-tools-privacy.json
-│   │   └── ...
-│   ├── guides/
-│   │   ├── structured-output-nextjs.json
-│   │   └── ...
 │   ├── checklists/
-│   │   ├── gdpr-compliance-saas.json
-│   │   └── ...
-│   ├── tools/
-│   │   ├── meta-tag-generator.json
-│   │   └── ...
-│   └── directories/
-│       ├── ai-coding-tools.json
-│       └── ...
-│
+│   ├── comparisons/
+│   ├── directories/
+│   ├── guides/
+│   ├── resources/
+│   └── tools/
 ├── src/
-│   ├── layouts/
-│   │   └── Base.astro
-│   ├── pages/
-│   │   ├── index.astro
-│   │   ├── [...slug].astro          # Dynamic route for all content
-│   │   └── search.astro
 │   ├── components/
-│   │   ├── Navigation.astro
-│   │   ├── Footer.astro
-│   │   ├── SEOHead.astro
-│   │   └── SearchBar.tsx            # React island
-│   └── renderers/                   # One per content type (React islands)
-│       ├── ResourceArticle.tsx
-│       ├── Checklist.tsx
-│       ├── Comparison.tsx
-│       ├── ToolPage.tsx
-│       ├── Guide.tsx
-│       └── Directory.tsx
-│
-├── public/
-│   └── og/                          # Generated OG images
-│
+│   ├── layouts/
+│   ├── lib/                         # Content, taxonomy, and sitemap loading
+│   ├── pages/
+│   │   ├── [prefix]/               # Collection indexes and content routes
+│   │   ├── guides/                  # Flagship guide routes
+│   │   ├── sitemaps/
+│   │   ├── tools/                   # Flagship tool routes
+│   │   ├── topics/
+│   │   ├── feed.xml.ts
+│   │   ├── index.astro
+│   │   ├── sitemap.xml.ts
+│   │   └── search.astro
+│   ├── renderers/                   # One per content type
+│   └── styles/
+├── examples/rag-pipeline/
+├── public/                          # Static assets, redirects, robots, and downloads
+├── tooling/                         # Content audit script
+├── .github/workflows/deploy.yml
 ├── astro.config.mjs
-├── tailwind.config.ts
-├── tsconfig.json
-└── package.json
+├── package.json
+└── tsconfig.json
 ```
 
 ## Content-to-Page Pipeline
@@ -279,11 +200,11 @@ schemas/checklist.ts
         │
         ▼  (private generation pipeline)
         │
-content/checklists/nextjs-ai-seo-checklist.json
+content/checklists/nextjs-checklist-nextjs-implementation-checklist.json
         │
         ▼  (Astro build)
         │
-src/pages/[...slug].astro
+src/pages/[prefix]/[slug].astro
         │
         ├── reads content JSON
         ├── validates against Zod schema
@@ -291,11 +212,11 @@ src/pages/[...slug].astro
         └── renders Checklist.tsx as React island
         │
         ▼
-/checklists/nextjs-ai-seo-checklist/index.html
+/checklists/nextjs-checklist-nextjs-implementation-checklist/index.html
         │
         ▼  (Cloudflare Pages)
         │
-https://aistripes.dev/checklists/nextjs-ai-seo-checklist
+https://aistripes.dev/checklists/nextjs-checklist-nextjs-implementation-checklist
 ```
 
 ## URL Structure
@@ -309,12 +230,16 @@ https://aistripes.dev/checklists/nextjs-ai-seo-checklist
 /comparisons/                               → comparison index
 /comparisons/analytics-tools-privacy        → comparison page
 /guides/                                    → guide index
-/guides/structured-output-nextjs            → guide page
+/guides/structured-output-gemini-zod        → guide page
 /tools/                                     → tools index
-/tools/meta-tag-generator                   → tool page
+/tools/rag-context-window-calculator        → tool page
 /directories/                               → directory index
 /directories/ai-coding-tools                → directory page
+/topics/                                    → topic index
+/topics/rag                                 → topic page
 /search                                     → search page
+/feed.xml                                   → Atom feed
+/sitemap.xml                                → sitemap index
 ```
 
 ## Community Contribution Flow
@@ -330,18 +255,8 @@ Contributor                    GitHub                      Cloudflare
     │                            │                            │
     ├── Open PR ────────────────►│                            │
     │                            │                            │
-    │                     CI validates:                       │
-    │                     ├── Zod schema check                │
-    │                     ├── Lint + format                   │
-    │                     └── Build preview                   │
-    │                            │                            │
     │                     Maintainer review                   │
     │                     + merge to main                     │
-    │                            │                            │
-    │                     Generation pipeline                 │
-    │                     picks up new taxonomy               │
-    │                     → generates content                 │
-    │                     → commits to repo                   │
     │                            │                            │
     │                     GitHub Actions:                     │
     │                     npm ci + build                      │
@@ -364,10 +279,14 @@ Contributor                    GitHub                      Cloudflare
 
 Astro's zero-JS-by-default and Cloudflare's edge CDN make these achievable without heroic optimization.
 
+## Current Supporting Routes
+
+- **Search.** `/search` embeds a static index of schema-driven content at build time and filters it in the browser.
+- **Feed.** `/feed.xml` is a statically generated Atom feed.
+- **Sitemaps.** `/sitemap.xml` indexes section sitemaps generated from content and taxonomy data.
+
 ## Future Considerations
 
-- **Search.** Start with a static JSON index built at build time (Pagefind or Fuse.js). Upgrade to Cloudflare Workers-backed search if needed.
 - **Newsletter.** Integrate with a privacy-respecting provider (Buttondown, Listmonk self-hosted). Signup via Workers endpoint.
-- **RSS.** Full content RSS feed generated at build time. Developers still use RSS.
 - **API.** If demand exists, expose the content as a public JSON API via Workers. The content is already structured — serving it as an API is trivial.
-- **i18n.** Architecture supports it (JSON content can be regenerated per locale) but not a priority for launch.
+- **i18n.** Architecture supports it (JSON content can be regenerated per locale), but it is not currently implemented.

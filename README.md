@@ -14,7 +14,7 @@ This repo contains everything: the content, the schemas, the taxonomy, the site 
 
 ## How the content system works
 
-Every page on the site traces back to two things: a **niche definition** and a **content type**.
+Every schema-driven collection page on the site traces back to two things: a **niche definition** and a **content type**.
 
 **Niches** are structured context files that describe a topic — its audience, pain points, tools, and subtopics. They live in `taxonomy/`.
 
@@ -23,7 +23,8 @@ taxonomy/
 ├── frameworks/        → Next.js, Nuxt, SvelteKit, Astro, ...
 ├── ai-patterns/       → RAG, structured output, embeddings, agents, ...
 ├── infrastructure/    → self-hosting, GDPR, analytics, edge deployment, ...
-└── verticals/         → SaaS, e-commerce, devtools, ...
+├── verticals/         → SaaS, e-commerce, devtools, ...
+└── seo-content/       → programmatic SEO, technical SEO, content strategy, ...
 ```
 
 **Content types** define the structure and UI for each kind of page. Each type has a Zod schema in `schemas/` and a React renderer in `src/renderers/`.
@@ -34,7 +35,7 @@ taxonomy/
 | Checklists | Interactive, completable checklists | *GDPR Compliance Checklist for SaaS Apps* |
 | Comparisons | Head-to-head feature comparisons | *Plausible vs Fathom vs Umami* |
 | Guides | Step-by-step implementation guides | *Structured Output Pipeline with Gemini Flash and Zod* |
-| Tools | Interactive browser-based utilities | *Meta Tag Generator*, *LLM Cost Calculator* |
+| Tools | Browser-based utilities and curated toolkits | *RAG Context Window Calculator*, *MCP Server Inspector Toolkit* |
 | Directories | Filterable tool and resource listings | *AI Coding Tools Directory* |
 
 The cross-product of niches × content types is what produces the site's pages. Adding one niche to the taxonomy can generate content across all six content types.
@@ -48,7 +49,8 @@ aistripes/dev
 │   ├── frameworks/
 │   ├── ai-patterns/
 │   ├── infrastructure/
-│   └── verticals/
+│   ├── verticals/
+│   └── seo-content/
 ├── schemas/               # Content type schemas (TypeScript + Zod)
 ├── content/               # Generated content files (JSON)
 │   ├── resources/
@@ -66,6 +68,7 @@ aistripes/dev
 │   └── styles/
 ├── docs/
 │   ├── ARCHITECTURE.md    # Technical stack and build pipeline
+│   ├── MEASUREMENT.md     # Search and analytics measurement playbook
 │   └── TAXONOMY.md        # Niche model and content types
 ├── astro.config.mjs
 ├── package.json

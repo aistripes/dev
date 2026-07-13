@@ -1,10 +1,10 @@
 # AGENTS
 
-This repository is in planning/bootstrap mode. Use the docs below as the source of truth before making structural, content, or deployment changes.
+This repository powers the live AI Stripes site. Use the docs below as the source of truth before making structural, content, or deployment changes.
 
 ## Canonical Docs
 
-- `docs/TAXONOMY.md`: niche model, content types, and expansion priorities.
+- `docs/TAXONOMY.md`: niche model, content types, and current coverage.
 - `docs/ARCHITECTURE.md`: technical stack, repo layout, generation flow, and Cloudflare deployment model.
 
 ## Working Rules for Agents
@@ -22,7 +22,7 @@ This repository is in planning/bootstrap mode. Use the docs below as the source 
   - URL: `https://aistripes-dev.pages.dev/`
 - Primary deployment workflow:
   - GitHub Actions builds and deploys `dist/` on pushes to `main` via `.github/workflows/deploy.yml`.
-  - Before merging the workflow migration, disconnect the Cloudflare Pages Git integration to prevent duplicate/racing production deploys.
+  - Keep the legacy Cloudflare Pages Git integration disconnected to prevent duplicate/racing production deploys.
 - To publish a build artifact directory:
   - `npx wrangler pages deploy dist --project-name dev --branch=main`
   - Use manual Wrangler deploys only when explicitly requested or when auto-deploy is unavailable.
