@@ -61,6 +61,17 @@ export default function Guide({ content }: Props) {
                 <h2 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h2>
                 <p className="text-gray-600 leading-relaxed mb-4">{step.explanation}</p>
 
+                {step.resource_link && (
+                  <p className="mb-4">
+                    <a
+                      href={step.resource_link.url}
+                      className="font-medium text-blue-700 underline decoration-blue-300 underline-offset-2 hover:text-blue-900"
+                    >
+                      {step.resource_link.label}
+                    </a>
+                  </p>
+                )}
+
                 {step.code && (
                   <div className="mb-4 rounded-xl overflow-hidden border border-gray-200">
                     {step.code.filename && (

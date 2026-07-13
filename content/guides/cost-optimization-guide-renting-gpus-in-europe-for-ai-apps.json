@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "content_type": "guide",
+    "niche": "cost-optimization",
+    "generated_at": "2026-07-13T06:30:00.000Z",
+    "schema_version": "1.0",
+    "editorial": {
+      "authored_by": "AI Stripes",
+      "last_reviewed": "2026-07-13",
+      "sources": [
+        {
+          "title": "EuroGPU methodology",
+          "url": "https://eurogpu.app/methodology",
+          "accessed_at": "2026-07-13"
+        },
+        {
+          "title": "vLLM documentation",
+          "url": "https://docs.vllm.ai/",
+          "accessed_at": "2026-07-13"
+        },
+        {
+          "title": "European Commission: What governs data processing by cloud services?",
+          "url": "https://commission.europa.eu/law/law-topic/data-protection/data-protection-eu_en",
+          "accessed_at": "2026-07-13"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "title": "Renting GPUs in Europe for AI Apps: A Cost-Smart Guide",
+    "description": "Size, compare, benchmark, and rent European cloud GPUs for AI inference or fine-tuning without confusing hourly price with production cost.",
+    "keywords": [
+      "rent GPU Europe",
+      "European cloud GPU pricing",
+      "EU GPU hosting",
+      "AI inference cost",
+      "GPU data residency",
+      "H100 rental Europe"
+    ],
+    "slug": "renting-gpus-in-europe-for-ai-apps"
+  },
+  "content": {
+    "intro": "A cheap GPU-hour can become an expensive production endpoint when the card is undersized, unavailable when you need it, billed while idle, or far from your users. This guide turns an AI app's workload into a defensible European GPU shortlist, then validates the real cost with a small benchmark before you commit.",
+    "estimated_time": "2-4 hours, excluding provider provisioning",
+    "prerequisites": [
+      "A model or model family you are licensed to run",
+      "A representative set of prompts or training samples with sensitive data removed",
+      "A target EU/EEA deployment region and latency objective",
+      "Expected request volume, context length, output length, and traffic peaks",
+      "A monthly infrastructure ceiling and a separate benchmark budget"
+    ],
+    "steps": [
+      {
+        "number": 1,
+        "title": "Write a workload contract before choosing a GPU",
+        "explanation": "Separate interactive inference, asynchronous batch inference, and fine-tuning because they reward different hardware and billing models. Record the model, precision, maximum context, typical input and output lengths, concurrent requests, peak requests per minute, target time to first token, uptime window, and whether jobs can be interrupted. For training, add dataset size, sequence length, adapter method, checkpoint frequency, and the maximum acceptable wall-clock time. This prevents a familiar mistake: selecting an H100 because it is fast in general rather than because it is cost-effective for this workload.",
+        "code": {
+          "language": "yaml",
+          "filename": "workload.yaml",
+          "content": "mode: interactive-inference\nmodel: your-org/your-model\nprecision: bf16\ntypical_input_tokens: 1800\ntypical_output_tokens: 350\nmax_context_tokens: 8192\npeak_concurrent_requests: 12\ntarget_p95_first_token_ms: 1200\nrequired_region: EU_EEA\nuptime_hours_per_day: 16\ninterruptible: false\nmonthly_budget_eur: 1500"
+        },
+        "pitfalls": [
+          "Using average traffic without modeling the peak concurrency that determines replica count",
+          "Mixing a one-off fine-tuning requirement with the always-on inference capacity decision",
+          "Benchmarking proprietary or personal data without first creating a safe evaluation set"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Estimate memory, then leave room for the runtime",
+        "explanation": "Model weights are only the floor. A rough weight estimate is parameter count multiplied by bits per weight; the serving process also needs memory for the key-value cache, temporary tensors, CUDA graphs, and runtime overhead. Longer contexts and more concurrent sequences grow cache demand. Fine-tuning adds gradients, optimizer state, activations, and adapter state. Use the estimate to reject cards that clearly cannot fit, then prove the remaining choices with the exact model, quantization, runtime, and context settings. Do not treat quantized weight size as total VRAM demand.",
+        "code": {
+          "language": "python",
+          "filename": "weight_memory_floor.py",
+          "content": "def weight_gib(parameters_billions: float, bits_per_weight: int) -> float:\n    bytes_required = parameters_billions * 1_000_000_000 * bits_per_weight / 8\n    return bytes_required / (1024 ** 3)\n\nfor bits in (16, 8, 4):\n    floor = weight_gib(parameters_billions=70, bits_per_weight=bits)\n    print(f\"{bits}-bit weights only: {floor:.1f} GiB\")\n\n# Add measured runtime and KV-cache headroom before selecting a card."
+        },
+        "pitfalls": [
+          "Assuming a model that barely fits will still support the required context length and concurrency",
+          "Comparing advertised GPU memory without checking whether an offering provides the whole GPU or a partition",
+          "Planning multi-GPU training without checking interconnect topology and distributed-training support"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Build a European provider shortlist",
+        "explanation": "Filter candidates by GPU model and VRAM, physical region, offering type, billing model, and current availability. Then record the contracting entity, data-processing terms, egress policy, storage charges, minimum commitment, support, and price-verification date. EuroGPU is useful at this discovery stage because it compares public EU/EEA offerings using EUR-normalized GPU-hour prices alongside availability, region, form factor, provider control, and CLOUD Act exposure. Its methodology notes that normalized monthly estimates exclude egress and commitment discounts, so always confirm the provider's source page and contract before buying.",
+        "resource_link": {
+          "label": "Compare European GPU pricing and availability on EuroGPU",
+          "url": "https://eurogpu.app/"
+        },
+        "pitfalls": [
+          "Treating an index or comparison site as a substitute for the provider's final quote, DPA, or terms",
+          "Assuming an EU data-center location proves EU ownership or eliminates international transfer questions",
+          "Shortlisting a sold-out or quote-only offer as if it were immediately provisionable"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Convert the sticker price into workload cost",
+        "explanation": "Hourly price matters only after billing and utilization are modeled. Calculate compute from billed GPU-hours rather than wall-clock hours, then add persistent volumes, snapshots, object storage, public IPs, egress, orchestration, support, and setup fees. For an always-on endpoint, include idle time and the number of replicas required at peak. For batch jobs, include startup, image-pull, checkpoint, and retry time. Finally divide the total by a product unit such as successful requests, generated tokens, images, or completed training runs.",
+        "code": {
+          "language": "python",
+          "filename": "effective_cost.py",
+          "content": "gpu_hour_price = 2.40\ngpu_count = 1\nbilled_hours = 180\nstorage_eur = 35\negress_eur = 18\nplatform_and_support_eur = 25\nsuccessful_requests = 240_000\n\ncompute_eur = gpu_hour_price * gpu_count * billed_hours\ntotal_eur = compute_eur + storage_eur + egress_eur + platform_and_support_eur\ncost_per_1000_requests = total_eur / successful_requests * 1000\n\nprint({\n    \"compute_eur\": round(compute_eur, 2),\n    \"total_eur\": round(total_eur, 2),\n    \"cost_per_1000_requests_eur\": round(cost_per_1000_requests, 3),\n})"
+        },
+        "pitfalls": [
+          "Multiplying price by 730 hours when the service can scale to zero or runs only in a scheduled window",
+          "Ignoring minimum billing increments and repeated cold-start time for short jobs",
+          "Comparing a bare-metal monthly quote with an on-demand VM without normalizing included CPU, RAM, storage, and commitment"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Benchmark finalists with the same container and prompts",
+        "explanation": "Provision the smallest viable instance from two or three finalists and deploy the same pinned image, model revision, quantization, runtime flags, and request set. Warm each server before measurement. For interactive inference, collect successful requests, time to first token, end-to-end p50 and p95 latency, output tokens per second, GPU memory, utilization, and errors under increasing concurrency. For training, compare examples or tokens per second, peak memory, checkpoint time, and total cost to the same validation score. Repeat enough runs to expose throttling and noisy-neighbor effects.",
+        "code": {
+          "language": "json",
+          "filename": "benchmark-result.json",
+          "content": "{\n  \"provider\": \"candidate-a\",\n  \"region\": \"eu-region\",\n  \"gpu\": \"record-exact-model-and-form-factor\",\n  \"image_digest\": \"sha256:record-the-pinned-digest\",\n  \"model_revision\": \"record-the-commit\",\n  \"concurrency\": 12,\n  \"requests\": 1000,\n  \"success_rate\": 0.998,\n  \"p95_first_token_ms\": 0,\n  \"p95_end_to_end_ms\": 0,\n  \"output_tokens_per_second\": 0,\n  \"billed_cost_eur\": 0\n}"
+        },
+        "pitfalls": [
+          "Comparing providers with different model revisions, quantization levels, batch settings, or prompt sets",
+          "Reporting throughput without latency and quality, which can hide unacceptable batching trade-offs",
+          "Stopping after a single unloaded run instead of testing the target concurrency"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Keep the serving layer portable",
+        "explanation": "Package the model server behind an internal API contract so the web app does not depend on one provider's instance identifiers or control plane. Pin the container by digest in production, keep model weights in a controlled cache, inject credentials through the provider's secret mechanism, and expose health and readiness checks. A compatible serving layer such as vLLM can present an OpenAI-style HTTP API, allowing the application to keep a stable base URL while infrastructure changes behind it. Validate every target GPU and driver combination; portability is a tested property, not a Dockerfile claim.",
+        "code": {
+          "language": "yaml",
+          "filename": "compose.yaml",
+          "content": "services:\n  model-server:\n    image: vllm/vllm-openai:latest # replace with a tested immutable digest\n    command:\n      - --model\n      - your-org/your-model\n      - --max-model-len\n      - \"8192\"\n    gpus: all\n    shm_size: 8gb\n    ports:\n      - \"127.0.0.1:8000:8000\"\n    volumes:\n      - model-cache:/root/.cache/huggingface\n    restart: unless-stopped\n\nvolumes:\n  model-cache: {}"
+        },
+        "pitfalls": [
+          "Using a floating image tag in production after benchmarking a different build",
+          "Publishing the model endpoint directly to the internet without authentication, rate limits, and network controls",
+          "Assuming the same runtime flags perform equally across GPU generations"
+        ]
+      },
+      {
+        "number": 7,
+        "title": "Perform data-residency and security due diligence",
+        "explanation": "Map every data path: browser to web tier, queues, model server, logs, metrics, object storage, backups, support tooling, and model downloads. Confirm the legal entity you contract with, the exact processing regions, subprocessors, DPA, transfer mechanism where applicable, retention, deletion process, encryption, support access, incident notification, and whether prompts or outputs are used for provider training. Keep evidence with an owner and review date. EU hosting can support a residency requirement, but it does not by itself establish GDPR compliance or answer ownership and foreign-access questions.",
+        "pitfalls": [
+          "Checking only the GPU region while logs, snapshots, or support systems process data elsewhere",
+          "Sending personal data during a benchmark before the contract and processing controls are approved",
+          "Treating a provider score or certification badge as legal advice or a complete risk assessment"
+        ]
+      },
+      {
+        "number": 8,
+        "title": "Run a capped pilot and define the exit plan",
+        "explanation": "Start with a time-boxed pilot whose budget, quota, and success criteria are explicit. Alert on spend, queue depth, GPU memory, utilization, p95 latency, error rate, and quality regressions. Test restart, checkpoint restore, scale-out, and one failover or rebuild on the runner-up provider. Record the image digest, model revision, driver requirements, infrastructure configuration, data export procedure, DNS or routing change, and maximum tolerated recovery time. Commit only after the measured cost per product unit and reliability meet the workload contract from step one.",
+        "code": {
+          "language": "yaml",
+          "filename": "pilot-gates.yaml",
+          "content": "pilot_days: 7\nspend_cap_eur: 250\nminimum_success_rate: 0.995\nmaximum_p95_first_token_ms: 1200\nmaximum_cost_per_1000_requests_eur: 3.00\nrequired_tests:\n  - cold_rebuild_from_documented_config\n  - checkpoint_restore\n  - peak_concurrency\n  - provider_exit_and_data_deletion\ndecision: pending"
+        },
+        "pitfalls": [
+          "Letting a trial roll into an uncapped always-on instance",
+          "Choosing on benchmark speed before testing operational recovery and support",
+          "Discovering at migration time that model artifacts, volumes, or logs cannot be exported cleanly"
+        ]
+      }
+    ],
+    "conclusion": "You now have a repeatable GPU-rental decision process: a workload contract, a memory floor, a sourced European shortlist, an all-in cost model, comparable benchmark evidence, a portable serving boundary, a residency review, and a capped pilot with an exit path. Re-run the shortlist when prices, availability, or requirements change; keep the benchmark method stable so a cheaper hourly offer must also prove a lower cost per useful result."
+  }
+}

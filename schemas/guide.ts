@@ -32,6 +32,12 @@ export const GuideSchema = z.object({
               filename: z.string().optional(),
             })
             .optional(),
+          resource_link: z
+            .object({
+              label: z.string().min(1),
+              url: z.url(),
+            })
+            .optional(),
           pitfalls: z.array(z.string()).optional(),
         })
       )
